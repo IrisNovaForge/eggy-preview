@@ -32,6 +32,12 @@
         }
     }
 
+    function localizedMetadata(value){
+        if(!value||typeof value!=='object'||Array.isArray(value))return value;
+        var lang=(typeof _langCode!=='undefined'&&_langCode)||'en';
+        return value[lang]||value.en||value.zhs||'';
+    }
+
     function freezeDeep(obj){
         if(!obj||typeof obj!=='object')return obj;
         Object.freeze(obj);
@@ -552,9 +558,9 @@
             var m=manifestEntry(id)||{};
             return freezeDeep({
                 id:id,
-                name:p.name||m.name||id,
+                name:localizedMetadata(p.name||m.name)||id,
                 version:p.version||m.version||'',
-                description:p.description||m.description||'',
+                description:localizedMetadata(p.description||m.description)||'',
                 enabled:m.enabled!==false,
                 loaded:!!registry[id]
             });

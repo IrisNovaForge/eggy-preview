@@ -13,7 +13,7 @@
         },
         {
             id:'legacy-platformer',
-            name:'蛋宝冒险',
+            name:'探索之门',
             version:'0.2.0',
             enabled:true,
             scripts:['plugins/legacy-platformer/platformer-core.js','plugins/legacy-platformer/plugin.js'],
@@ -23,14 +23,19 @@
         },
         {
             id:'rocket-road',
-            name:'蛋宝火箭公路',
+            name:{zhs:'风迹赛道',zht:'風跡賽道',ja:'風のコース',en:'Wind Course'},
             version:'0.1.3',
             enabled:true,
             entranceScript:'plugins/rocket-road/entrance.js',
             scripts:['plugins/rocket-road/rocket-road-core.js','plugins/rocket-road/plugin.js'],
             networkReady:true,
             legacyAdapter:false,
-            description:'蛋宝原创火箭车致敬小游戏：3D 画面、2D 俯视公路玩法、独立 WASM 规则模块。'
+            description:{
+                zhs:'风迹赛道原创竞速小游戏：3D画面、2D俯视路线玩法和独立WASM规则模块。',
+                zht:'風跡賽道原創競速小遊戲：3D畫面、2D俯視路線玩法和獨立WASM規則模組。',
+                ja:'「風のコース」は、3D表現、2D俯瞰ルート走行、独立したWASMルールモジュールを備えたオリジナルレースミニゲームです。',
+                en:'Wind Course is an original racing minigame with 3D presentation, 2D top-down route gameplay, and an independent WASM rules module.'
+            }
         },
         {
             id:'ability-card',

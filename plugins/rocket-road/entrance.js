@@ -6,16 +6,16 @@
     }
 
     var NAME={
-        zhs:'🏁 火箭车小屋',
-        zht:'🏁 火箭車小屋',
-        ja:'🏁 ロケットカー小屋',
-        en:'🏁 Rocket Car Garage'
+        zhs:'🏁 风之车站',
+        zht:'🏁 風之車站',
+        ja:'🏁 風のステーション',
+        en:'🏁 Wind Station'
     };
     var DESC={
-        zhs:'进入 F1 火箭车维修站，开始蛋宝火箭公路！',
-        zht:'進入 F1 火箭車維修站，開始蛋寶火箭公路！',
-        ja:'F1風ガレージに入ってロケットロードへ！',
-        en:'Enter the F1-style garage to start Danbo Rocket Road!'
+        zhs:'进入风之车站，开启风迹赛道！',
+        zht:'進入風之車站，開啟風跡賽道！',
+        ja:'風のステーションに入り、風のコースへ出発しよう！',
+        en:'Enter Wind Station and set out on Wind Course!'
     };
 
     function pickLang(map,lang){
