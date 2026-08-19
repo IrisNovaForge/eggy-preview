@@ -190,7 +190,7 @@
   // old position until the visible game version changed.
   var editorPreview='';
   try{editorPreview=new URLSearchParams(location.search).get('mapEditorPreview')||'';}catch(e){}
-  var cache=editorPreview?('v=mapeditor-'+editorPreview):'v=preview-brick-20260819165259';
+  var cache=editorPreview?('v=mapeditor-'+editorPreview):'v=preview-brick-20260819172215';
   window.DANBO_ASSET_VERSION=cache;
   var warmStart=false;
   try{warmStart=localStorage.getItem('danbo_loader_version')===cache;}catch(e){}

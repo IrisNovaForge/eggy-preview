@@ -17,14 +17,19 @@
     }
     function portraitSource(portrait){
         var source=typeof portrait==='string'?portrait:(portrait&&portrait.src);
-        return /^data:image\/png;base64,[a-z0-9+/=]+$/i.test(String(source||''))?String(source):'';
+        source=String(source||'');
+        if(/^data:image\/png;base64,[a-z0-9+/=]+$/i.test(source))return source;
+        try{
+            var url=new URL(source,document.baseURI);
+            if(url.origin===location.origin&&/\.png$/i.test(url.pathname))return source;
+        }catch(error){}
+        return '';
     }
     function visualCharacter(character,portrait){
         character=character||{};
         var style=character.style||{};
         return {
             name:String(character.displayName||character.name||character.id||'Traveler'),
-            icon:String(character.icon||'\uD83C\uDF3C'),
             color:cssColor(style.color,'#F5F5F0'),
             accent:cssColor(style.accent,'#CC2222'),
             portrait:portraitSource(portrait)
@@ -77,7 +82,7 @@
 
     Game.prototype.markup=function(){
         var t=this.t,character=this.character;
-        var characterVisual=character.portrait?'<img class="bb-character-portrait" src="'+esc(character.portrait)+'" alt="">':'<span class="bb-character-symbol" aria-hidden="true">'+esc(character.icon)+'</span>';
+        var characterVisual=character.portrait?'<img class="bb-character-portrait" src="'+esc(character.portrait)+'" alt="">':'';
         return '<div class="bb-sky" aria-hidden="true"><i></i><i></i><i></i></div>'+
             '<header class="bb-hud" aria-label="Game status">'+
               '<div class="bb-character-badge" role="img" aria-label="'+esc(character.name)+'" title="'+esc(character.name)+'" style="--bb-character-color:'+character.color+';--bb-character-accent:'+character.accent+'">'+
