@@ -51,7 +51,7 @@ try{
     await loadScript('../../../js/entity.js?v=20260819.6');
     await loadScript('../brick-breaker-character.js?v=20260819.6');
     await loadScript('../brick-breaker-rules.js?v=20260819.6');
-    await loadScript('../brick-breaker-core.js?v=20260819.8');
+    await loadScript('../brick-breaker-core.js?v=20260819.9');
     await loadScript('standalone.js?v=20260819.6');
 }catch(error){
     console.error('[brick-breaker] standalone startup failed',error);
