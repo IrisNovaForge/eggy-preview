@@ -485,6 +485,16 @@
     var stages=[],mapStages=[];
     try{for(var i=0;i<CHARACTERS.length;i++){stages.push(makeStage(CHARACTERS[i],i));mapStages.push(makeCuteSceneMap(i));}}
     catch(buildErr){console.error('Unable to build 3D roster',buildErr);renderer.dispose();screen.classList.add('select-3d-fallback');return;}
+    var portraitCache=Object.create(null);
+    window.DANBO_GET_CHARACTER_PORTRAIT=function(value){
+        var index=typeof value==='number'?value:-1;
+        if(index<0){
+            var id=String(value||'');
+            for(var pi=0;pi<CHARACTERS.length;pi++)if(CHARACTERS[pi].id===id){index=pi;break;}
+        }
+        var character=CHARACTERS[index],entry=character&&portraitCache[character.id];
+        return entry?{characterId:entry.characterId,src:entry.src,width:entry.width,height:entry.height,source:entry.source}:null;
+    };
     var _selectProofBody=stages[0]&&stages[0].model&&stages[0].model.userData.body;
     window.DANBO_SELECT_QUALITY.heroBodySegments=_selectProofBody&&_selectProofBody.geometry&&_selectProofBody.geometry.parameters?_selectProofBody.geometry.parameters.widthSegments:0;
     window.DANBO_SELECT_QUALITY.preserveCards=true;
@@ -724,6 +734,27 @@
         });
         item.camera.aspect=w/h;item.camera.updateProjectionMatrix();renderer.render(item.scene,item.camera);
     }
+    function cacheSelectedPortrait(){
+        var character=CHARACTERS[selected];
+        if(!character||portraitCache[character.id])return;
+        var cr=canvas.getBoundingClientRect(),r=heroViewport.getBoundingClientRect();
+        if(cr.width<2||cr.height<2||r.width<2||r.height<2)return;
+        var cssSize=Math.min(r.width,r.height),cssX=r.left-cr.left+(r.width-cssSize)*.5,cssY=r.top-cr.top+(r.height-cssSize)*.5;
+        var scaleX=canvas.width/cr.width,scaleY=canvas.height/cr.height;
+        var sx=Math.max(0,Math.round(cssX*scaleX)),sy=Math.max(0,Math.round(cssY*scaleY));
+        var sw=Math.min(canvas.width-sx,Math.max(1,Math.round(cssSize*scaleX))),sh=Math.min(canvas.height-sy,Math.max(1,Math.round(cssSize*scaleY)));
+        if(sw<2||sh<2)return;
+        try{
+            var portrait=document.createElement('canvas');portrait.width=portrait.height=192;
+            var context=portrait.getContext('2d',{alpha:true});
+            context.imageSmoothingEnabled=true;context.imageSmoothingQuality='high';
+            context.clearRect(0,0,192,192);context.drawImage(canvas,sx,sy,sw,sh,0,0,192,192);
+            var pixels=context.getImageData(0,0,192,192).data,visible=false;
+            for(var p=3;p<pixels.length;p+=64){if(pixels[p]>8){visible=true;break;}}
+            if(!visible)return;
+            portraitCache[character.id]={characterId:character.id,src:portrait.toDataURL('image/png'),width:192,height:192,source:'character-select-3d'};
+        }catch(error){console.warn('Unable to cache selected character portrait',error);}
+    }
     function frame(now){
         requestAnimationFrame(frame);
         if(!screen.classList.contains('active')){wasActive=false;return;}
@@ -750,6 +781,7 @@
             renderRect(cells[cardGestureIndex],stages[cardGestureIndex],false,t);
         }
         renderer.setScissorTest(false);
+        cacheSelectedPortrait();
     }
     canvas.addEventListener('webglcontextlost',function(e){e.preventDefault();screen.classList.remove('select-3d-ready');screen.classList.add('select-3d-fallback');});
     for(var fi=0;fi<document.querySelectorAll('.char-fallback').length;fi++)document.querySelectorAll('.char-fallback')[fi].textContent=_fallbackEmoji[fi]||'●';

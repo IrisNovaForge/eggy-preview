@@ -35,9 +35,14 @@
             }
             if(ctx.api&&ctx.api.setTitle)ctx.api.setTitle('Starlight Block Workshop');
             if(ctx.net)ctx.net.send('minigame.ready',{pluginId:ctx.pluginId,characterId:ctx.character&&ctx.character.id});
+            var characterPortrait=null;
+            try{
+                if(typeof window.DANBO_GET_CHARACTER_PORTRAIT==='function')characterPortrait=window.DANBO_GET_CHARACTER_PORTRAIT(ctx.character&&ctx.character.id);
+            }catch(error){console.warn('[brick-breaker] selected character portrait unavailable',error);}
             var game=window.DanboBrickBreaker.create({
                 mount:ctx.mount,
                 character:ctx.character,
+                characterPortrait:characterPortrait,
                 rules:window.DanboBrickBreakerRules.create(),
                 storage:ctx.storage,
                 lang:(ctx.options&&ctx.options.lang)||pageLang(),

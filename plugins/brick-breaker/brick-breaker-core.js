@@ -15,14 +15,19 @@
         var number=Number(value);
         return Number.isFinite(number)&&number>=0&&number<=0xFFFFFF?'#'+Math.round(number).toString(16).padStart(6,'0'):fallback;
     }
-    function visualCharacter(character){
+    function portraitSource(portrait){
+        var source=typeof portrait==='string'?portrait:(portrait&&portrait.src);
+        return /^data:image\/png;base64,[a-z0-9+/=]+$/i.test(String(source||''))?String(source):'';
+    }
+    function visualCharacter(character,portrait){
         character=character||{};
         var style=character.style||{};
         return {
             name:String(character.displayName||character.name||character.id||'Traveler'),
             icon:String(character.icon||'\uD83C\uDF3C'),
             color:cssColor(style.color,'#F5F5F0'),
-            accent:cssColor(style.accent,'#CC2222')
+            accent:cssColor(style.accent,'#CC2222'),
+            portrait:portraitSource(portrait)
         };
     }
     function detectLang(requested){
@@ -40,7 +45,7 @@
         this.options=options;
         this.lang=detectLang(options.lang);
         this.t=COPY[this.lang];
-        this.character=visualCharacter(options.character);
+        this.character=visualCharacter(options.character,options.characterPortrait);
         this.rules=options.rules||(window.DanboBrickBreakerRules&&DanboBrickBreakerRules.create());
         if(!this.rules)throw new Error('BrickBreaker rules missing');
         this.storage=options.storage||{get:function(k,d){return d;},set:function(){}};
@@ -72,11 +77,11 @@
 
     Game.prototype.markup=function(){
         var t=this.t,character=this.character;
+        var characterVisual=character.portrait?'<img class="bb-character-portrait" src="'+esc(character.portrait)+'" alt="">':'<span class="bb-character-symbol" aria-hidden="true">'+esc(character.icon)+'</span>';
         return '<div class="bb-sky" aria-hidden="true"><i></i><i></i><i></i></div>'+
             '<header class="bb-hud" aria-label="Game status">'+
               '<div class="bb-character-badge" role="img" aria-label="'+esc(character.name)+'" title="'+esc(character.name)+'" style="--bb-character-color:'+character.color+';--bb-character-accent:'+character.accent+'">'+
-                '<span class="bb-character-face" aria-hidden="true"><i></i><i></i><b></b></span>'+
-                '<span class="bb-character-symbol" aria-hidden="true">'+esc(character.icon)+'</span>'+
+                characterVisual+
               '</div>'+
               '<div class="bb-hud-pill"><span>'+esc(t.score)+'</span><b data-score>0000</b></div>'+
               '<div class="bb-hud-pill"><span>'+esc(t.best)+'</span><b data-best>'+this.best+'</b></div>'+
