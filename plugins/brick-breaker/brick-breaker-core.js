@@ -168,10 +168,11 @@
         if(this.state!=='playing')return;
         this.elapsed+=dt;
         var steps=Math.max(1,Math.ceil(dt/0.006)),step=dt/steps;
-        for(var s=0;s<steps;s++)this.physicsStep(step);
+        for(var s=0;s<steps&&this.state==='playing';s++)this.physicsStep(step);
     };
 
     Game.prototype.physicsStep=function(dt){
+        if(this.state!=='playing')return;
         var b=this.ball,p=this.paddle;
         b.x+=b.vx*dt;b.y+=b.vy*dt;
         if(b.x-b.r<26){b.x=26+b.r;b.vx=Math.abs(b.vx);}
@@ -189,9 +190,9 @@
             if(this.rules.isWin(this.remaining)){this.finishRound(true);return;}break;
         }
         if(b.y-b.r>H){
-            this.lives--;this.updateHud();
+            this.lives=Math.max(0,this.lives-1);this.updateHud();
             if(this.rules.isGameOver(this.lives)){this.finishRound(false);return;}
-            this.state='ready';b.vx=b.vy=0;this.showReady();
+            this.state='ready';b.vx=b.vy=0;b.x=p.x;b.y=p.y-b.r-7;this.showReady();return;
         }
     };
 
