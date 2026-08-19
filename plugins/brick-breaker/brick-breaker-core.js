@@ -110,7 +110,7 @@
     Game.prototype.showTitle=function(){this.state='title';this.overlay.hidden=false;this.card.innerHTML=this.titleHtml();this.root.classList.remove('bb-playing');this.updateHud();};
 
     Game.prototype.resetBoard=function(){
-        this.score=0;this.lives=STARTING_LIVES;this.remaining=0;this.elapsed=0;this.missHandled=false;
+        this.score=0;this.lives=STARTING_LIVES;this.misses=0;this.serveId=0;this.resolvedServeId=-1;this.remaining=0;this.elapsed=0;this.missHandled=false;
         this.paddle={x:W*0.5,y:H-76,w:154,h:22,speed:690};
         this.ball={x:W*0.5,y:H-104,vx:0,vy:0,r:11,speed:410};
         this.bricks=[];
@@ -129,7 +129,7 @@
     Game.prototype.showReady=function(){var t=this.t;this.overlay.hidden=false;this.card.innerHTML='<div class="bb-mini-ball">●</div><h2>'+esc(t.ready)+'</h2><p>'+esc(t.readyHint)+'</p><button class="bb-primary" data-action="launch">'+esc(t.launch)+'</button>';};
     Game.prototype.launch=function(){
         if(this.state!=='ready')return;
-        this.missHandled=false;
+        this.serveId++;this.missHandled=false;
         var direction=(Math.floor(this.elapsed*10)%2?1:-1);
         this.ball.vx=direction*this.ball.speed*0.42;this.ball.vy=-this.ball.speed*0.91;
         this.state='playing';this.overlay.hidden=true;
@@ -149,10 +149,11 @@
     };
 
     Game.prototype.loseBall=function(){
-        if(this.state!=='playing'||this.missHandled)return;
-        this.missHandled=true;this.state='resolving';
-        this.lives=Math.max(0,this.lives-1);this.updateHud();
-        if(this.lives===0){this.finishRound(false);return;}
+        if(this.state!=='playing'||this.missHandled||this.resolvedServeId===this.serveId)return;
+        this.missHandled=true;this.resolvedServeId=this.serveId;this.state='resolving';
+        this.misses=Math.min(STARTING_LIVES,this.misses+1);
+        this.lives=STARTING_LIVES-this.misses;this.updateHud();
+        if(this.misses>=STARTING_LIVES){this.finishRound(false);return;}
         var b=this.ball,p=this.paddle;
         b.vx=b.vy=0;b.x=p.x;b.y=p.y-b.r-7;
         this.state='ready';this.showReady();
