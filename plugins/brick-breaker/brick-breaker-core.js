@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    var W=960,H=720;
+    var W=960,H=720,STARTING_LIVES=3;
     var COPY={
         zhs:{name:'星光弹球工坊',sub:'轻轻托住光球，清理天空中的彩色方块',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'方块全部清理完成！',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动挡板；鼠标或触控可直接拖动。',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
         zht:{name:'星光彈球工坊',sub:'輕輕托住光球，清理天空中的彩色方塊',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動擋板；滑鼠或觸控可直接拖動。',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
@@ -105,7 +105,7 @@
     Game.prototype.showTitle=function(){this.state='title';this.overlay.hidden=false;this.card.innerHTML=this.titleHtml();this.root.classList.remove('bb-playing');this.updateHud();};
 
     Game.prototype.resetBoard=function(){
-        this.score=0;this.lives=3;this.remaining=0;this.elapsed=0;
+        this.score=0;this.lives=STARTING_LIVES;this.remaining=0;this.elapsed=0;this.missHandled=false;
         this.paddle={x:W*0.5,y:H-76,w:154,h:22,speed:690};
         this.ball={x:W*0.5,y:H-104,vx:0,vy:0,r:11,speed:410};
         this.bricks=[];
@@ -124,6 +124,7 @@
     Game.prototype.showReady=function(){var t=this.t;this.overlay.hidden=false;this.card.innerHTML='<div class="bb-mini-ball">●</div><h2>'+esc(t.ready)+'</h2><p>'+esc(t.readyHint)+'</p><button class="bb-primary" data-action="launch">'+esc(t.launch)+'</button>';};
     Game.prototype.launch=function(){
         if(this.state!=='ready')return;
+        this.missHandled=false;
         var direction=(Math.floor(this.elapsed*10)%2?1:-1);
         this.ball.vx=direction*this.ball.speed*0.42;this.ball.vy=-this.ball.speed*0.91;
         this.state='playing';this.overlay.hidden=true;
@@ -140,6 +141,16 @@
         this.updateHud();this.overlay.hidden=false;
         this.card.innerHTML='<div class="bb-result-icon">'+(won?'✦':'○')+'</div><h2>'+esc(won?this.t.won:this.t.lost)+'</h2><p class="bb-result-score">'+esc(this.t.score)+' <b>'+this.score+'</b></p><button class="bb-primary" data-action="start">'+esc(this.t.again)+'</button><button class="bb-secondary" data-action="title">'+esc(this.t.title)+'</button>';
         if(this.options.onResult)this.options.onResult({status:won?'finished':'failed',score:this.score,best:this.best,lives:this.lives,remaining:this.remaining,time:this.elapsed});
+    };
+
+    Game.prototype.loseBall=function(){
+        if(this.state!=='playing'||this.missHandled)return;
+        this.missHandled=true;this.state='resolving';
+        this.lives=Math.max(0,this.lives-1);this.updateHud();
+        if(this.lives===0){this.finishRound(false);return;}
+        var b=this.ball,p=this.paddle;
+        b.vx=b.vy=0;b.x=p.x;b.y=p.y-b.r-7;
+        this.state='ready';this.showReady();
     };
 
     Game.prototype.keyDown=function(e){
@@ -200,9 +211,7 @@
             if(this.rules.isWin(this.remaining)){this.finishRound(true);return;}break;
         }
         if(b.y-b.r>H){
-            this.lives=Math.max(0,this.lives-1);this.updateHud();
-            if(this.rules.isGameOver(this.lives)){this.finishRound(false);return;}
-            this.state='ready';b.vx=b.vy=0;b.x=p.x;b.y=p.y-b.r-7;this.showReady();return;
+            this.loseBall();return;
         }
     };
 
