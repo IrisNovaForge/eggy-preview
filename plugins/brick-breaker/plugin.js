@@ -37,6 +37,7 @@
             if(ctx.net)ctx.net.send('minigame.ready',{pluginId:ctx.pluginId,characterId:ctx.character&&ctx.character.id});
             var game=window.DanboBrickBreaker.create({
                 mount:ctx.mount,
+                character:ctx.character,
                 rules:window.DanboBrickBreakerRules.create(),
                 storage:ctx.storage,
                 lang:(ctx.options&&ctx.options.lang)||pageLang(),

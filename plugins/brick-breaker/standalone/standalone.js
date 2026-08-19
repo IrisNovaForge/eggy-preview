@@ -7,6 +7,7 @@
     };
     window.brickBreakerStandalone=window.DanboBrickBreaker.create({
         mount:document.getElementById('brick-breaker-standalone'),
+        character:{id:'blossomTraveler',displayName:'Blossom Traveler',icon:'\uD83C\uDF3C',style:{color:0xF5F5F0,accent:0xCC2222}},
         storage:storage,
         rules:window.DanboBrickBreakerRules.create(),
         onExit:function(){window.brickBreakerStandalone.showTitle();}

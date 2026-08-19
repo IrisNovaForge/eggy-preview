@@ -11,6 +11,20 @@
 
     function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
     function esc(s){return String(s===undefined?'':s).replace(/[&<>'"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c];});}
+    function cssColor(value,fallback){
+        var number=Number(value);
+        return Number.isFinite(number)&&number>=0&&number<=0xFFFFFF?'#'+Math.round(number).toString(16).padStart(6,'0'):fallback;
+    }
+    function visualCharacter(character){
+        character=character||{};
+        var style=character.style||{};
+        return {
+            name:String(character.displayName||character.name||character.id||'Traveler'),
+            icon:String(character.icon||'\uD83C\uDF3C'),
+            color:cssColor(style.color,'#F5F5F0'),
+            accent:cssColor(style.accent,'#CC2222')
+        };
+    }
     function detectLang(requested){
         if(COPY[requested])return requested;
         var nav=(navigator.language||'en').toLowerCase();
@@ -26,6 +40,7 @@
         this.options=options;
         this.lang=detectLang(options.lang);
         this.t=COPY[this.lang];
+        this.character=visualCharacter(options.character);
         this.rules=options.rules||(window.DanboBrickBreakerRules&&DanboBrickBreakerRules.create());
         if(!this.rules)throw new Error('BrickBreaker rules missing');
         this.storage=options.storage||{get:function(k,d){return d;},set:function(){}};
@@ -56,19 +71,23 @@
     }
 
     Game.prototype.markup=function(){
-        var t=this.t;
-        return '<div class="bb-sky" aria-hidden="true"><i></i><i></i><i></i></div>'+ 
+        var t=this.t,character=this.character;
+        return '<div class="bb-sky" aria-hidden="true"><i></i><i></i><i></i></div>'+
             '<header class="bb-hud" aria-label="Game status">'+
-              '<div class="bb-hud-pill"><span>'+esc(t.score)+'</span><b data-score>0000</b></div>'+ 
-              '<div class="bb-hud-pill"><span>'+esc(t.best)+'</span><b data-best>'+this.best+'</b></div>'+ 
-              '<div class="bb-hud-pill"><span>'+esc(t.lives)+'</span><b data-lives>● ● ●</b></div>'+ 
-              '<div class="bb-hud-pill"><span>'+esc(t.left)+'</span><b data-left>48</b></div>'+ 
-              '<button class="bb-icon-btn" data-action="pause" aria-label="'+esc(t.pause)+'">Ⅱ</button>'+ 
-              '<button class="bb-exit-btn" data-action="exit">'+esc(t.exit)+'</button>'+ 
+              '<div class="bb-character-badge" role="img" aria-label="'+esc(character.name)+'" title="'+esc(character.name)+'" style="--bb-character-color:'+character.color+';--bb-character-accent:'+character.accent+'">'+
+                '<span class="bb-character-face" aria-hidden="true"><i></i><i></i><b></b></span>'+
+                '<span class="bb-character-symbol" aria-hidden="true">'+esc(character.icon)+'</span>'+
+              '</div>'+
+              '<div class="bb-hud-pill"><span>'+esc(t.score)+'</span><b data-score>0000</b></div>'+
+              '<div class="bb-hud-pill"><span>'+esc(t.best)+'</span><b data-best>'+this.best+'</b></div>'+
+              '<div class="bb-hud-pill"><span>'+esc(t.lives)+'</span><b data-lives>● ● ●</b></div>'+
+              '<div class="bb-hud-pill"><span>'+esc(t.left)+'</span><b data-left>48</b></div>'+
+              '<button class="bb-icon-btn" data-action="pause" aria-label="'+esc(t.pause)+'">Ⅱ</button>'+
+              '<button class="bb-exit-btn" data-action="exit">'+esc(t.exit)+'</button>'+
             '</header>'+
-            '<main class="bb-stage"><canvas class="bb-canvas" width="960" height="720"></canvas></main>'+ 
-            '<div class="bb-overlay"><section class="bb-card"></section></div>'+ 
-            '<button class="bb-launch" data-action="launch">'+esc(t.launch)+'</button>'+ 
+            '<main class="bb-stage"><canvas class="bb-canvas" width="960" height="720"></canvas></main>'+
+            '<div class="bb-overlay"><section class="bb-card"></section></div>'+
+            '<button class="bb-launch" data-action="launch">'+esc(t.launch)+'</button>'+
             '<footer class="bb-tip">'+esc(t.controls)+'</footer>';
     };
 
