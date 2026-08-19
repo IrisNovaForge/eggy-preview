@@ -112,7 +112,7 @@
     Game.prototype.resetBoard=function(){
         this.score=0;this.lives=STARTING_LIVES;this.misses=0;this.serveId=0;this.resolvedServeId=-1;this.remaining=0;this.elapsed=0;this.missHandled=false;
         this.paddle={x:W*0.5,y:H-76,w:154,h:22,speed:690};
-        this.ball={x:W*0.5,y:H-104,vx:0,vy:0,r:11,speed:410};
+        this.ball={x:W*0.5,y:H-104,vx:0,vy:0,r:11,speed:370};
         this.bricks=[];
         var cols=9,rows=6,gap=12,bw=82,bh=30,total=cols*bw+(cols-1)*gap,start=(W-total)*0.5;
         var colors=['#76cfa4','#75c8d3','#8baee8','#b7a0df','#f0a5b9','#f0c96d'];
