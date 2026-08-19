@@ -1,7 +1,9 @@
 .bb-root{position:absolute;inset:0;overflow:hidden;color:#21453f;background:#dff7ef;font-family:"Segoe UI","Noto Sans SC",system-ui,sans-serif;touch-action:none;user-select:none}
 .bb-root *{box-sizing:border-box}
 .bb-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:76px 18px 48px}
-.bb-canvas{display:block;width:min(calc((100vh - 124px)*1.3333),calc(100vw - 36px));height:auto;max-height:calc(100vh - 124px);border-radius:34px;box-shadow:0 24px 60px rgba(36,99,82,.22),inset 0 0 0 1px rgba(255,255,255,.8);touch-action:none}
+.bb-canvas{position:relative;z-index:1;display:block;width:min(calc((100vh - 124px)*1.3333),calc(100vw - 36px));height:auto;max-height:calc(100vh - 124px);border-radius:34px;box-shadow:0 24px 60px rgba(36,99,82,.22),inset 0 0 0 1px rgba(255,255,255,.8);touch-action:none}
+.bb-character-player{position:absolute;z-index:2;pointer-events:none;transform:translateZ(0);filter:drop-shadow(0 7px 6px rgba(42,91,78,.22))}
+.bb-character-canvas{display:block;width:100%;height:100%;pointer-events:none}
 .bb-sky{position:absolute;inset:0;overflow:hidden;background:radial-gradient(circle at 14% 18%,rgba(255,255,255,.92),transparent 24%),radial-gradient(circle at 84% 12%,rgba(255,236,170,.7),transparent 25%),linear-gradient(145deg,#bfeadf,#e7f4c8 58%,#f7dfad)}
 .bb-sky i{position:absolute;width:180px;height:180px;border-radius:45% 55% 62% 38%;background:rgba(255,255,255,.16);filter:blur(2px);transform:rotate(28deg)}
 .bb-sky i:nth-child(1){left:-70px;top:18%}.bb-sky i:nth-child(2){right:-65px;bottom:8%;width:260px;height:260px}.bb-sky i:nth-child(3){left:62%;top:-90px;width:210px;height:210px}

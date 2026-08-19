@@ -6,7 +6,7 @@
         set:function(key,value){try{localStorage.setItem(prefix+key,JSON.stringify(value));return true;}catch(e){return false;}}
     };
     var characters={
-        blossomTraveler:{displayName:'Blossom Traveler',color:0xF5F5F0,accent:0xCC2222},
+        blossomTraveler:{displayName:'Blossom Traveler',color:0xFFFDF2,accent:0xEF4A5B},
         herbTraveler:{displayName:'Herb Traveler',color:0xBFE8A0,accent:0x8FD16A},
         saltCrystalTraveler:{displayName:'Salt Crystal Traveler',color:0xF4E9E1,accent:0xE7B6C8},
         cloudwingTraveler:{displayName:'Cloudwing Traveler',color:0xDDF5FF,accent:0x78BFE6},

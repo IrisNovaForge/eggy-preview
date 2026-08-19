@@ -43,7 +43,7 @@
             version:'0.1.0',
             enabled:true,
             entranceScript:'plugins/brick-breaker/entrance.js',
-            scripts:['plugins/brick-breaker/brick-breaker-rules.js','plugins/brick-breaker/brick-breaker-core.js','plugins/brick-breaker/plugin.js'],
+            scripts:['plugins/brick-breaker/brick-breaker-rules.js','plugins/brick-breaker/brick-breaker-character.js','plugins/brick-breaker/brick-breaker-core.js','plugins/brick-breaker/plugin.js'],
             networkReady:true,
             legacyAdapter:false,
             description:{

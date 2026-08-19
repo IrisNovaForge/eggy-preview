@@ -62,6 +62,11 @@
         this.canvas=this.root.querySelector('.bb-canvas');
         this.ctx2d=this.canvas.getContext('2d');
         this.canvas.width=W;this.canvas.height=H;
+        this.stage=this.root.querySelector('.bb-stage');
+        this.characterMount=this.root.querySelector('.bb-character-player');
+        this.characterView=window.DanboBrickBreakerCharacter&&window.DanboBrickBreakerCharacter.create({
+            mount:this.characterMount,board:this.canvas,stage:this.stage,character:options.character
+        });
         this.overlay=this.root.querySelector('.bb-overlay');
         this.card=this.root.querySelector('.bb-card');
         this.keys={left:false,right:false};
@@ -95,7 +100,7 @@
               '<button class="bb-icon-btn" data-action="pause" aria-label="'+esc(t.pause)+'">Ⅱ</button>'+
               '<button class="bb-exit-btn" data-action="exit">'+esc(t.exit)+'</button>'+
             '</header>'+
-            '<main class="bb-stage"><canvas class="bb-canvas" width="960" height="720"></canvas></main>'+
+            '<main class="bb-stage"><canvas class="bb-canvas" width="960" height="720"></canvas><div class="bb-character-player" aria-hidden="true"></div></main>'+
             '<div class="bb-overlay"><section class="bb-card"></section></div>'+
             '<button class="bb-launch" data-action="launch">'+esc(t.launch)+'</button>'+
             '<footer class="bb-tip">'+esc(t.controls)+'</footer>';
@@ -179,10 +184,12 @@
     Game.prototype.exit=function(){if(this.options.onExit)this.options.onExit({status:'exit',score:this.score||0,best:this.best});else this.showTitle();};
 
     Game.prototype.update=function(dt){
+        var previousX=this.paddle.x;
         var dir=(this.keys.left?-1:0)+(this.keys.right?1:0);
         if(dir)this.paddle.x+=dir*this.paddle.speed*dt;
         else if(this.pointerX!==null)this.paddle.x+=(this.pointerX-this.paddle.x)*Math.min(1,dt*14);
         this.paddle.x=this.rules.clampPaddle(this.paddle.x,this.paddle.w,W);
+        this.paddle.vx=dt>0?(this.paddle.x-previousX)/dt:0;
         if(this.state==='ready'){
             this.ball.x=this.paddle.x;this.ball.y=this.paddle.y-this.ball.r-7;return;
         }
@@ -237,20 +244,22 @@
             c.save();c.shadowColor='rgba(35,92,76,.18)';c.shadowBlur=12;c.shadowOffsetY=5;this.roundRect(c,br.x,br.y,br.w,br.h,11,br.color);c.shadowColor='transparent';
             var shine=c.createLinearGradient(br.x,br.y,br.x,br.y+br.h);shine.addColorStop(0,'rgba(255,255,255,.5)');shine.addColorStop(.56,'rgba(255,255,255,.06)');shine.addColorStop(1,'rgba(37,80,69,.08)');this.roundRect(c,br.x+2,br.y+2,br.w-4,br.h-4,9,shine);c.restore();
         }
-        var p=this.paddle;c.save();c.shadowColor='rgba(38,108,91,.28)';c.shadowBlur=18;c.shadowOffsetY=7;var pg=c.createLinearGradient(p.x-p.w/2,p.y,p.x+p.w/2,p.y);pg.addColorStop(0,'#63c79d');pg.addColorStop(.5,'#8ae0bb');pg.addColorStop(1,'#54bfc3');this.roundRect(c,p.x-p.w/2,p.y-p.h/2,p.w,p.h,p.h/2,pg);c.restore();
+        var p=this.paddle;c.save();c.shadowColor='rgba(66,193,180,.55)';c.shadowBlur=24;c.lineWidth=6;c.strokeStyle='rgba(119,229,207,.62)';c.beginPath();c.ellipse(p.x,p.y,p.w*.5,p.h*.5,0,0,Math.PI*2);c.stroke();var pg=c.createRadialGradient(p.x,p.y,2,p.x,p.y,p.w*.5);pg.addColorStop(0,'rgba(236,255,226,.90)');pg.addColorStop(.52,'rgba(126,225,195,.72)');pg.addColorStop(1,'rgba(77,176,193,.42)');c.fillStyle=pg;c.beginPath();c.ellipse(p.x,p.y,p.w*.5-4,p.h*.5-3,0,0,Math.PI*2);c.fill();c.restore();
         var b=this.ball;c.save();c.shadowColor='#fff2a5';c.shadowBlur=24;c.beginPath();c.arc(b.x,b.y,b.r+2,0,Math.PI*2);c.fillStyle='#fff5a9';c.fill();c.beginPath();c.arc(b.x-3,b.y-4,b.r*.42,0,Math.PI*2);c.fillStyle='rgba(255,255,255,.9)';c.fill();c.restore();
+        if(this.characterView)this.characterView.render(p.x,p.y,p.vx||0,this.frameDt||.016);
         this.updateHud();
     };
 
     Game.prototype.loop=function(now){
         if(!this.running)return;var dt=Math.min(.04,Math.max(0,(now-this.last)/1000||.016));this.last=now;
-        this.update(dt);this.render();var self=this;this.raf=requestAnimationFrame(function(t){self.loop(t);});
+        this.frameDt=dt;this.update(dt);this.render();var self=this;this.raf=requestAnimationFrame(function(t){self.loop(t);});
     };
 
     Game.prototype.destroy=function(){
         this.running=false;if(this.raf)cancelAnimationFrame(this.raf);
         window.removeEventListener('keydown',this.boundKeyDown,true);window.removeEventListener('keyup',this.boundKeyUp,true);
         this.canvas.removeEventListener('pointerdown',this.boundPointer);this.canvas.removeEventListener('pointermove',this.boundPointer);this.root.removeEventListener('click',this.boundClick);
+        if(this.characterView)this.characterView.destroy();
         if(this.root.parentNode)this.root.parentNode.removeChild(this.root);
     };
 
