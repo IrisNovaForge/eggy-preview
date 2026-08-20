@@ -159,11 +159,11 @@
         }
         var impactSquash=0,bodyPop=0;
         if(catchAmount){
-            if(reactionProgress<.2)impactSquash=Math.sin(Math.PI*reactionProgress/.2);
-            if(reactionProgress<.56)bodyPop=Math.sin(Math.PI*reactionProgress/.56);
+            if(reactionProgress<.18)impactSquash=Math.sin(Math.PI*reactionProgress/.18);
+            if(reactionProgress>.1&&reactionProgress<.56)bodyPop=Math.sin(Math.PI*(reactionProgress-.1)/.46);
         }
-        scaleX+=previewAmount*.025+impactSquash*.075;
-        scaleY-=previewAmount*.035+impactSquash*.09;
+        scaleX+=previewAmount*.025+impactSquash*.09;
+        scaleY-=previewAmount*.035+impactSquash*.115;
         scaleY+=bodyPop*.025;
         var moving=Math.abs(normalized),gait=Math.sin(this.walkPhase),gaitLift=Math.abs(Math.sin(this.walkPhase))*this.motion.step*moving;
         var gaitSway=0;
@@ -182,7 +182,7 @@
         var idle=Math.sin(performance.now()*(this.motion.catchStyle==='float'?.0016:.0022))*this.motion.idleFloat;
         var targetModelX=receiveOffset*.22*receiveAmount,positionBlend=receiveAmount>0?.46:.22;
         this.model.position.x+=(targetModelX-this.model.position.x)*positionBlend;
-        this.model.position.y=-.03+idle+gaitLift+catchLift-missDrop-previewAmount*.045+bodyPop*.12;
+        this.model.position.y=-.03+idle+gaitLift+catchLift-missDrop-previewAmount*.045-impactSquash*.055+bodyPop*.085;
         this.renderer.render(this.scene,this.camera);
         this.lastX=x;
     };
