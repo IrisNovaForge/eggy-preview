@@ -17,6 +17,8 @@
         this.stage=options.stage;
         this.lastX=480;
         this.walkPhase=0;
+        this.reaction=null;
+        this.baseScale=0.95;
         this.scene=new THREE.Scene();
         this.camera=new THREE.PerspectiveCamera(31,126/108,0.1,30);
         this.camera.position.set(0,0.82,4.55);
@@ -39,7 +41,7 @@
             numberColor(style.accent,0xEF4A5B),
             character.id||'blossomTraveler'
         );
-        this.model.scale.setScalar(0.95);
+        this.model.scale.setScalar(this.baseScale);
         this.model.position.y=-0.03;
         this.scene.add(this.model);
         this.rig={
@@ -48,6 +50,13 @@
             throwTimer:0,_electrocuted:0,_elecFlying:0
         };
     }
+
+    CharacterView.prototype.react=function(type){
+        if(type!=='catch'&&type!=='miss')return;
+        this.reaction={type:type,elapsed:0,duration:type==='catch'?.34:.52};
+    };
+
+    CharacterView.prototype.resetReaction=function(){this.reaction=null;};
 
     CharacterView.prototype.render=function(x,y,velocity,dt){
         var boardRect=this.board.getBoundingClientRect(),stageRect=this.stage.getBoundingClientRect();
@@ -61,11 +70,34 @@
         var normalized=Math.max(-1,Math.min(1,(velocity||0)/690));
         if(Math.abs(normalized)>0.01)this.walkPhase+=Math.max(0,dt||0)*10.5*Math.abs(normalized);
         this.rig.vx=normalized;this.rig.walkPhase=this.walkPhase;
+        var arms=this.model.userData&&this.model.userData._decorArms;
+        if(arms)for(var ai=0;ai<arms.length;ai++){
+            var oldOffset=arms[ai].userData._bbReactionZ||0;
+            arms[ai].rotation.z-=oldOffset;arms[ai].userData._bbReactionZ=0;
+        }
         if(typeof window._updateCharacterPremiumRig==='function')window._updateCharacterPremiumRig(this.rig,Math.abs(normalized));
         else if(typeof window._animateCuteCharacterDetails==='function')window._animateCuteCharacterDetails(this.model,performance.now()*0.001);
-        this.model.rotation.z+=((-normalized*0.075)-this.model.rotation.z)*0.16;
+
+        var catchAmount=0,missAmount=0,reactionProgress=0;
+        if(this.reaction){
+            this.reaction.elapsed=Math.min(this.reaction.duration,this.reaction.elapsed+Math.max(0,dt||0));
+            reactionProgress=this.reaction.elapsed/this.reaction.duration;
+            if(this.reaction.type==='catch')catchAmount=Math.sin(Math.PI*reactionProgress);
+            else missAmount=Math.sin(Math.PI*reactionProgress);
+            if(this.reaction.elapsed>=this.reaction.duration)this.reaction=null;
+        }
+        if(arms)for(var ri=0;ri<arms.length;ri++){
+            var arm=arms[ri],side=arm.userData._side||1,offset=0;
+            if(catchAmount&&side>0)offset=side*(.27+Math.sin(reactionProgress*Math.PI*3)*.07)*catchAmount;
+            else if(missAmount)offset=-side*.16*missAmount;
+            arm.rotation.z+=offset;arm.userData._bbReactionZ=offset;
+        }
+        var reactionTilt=catchAmount*Math.sin(reactionProgress*Math.PI*2)*.045;
+        this.model.rotation.z+=((-normalized*0.075+reactionTilt)-this.model.rotation.z)*0.2;
         this.model.rotation.y+=(normalized*0.10-this.model.rotation.y)*0.12;
-        this.model.position.y=-0.03+Math.sin(this.walkPhase*2)*0.018*Math.abs(normalized);
+        this.model.rotation.x+=(missAmount*.12-this.model.rotation.x)*0.24;
+        this.model.scale.y+=(this.baseScale*(1-missAmount*.045)-this.model.scale.y)*0.24;
+        this.model.position.y=-0.03+Math.sin(this.walkPhase*2)*0.018*Math.abs(normalized)+catchAmount*.11-missAmount*.055;
         this.renderer.render(this.scene,this.camera);
         this.lastX=x;
     };

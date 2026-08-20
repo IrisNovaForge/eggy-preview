@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
-<title>WHERE WONDERS LEAD</title>
+<title>Jolly Crossing</title>
 <script type="importmap">
 {
   "imports": {
@@ -40,9 +40,9 @@
     <div class="select-sky-glow select-sky-glow-b" aria-hidden="true"></div>
     <div class="select-cinematic-shell">
       <header class="select-cinematic-header">
-        <div class="select-brand-mark"><span>WL</span></div>
+        <div class="select-brand-mark"><span>JC</span></div>
         <div class="select-header-copy">
-          <div class="select-kicker">WHERE WONDERS LEAD · ADVENTURER CAST</div>
+          <div class="select-kicker">JOLLY CROSSING · ADVENTURER CAST</div>
           <h1 id="select-page-title">选择角色</h1>
           <p id="select-world-intro">每一枚生命蛋壳，都孕育着独一无二的伙伴。</p>
         </div>
@@ -190,8 +190,9 @@
   // old position until the visible game version changed.
   var editorPreview='';
   try{editorPreview=new URLSearchParams(location.search).get('mapEditorPreview')||'';}catch(e){}
-  var cache=editorPreview?('v=mapeditor-'+editorPreview):'v=preview-brick-20260819172215';
+  var cache=editorPreview?('v=mapeditor-'+editorPreview):'v=20260801.1-herb-leaf-local-2';
   window.DANBO_ASSET_VERSION=cache;
+  window.DANBO_CITY_LOAD_MODE='wasm';
   var warmStart=false;
   try{warmStart=localStorage.getItem('danbo_loader_version')===cache;}catch(e){}
   var loaderLang=(function(){

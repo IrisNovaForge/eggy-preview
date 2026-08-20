@@ -11,7 +11,7 @@
     }
 
     function makeRules(){
-        var wasm=window.DANBO_MINIGAME_WASM&&window.DANBO_MINIGAME_WASM.brickBreaker;
+        var wasm=window.DANBO_BRICK_BREAKER_WASM;
         return {
             id:'brick-breaker',
             get mode(){return wasm&&wasm.mode||'js-fallback';},

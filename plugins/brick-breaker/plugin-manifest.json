@@ -1,0 +1,13 @@
+{
+  "id": "brick-breaker",
+  "version": "0.2.0",
+  "entrance": "entrance.js",
+  "scripts": [
+    "brick-breaker-wasm.js",
+    "brick-breaker-rules.js",
+    "brick-breaker-character.js",
+    "brick-breaker-core.js",
+    "plugin.js"
+  ],
+  "debug": "debug/"
+}

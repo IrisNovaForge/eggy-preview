@@ -2,10 +2,14 @@
     'use strict';
     if(!window.DANBO_PLUGIN_HOST){console.warn('[brick-breaker] Plugin host missing');return;}
 
+    var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
+    var runtimeBase=window.DANBO_BRICK_BREAKER_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/brick-breaker/');
+    window.DANBO_BRICK_BREAKER_BASE_URL=runtimeBase;
+
     function ensureStyle(){
         if(document.getElementById('brick-breaker-style'))return;
         var link=document.createElement('link');link.id='brick-breaker-style';link.rel='stylesheet';
-        link.href='plugins/brick-breaker/brick-breaker.css'+(window.DANBO_ASSET_VERSION?('?'+String(window.DANBO_ASSET_VERSION).replace(/^\?/,'')):'');
+        link.href=runtimeBase+'brick-breaker.css'+(window.DANBO_ASSET_VERSION?('?'+String(window.DANBO_ASSET_VERSION).replace(/^\?/,'')):'');
         document.head.appendChild(link);
     }
     function pageLang(){

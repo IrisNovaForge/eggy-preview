@@ -101,19 +101,10 @@
     rocketRoad.score=function(progress,fuel,pickups,crashes,finished){var e=this.exports;progress=n(progress);fuel=n(fuel);pickups=pickups|0;crashes=crashes|0;finished=finished?1:0;if(e&&e.danbo_rocket_road_score)return e.danbo_rocket_road_score(progress,fuel,pickups,crashes,finished);var s=Math.floor(Math.max(0,Math.min(3300,progress))*3)+pickups*500+Math.floor(Math.max(0,fuel)*22)-crashes*350+(finished?2500:0);return Math.max(0,s);};
     rocketRoad.finishReached=function(progress){var e=this.exports;progress=n(progress);if(e&&e.danbo_rocket_road_finish_reached)return !!e.danbo_rocket_road_finish_reached(progress);return progress>=3300;};
 
-    var brickBreaker=makeBase('brick-breaker','wasm/danbo_brick_breaker.wasm');
-    brickBreaker.clampPaddle=function(x,paddleWidth,boardWidth){var e=this.exports;x=n(x);paddleWidth=n(paddleWidth);boardWidth=n(boardWidth);if(e&&e.danbo_brick_breaker_clamp_paddle)return e.danbo_brick_breaker_clamp_paddle(x,paddleWidth,boardWidth);return Math.max(paddleWidth*.5,Math.min(boardWidth-paddleWidth*.5,x));};
-    brickBreaker.circleRectHit=function(cx,cy,radius,x,y,w,h){var e=this.exports;cx=n(cx);cy=n(cy);radius=n(radius);x=n(x);y=n(y);w=n(w);h=n(h);if(e&&e.danbo_brick_breaker_circle_rect_hit)return !!e.danbo_brick_breaker_circle_rect_hit(cx,cy,radius,x,y,w,h);var nx=Math.max(x,Math.min(x+w,cx)),ny=Math.max(y,Math.min(y+h,cy)),dx=cx-nx,dy=cy-ny;return dx*dx+dy*dy<=radius*radius;};
-    brickBreaker.paddleBounce=function(ballX,paddleX,paddleWidth,speed){var e=this.exports,t=this._tmp;ballX=n(ballX);paddleX=n(paddleX);paddleWidth=n(paddleWidth);speed=n(speed);if(e&&e.danbo_brick_breaker_paddle_bounce&&this._outView){e.danbo_brick_breaker_paddle_bounce(ballX,paddleX,paddleWidth,speed);this._readOut(2);return {vx:t[0],vy:t[1]};}var offset=Math.max(-1,Math.min(1,(ballX-paddleX)/(paddleWidth*.5))),angle=offset*1.05;return {vx:Math.sin(angle)*speed,vy:-Math.max(.42,Math.cos(angle))*speed};};
-    brickBreaker.scoreForBrick=function(row){var e=this.exports;row=row|0;if(e&&e.danbo_brick_breaker_score_for_brick)return e.danbo_brick_breaker_score_for_brick(row);return 100+Math.max(0,5-row)*20;};
-    brickBreaker.isWin=function(remaining){var e=this.exports;remaining=remaining|0;return e&&e.danbo_brick_breaker_is_win?!!e.danbo_brick_breaker_is_win(remaining):remaining<=0;};
-    brickBreaker.isGameOver=function(lives){var e=this.exports;lives=lives|0;return e&&e.danbo_brick_breaker_is_game_over?!!e.danbo_brick_breaker_is_game_over(lives):lives<=0;};
-
-    window.DANBO_MINIGAME_WASM={race:race,platformer:platformer,rocketRoad:rocketRoad,brickBreaker:brickBreaker};
+    window.DANBO_MINIGAME_WASM={race:race,platformer:platformer,rocketRoad:rocketRoad};
     window._danboMinigameWasmReady=Promise.all([
         loadModule(race,'danbo_race_out_ptr','danbo_race_build_number'),
         loadModule(platformer,'danbo_platformer_out_ptr','danbo_platformer_build_number'),
-        loadModule(rocketRoad,'danbo_rocket_road_out_ptr','danbo_rocket_road_build_number'),
-        loadModule(brickBreaker,'danbo_brick_breaker_out_ptr','danbo_brick_breaker_build_number')
+        loadModule(rocketRoad,'danbo_rocket_road_out_ptr','danbo_rocket_road_build_number')
     ]).then(function(){return window.DANBO_MINIGAME_WASM;});
 })();

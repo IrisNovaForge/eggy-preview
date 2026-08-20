@@ -30,12 +30,8 @@ var _langMode='auto'; // 'auto' or manual code
 try{var _savedLang=localStorage.getItem('danbo_lang');if(_savedLang&&['auto','zhs','zht','ja','en'].indexOf(_savedLang)>=0)_langMode=_savedLang;}catch(e){}
 var _langCode=_langMode==='auto'?_autoLangCode:_langMode;
 var DANBO_CUTE_STYLE='round-minimal-v3-regional-traveler'; // Original regional travelers: soft silhouettes, clean faces and restrained detail
-// Local title-preview presets. Keep the previous candidate intact so this Demo
-// can be switched back without reconstructing the earlier four-locale values.
-var TITLE_CANDIDATE_PREVIOUS={zhs:'\u5947\u5883\u9010\u666F',zht:'\u5947\u5883\u9010\u666F',ja:'\u5947\u5883\u306E\u65C5\u8DEF',en:'WHERE WONDERS LEAD'};
-var TITLE_CANDIDATE_DEMO={zhs:'\u9010\u666F\u76F8\u9022',zht:'\u9010\u666F\u76F8\u9022',ja:'\u4E16\u754C\u3092\u3081\u3050\u308B\u51FA\u4F1A\u3044',en:'WHERE WONDERS LEAD'};
 var I18N={
-    title:TITLE_CANDIDATE_DEMO,
+    title:{zhs:'\u5947\u5883\u9010\u666F',zht:'\u5947\u5883\u9010\u666F',ja:'\u5947\u5883\u306E\u65C5\u8DEF',en:'WHERE WONDERS LEAD'},
     shopName:{zhs:'\u65C5\u4EBA\u6742\u8D27\u94FA',zht:'\u65C5\u4EBA\u96DC\u8CA8\u8216',ja:'\u65C5\u4EBA\u306E\u96D1\u8CA8\u5E97',en:'Traveler\'s General Store'},
     shopEnterDesc:{zhs:'\u8FDB\u5165\u65C5\u4EBA\u6742\u8D27\u94FA\uFF1F',zht:'\u9032\u5165\u65C5\u4EBA\u96DC\u8CA8\u8216\uFF1F',ja:'\u65C5\u4EBA\u306E\u96D1\u8CA8\u5E97\u306B\u5165\u308A\u307E\u3059\u304B\uFF1F',en:'Enter the Traveler\'s General Store?'},
     subtitle:{zhs:'W H E R E   W O N D E R S   L E A D',zht:'W H E R E   W O N D E R S   L E A D',ja:'W H E R E   W O N D E R S   L E A D',en:'W H E R E   W O N D E R S   L E A D'},
