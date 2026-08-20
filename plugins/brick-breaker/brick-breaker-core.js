@@ -327,9 +327,40 @@
         var points=[[74,76,22],[884,82,26],[76,610,28],[878,594,23],[478,656,18]];
         for(var i=0;i<points.length;i++)this.drawMotif(c,points[i][0],points[i][1],points[i][2],i===4?.09:.13,this.theme.accent);
     };
-    Game.prototype.drawBrickMark=function(c,brick){
-        if((brick.row+brick.col)%3!==0)return;
-        this.drawMotif(c,brick.x+brick.w*.5,brick.y+brick.h*.5,6.2,.34,'#ffffff');
+    Game.prototype.drawBrickSurface=function(c,brick){
+        var x=brick.x,y=brick.y,w=brick.w,h=brick.h,type=this.theme.motif,variant=(brick.row*3+brick.col)%3,cx=x+w*.5+(variant-1)*4,cy=y+h*.5;
+        c.save();c.beginPath();c.roundRect(x+2,y+2,w-4,h-4,9);c.clip();
+        c.globalAlpha=.46;c.strokeStyle='rgba(255,255,255,.88)';c.lineWidth=1.4;c.beginPath();c.roundRect(x+4,y+4,w-8,h-8,7);c.stroke();
+        if(type==='petal'){
+            c.globalAlpha=.34;c.strokeStyle='rgba(109,108,72,.62)';c.lineWidth=1.2;c.beginPath();c.moveTo(x+9,cy+5);c.quadraticCurveTo(cx,cy-7,x+w-9,cy+4);c.stroke();
+            this.drawMotif(c,cx,cy-1,7.4,.67,'#fff8e9');
+            c.globalAlpha=.36;c.fillStyle='#fff4ad';for(var p=0;p<3;p++){c.beginPath();c.arc(x+16+p*25,cy+7-(p%2)*3,1.7,0,Math.PI*2);c.fill();}
+        }else if(type==='leaf'){
+            c.save();c.translate(cx,cy);c.rotate(variant===0?-.16:(variant===2?.16:0));c.globalAlpha=.5;c.fillStyle='rgba(235,255,205,.82)';c.beginPath();c.moveTo(-w*.34,0);c.quadraticCurveTo(0,-h*.42,w*.34,0);c.quadraticCurveTo(0,h*.38,-w*.34,0);c.fill();c.strokeStyle='rgba(62,120,70,.55)';c.lineWidth=1.25;c.beginPath();c.moveTo(-w*.28,0);c.lineTo(w*.28,0);for(var l=-2;l<=2;l++){c.moveTo(l*8,0);c.lineTo(l*8+6,l%2?5:-5);}c.stroke();c.restore();
+            c.globalAlpha=.24;c.fillStyle='#fff';c.fillRect(x+7,y+5,4,h-10);c.fillRect(x+w-11,y+5,4,h-10);
+        }else if(type==='crystal'){
+            c.globalAlpha=.28;c.fillStyle='#fff';c.beginPath();c.moveTo(x+3,y+3);c.lineTo(cx-7,y+3);c.lineTo(cx+5,y+h-3);c.lineTo(x+18,y+h-3);c.closePath();c.fill();
+            c.globalAlpha=.2;c.fillStyle=this.theme.accent;c.beginPath();c.moveTo(cx-7,y+3);c.lineTo(x+w-3,y+3);c.lineTo(cx+5,y+h-3);c.closePath();c.fill();
+            c.globalAlpha=.72;c.strokeStyle='rgba(255,255,255,.9)';c.lineWidth=1;c.beginPath();c.moveTo(cx-7,y+4);c.lineTo(cx+5,y+h-4);c.moveTo(x+18,y+h-4);c.lineTo(cx-7,y+4);c.moveTo(cx+5,y+h-4);c.lineTo(x+w-15,y+4);c.stroke();this.drawMotif(c,cx,cy,5.3,.48,'#ffffff');
+        }else if(type==='cloud'){
+            c.globalAlpha=.52;c.fillStyle='rgba(255,255,255,.82)';c.beginPath();c.arc(cx-12,cy+1,7,0,Math.PI*2);c.arc(cx-3,cy-4,9,0,Math.PI*2);c.arc(cx+8,cy,7,0,Math.PI*2);c.ellipse(cx-1,cy+5,22,7,0,0,Math.PI*2);c.fill();
+            c.globalAlpha=.38;c.strokeStyle=this.theme.accent;c.lineWidth=1.1;c.beginPath();c.moveTo(x+9,cy+9);c.quadraticCurveTo(cx,cy+13,x+w-9,cy+8);c.moveTo(x+18,cy+12);c.lineTo(x+36,cy+12);c.stroke();
+        }else if(type==='orchard'){
+            c.globalAlpha=.23;c.strokeStyle='rgba(91,93,48,.66)';c.lineWidth=3;c.beginPath();c.moveTo(x+13,y+2);c.lineTo(x+13,y+h-2);c.moveTo(x+w-13,y+2);c.lineTo(x+w-13,y+h-2);c.stroke();
+            c.globalAlpha=.68;c.fillStyle='rgba(255,245,204,.88)';c.beginPath();c.arc(cx,cy+1,9,0,Math.PI*2);c.fill();c.globalAlpha=.58;c.strokeStyle='rgba(99,112,55,.7)';c.lineWidth=1.4;c.beginPath();c.moveTo(cx,cy-7);c.lineTo(cx+2,cy-12);c.stroke();c.save();c.translate(cx+6,cy-9);c.rotate(-.45);c.fillStyle='#e7f2b3';c.beginPath();c.ellipse(0,0,5,2.3,0,0,Math.PI*2);c.fill();c.restore();
+            c.globalAlpha=.5;c.fillStyle=this.theme.accent;for(var o=0;o<3;o++){c.beginPath();c.arc(cx-4+o*4,cy+(o%2)*3,1.2,0,Math.PI*2);c.fill();}
+        }else if(type==='berry'){
+            c.globalAlpha=.66;c.fillStyle='rgba(255,221,241,.78)';[[-7,2],[7,2],[0,-6]].forEach(function(pos){c.beginPath();c.arc(cx+pos[0],cy+pos[1],6.3,0,Math.PI*2);c.fill();});
+            c.globalAlpha=.72;c.fillStyle='#fff';[[-9,0],[5,0],[-2,-9]].forEach(function(pos){c.beginPath();c.arc(cx+pos[0],cy+pos[1],1.6,0,Math.PI*2);c.fill();});
+            c.globalAlpha=.26;c.strokeStyle='rgba(255,255,255,.9)';c.lineWidth=1.2;for(var b=0;b<4;b++){c.beginPath();c.moveTo(x+8+b*20,y+5);c.lineTo(x+14+b*20,y+h-5);c.stroke();}
+        }else if(type==='flame'){
+            c.globalAlpha=.33;c.fillStyle='#ffd666';c.beginPath();c.moveTo(x+3,y+h-3);c.lineTo(cx-5,y+3);c.lineTo(cx+5,y+h-3);c.lineTo(x+w-3,y+4);c.lineTo(x+w-3,y+h-3);c.closePath();c.fill();
+            c.globalAlpha=.68;c.strokeStyle='#fff0a0';c.lineWidth=1.5;c.beginPath();c.moveTo(x+8,y+5);c.lineTo(x+21,cy);c.lineTo(x+14,y+h-5);c.moveTo(x+w-8,y+5);c.lineTo(x+w-23,cy-2);c.lineTo(x+w-16,y+h-4);c.stroke();this.drawMotif(c,cx,cy,6.3,.76,'#fff1a1');
+        }else{
+            c.globalAlpha=.26;c.strokeStyle='rgba(91,69,30,.76)';c.lineWidth=1;for(var g=0;g<5;g++){c.beginPath();c.moveTo(x+7+g*17,y+3);c.lineTo(x+17+g*17,y+h-3);c.stroke();}for(var gh=0;gh<2;gh++){c.beginPath();c.moveTo(x+4,y+9+gh*10);c.lineTo(x+w-4,y+9+gh*10);c.stroke();}
+            this.drawMotif(c,cx,cy,7,.7,'#fff4bf');
+        }
+        c.restore();
     };
     Game.prototype.render=function(){
         var c=this.ctx2d;c.clearRect(0,0,W,H);
@@ -340,7 +371,7 @@
         for(var j=0;j<this.bricks.length;j++){
             var br=this.bricks[j];if(!br.alive)continue;
             c.save();c.shadowColor='rgba(35,92,76,.18)';c.shadowBlur=12;c.shadowOffsetY=5;this.roundRect(c,br.x,br.y,br.w,br.h,11,br.color);c.shadowColor='transparent';
-            var shine=c.createLinearGradient(br.x,br.y,br.x,br.y+br.h);shine.addColorStop(0,'rgba(255,255,255,.5)');shine.addColorStop(.56,'rgba(255,255,255,.06)');shine.addColorStop(1,'rgba(37,80,69,.08)');this.roundRect(c,br.x+2,br.y+2,br.w-4,br.h-4,9,shine);this.drawBrickMark(c,br);c.restore();
+            var shine=c.createLinearGradient(br.x,br.y,br.x,br.y+br.h);shine.addColorStop(0,'rgba(255,255,255,.5)');shine.addColorStop(.56,'rgba(255,255,255,.06)');shine.addColorStop(1,'rgba(37,80,69,.08)');this.roundRect(c,br.x+2,br.y+2,br.w-4,br.h-4,9,shine);this.drawBrickSurface(c,br);c.restore();
         }
         for(var f=0;f<this.hitEffects.length;f++){
             var effect=this.hitEffects[f],progress=clamp(effect.age/effect.duration,0,1),fade=(1-progress)*(1-progress),scale=1-progress*.58;
