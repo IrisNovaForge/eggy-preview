@@ -4,12 +4,13 @@
 
     var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
     var runtimeBase=window.DANBO_BRICK_BREAKER_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/brick-breaker/');
+    var pluginAssetVersion='v=20260820.1';
     window.DANBO_BRICK_BREAKER_BASE_URL=runtimeBase;
 
     function ensureStyle(){
         if(document.getElementById('brick-breaker-style'))return;
         var link=document.createElement('link');link.id='brick-breaker-style';link.rel='stylesheet';
-        link.href=runtimeBase+'brick-breaker.css'+(window.DANBO_ASSET_VERSION?('?'+String(window.DANBO_ASSET_VERSION).replace(/^\?/,'')):'');
+        link.href=runtimeBase+'brick-breaker.css?'+pluginAssetVersion;
         document.head.appendChild(link);
     }
     function pageLang(){
@@ -22,7 +23,7 @@
 
     window.DANBO_PLUGIN_HOST.register({
         id:'brick-breaker',
-        version:'0.1.0',
+        version:'0.3.0',
         name:{zhs:'星光弹球工坊',zht:'星光彈球工坊',ja:'星明かりのブロック工房',en:'Starlight Block Workshop'},
         description:{
             zhs:'原创视觉的基础打砖块小游戏。移动挡板，让光球清理全部彩色方块。',

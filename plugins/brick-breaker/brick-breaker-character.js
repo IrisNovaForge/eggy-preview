@@ -6,12 +6,25 @@
         return Number.isFinite(number)&&number>=0&&number<=0xFFFFFF?Math.round(number):fallback;
     }
 
+    var MOTION={
+        blossomTraveler:{catchLift:.12,catchTilt:.055,wave:'single',missTilt:.11,idleFloat:.008},
+        herbTraveler:{catchLift:.08,catchTilt:.035,wave:'open',missTilt:.09,idleFloat:.012},
+        saltCrystalTraveler:{catchLift:.065,catchTilt:.018,wave:'glint',missTilt:.075,idleFloat:.004},
+        cloudwingTraveler:{catchLift:.15,catchTilt:.04,wave:'float',missTilt:.08,idleFloat:.025},
+        fruitbrewTraveler:{catchLift:.13,catchTilt:.05,wave:'double',missTilt:.13,idleFloat:.01},
+        berryTraveler:{catchLift:.14,catchTilt:.08,wave:'wiggle',missTilt:.14,idleFloat:.014},
+        spicyFlameTraveler:{catchLift:.11,catchTilt:.025,wave:'cheer',missTilt:.1,idleFloat:.006},
+        goldenGrainTraveler:{catchLift:.075,catchTilt:.025,wave:'bow',missTilt:.085,idleFloat:.016}
+    };
+
     function CharacterView(options){
         options=options||{};
         if(!options.mount)throw new Error('Brick breaker character mount missing');
         if(!window.THREE||typeof window.createEggMesh!=='function')throw new Error('Official traveler renderer missing');
 
         var character=options.character||{},style=character.style||{};
+        this.characterId=character.id||'blossomTraveler';
+        this.motion=MOTION[this.characterId]||MOTION.blossomTraveler;
         this.mount=options.mount;
         this.board=options.board;
         this.stage=options.stage;
@@ -39,7 +52,7 @@
         this.model=window.createEggMesh(
             numberColor(style.color,0xFFFDF2),
             numberColor(style.accent,0xEF4A5B),
-            character.id||'blossomTraveler'
+            this.characterId
         );
         this.model.scale.setScalar(this.baseScale);
         this.model.position.y=-0.03;
@@ -88,16 +101,30 @@
         }
         if(arms)for(var ri=0;ri<arms.length;ri++){
             var arm=arms[ri],side=arm.userData._side||1,offset=0;
-            if(catchAmount&&side>0)offset=side*(.27+Math.sin(reactionProgress*Math.PI*3)*.07)*catchAmount;
+            if(catchAmount){
+                if(this.motion.wave==='single'&&side>0)offset=side*(.27+Math.sin(reactionProgress*Math.PI*3)*.07)*catchAmount;
+                else if(this.motion.wave==='open')offset=side*.19*catchAmount;
+                else if(this.motion.wave==='glint')offset=side*(.12+Math.sin(reactionProgress*Math.PI*4)*.045)*catchAmount;
+                else if(this.motion.wave==='float')offset=side*.24*catchAmount;
+                else if(this.motion.wave==='double')offset=side*(.24+Math.sin(reactionProgress*Math.PI*2)*.045)*catchAmount;
+                else if(this.motion.wave==='wiggle')offset=side*(.2+Math.sin(reactionProgress*Math.PI*5)*.09)*catchAmount;
+                else if(this.motion.wave==='cheer')offset=-side*.26*catchAmount;
+                else if(this.motion.wave==='bow')offset=-side*.11*catchAmount;
+            }
             else if(missAmount)offset=-side*.16*missAmount;
             arm.rotation.z+=offset;arm.userData._bbReactionZ=offset;
         }
-        var reactionTilt=catchAmount*Math.sin(reactionProgress*Math.PI*2)*.045;
+        var reactionTilt=catchAmount*Math.sin(reactionProgress*Math.PI*2)*this.motion.catchTilt;
         this.model.rotation.z+=((-normalized*0.075+reactionTilt)-this.model.rotation.z)*0.2;
         this.model.rotation.y+=(normalized*0.10-this.model.rotation.y)*0.12;
-        this.model.rotation.x+=(missAmount*.12-this.model.rotation.x)*0.24;
-        this.model.scale.y+=(this.baseScale*(1-missAmount*.045)-this.model.scale.y)*0.24;
-        this.model.position.y=-0.03+Math.sin(this.walkPhase*2)*0.018*Math.abs(normalized)+catchAmount*.11-missAmount*.055;
+        this.model.rotation.x+=(missAmount*this.motion.missTilt-this.model.rotation.x)*0.24;
+        var catchPulse=this.motion.wave==='glint'?Math.sin(reactionProgress*Math.PI*2)*.018:0;
+        var squash=(this.motion.wave==='double'||this.motion.wave==='wiggle')?catchAmount*.025:0;
+        this.model.scale.x+=(this.baseScale*(1+squash+catchPulse)-this.model.scale.x)*0.24;
+        this.model.scale.y+=(this.baseScale*(1-squash-missAmount*.045+catchPulse)-this.model.scale.y)*0.24;
+        this.model.scale.z+=(this.baseScale*(1+catchPulse)-this.model.scale.z)*0.24;
+        var idle=Math.sin(performance.now()*.0022)*this.motion.idleFloat;
+        this.model.position.y=-0.03+idle+Math.sin(this.walkPhase*2)*0.018*Math.abs(normalized)+catchAmount*this.motion.catchLift-missAmount*.055;
         this.renderer.render(this.scene,this.camera);
         this.lastX=x;
     };
