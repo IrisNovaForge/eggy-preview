@@ -32,4 +32,14 @@
         rules:window.DanboBrickBreakerRules.create(),
         onExit:function(){window.brickBreakerDebug.showTitle();}
     });
+    document.querySelectorAll('[data-debug-reaction]').forEach(function(button){
+        button.addEventListener('click',function(){
+            var game=window.brickBreakerDebug,type=button.getAttribute('data-debug-reaction');
+            if(!game)return;
+            if(game.state==='title')game.startGame();
+            if(game.state==='ready')game.launch();
+            if(type==='catch')game.triggerPadFeedback();
+            if(game.characterView&&game.characterView.react)game.characterView.react(type);
+        });
+    });
 })();
