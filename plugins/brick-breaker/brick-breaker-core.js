@@ -135,10 +135,10 @@
         if(this.missTimer){clearTimeout(this.missTimer);this.missTimer=0;}
         this.score=0;this.lives=STARTING_LIVES;this.misses=0;this.serveId=0;this.resolvedServeId=-1;this.remaining=0;this.elapsed=0;this.missHandled=false;
         if(this.characterView&&this.characterView.resetReaction)this.characterView.resetReaction();
-        this.paddle={x:W*0.5,y:H-76,w:154,h:22,speed:690};
-        this.ball={x:W*0.5,y:H-104,vx:0,vy:0,r:11,speed:370};
+        this.paddle={x:W*0.5,y:H-100,w:154,h:22,speed:690};
+        this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:370};
         this.bricks=[];this.hitEffects=[];this.padFeedback={active:false,age:0,duration:.2,offset:0};
-        var cols=9,rows=6,gap=12,bw=82,bh=30,total=cols*bw+(cols-1)*gap,start=(W-total)*0.5;
+        var cols=9,rows=6,gap=12,bw=82,bh=30,brickTop=145,total=cols*bw+(cols-1)*gap,start=(W-total)*0.5;
         var layout=[
             {mask:'111111111',dx:0,dy:0},
             {mask:'111111101',dx:-8,dy:3},
@@ -150,7 +150,7 @@
         var colors=this.theme.palette;
         for(var row=0;row<rows;row++)for(var col=0;col<cols;col++){
             var band=layout[row];if(band.mask.charAt(col)!=='1')continue;
-            this.bricks.push({x:start+col*(bw+gap)+band.dx,y:105+row*(bh+gap)+band.dy,w:bw,h:bh,row:row,col:col,color:colors[row],alive:true});this.remaining++;
+            this.bricks.push({x:start+col*(bw+gap)+band.dx,y:brickTop+row*(bh+gap)+band.dy,w:bw,h:bh,row:row,col:col,color:colors[row],alive:true});this.remaining++;
         }
         this.updateHud();
     };
