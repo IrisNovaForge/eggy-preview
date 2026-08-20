@@ -25,6 +25,8 @@
         var character=options.character||{},style=character.style||{};
         this.characterId=character.id||'blossomTraveler';
         this.motion=MOTION[this.characterId]||MOTION.blossomTraveler;
+        this.bodyColor=numberColor(style.color,0xFFFDF2);
+        this.accentColor=numberColor(style.accent,0xEF4A5B);
         this.mount=options.mount;
         this.board=options.board;
         this.stage=options.stage;
@@ -44,11 +46,15 @@
         this.renderer.domElement.className='bb-character-canvas';
         this.renderer.domElement.setAttribute('aria-hidden','true');
         this.mount.setAttribute('data-character',this.characterId);
-        this.aura=document.createElement('span');
-        this.aura.className='bb-character-reaction-aura';
-        this.aura.textContent=this.motion.aura;
-        this.aura.setAttribute('aria-hidden','true');
-        this.mount.appendChild(this.aura);
+        this.mount.style.setProperty('--bb-character-body','#'+this.bodyColor.toString(16).padStart(6,'0'));
+        this.mount.style.setProperty('--bb-character-accent','#'+this.accentColor.toString(16).padStart(6,'0'));
+        this.catchArms=[];
+        for(var handIndex=0;handIndex<2;handIndex++){
+            var side=handIndex===0?-1:1,catchArm=document.createElement('span'),catchHand=document.createElement('i');
+            catchArm.className='bb-character-catch-arm '+(side<0?'is-left':'is-right');catchArm.setAttribute('aria-hidden','true');
+            catchHand.className='bb-character-catch-hand';catchArm.appendChild(catchHand);this.mount.appendChild(catchArm);
+            this.catchArms.push({side:side,arm:catchArm,hand:catchHand});
+        }
         this.mount.appendChild(this.renderer.domElement);
 
         this.scene.add(new THREE.HemisphereLight(0xFFF9E8,0x6F9B91,2.2));
@@ -56,8 +62,8 @@
         var rim=new THREE.DirectionalLight(0xBCEEFF,1.35);rim.position.set(4,2,-3);this.scene.add(rim);
 
         this.model=window.createEggMesh(
-            numberColor(style.color,0xFFFDF2),
-            numberColor(style.accent,0xEF4A5B),
+            this.bodyColor,
+            this.accentColor,
             this.characterId
         );
         this.model.scale.setScalar(this.baseScale);
@@ -70,9 +76,9 @@
         };
     }
 
-    CharacterView.prototype.react=function(type){
+    CharacterView.prototype.react=function(type,offset){
         if(type!=='catch'&&type!=='miss')return;
-        this.reaction={type:type,elapsed:0,duration:type==='catch'?this.motion.catchDuration:this.motion.missDuration};
+        this.reaction={type:type,elapsed:0,duration:type==='catch'?this.motion.catchDuration:this.motion.missDuration,offset:type==='catch'?Math.max(-1,Math.min(1,Number(offset)||0)):0};
         this.mount.removeAttribute('data-reaction');
         void this.mount.offsetWidth;
         this.mount.setAttribute('data-reaction',type);
@@ -80,12 +86,12 @@
 
     CharacterView.prototype.resetReaction=function(){this.reaction=null;this.mount.removeAttribute('data-reaction');};
 
-    CharacterView.prototype.render=function(x,y,velocity,dt){
+    CharacterView.prototype.render=function(x,y,velocity,dt,ballVisual){
         var boardRect=this.board.getBoundingClientRect(),stageRect=this.stage.getBoundingClientRect();
         if(!boardRect.width||!boardRect.height)return;
         var sx=boardRect.width/960,sy=boardRect.height/720;
         this.mount.style.left=(boardRect.left-stageRect.left+(x-63)*sx)+'px';
-        this.mount.style.top=(boardRect.top-stageRect.top+(y+4)*sy)+'px';
+        this.mount.style.top=(boardRect.top-stageRect.top+(y-35)*sy)+'px';
         this.mount.style.width=(126*sx)+'px';
         this.mount.style.height=(108*sy)+'px';
 
@@ -100,14 +106,29 @@
         if(typeof window._updateCharacterPremiumRig==='function')window._updateCharacterPremiumRig(this.rig,Math.abs(normalized));
         else if(typeof window._animateCuteCharacterDetails==='function')window._animateCuteCharacterDetails(this.model,performance.now()*0.001);
 
-        var catchAmount=0,missAmount=0,reactionProgress=0;
+        var catchAmount=0,missAmount=0,reactionProgress=0,strikeAmount=0,reactionOffset=0;
         if(this.reaction){
             this.reaction.elapsed=Math.min(this.reaction.duration,this.reaction.elapsed+Math.max(0,dt||0));
             reactionProgress=this.reaction.elapsed/this.reaction.duration;
-            if(this.reaction.type==='catch')catchAmount=Math.sin(Math.PI*reactionProgress);
+            if(this.reaction.type==='catch'){
+                catchAmount=Math.sin(Math.PI*reactionProgress);reactionOffset=this.reaction.offset||0;
+                if(reactionProgress<.12)strikeAmount=reactionProgress/.12;
+                else if(reactionProgress<.68)strikeAmount=Math.pow(1-(reactionProgress-.12)/.56,1.55);
+            }
             else missAmount=Math.sin(Math.PI*reactionProgress);
             if(this.reaction.elapsed>=this.reaction.duration){this.reaction=null;this.mount.removeAttribute('data-reaction');}
         }
+        ballVisual=ballVisual||{};
+        var previewAmount=0,previewOffset=0;
+        if(ballVisual.vy>0&&Number.isFinite(ballVisual.x)&&Number.isFinite(ballVisual.y)){
+            var approachDistance=y-ballVisual.y;
+            if(approachDistance>8&&approachDistance<118){
+                previewAmount=Math.max(0,Math.min(1,1-(approachDistance-8)/110));
+                previewOffset=Math.max(-1,Math.min(1,(ballVisual.x-x)/((ballVisual.paddleWidth||154)*.5)));
+            }
+        }
+        var reachAmount=Math.max(previewAmount*.72,strikeAmount),reachOffset=strikeAmount>0?reactionOffset:previewOffset;
+        var useBoth=Math.abs(reachOffset)<.17;
         if(arms)for(var ri=0;ri<arms.length;ri++){
             var arm=arms[ri],side=arm.userData._side||1,offset=0;
             if(catchAmount){
@@ -128,6 +149,10 @@
                 else if(this.motion.missStyle==='recoil')offset=side*.2*missAmount;
                 else if(this.motion.missStyle==='slowBow')offset=-side*.12*missAmount;
                 else offset=-side*.16*missAmount;
+            }
+            if(reachAmount){
+                var reaching=useBoth||side*reachOffset>0;
+                offset+=reaching?side*(.72-.16*Math.abs(reachOffset))*reachAmount:-side*.08*reachAmount;
             }
             arm.rotation.z+=offset;arm.userData._bbReactionZ=offset;
         }
@@ -157,7 +182,7 @@
         var gaitSway=0;
         if(this.motion.catchStyle==='twirl'||this.motion.catchStyle==='bow')gaitSway=gait*.018*moving;
         else if(this.motion.catchStyle==='wiggle')gaitSway=gait*.035*moving;
-        var targetZ=-normalized*this.motion.lean+gaitSway+catchZ+missZ;
+        var targetZ=-normalized*this.motion.lean+gaitSway+catchZ+missZ-reachOffset*.13*reachAmount;
         var targetY=normalized*this.motion.turn+catchY+missY;
         var targetX=(this.motion.catchStyle==='punch'?-moving*.035:0)+catchX+missX;
         this.model.rotation.z+=(targetZ-this.model.rotation.z)*.24;
@@ -169,6 +194,20 @@
         this.model.scale.z+=(this.baseScale*(1+scaleZ)-this.model.scale.z)*.28;
         var idle=Math.sin(performance.now()*(this.motion.catchStyle==='float'?.0016:.0022))*this.motion.idleFloat;
         this.model.position.y=-.03+idle+gaitLift+catchLift-missDrop;
+        if(this.catchArms)for(var ci=0;ci<this.catchArms.length;ci++){
+            var catchPart=this.catchArms[ci],catchSide=catchPart.side,activeHand=useBoth||catchSide*reachOffset>0;
+            var armAmount=activeHand?reachAmount:0;
+            if(armAmount<.01){catchPart.arm.style.opacity='0';continue;}
+            var shoulderX=(catchSide<0?35:91)*sx,shoulderY=58*sy;
+            var targetX=63*sx+reachOffset*77*sx;
+            if(useBoth)targetX+=(catchSide<0?-7:7)*sx;
+            var targetY=13*sy+Math.abs(reachOffset)*3*sy;
+            var dx=targetX-shoulderX,dy=targetY-shoulderY,length=Math.sqrt(dx*dx+dy*dy);
+            catchPart.arm.style.left=shoulderX+'px';catchPart.arm.style.top=shoulderY+'px';catchPart.arm.style.width=length+'px';
+            catchPart.arm.style.opacity=String(Math.min(1,armAmount*1.35));
+            catchPart.arm.style.transform='translateY(-50%) rotate('+Math.atan2(dy,dx)+'rad) scaleY('+(0.72+armAmount*.28)+')';
+            catchPart.hand.style.boxShadow=strikeAmount>.35?'0 0 '+(7+strikeAmount*8)+'px var(--bb-character-accent),inset 0 1px 0 rgba(255,255,255,.88)':'0 2px 4px rgba(42,91,78,.16),inset 0 1px 0 rgba(255,255,255,.88)';
+        }
         this.renderer.render(this.scene,this.camera);
         this.lastX=x;
     };

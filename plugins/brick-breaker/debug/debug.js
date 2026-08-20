@@ -39,7 +39,7 @@
             if(game.state==='title')game.startGame();
             if(game.state==='ready')game.launch();
             if(type==='catch')game.triggerPadFeedback();
-            if(game.characterView&&game.characterView.react)game.characterView.react(type);
+            if(game.characterView&&game.characterView.react)game.characterView.react(type,type==='catch'?game.padFeedback.offset:0);
         });
     });
 })();
