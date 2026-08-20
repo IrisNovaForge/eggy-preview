@@ -46,15 +46,6 @@
         this.renderer.domElement.className='bb-character-canvas';
         this.renderer.domElement.setAttribute('aria-hidden','true');
         this.mount.setAttribute('data-character',this.characterId);
-        this.mount.style.setProperty('--bb-character-body','#'+this.bodyColor.toString(16).padStart(6,'0'));
-        this.mount.style.setProperty('--bb-character-accent','#'+this.accentColor.toString(16).padStart(6,'0'));
-        this.catchArms=[];
-        for(var handIndex=0;handIndex<2;handIndex++){
-            var side=handIndex===0?-1:1,catchArm=document.createElement('span'),catchHand=document.createElement('i');
-            catchArm.className='bb-character-catch-arm '+(side<0?'is-left':'is-right');catchArm.setAttribute('aria-hidden','true');
-            catchHand.className='bb-character-catch-hand';catchArm.appendChild(catchHand);this.mount.appendChild(catchArm);
-            this.catchArms.push({side:side,arm:catchArm,hand:catchHand});
-        }
         this.mount.appendChild(this.renderer.domElement);
 
         this.scene.add(new THREE.HemisphereLight(0xFFF9E8,0x6F9B91,2.2));
@@ -127,19 +118,11 @@
                 previewOffset=Math.max(-1,Math.min(1,(ballVisual.x-x)/((ballVisual.paddleWidth||154)*.5)));
             }
         }
-        var reachAmount=Math.max(previewAmount*.72,strikeAmount),reachOffset=strikeAmount>0?reactionOffset:previewOffset;
-        var useBoth=Math.abs(reachOffset)<.17;
+        var headAmount=Math.max(previewAmount*.78,strikeAmount),headOffset=strikeAmount>0?reactionOffset:previewOffset;
         if(arms)for(var ri=0;ri<arms.length;ri++){
             var arm=arms[ri],side=arm.userData._side||1,offset=0;
             if(catchAmount){
-                if(this.motion.catchStyle==='twirl')offset=side>0?side*(.3+Math.sin(reactionProgress*Math.PI*4)*.08)*catchAmount:-side*.08*catchAmount;
-                else if(this.motion.catchStyle==='sprout')offset=side*.25*catchAmount;
-                else if(this.motion.catchStyle==='flash')offset=side*(.13+Math.sin(reactionProgress*Math.PI*6)*.055)*catchAmount;
-                else if(this.motion.catchStyle==='float')offset=side*(.2+Math.sin(reactionProgress*Math.PI*2)*.055)*catchAmount;
-                else if(this.motion.catchStyle==='doubleBounce')offset=side*(.24+Math.sin(reactionProgress*Math.PI*4)*.06)*catchAmount;
-                else if(this.motion.catchStyle==='wiggle')offset=side*(.18+Math.sin(reactionProgress*Math.PI*7)*.12)*catchAmount;
-                else if(this.motion.catchStyle==='punch')offset=side>0?-side*.36*catchAmount:side*.12*catchAmount;
-                else if(this.motion.catchStyle==='bow')offset=-side*.13*catchAmount;
+                offset=(-side*.075-headOffset*.055)*catchAmount;
             }else if(missAmount){
                 if(this.motion.missStyle==='freeze')offset=0;
                 else if(this.motion.missStyle==='fold')offset=-side*.25*missAmount;
@@ -149,10 +132,6 @@
                 else if(this.motion.missStyle==='recoil')offset=side*.2*missAmount;
                 else if(this.motion.missStyle==='slowBow')offset=-side*.12*missAmount;
                 else offset=-side*.16*missAmount;
-            }
-            if(reachAmount){
-                var reaching=useBoth||side*reachOffset>0;
-                offset+=reaching?side*(.72-.16*Math.abs(reachOffset))*reachAmount:-side*.08*reachAmount;
             }
             arm.rotation.z+=offset;arm.userData._bbReactionZ=offset;
         }
@@ -178,11 +157,19 @@
             else if(this.motion.missStyle==='recoil'){missX=.15*missAmount;missY=-.12*missAmount;missDrop=.05*missAmount;scaleY-=.045*missAmount;}
             else if(this.motion.missStyle==='slowBow'){missX=.2*missAmount;missDrop=.045*missAmount;}
         }
+        var impactSquash=0,headPop=0;
+        if(catchAmount){
+            if(reactionProgress<.2)impactSquash=Math.sin(Math.PI*reactionProgress/.2);
+            if(reactionProgress<.56)headPop=Math.sin(Math.PI*reactionProgress/.56);
+        }
+        scaleX+=previewAmount*.025+impactSquash*.075;
+        scaleY-=previewAmount*.035+impactSquash*.09;
+        scaleY+=headPop*.025;
         var moving=Math.abs(normalized),gait=Math.sin(this.walkPhase),gaitLift=Math.abs(Math.sin(this.walkPhase))*this.motion.step*moving;
         var gaitSway=0;
         if(this.motion.catchStyle==='twirl'||this.motion.catchStyle==='bow')gaitSway=gait*.018*moving;
         else if(this.motion.catchStyle==='wiggle')gaitSway=gait*.035*moving;
-        var targetZ=-normalized*this.motion.lean+gaitSway+catchZ+missZ-reachOffset*.13*reachAmount;
+        var targetZ=-normalized*this.motion.lean+gaitSway+catchZ+missZ-headOffset*(.24+.08*Math.abs(headOffset))*headAmount;
         var targetY=normalized*this.motion.turn+catchY+missY;
         var targetX=(this.motion.catchStyle==='punch'?-moving*.035:0)+catchX+missX;
         this.model.rotation.z+=(targetZ-this.model.rotation.z)*.24;
@@ -193,21 +180,9 @@
         this.model.scale.y+=(this.baseScale*(1+scaleY-gaitSquash)-this.model.scale.y)*.28;
         this.model.scale.z+=(this.baseScale*(1+scaleZ)-this.model.scale.z)*.28;
         var idle=Math.sin(performance.now()*(this.motion.catchStyle==='float'?.0016:.0022))*this.motion.idleFloat;
-        this.model.position.y=-.03+idle+gaitLift+catchLift-missDrop;
-        if(this.catchArms)for(var ci=0;ci<this.catchArms.length;ci++){
-            var catchPart=this.catchArms[ci],catchSide=catchPart.side,activeHand=useBoth||catchSide*reachOffset>0;
-            var armAmount=activeHand?reachAmount:0;
-            if(armAmount<.01){catchPart.arm.style.opacity='0';continue;}
-            var shoulderX=(catchSide<0?35:91)*sx,shoulderY=58*sy;
-            var targetX=63*sx+reachOffset*77*sx;
-            if(useBoth)targetX+=(catchSide<0?-7:7)*sx;
-            var targetY=13*sy+Math.abs(reachOffset)*3*sy;
-            var dx=targetX-shoulderX,dy=targetY-shoulderY,length=Math.sqrt(dx*dx+dy*dy);
-            catchPart.arm.style.left=shoulderX+'px';catchPart.arm.style.top=shoulderY+'px';catchPart.arm.style.width=length+'px';
-            catchPart.arm.style.opacity=String(Math.min(1,armAmount*1.35));
-            catchPart.arm.style.transform='translateY(-50%) rotate('+Math.atan2(dy,dx)+'rad) scaleY('+(0.72+armAmount*.28)+')';
-            catchPart.hand.style.boxShadow=strikeAmount>.35?'0 0 '+(7+strikeAmount*8)+'px var(--bb-character-accent),inset 0 1px 0 rgba(255,255,255,.88)':'0 2px 4px rgba(42,91,78,.16),inset 0 1px 0 rgba(255,255,255,.88)';
-        }
+        var targetModelX=headOffset*.58*headAmount,positionBlend=headAmount>0?.5:.22;
+        this.model.position.x+=(targetModelX-this.model.position.x)*positionBlend;
+        this.model.position.y=-.03+idle+gaitLift+catchLift-missDrop-previewAmount*.045+headPop*.12;
         this.renderer.render(this.scene,this.camera);
         this.lastX=x;
     };
