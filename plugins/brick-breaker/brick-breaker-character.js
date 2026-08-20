@@ -118,11 +118,11 @@
                 previewOffset=Math.max(-1,Math.min(1,(ballVisual.x-x)/((ballVisual.paddleWidth||154)*.5)));
             }
         }
-        var headAmount=Math.max(previewAmount*.78,strikeAmount),headOffset=strikeAmount>0?reactionOffset:previewOffset;
+        var receiveAmount=Math.max(previewAmount*.78,strikeAmount),receiveOffset=strikeAmount>0?reactionOffset:previewOffset;
         if(arms)for(var ri=0;ri<arms.length;ri++){
             var arm=arms[ri],side=arm.userData._side||1,offset=0;
             if(catchAmount){
-                offset=(-side*.075-headOffset*.055)*catchAmount;
+                offset=(-side*.075-receiveOffset*.055)*catchAmount;
             }else if(missAmount){
                 if(this.motion.missStyle==='freeze')offset=0;
                 else if(this.motion.missStyle==='fold')offset=-side*.25*missAmount;
@@ -157,22 +157,22 @@
             else if(this.motion.missStyle==='recoil'){missX=.15*missAmount;missY=-.12*missAmount;missDrop=.05*missAmount;scaleY-=.045*missAmount;}
             else if(this.motion.missStyle==='slowBow'){missX=.2*missAmount;missDrop=.045*missAmount;}
         }
-        var impactSquash=0,headPop=0;
+        var impactSquash=0,bodyPop=0;
         if(catchAmount){
             if(reactionProgress<.2)impactSquash=Math.sin(Math.PI*reactionProgress/.2);
-            if(reactionProgress<.56)headPop=Math.sin(Math.PI*reactionProgress/.56);
+            if(reactionProgress<.56)bodyPop=Math.sin(Math.PI*reactionProgress/.56);
         }
         scaleX+=previewAmount*.025+impactSquash*.075;
         scaleY-=previewAmount*.035+impactSquash*.09;
-        scaleY+=headPop*.025;
+        scaleY+=bodyPop*.025;
         var moving=Math.abs(normalized),gait=Math.sin(this.walkPhase),gaitLift=Math.abs(Math.sin(this.walkPhase))*this.motion.step*moving;
         var gaitSway=0;
         if(this.motion.catchStyle==='twirl'||this.motion.catchStyle==='bow')gaitSway=gait*.018*moving;
         else if(this.motion.catchStyle==='wiggle')gaitSway=gait*.035*moving;
-        var targetZ=-normalized*this.motion.lean+gaitSway+catchZ+missZ-headOffset*(.24+.08*Math.abs(headOffset))*headAmount;
+        var targetZ=-normalized*this.motion.lean+gaitSway+catchZ+missZ-receiveOffset*(.34+.12*Math.abs(receiveOffset))*receiveAmount;
         var targetY=normalized*this.motion.turn+catchY+missY;
         var targetX=(this.motion.catchStyle==='punch'?-moving*.035:0)+catchX+missX;
-        this.model.rotation.z+=(targetZ-this.model.rotation.z)*.24;
+        this.model.rotation.z+=(targetZ-this.model.rotation.z)*(receiveAmount>0?.42:.24);
         this.model.rotation.y+=(targetY-this.model.rotation.y)*.18;
         this.model.rotation.x+=(targetX-this.model.rotation.x)*.24;
         var gaitSquash=(this.motion.catchStyle==='doubleBounce'||this.motion.catchStyle==='wiggle')?Math.abs(gait)*.012*moving:0;
@@ -180,9 +180,9 @@
         this.model.scale.y+=(this.baseScale*(1+scaleY-gaitSquash)-this.model.scale.y)*.28;
         this.model.scale.z+=(this.baseScale*(1+scaleZ)-this.model.scale.z)*.28;
         var idle=Math.sin(performance.now()*(this.motion.catchStyle==='float'?.0016:.0022))*this.motion.idleFloat;
-        var targetModelX=headOffset*.58*headAmount,positionBlend=headAmount>0?.5:.22;
+        var targetModelX=receiveOffset*.22*receiveAmount,positionBlend=receiveAmount>0?.46:.22;
         this.model.position.x+=(targetModelX-this.model.position.x)*positionBlend;
-        this.model.position.y=-.03+idle+gaitLift+catchLift-missDrop-previewAmount*.045+headPop*.12;
+        this.model.position.y=-.03+idle+gaitLift+catchLift-missDrop-previewAmount*.045+bodyPop*.12;
         this.renderer.render(this.scene,this.camera);
         this.lastX=x;
     };
