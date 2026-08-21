@@ -4,10 +4,10 @@
     var W=960,H=720,STARTING_LIVES=3;
     var LEVEL_BALL_SPEEDS={1:370,2:400,3:440,4:500,5:540};
     var STAGE_FIVE_COPY={
-        zhs:{speed:'球速',basic:'第五关 · 回芽星巢 · 生命、慢风与星路芽'},
-        zht:{speed:'球速',basic:'第五關 · 回芽星巢 · 生命、慢風與星路芽'},
-        ja:{speed:'速度',basic:'ステージ5 · 芽の星巣 · ライフ、そよ風、星の芽'},
-        en:{speed:'Speed',basic:'Stage 5 · Bud Star Nest · Life, slow breeze and star-path buds'}
+        zhs:{speed:'球速',buff:'柔辉芽核',basic:'第五关 · 回芽星巢 · 生命、慢风与星路芽'},
+        zht:{speed:'球速',buff:'柔輝芽核',basic:'第五關 · 回芽星巢 · 生命、慢風與星路芽'},
+        ja:{speed:'速度',buff:'柔光の芽核',basic:'ステージ5 · 芽の星巣 · ライフ、そよ風、星の芽'},
+        en:{speed:'Speed',buff:'Softglow Bud Core',basic:'Stage 5 · Bud Star Nest · Life, slow breeze and star-path buds'}
     };
     var COPY={
         zhs:{name:'星光弹球工坊',sub:'轻轻托住光球，清理天空中的彩色方块',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'光籽攻击',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'抛籽',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；鼠标或触控可直接拖动。',seedControls:'E / 抛籽按钮使用接住的软壳光籽。',fourthBasic:'第四关 · 柔性偏转 · 最多6次软壳光籽',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
@@ -191,6 +191,7 @@
         this.stageFiveDrop=null;this.stageFiveDropClock=0;this.stageFiveNextAt=10+Math.random()*5;this.stageFiveDropCount=0;
         this.stageFiveSlowTime=0;this.stageFiveRecoverTime=0;this.stageFiveRecoverDuration=.8;this.stageFiveSlowSpeed=440;
         this.stageFiveCollectEffects=[];this.stageFiveClearPaths=[];
+        this.stageFiveBuffDrops=[];this.stageFiveBuffCollectEffects=[];this.stageFiveBuffCollected=0;
         this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
         this.ballFeedback={active:false,age:0,duration:.09,axis:'y',strength:.16,type:'catch'};
         var bw=82,bh=30;
@@ -228,6 +229,7 @@
             '223,190':true,'209,270':true,'243,310':true,'655,194':true,'669,274':true,'657,310':true
         };
         var stageFiveReinforcedCells={'395,108':true,'483,108':true,'307,180':true,'571,180':true,'307,288':true,'571,288':true,'351,432':true,'527,432':true};
+        var stageFiveTripleCells={'395,108':true,'483,108':true,'351,432':true,'527,432':true};
         var cells=[];
         function addCells(list,motionGroup){for(var ci=0;ci<list.length;ci++)cells.push({x:list[ci][0],y:list[ci][1],motionGroup:motionGroup});}
         if(this.level===2){addCells(swayLayout.fixed,'fixed');addCells(swayLayout.left,'left');addCells(swayLayout.right,'right');}
@@ -239,8 +241,8 @@
         var paletteCounts=this.level===3?[10,9,9,9,10,9]:(this.level===5?[9,9,9,9,8,8]:[9,8,8,8,8,7]),paletteRow=0,rowEnd=paletteCounts[0],colors=this.stagePalette;
         for(var cellIndex=0;cellIndex<cells.length;cellIndex++){
             while(cellIndex>=rowEnd&&paletteRow<paletteCounts.length-1){paletteRow++;rowEnd+=paletteCounts[paletteRow];}
-            var cell=cells[cellIndex],reinforced=(this.level===3&&reinforcedCells[cell.x+','+cell.y]===true)||(this.level===5&&stageFiveReinforcedCells[cell.x+','+cell.y]===true);
-            this.bricks.push({x:cell.x,y:cell.y,baseX:cell.x,baseY:cell.y,motionGroup:cell.motionGroup,w:bw,h:bh,row:paletteRow,col:cellIndex%9,color:colors[paletteRow],alive:true,reinforced:reinforced,maxHits:reinforced?2:1,hitsRemaining:reinforced?2:1,hitCooldown:0,shellPulseAge:-1,shellPulseDuration:.2,shellImpactX:0,shellImpactY:0});this.remaining++;
+            var cell=cells[cellIndex],triple=this.level===5&&stageFiveTripleCells[cell.x+','+cell.y]===true,reinforced=triple||(this.level===3&&reinforcedCells[cell.x+','+cell.y]===true)||(this.level===5&&stageFiveReinforcedCells[cell.x+','+cell.y]===true),maxHits=triple?3:(reinforced?2:1);
+            this.bricks.push({x:cell.x,y:cell.y,baseX:cell.x,baseY:cell.y,motionGroup:cell.motionGroup,w:bw,h:bh,row:paletteRow,col:cellIndex%9,color:colors[paletteRow],alive:true,reinforced:reinforced,buffCarrier:triple,buffDropped:false,maxHits:maxHits,hitsRemaining:maxHits,hitCooldown:0,shellPulseAge:-1,shellPulseDuration:.2,shellImpactX:0,shellImpactY:0});this.remaining++;
         }
         if(this.level===2||this.level===5)this.updateBrickMotion(0);
         this.updateHud();
@@ -390,6 +392,35 @@
         return true;
     };
 
+    Game.prototype.spawnStageFiveBuffDrop=function(brick){
+        if(this.level!==5||!brick||!brick.buffCarrier||brick.buffDropped)return false;
+        brick.buffDropped=true;
+        this.stageFiveBuffDrops.push({x:brick.x+brick.w*.5,y:brick.y+brick.h*.5,r:13,speed:112,age:0,sourceX:brick.x+brick.w*.5,sourceY:brick.y+brick.h*.5});
+        return true;
+    };
+
+    Game.prototype.collectStageFiveBuffDrop=function(drop,index){
+        if(!drop)return false;
+        if(index===undefined)index=this.stageFiveBuffDrops.indexOf(drop);
+        if(index>=0)this.stageFiveBuffDrops.splice(index,1);
+        this.stageFiveBuffCollected++;
+        this.stageFiveBuffCollectEffects.push({x:drop.x,y:this.paddle.y-22,age:0,duration:.82});
+        this.playSoftCollision('catch');
+        if(this.characterView&&this.characterView.react)this.characterView.react('catch',clamp((drop.x-this.paddle.x)/(this.paddle.w*.5),-1,1));
+        if(this.options.onEvent)this.options.onEvent('stageFiveBuffCollected',{item:'softglowBudCore',name:this.stageFiveText.buff,collected:this.stageFiveBuffCollected});
+        return true;
+    };
+
+    Game.prototype.updateStageFiveBuffDrops=function(dt){
+        if(this.level!==5||this.state!=='playing')return;
+        var catchRect=this.stageFiveCatchRect();
+        for(var dropIndex=this.stageFiveBuffDrops.length-1;dropIndex>=0;dropIndex--){
+            var drop=this.stageFiveBuffDrops[dropIndex];drop.age+=dt;drop.y+=drop.speed*dt;
+            if(this.rules.circleRectHit(drop.x,drop.y,drop.r,catchRect)){this.collectStageFiveBuffDrop(drop,dropIndex);continue;}
+            if(drop.y-drop.r>H+12)this.stageFiveBuffDrops.splice(dropIndex,1);
+        }
+    };
+
     Game.prototype.clearStageFiveBricks=function(originX){
         var alive=this.bricks.filter(function(brick){return brick.alive;}),snapshot=alive.slice();
         function neighbors(brick){
@@ -398,8 +429,8 @@
             return count;
         }
         alive.sort(function(a,b){
-            var scoreA=neighbors(a)*100+(a.reinforced?-38:0)+Math.abs(a.x+a.w*.5-originX)*.02;
-            var scoreB=neighbors(b)*100+(b.reinforced?-38:0)+Math.abs(b.x+b.w*.5-originX)*.02;
+            var scoreA=(a.buffCarrier?10000:0)+neighbors(a)*100+(a.reinforced?-38:0)+Math.abs(a.x+a.w*.5-originX)*.02;
+            var scoreB=(b.buffCarrier?10000:0)+neighbors(b)*100+(b.reinforced?-38:0)+Math.abs(b.x+b.w*.5-originX)*.02;
             return scoreA-scoreB||a.y-b.y||a.x-b.x;
         });
         var targets=alive.slice(0,5),points=[];
@@ -410,7 +441,7 @@
                 impactX:impactX,impactY:impactY,axis:'y',normalX:0,normalY:1,
                 sparks:[{angle:baseAngle-.52,speed:34,radius:2.7,color:brick.color},{angle:baseAngle,speed:42,radius:2.4,color:this.theme.spark},{angle:baseAngle+.52,speed:36,radius:2.6,color:brick.color}]
             });
-            brick.hitsRemaining=0;brick.alive=false;this.remaining--;this.score+=this.rules.scoreForBrick(brick.row);points.push({x:impactX,y:impactY});
+            brick.hitsRemaining=0;brick.alive=false;if(brick.buffCarrier)brick.buffDropped=true;this.remaining--;this.score+=this.rules.scoreForBrick(brick.row);points.push({x:impactX,y:impactY});
         }
         if(points.length){this.stageFiveClearPaths.push({x:originX,y:this.paddle.y-18,points:points,age:0,duration:.48});this.playSoftCollision('brick');}
         this.updateHud();
@@ -611,6 +642,10 @@
             this.stageFiveClearPaths[pathFx].age+=dt;
             if(this.stageFiveClearPaths[pathFx].age>=this.stageFiveClearPaths[pathFx].duration)this.stageFiveClearPaths.splice(pathFx,1);
         }
+        for(var buffFx=this.stageFiveBuffCollectEffects.length-1;buffFx>=0;buffFx--){
+            this.stageFiveBuffCollectEffects[buffFx].age+=dt;
+            if(this.stageFiveBuffCollectEffects[buffFx].age>=this.stageFiveBuffCollectEffects[buffFx].duration)this.stageFiveBuffCollectEffects.splice(buffFx,1);
+        }
         for(var bi=0;bi<this.bricks.length;bi++){
             var boardBrick=this.bricks[bi];
             if(boardBrick.hitCooldown>0)boardBrick.hitCooldown=Math.max(0,boardBrick.hitCooldown-dt);
@@ -646,6 +681,8 @@
         if(this.state!=='playing')return;
         this.updateStageFiveItems(dt);
         if(this.state!=='playing')return;
+        this.updateStageFiveBuffDrops(dt);
+        if(this.state!=='playing')return;
         var steps=Math.max(1,Math.ceil(dt/0.006)),step=dt/steps;
         for(var s=0;s<steps&&this.state==='playing';s++)this.physicsStep(step);
     };
@@ -675,6 +712,7 @@
                 this.triggerBallFeedback('brick',hitAxis);this.playSoftCollision('brick');break;
             }
             this.addBrickHitFeedback(brick);brick.hitsRemaining=0;brick.alive=false;this.remaining--;this.score+=this.rules.scoreForBrick(brick.row);
+            if(brick.buffCarrier&&!brick.buffDropped)this.spawnStageFiveBuffDrop(brick);
             if(this.rules.isWin(this.remaining)){this.finishRound(true);return;}break;
         }
         if(b.y-b.r>H){
@@ -826,6 +864,16 @@
         }
         c.restore();
     };
+    Game.prototype.drawStageFiveBuffDrop=function(c,drop){
+        var arrival=clamp(drop.age/.18,0,1),scale=.68+.32*(arrival*arrival*(3-2*arrival)),sway=Math.sin(drop.age*4.7)*.1;
+        c.save();c.translate(drop.x,drop.y);c.rotate(sway);c.scale(scale,scale);c.shadowColor='rgba(168,116,198,.48)';c.shadowBlur=15;
+        var shell=c.createLinearGradient(-10,-13,10,14);shell.addColorStop(0,'rgba(248,239,255,.98)');shell.addColorStop(.55,'rgba(216,181,235,.98)');shell.addColorStop(1,'rgba(241,163,180,.96)');
+        c.fillStyle=shell;c.beginPath();c.moveTo(0,-15);c.bezierCurveTo(10,-11,14,1,8,10);c.bezierCurveTo(4,16,-4,16,-8,10);c.bezierCurveTo(-14,1,-10,-11,0,-15);c.closePath();c.fill();
+        c.shadowColor='transparent';c.strokeStyle='rgba(211,117,145,.82)';c.lineWidth=1.5;c.stroke();
+        c.fillStyle='rgba(255,253,255,.92)';c.beginPath();c.ellipse(0,2,6.3,8.2,0,0,Math.PI*2);c.fill();
+        var dots=[[-3,-1],[3,-1],[0,4]];for(var coreDot=0;coreDot<dots.length;coreDot++){c.fillStyle=coreDot===2?'#db8fa8':'#ad83ca';c.beginPath();c.arc(dots[coreDot][0],dots[coreDot][1],1.7,0,Math.PI*2);c.fill();}
+        c.globalAlpha=.82;c.strokeStyle='rgba(255,255,255,.92)';c.lineWidth=1.2;c.beginPath();c.arc(-2,-5,4.5,Math.PI*1.08,Math.PI*1.62);c.stroke();c.restore();
+    };
     Game.prototype.drawStageFiveItems=function(c){
         if(this.level!==5)return;
         for(var pathIndex=0;pathIndex<this.stageFiveClearPaths.length;pathIndex++){
@@ -839,9 +887,19 @@
         if(this.stageFiveDrop){
             var drop=this.stageFiveDrop;c.save();c.globalAlpha=.22;c.strokeStyle=drop.type==='life'?'#75b878':(drop.type==='slow'?'#65a9ce':'#d7a73e');c.lineWidth=1.3;c.beginPath();c.moveTo(drop.x,drop.y-19);c.quadraticCurveTo(drop.sourceX,drop.y-31,drop.sourceX,Math.max(drop.sourceY,drop.y-54));c.stroke();c.restore();this.drawStageFiveDrop(c,drop);
         }
+        for(var buffDropIndex=0;buffDropIndex<this.stageFiveBuffDrops.length;buffDropIndex++){
+            var buffDrop=this.stageFiveBuffDrops[buffDropIndex];c.save();c.globalAlpha=.24;c.fillStyle='#c59cda';
+            for(var trailDot=0;trailDot<3;trailDot++){c.beginPath();c.arc(buffDrop.x+Math.sin(buffDrop.age*4+trailDot)*3,buffDrop.y-18-trailDot*7,2.2-trailDot*.45,0,Math.PI*2);c.fill();}c.restore();this.drawStageFiveBuffDrop(c,buffDrop);
+        }
         for(var fxIndex=0;fxIndex<this.stageFiveCollectEffects.length;fxIndex++){
             var effect=this.stageFiveCollectEffects[fxIndex],effectProgress=clamp(effect.age/effect.duration,0,1),effectFade=Math.pow(1-effectProgress,2),label=effect.type==='life'?'+1':(effect.type==='slow'?'≈':'✦5');
             c.save();c.translate(effect.x,effect.y-effectProgress*28);c.globalAlpha=effectFade;c.fillStyle=effect.type==='life'?'#5b9c68':(effect.type==='slow'?'#4d91b7':'#b8872d');c.font='800 19px system-ui,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(label,0,0);c.restore();
+        }
+        for(var buffFxIndex=0;buffFxIndex<this.stageFiveBuffCollectEffects.length;buffFxIndex++){
+            var buffEffect=this.stageFiveBuffCollectEffects[buffFxIndex],buffProgress=clamp(buffEffect.age/buffEffect.duration,0,1),buffFade=Math.pow(1-buffProgress,2);
+            c.save();c.translate(buffEffect.x,buffEffect.y-buffProgress*18);c.globalAlpha=buffFade*.82;
+            for(var mote=0;mote<3;mote++){var angle=-Math.PI*.75+mote*Math.PI*.75+buffProgress*.9,distance=6+buffProgress*(13+mote*2);c.save();c.translate(Math.cos(angle)*distance,Math.sin(angle)*distance);c.rotate(angle);c.fillStyle=mote===1?'#ee9fb2':'#bd91d3';c.beginPath();c.ellipse(0,0,3.7-buffProgress,2-buffProgress*.45,0,0,Math.PI*2);c.fill();c.restore();}
+            c.globalAlpha=buffFade;c.fillStyle='#8f67aa';c.font='800 11px system-ui,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(this.stageFiveText.buff,0,-25-buffProgress*8);c.restore();
         }
     };
     Game.prototype.drawHazard=function(c){
@@ -883,7 +941,19 @@
             }
             this.roundRect(c,br.x,br.y,br.w,br.h,11,br.color);c.shadowColor='transparent';
             var shine=c.createLinearGradient(br.x,br.y,br.x,br.y+br.h);shine.addColorStop(0,'rgba(255,255,255,.5)');shine.addColorStop(.56,'rgba(255,255,255,.06)');shine.addColorStop(1,'rgba(37,80,69,.08)');this.roundRect(c,br.x+2,br.y+2,br.w-4,br.h-4,9,shine);this.drawBrickSurface(c,br);
-            if(br.reinforced&&br.hitsRemaining===2){
+            if(br.buffCarrier){
+                if(br.hitsRemaining===3){
+                    c.globalAlpha=.82;c.strokeStyle='rgba(177,132,203,.92)';c.lineWidth=2.2;c.beginPath();c.roundRect(br.x+4,br.y+4,br.w-8,br.h-8,8);c.stroke();
+                    c.globalAlpha=.42;c.strokeStyle='rgba(238,149,166,.86)';c.lineWidth=1.3;c.beginPath();c.roundRect(br.x+8,br.y+7,br.w-16,br.h-14,5);c.stroke();
+                }else if(br.hitsRemaining===2){
+                    c.globalAlpha=.75;c.strokeStyle='rgba(177,132,203,.9)';c.lineWidth=2;c.beginPath();c.roundRect(br.x+5,br.y+5,br.w-10,br.h-10,7);c.stroke();
+                }else{
+                    c.globalAlpha=.5;this.roundRect(c,br.x+2,br.y+2,br.w-4,br.h-4,9,'rgba(251,241,255,.92)');
+                    c.globalAlpha=.76;c.strokeStyle='rgba(126,83,147,.76)';c.lineWidth=2.1;c.lineCap='round';c.beginPath();c.moveTo(br.x+br.w*.5-2,br.y+4);c.quadraticCurveTo(br.x+br.w*.5+5,br.y+10,br.x+br.w*.5-1,br.y+16);c.quadraticCurveTo(br.x+br.w*.5-6,br.y+21,br.x+br.w*.5+2,br.y+br.h-4);c.stroke();
+                }
+                c.globalAlpha=.9;c.fillStyle='rgba(255,250,255,.96)';
+                for(var budDot=0;budDot<br.hitsRemaining;budDot++){var dotX=br.x+br.w*.5+(budDot-(br.hitsRemaining-1)*.5)*10;c.beginPath();c.arc(dotX,br.y+br.h*.5,2.8,0,Math.PI*2);c.fill();}
+            }else if(br.reinforced&&br.hitsRemaining===2){
                 c.globalAlpha=.9;c.strokeStyle='rgba(255,255,244,.9)';c.lineWidth=2.1;c.beginPath();c.roundRect(br.x+5,br.y+5,br.w-10,br.h-10,7);c.stroke();
                 c.globalAlpha=.35;c.strokeStyle='rgba(45,77,67,.75)';c.lineWidth=1.3;c.beginPath();c.roundRect(br.x+8,br.y+8,br.w-16,br.h-16,5);c.stroke();
             }else if(br.reinforced&&br.hitsRemaining===1){
