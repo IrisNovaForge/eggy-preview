@@ -91,6 +91,7 @@
         this.character=visualCharacter(options.character,options.characterPortrait);
         this.theme=themeFor(this.character.id);
         this.handling=handlingFor(this.character.id);
+        this.level=Number(options.level)===2?2:1;
         this.rules=options.rules||(window.DanboBrickBreakerRules&&DanboBrickBreakerRules.create());
         if(!this.rules)throw new Error('BrickBreaker rules missing');
         this.storage=options.storage||{get:function(k,d){return d;},set:function(){}};
@@ -98,6 +99,7 @@
         this.root=document.createElement('div');
         this.root.className='bb-root';
         this.root.setAttribute('data-character',this.character.id);
+        this.root.setAttribute('data-level',String(this.level));
         this.root.style.setProperty('--bb-theme-accent',this.theme.accent);
         this.root.style.setProperty('--bb-theme-soft',this.theme.soft);
         this.root.style.setProperty('--bb-theme-glow',this.theme.glow);
@@ -163,7 +165,7 @@
         if(this.characterView&&this.characterView.resetReaction)this.characterView.resetReaction();
         this.paddle={x:W*0.5,y:H-100,w:154,h:22,speed:690,controlVx:0};
         this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:370};
-        this.bricks=[];this.hitEffects=[];this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
+        this.bricks=[];this.hitEffects=[];this.brickMotionTime=0;this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
         this.ballFeedback={active:false,age:0,duration:.09,axis:'y',strength:.16,type:'catch'};
         var bw=82,bh=30;
         var shellLayout={
@@ -172,15 +174,34 @@
             rightShell:[[622,190],[704,184],[806,190],[646,223],[730,232],[814,234],[554,268],[646,260],[730,270],[814,270],[566,306],[658,315],[750,312],[550,352],[642,354],[726,356]],
             fragments:[[144,402],[242,438],[350,405],[542,421],[660,394],[758,422],[814,372]]
         };
-        var cells=shellLayout.growth.concat(shellLayout.leftShell,shellLayout.rightShell,shellLayout.fragments);
-        cells.sort(function(a,b){return a[1]-b[1]||a[0]-b[0];});
+        var swayLayout={
+            fixed:[[439,70],[405,108],[503,112],[413,148],[321,150],[505,152],[597,154],[369,190],[505,192],[413,230],[505,232],[553,268],[369,270],[461,272],[413,310],[505,312],[553,348],[369,350],[461,352],[461,392]],
+            left:[[135,178],[227,178],[86,218],[178,218],[270,218],[90,258],[182,258],[274,258],[86,298],[178,298],[270,298],[150,338],[242,338],[210,378]],
+            right:[[700,174],[792,174],[606,216],[698,216],[790,216],[648,256],[740,256],[832,256],[648,296],[740,296],[832,296],[648,336],[740,336],[706,374]]
+        };
+        var cells=[];
+        function addCells(list,motionGroup){for(var ci=0;ci<list.length;ci++)cells.push({x:list[ci][0],y:list[ci][1],motionGroup:motionGroup});}
+        if(this.level===2){addCells(swayLayout.fixed,'fixed');addCells(swayLayout.left,'left');addCells(swayLayout.right,'right');}
+        else{addCells(shellLayout.growth,'fixed');addCells(shellLayout.leftShell,'fixed');addCells(shellLayout.rightShell,'fixed');addCells(shellLayout.fragments,'fixed');}
+        cells.sort(function(a,b){return a.y-b.y||a.x-b.x;});
         var paletteCounts=[9,8,8,8,8,7],paletteRow=0,rowEnd=paletteCounts[0],colors=this.theme.palette;
         for(var cellIndex=0;cellIndex<cells.length;cellIndex++){
             while(cellIndex>=rowEnd&&paletteRow<paletteCounts.length-1){paletteRow++;rowEnd+=paletteCounts[paletteRow];}
             var cell=cells[cellIndex];
-            this.bricks.push({x:cell[0],y:cell[1],w:bw,h:bh,row:paletteRow,col:cellIndex%9,color:colors[paletteRow],alive:true});this.remaining++;
+            this.bricks.push({x:cell.x,y:cell.y,baseX:cell.x,baseY:cell.y,motionGroup:cell.motionGroup,w:bw,h:bh,row:paletteRow,col:cellIndex%9,color:colors[paletteRow],alive:true});this.remaining++;
         }
         this.updateHud();
+    };
+
+    Game.prototype.updateBrickMotion=function(dt){
+        if(this.level!==2)return;
+        this.brickMotionTime+=Math.max(0,dt||0);
+        var offset=Math.sin(this.brickMotionTime*Math.PI*2/6.4)*12;
+        for(var i=0;i<this.bricks.length;i++){
+            var brick=this.bricks[i];
+            brick.x=brick.baseX+(brick.motionGroup==='left'?offset:(brick.motionGroup==='right'?-offset:0));
+            brick.y=brick.baseY;
+        }
     };
 
     Game.prototype.startGame=function(){
@@ -339,6 +360,7 @@
         this.paddle.x=this.rules.clampPaddle(this.paddle.x,this.paddle.w,W);
         if(this.paddle.x!==unclampedX)this.paddle.controlVx=0;
         this.paddle.vx=dt>0?(this.paddle.x-previousX)/dt:0;
+        if(this.state==='ready'||this.state==='playing')this.updateBrickMotion(dt);
         if(this.state==='ready'){
             this.ball.x=this.paddle.x;this.ball.y=this.paddle.y-this.ball.r-7;return;
         }
