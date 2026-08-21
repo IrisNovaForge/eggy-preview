@@ -23,13 +23,19 @@
     function themeFor(id){return THEMES[id]||THEMES.blossomTraveler;}
     function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
     function approach(value,target,amount){return value<target?Math.min(target,value+amount):Math.max(target,value-amount);}
+    function stepControlVelocity(value,target,profile,dt){
+        if(!profile.active)return target;
+        if(value&&target&&Math.sign(value)!==Math.sign(target))return approach(value,0,profile.brake*dt);
+        var slowing=Math.abs(target)<Math.abs(value),rate=slowing?profile.brake:profile.accel;
+        return approach(value,target,rate*dt);
+    }
     function handlingFor(id){
         var profiles={
-            blossomTraveler:{id:'blossomTraveler',trait:'柔瓣节奏',active:true,accel:10600,brake:12500,pointerRate:14,steer:1},
-            berryTraveler:{id:'berryTraveler',trait:'浆果灵步',active:true,accel:19700,brake:6570,pointerRate:17,steer:.98},
-            goldenGrainTraveler:{id:'goldenGrainTraveler',trait:'金穗稳守',active:true,accel:6000,brake:15300,pointerRate:10.5,steer:1.03}
+            blossomTraveler:{id:'blossomTraveler',trait:'柔瓣节奏',active:true,accel:8625,brake:8625,pointerGain:10,steer:1},
+            berryTraveler:{id:'berryTraveler',trait:'浆果灵步',active:true,accel:19700,brake:3830,pointerGain:10,steer:.92},
+            goldenGrainTraveler:{id:'goldenGrainTraveler',trait:'金穗稳守',active:true,accel:4060,brake:19700,pointerGain:10,steer:1.08}
         };
-        return profiles[id]||{id:'standard',trait:'标准手感',active:false,accel:0,brake:0,pointerRate:14,steer:1};
+        return profiles[id]||{id:'standard',trait:'标准手感',active:false,accel:0,brake:0,pointerGain:10,steer:1};
     }
     function esc(s){return String(s===undefined?'':s).replace(/[&<>'"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c];});}
     function cssColor(value,fallback){
@@ -302,16 +308,20 @@
             this.hitEffects[fx].age+=dt;
             if(this.hitEffects[fx].age>=this.hitEffects[fx].duration)this.hitEffects.splice(fx,1);
         }
-        var previousX=this.paddle.x,unclampedX;
+        var previousX=this.paddle.x,unclampedX,targetVx=0,pointerDelta=0,pointerDriven=false;
         var dir=(this.keys.left?-1:0)+(this.keys.right?1:0);
-        if(dir){
-            if(this.handling.active){this.paddle.controlVx=approach(this.paddle.controlVx,dir*this.paddle.speed,this.handling.accel*dt);this.paddle.x+=this.paddle.controlVx*dt;}
-            else{this.paddle.controlVx=dir*this.paddle.speed;this.paddle.x+=this.paddle.controlVx*dt;}
-        }else if(this.pointerX!==null){
-            this.paddle.x+=(this.pointerX-this.paddle.x)*Math.min(1,dt*this.handling.pointerRate);this.paddle.controlVx=dt>0?(this.paddle.x-previousX)/dt:0;
-        }else if(this.handling.active){
-            this.paddle.controlVx=approach(this.paddle.controlVx,0,this.handling.brake*dt);this.paddle.x+=this.paddle.controlVx*dt;
-        }else this.paddle.controlVx=0;
+        if(dir)targetVx=dir*this.paddle.speed;
+        else if(this.pointerX!==null){
+            pointerDriven=true;pointerDelta=this.pointerX-this.paddle.x;
+            var pointerLimit=this.handling.active?Math.sqrt(2*this.handling.brake*Math.abs(pointerDelta)):this.paddle.speed;
+            targetVx=Math.sign(pointerDelta)*Math.min(this.paddle.speed,Math.abs(pointerDelta)*this.handling.pointerGain,pointerLimit);
+        }
+        if(this.handling.active){
+            this.paddle.controlVx=stepControlVelocity(this.paddle.controlVx,targetVx,this.handling,dt);this.paddle.x+=this.paddle.controlVx*dt;
+        }else if(dir){this.paddle.controlVx=targetVx;this.paddle.x+=this.paddle.controlVx*dt;}
+        else if(this.pointerX!==null){this.paddle.x+=(this.pointerX-this.paddle.x)*Math.min(1,dt*14);this.paddle.controlVx=dt>0?(this.paddle.x-previousX)/dt:0;}
+        else this.paddle.controlVx=0;
+        if(pointerDriven&&pointerDelta&&Math.sign(pointerDelta)!==Math.sign(this.pointerX-this.paddle.x)){this.paddle.x=this.pointerX;this.paddle.controlVx=0;}
         unclampedX=this.paddle.x;
         this.paddle.x=this.rules.clampPaddle(this.paddle.x,this.paddle.w,W);
         if(this.paddle.x!==unclampedX)this.paddle.controlVx=0;
