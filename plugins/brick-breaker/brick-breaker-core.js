@@ -3,6 +3,7 @@
 
     var W=960,H=720,PORTRAIT_H=1040,PORTRAIT_Y_START=300,PORTRAIT_Y_END=560,TOUCH_DEAD_ZONE=.16,TOUCH_START_THRESHOLD=.20,TOUCH_STOP_THRESHOLD=.18,TOUCH_RESPONSE_CURVE=1.35,STARTING_LIVES=3;
     var LEVEL_BALL_SPEEDS={1:370,2:400,3:440,4:500,5:540,6:560};
+    var LEVEL_SEED_LIMITS={1:2,2:3,3:3,4:6,5:4,6:4};
     var WORLD_PALETTE=['#f29a91','#f5b67f','#f2d36f','#9fd1a9','#82c7d5','#b8abd6'];
     var STAGE_WORLDS={
         1:{sky:['#8fd8e8','#c8eadf','#ffe1aa'],horizon:'#91cfb2',ground:'#79bd99',light:'#fff4c8',accent:'#f29a91'},
@@ -38,18 +39,18 @@
         en:{speed:'Speed',basic:'Stage 6 · Gathered Budglow · Vitality shell and softglow company'}
     };
     var ITEM_GUIDE_COPY={
-        zhs:{title:'本关物件',hazard:{name:'沉壳团',desc:'碰到损失1颗光球',prompt:'避开沉壳团 · 碰到损失1颗光球',result:'光球 −1'},seed:{name:'蛋壳威力',desc:'接住蛋形能量后七连发，最多6次',prompt:'接住后可释放蛋壳威力',result:'蛋壳威力已就绪'},life:{name:'元气蛋壳',desc:'光球＋1并获得本关快速移动',prompt:'接住元气蛋壳 · 光球＋1并加快移动',result:'光球＋1 · 快速移动'},slow:{name:'慢风绒',desc:'暂时降低球速',prompt:'接到后暂时降低球速',result:'慢风生效'},clear:{name:'星路芽',desc:'清理最多5块砖',prompt:'接到后清理最多5块砖',result:'清理5块'},buff:{name:'柔辉芽核',desc:'三击砖掉落，当前仅收集',prompt:'三击砖掉落 · 当前只收集',result:'柔辉已收集'},multi:{name:'柔辉芽核',desc:'接住后暂时变成2颗光球',prompt:'接住后光球暂时同行',result:'柔辉同行 · 场上2颗',status:'柔辉同行 · 场上2颗'}},
-        zht:{title:'本關物件',hazard:{name:'沉殼團',desc:'碰到損失1顆光球',prompt:'避開沉殼團 · 碰到損失1顆光球',result:'光球 −1'},seed:{name:'蛋殼威力',desc:'接住蛋形能量後七連發，最多6次',prompt:'接住後可釋放蛋殼威力',result:'蛋殼威力已就緒'},life:{name:'元氣蛋殼',desc:'光球＋1並獲得本關快速移動',prompt:'接住元氣蛋殼 · 光球＋1並加快移動',result:'光球＋1 · 快速移動'},slow:{name:'慢風絨',desc:'暫時降低球速',prompt:'接到後暫時降低球速',result:'慢風生效'},clear:{name:'星路芽',desc:'清理最多5塊磚',prompt:'接到後清理最多5塊磚',result:'清理5塊'},buff:{name:'柔輝芽核',desc:'三擊磚掉落，目前僅收集',prompt:'三擊磚掉落 · 目前只收集',result:'柔輝已收集'},multi:{name:'柔輝芽核',desc:'接住後暫時變成2顆光球',prompt:'接住後光球暫時同行',result:'柔輝同行 · 場上2顆',status:'柔輝同行 · 場上2顆'}},
-        ja:{title:'このステージのアイテム',hazard:{name:'沈み殻の房',desc:'触れるとボールを1つ失う',prompt:'沈み殻の房をよけよう · ボール−1',result:'ボール −1'},seed:{name:'卵殻パワー',desc:'卵形エネルギーで7連射・最大6回',prompt:'受け取ると卵殻パワーを放てる',result:'卵殻パワーの準備完了'},life:{name:'元気の卵殻',desc:'ボール＋1・このステージ中は高速移動',prompt:'元気の卵殻 · ボール＋1と高速移動',result:'ボール＋1 · 高速移動'},slow:{name:'そよ風の綿',desc:'一時的に速度を下げる',prompt:'受け取ると一時的に速度が下がる',result:'そよ風が発動'},clear:{name:'星路の芽',desc:'最大5個のブロックを消す',prompt:'受け取ると最大5個を清掃',result:'5個を清掃'},buff:{name:'柔光の芽核',desc:'3回ブロックから落下・今は収集のみ',prompt:'3回ブロックから落下 · 今は収集のみ',result:'柔光を収集'},multi:{name:'柔光の芽核',desc:'受け取ると一時的にボールが2つになる',prompt:'受け取ると光球が一時同行',result:'柔光同行 · 2つ',status:'柔光同行 · 2つ'}},
-        en:{title:'Stage Items',hazard:{name:'Sunk-shell Cluster',desc:'Lose 1 ball on contact',prompt:'Avoid the sunk-shell cluster · Ball −1',result:'Ball −1'},seed:{name:'Eggshell Power',desc:'Catch the egg energy for a 7-shot stream, up to 6 times',prompt:'Catch it to ready Eggshell Power',result:'Eggshell Power ready'},life:{name:'Vitality Shell',desc:'Ball +1 and fast movement for this stage',prompt:'Catch it · Ball +1 and faster movement',result:'Ball +1 · Fast movement'},slow:{name:'Breeze Fluff',desc:'Temporarily slows the ball',prompt:'Catch to slow the ball briefly',result:'Breeze active'},clear:{name:'Star-path Bud',desc:'Clears up to 5 bricks',prompt:'Catch to clear up to 5 bricks',result:'5 bricks cleared'},buff:{name:'Softglow Bud Core',desc:'Drops from 3-hit bricks; collection only',prompt:'From 3-hit bricks · collection only',result:'Softglow collected'},multi:{name:'Softglow Bud Core',desc:'Temporarily makes 2 light balls',prompt:'Catch for brief light-ball company',result:'Softglow company · 2 active',status:'Softglow company · 2 active'}}
+        zhs:{title:'本关物件',hazard:{name:'沉壳团',desc:'碰到损失1颗光球',prompt:'避开沉壳团 · 碰到损失1颗光球',result:'光球 −1'},seed:{name:'蛋壳威力',desc:'接住蛋形能量后七连发，本关最多{limit}次',prompt:'接住后可释放蛋壳威力',result:'蛋壳威力已就绪'},life:{name:'元气蛋壳',desc:'光球＋1并获得本关快速移动',prompt:'接住元气蛋壳 · 光球＋1并加快移动',result:'光球＋1 · 快速移动'},slow:{name:'慢风绒',desc:'暂时降低球速',prompt:'接到后暂时降低球速',result:'慢风生效'},clear:{name:'星路芽',desc:'清理最多5块砖',prompt:'接到后清理最多5块砖',result:'清理5块'},buff:{name:'柔辉芽核',desc:'三击砖掉落，当前仅收集',prompt:'三击砖掉落 · 当前只收集',result:'柔辉已收集'},multi:{name:'柔辉芽核',desc:'接住后暂时变成2颗光球',prompt:'接住后光球暂时同行',result:'柔辉同行 · 场上2颗',status:'柔辉同行 · 场上2颗'}},
+        zht:{title:'本關物件',hazard:{name:'沉殼團',desc:'碰到損失1顆光球',prompt:'避開沉殼團 · 碰到損失1顆光球',result:'光球 −1'},seed:{name:'蛋殼威力',desc:'接住蛋形能量後七連發，本關最多{limit}次',prompt:'接住後可釋放蛋殼威力',result:'蛋殼威力已就緒'},life:{name:'元氣蛋殼',desc:'光球＋1並獲得本關快速移動',prompt:'接住元氣蛋殼 · 光球＋1並加快移動',result:'光球＋1 · 快速移動'},slow:{name:'慢風絨',desc:'暫時降低球速',prompt:'接到後暫時降低球速',result:'慢風生效'},clear:{name:'星路芽',desc:'清理最多5塊磚',prompt:'接到後清理最多5塊磚',result:'清理5塊'},buff:{name:'柔輝芽核',desc:'三擊磚掉落，目前僅收集',prompt:'三擊磚掉落 · 目前只收集',result:'柔輝已收集'},multi:{name:'柔輝芽核',desc:'接住後暫時變成2顆光球',prompt:'接住後光球暫時同行',result:'柔輝同行 · 場上2顆',status:'柔輝同行 · 場上2顆'}},
+        ja:{title:'このステージのアイテム',hazard:{name:'沈み殻の房',desc:'触れるとボールを1つ失う',prompt:'沈み殻の房をよけよう · ボール−1',result:'ボール −1'},seed:{name:'卵殻パワー',desc:'卵形エネルギーで7連射・このステージは最大{limit}回',prompt:'受け取ると卵殻パワーを放てる',result:'卵殻パワーの準備完了'},life:{name:'元気の卵殻',desc:'ボール＋1・このステージ中は高速移動',prompt:'元気の卵殻 · ボール＋1と高速移動',result:'ボール＋1 · 高速移動'},slow:{name:'そよ風の綿',desc:'一時的に速度を下げる',prompt:'受け取ると一時的に速度が下がる',result:'そよ風が発動'},clear:{name:'星路の芽',desc:'最大5個のブロックを消す',prompt:'受け取ると最大5個を清掃',result:'5個を清掃'},buff:{name:'柔光の芽核',desc:'3回ブロックから落下・今は収集のみ',prompt:'3回ブロックから落下 · 今は収集のみ',result:'柔光を収集'},multi:{name:'柔光の芽核',desc:'受け取ると一時的にボールが2つになる',prompt:'受け取ると光球が一時同行',result:'柔光同行 · 2つ',status:'柔光同行 · 2つ'}},
+        en:{title:'Stage Items',hazard:{name:'Sunk-shell Cluster',desc:'Lose 1 ball on contact',prompt:'Avoid the sunk-shell cluster · Ball −1',result:'Ball −1'},seed:{name:'Eggshell Power',desc:'Catch the egg energy for a 7-shot stream, up to {limit} times this stage',prompt:'Catch it to ready Eggshell Power',result:'Eggshell Power ready'},life:{name:'Vitality Shell',desc:'Ball +1 and fast movement for this stage',prompt:'Catch it · Ball +1 and faster movement',result:'Ball +1 · Fast movement'},slow:{name:'Breeze Fluff',desc:'Temporarily slows the ball',prompt:'Catch to slow the ball briefly',result:'Breeze active'},clear:{name:'Star-path Bud',desc:'Clears up to 5 bricks',prompt:'Catch to clear up to 5 bricks',result:'5 bricks cleared'},buff:{name:'Softglow Bud Core',desc:'Drops from 3-hit bricks; collection only',prompt:'From 3-hit bricks · collection only',result:'Softglow collected'},multi:{name:'Softglow Bud Core',desc:'Temporarily makes 2 light balls',prompt:'Catch for brief light-ball company',result:'Softglow company · 2 active',status:'Softglow company · 2 active'}}
     };
     var ITEM_GUIDE_ICONS={hazard:'!',seed:'⌁',life:'⌣',slow:'≈',clear:'✦',buff:'···',multi:'••'};
     var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#fff0d4',ink:'#bd714f'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},buff:{soft:'#eee0f5',ink:'#9169aa'},multi:{soft:'#eee0f5',ink:'#9169aa'}};
     var COPY={
-        zhs:{name:'星光碰撞',sub:'接住光球，完成挑战！',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'蛋壳威力',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'释放威力',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；手机使用左下摇杆左右移动。',seedControls:'E / 手机版「击」按钮使用接住的蛋形能量。',fourthBasic:'第四关 · 柔性偏转 · 最多6次蛋壳威力，每次最多清理3块砖',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
-        zht:{name:'星光碰撞',sub:'接住光球，完成挑戰！',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'蛋殼威力',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'釋放威力',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；手機使用左下搖桿左右移動。',seedControls:'E / 手機版「击」按鈕使用接住的蛋形能量。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次蛋殼威力，每次最多清理3塊磚',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
-        ja:{name:'星明かりの衝突',sub:'光のボールを受け止め、チャレンジを達成しよう！',start:'チャレンジ開始',resume:'つづける',restart:'もう一度',exit:'世界へ戻る',score:'スコア',best:'ベスト',lives:'ボール',left:'のこり',seed:'卵殻パワー',seedReady:'準備OK',seedWaiting:'待機',seedSpent:'終了',attack:'パワーを放つ',ready:'サーブの準備',readyHint:'スペース、画面クリック、またはボタンでスタート',pause:'一時停止',paused:'一時停止中',won:'すべてのブロックを消しました！',lost:'ボールがなくなりました',again:'もう一度',title:'タイトルへ',controls:'← → / A D で移動。スマホは左下のスティックで左右に移動。',seedControls:'E またはモバイルの「击」ボタンで、受け取った卵形エネルギーを使います。',fourthBasic:'ステージ4 · やわらか反射 · 卵殻パワーは最大6回',basic:'基本ルール · アイテムなし · 特殊ブロックなし',launch:'スタート'},
-        en:{name:'Starlight Collision',sub:'Catch the light ball and complete the challenge!',start:'Start Challenge',resume:'Resume',restart:'Restart',exit:'Return to World',score:'Score',best:'Best',lives:'Balls',left:'Left',seed:'Eggshell Power',seedReady:'Ready',seedWaiting:'Waiting',seedSpent:'Spent',attack:'Release Power',ready:'Ready to Serve',readyHint:'Press Space, click the board, or tap the button',pause:'Pause',paused:'Journey Paused',won:'All blocks cleared!',lost:'No light balls left',again:'Play Again',title:'Back to Title',controls:'Move with ← → / A D. On mobile, use the lower-left stick to move sideways.',seedControls:'Press E or the mobile Hit button to use the caught egg energy.',fourthBasic:'Stage 4 · Soft deflection · Up to 6 Eggshell Power uses',basic:'Basic rules · No items · No special bricks',launch:'Launch'}
+        zhs:{name:'星光碰撞',sub:'接住光球，完成挑战！',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'蛋壳威力',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'释放威力',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；手机使用左下摇杆左右移动。',seedControls:'E / 手机版「击」按钮使用接住的蛋形能量。',fourthBasic:'第四关 · 柔性偏转 · 最多6次蛋壳威力，每次最多清理3块砖',basic:'基础玩法 · 清空全部砖块通关',launch:'发球'},
+        zht:{name:'星光碰撞',sub:'接住光球，完成挑戰！',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'蛋殼威力',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'釋放威力',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；手機使用左下搖桿左右移動。',seedControls:'E / 手機版「击」按鈕使用接住的蛋形能量。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次蛋殼威力，每次最多清理3塊磚',basic:'基礎玩法 · 清空全部磚塊通關',launch:'發球'},
+        ja:{name:'星明かりの衝突',sub:'光のボールを受け止め、チャレンジを達成しよう！',start:'チャレンジ開始',resume:'つづける',restart:'もう一度',exit:'世界へ戻る',score:'スコア',best:'ベスト',lives:'ボール',left:'のこり',seed:'卵殻パワー',seedReady:'準備OK',seedWaiting:'待機',seedSpent:'終了',attack:'パワーを放つ',ready:'サーブの準備',readyHint:'スペース、画面クリック、またはボタンでスタート',pause:'一時停止',paused:'一時停止中',won:'すべてのブロックを消しました！',lost:'ボールがなくなりました',again:'もう一度',title:'タイトルへ',controls:'← → / A D で移動。スマホは左下のスティックで左右に移動。',seedControls:'E またはモバイルの「击」ボタンで、受け取った卵形エネルギーを使います。',fourthBasic:'ステージ4 · やわらか反射 · 卵殻パワーは最大6回',basic:'基本ルール · すべてのブロックを消すとクリア',launch:'スタート'},
+        en:{name:'Starlight Collision',sub:'Catch the light ball and complete the challenge!',start:'Start Challenge',resume:'Resume',restart:'Restart',exit:'Return to World',score:'Score',best:'Best',lives:'Balls',left:'Left',seed:'Eggshell Power',seedReady:'Ready',seedWaiting:'Waiting',seedSpent:'Spent',attack:'Release Power',ready:'Ready to Serve',readyHint:'Press Space, click the board, or tap the button',pause:'Pause',paused:'Journey Paused',won:'All blocks cleared!',lost:'No light balls left',again:'Play Again',title:'Back to Title',controls:'Move with ← → / A D. On mobile, use the lower-left stick to move sideways.',seedControls:'Press E or the mobile Hit button to use the caught egg energy.',fourthBasic:'Stage 4 · Soft deflection · Up to 6 Eggshell Power uses',basic:'Basic rules · Clear every brick to finish',launch:'Launch'}
     };
 
     var THEMES={
@@ -265,11 +266,14 @@
             '<footer class="bb-tip" data-controls>'+esc(t.controls)+'</footer>';
     };
 
-    Game.prototype.itemGuideTypes=function(){return this.level===2?['hazard','life']:(this.level===3?['slow','life']:(this.level===4?['seed']:(this.level===5?['life','slow','clear','buff']:(this.level===6?['life','multi']:[]))));};
+    Game.prototype.itemGuideTypes=function(){
+        var types=this.level===2?['hazard','life']:(this.level===3?['slow','life']:(this.level===5?['life','slow','clear','buff']:(this.level===6?['life','multi']:[])));
+        types.push('seed');return types;
+    };
     Game.prototype.itemGuideHtml=function(){
         var types=this.itemGuideTypes();if(!types.length)return '';
         var html='<section class="bb-item-guide" aria-label="'+esc(this.itemGuideText.title)+'"><p>'+esc(this.itemGuideText.title)+'</p><div>';
-        for(var i=0;i<types.length;i++){var type=types[i],copy=this.itemGuideText[type];html+='<article data-guide-item="'+esc(type)+'"><i aria-hidden="true">'+esc(ITEM_GUIDE_ICONS[type])+'</i><span><b>'+esc(copy.name)+'</b><small>'+esc(copy.desc)+'</small></span></article>';}
+        for(var i=0;i<types.length;i++){var type=types[i],copy=this.itemGuideText[type],desc=type==='seed'?copy.desc.replace('{limit}',String(this.seedLimit)):copy.desc;html+='<article data-guide-item="'+esc(type)+'"><i aria-hidden="true">'+esc(ITEM_GUIDE_ICONS[type])+'</i><span><b>'+esc(copy.name)+'</b><small>'+esc(desc)+'</small></span></article>';}
         return html+'</div></section>';
     };
     Game.prototype.stageLabel=function(level){return this.stageSelectText.stagePrefix+level+this.stageSelectText.stageSuffix;};
@@ -305,9 +309,9 @@
         this.root.style.setProperty('--bb-theme-sky-a',this.stageSky[0]);this.root.style.setProperty('--bb-theme-sky-b',this.stageSky[1]);this.root.style.setProperty('--bb-theme-sky-c',this.stageSky[2]);
         this.root.style.setProperty('--bb-world-horizon',this.stageWorld.horizon);this.root.style.setProperty('--bb-world-ground',this.stageWorld.ground);this.root.style.setProperty('--bb-world-light',this.stageWorld.light);
         var seedPill=this.root.querySelector('.bb-seed-pill'),speedPill=this.root.querySelector('.bb-speed-pill'),seedButton=this.root.querySelector('.bb-seed-attack'),controls=this.root.querySelector('[data-controls]'),speedLabel=this.root.querySelector('[data-speed-label]');
-        if(seedPill)seedPill.hidden=this.level!==4;if(speedPill)speedPill.hidden=this.level<5;if(seedButton)seedButton.hidden=this.level!==4;
+        if(seedPill)seedPill.hidden=false;if(speedPill)speedPill.hidden=this.level<5;if(seedButton)seedButton.hidden=false;
         if(speedLabel)speedLabel.textContent=this.level===6?this.stageSixText.speed:this.stageFiveText.speed;
-        if(controls)controls.textContent=this.t.controls+(this.level===4?' '+this.t.seedControls:'');
+        if(controls)controls.textContent=this.t.controls+' '+this.t.seedControls;
     };
     Game.prototype.showLevelIntro=function(level,bypassLock){
         var requestedLevel=clamp(Math.round(Number(level)||1),1,6);if(!bypassLock&&requestedLevel>this.maxUnlockedLevel){this.showLevelSelect();return false;}
@@ -340,7 +344,7 @@
         if(this.level===2&&this.hazard&&(this.hazard.state==='warning'||this.hazard.state==='falling'))active.push({type:'hazard',y:this.hazard.y});
         if((this.level===2||this.level===3)&&this.earlyLifeDrop)active.push({type:'life',y:this.earlyLifeDrop.y});
         if(this.level===3&&this.stageThreeSlowDrop)active.push({type:'slow',y:this.stageThreeSlowDrop.y});
-        if(this.level===4&&this.seedDrop)active.push({type:'seed',y:this.seedDrop.y});
+        if(this.seedDrop)active.push({type:'seed',y:this.seedDrop.y});
         if(this.level===5){
             if(this.stageFiveDrop)active.push({type:this.stageFiveDrop.type,y:this.stageFiveDrop.y});
             for(var i=0;i<this.stageFiveBuffDrops.length;i++)active.push({type:'buff',y:this.stageFiveBuffDrops[i].y});
@@ -382,7 +386,7 @@
         this.hazard=null;this.hazardClock=0;this.hazardNextAt=6;this.hazardNextGroup='left';this.hazardSpawnCount=0;this.hazardDisabled=this.level!==2;
         this.earlyLifeDrop=null;this.earlyLifeDestroyed=0;this.earlyLifeIssued=false;this.earlyLifeThreshold=this.level===2?16:24;this.vitalitySpeedActive=false;
         this.stageThreeSlowDrop=null;this.stageThreeReinforcedCleared=0;this.stageThreeSlowAttempts=0;this.stageThreeSlowCaught=false;this.stageThreeSlowTime=0;this.stageThreeRecoverTime=0;this.stageThreeRecoverDuration=.7;this.stageThreeSlowSpeed=390;this.stageThreeGatherEffects=[];this.stageThreeCollectEffects=[];
-        this.seedDrop=null;this.seedProjectiles=[];this.seedVolleyQueue=0;this.seedVolleyClock=0;this.seedVolleyInterval=.055;this.seedVolleyClears=0;this.seedVolleyClearLimit=3;this.seedVolleyActive=false;this.seedBursts=[];this.seedClock=0;this.seedNextAt=7;this.seedSpawnCount=0;this.seedMisses=0;this.seedHeld=false;this.seedUses=0;this.seedLimit=6;this.seedDropLimit=6;this.seedCooldown=0;
+        this.seedDrop=null;this.seedProjectiles=[];this.seedVolleyQueue=0;this.seedVolleyClock=0;this.seedVolleyInterval=.055;this.seedVolleyClears=0;this.seedVolleyClearLimit=3;this.seedVolleyActive=false;this.seedBursts=[];this.seedClock=0;this.seedNextAt=7;this.seedSpawnCount=0;this.seedMisses=0;this.seedHeld=false;this.seedUses=0;this.seedLimit=LEVEL_SEED_LIMITS[this.level]||2;this.seedDropLimit=this.seedLimit;this.seedCooldown=0;
         this.stageFiveDrop=null;this.stageFiveDropClock=0;this.stageFiveNextAt=10+Math.random()*5;this.stageFiveDropCount=0;
         this.stageFiveSlowTime=0;this.stageFiveRecoverTime=0;this.stageFiveRecoverDuration=.8;this.stageFiveSlowSpeed=440;
         this.stageFiveCollectEffects=[];this.stageFiveClearPaths=[];
@@ -607,14 +611,14 @@
     };
 
     Game.prototype.spawnSeedDrop=function(){
-        if(this.level!==4||this.seedDrop||this.seedHeld||this.seedUses>=this.seedLimit||this.seedSpawnCount>=this.seedDropLimit)return false;
+        if(this.seedDrop||this.seedHeld||this.seedUses>=this.seedLimit||this.seedSpawnCount>=this.seedDropLimit)return false;
         var lanes=[216,704,348,612,480,282,678,414,546],x=lanes[this.seedSpawnCount%lanes.length];
         this.seedSpawnCount++;this.seedDrop={x:x,y:52,r:11,speed:108,age:0};this.showItemHint('seed',this.seedDrop);
         return true;
     };
 
     Game.prototype.launchSeedAttack=function(){
-        if(this.level!==4||this.state!=='playing'||!this.seedHeld||this.seedUses>=this.seedLimit||this.seedCooldown>0||this.seedVolleyActive)return false;
+        if(this.state!=='playing'||!this.seedHeld||this.seedUses>=this.seedLimit||this.seedCooldown>0||this.seedVolleyActive)return false;
         this.seedHeld=false;this.seedUses++;this.seedCooldown=.42;
         this.seedVolleyActive=true;this.seedVolleyQueue=7;this.seedVolleyClock=0;this.seedVolleyClears=0;this.seedProjectiles=[];this.spawnSeedPetal();
         this.seedNextAt=this.seedClock+7;this.updateHud();
@@ -644,7 +648,7 @@
     };
 
     Game.prototype.updateSeedSystem=function(dt){
-        if(this.level!==4||this.state!=='playing')return;
+        if(this.state!=='playing')return;
         this.seedClock+=Math.max(0,dt||0);this.seedCooldown=Math.max(0,this.seedCooldown-dt);
         if(!this.seedDrop&&!this.seedHeld&&!this.seedVolleyActive&&this.seedUses<this.seedLimit&&this.seedSpawnCount<this.seedDropLimit&&this.seedClock>=this.seedNextAt)this.spawnSeedDrop();
         if(this.seedDrop){
@@ -663,7 +667,12 @@
             for(var i=0;i<this.bricks.length;i++){
                 var brick=this.bricks[i];if(!brick.alive||!this.rules.circleRectHit(projectile.x,projectile.y,projectile.r,brick))continue;
                 this.addSeedBrickFeedback(brick,projectile.x,clamp(projectile.y,brick.y,brick.y+brick.h));
-                brick.hitsRemaining=0;brick.alive=false;this.remaining--;this.score+=this.rules.scoreForBrick(brick.row);this.seedVolleyClears++;consumed=true;this.updateHud();
+                brick.hitsRemaining=0;brick.alive=false;this.remaining--;this.score+=this.rules.scoreForBrick(brick.row);this.seedVolleyClears++;consumed=true;
+                if(brick.buffCarrier&&!brick.buffDropped)this.spawnStageFiveBuffDrop(brick);
+                if(this.level===2||this.level===3)this.stageEarlyBrickCleared(brick);
+                if(this.level===3)this.stageThreeBrickCleared(brick);
+                if(this.level===6)this.stageSixBrickCleared(brick);
+                this.updateHud();
                 if(this.rules.isWin(this.remaining)){this.finishRound(true);return;}
                 if(this.seedVolleyClears>=this.seedVolleyClearLimit){
                     for(var fadeIndex=0;fadeIndex<this.seedProjectiles.length;fadeIndex++){var fading=this.seedProjectiles[fadeIndex];this.seedBursts.push({x:fading.x,y:fading.y,age:0,duration:.2});}
@@ -947,7 +956,7 @@
         this.localPunchInput.active=false;this.localPunchInput.pointerId=null;this.touchPunchWasDown=false;
     };
     Game.prototype.syncTouchControlMode=function(force){
-        var mode=this.state==='playing'?(this.level===4?'horizontal-punch':'horizontal'):'hidden',modeChanged=force||mode!==this.touchControlMode;
+        var mode=this.state==='playing'?'horizontal-punch':'hidden',modeChanged=force||mode!==this.touchControlMode;
         if(modeChanged){
             this.touchControlMode=mode;
             if(this.externalInput&&typeof this.externalInput.setTouchMode==='function')this.touchControlsVisible=!!this.externalInput.setTouchMode(mode);
@@ -1425,7 +1434,6 @@
         c.fillStyle=this.theme.spark;c.beginPath();c.arc(5,-8,1.7,0,Math.PI*2);c.arc(-7,9,1.15,0,Math.PI*2);c.fill();c.restore();
     };
     Game.prototype.drawSeedSystem=function(c){
-        if(this.level!==4)return;
         if(this.seedDrop){
             var drop=this.seedDrop,dropSway=Math.sin(drop.age*4.2)*.18;
             this.drawSoftSeed(c,drop.x,drop.y,1,dropSway,1);
