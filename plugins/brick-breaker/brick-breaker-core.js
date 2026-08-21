@@ -46,10 +46,10 @@
     var ITEM_GUIDE_ICONS={hazard:'!',seed:'⌁',life:'⌣',slow:'≈',clear:'✦',buff:'···',multi:'••'};
     var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#fff0d4',ink:'#bd714f'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},buff:{soft:'#eee0f5',ink:'#9169aa'},multi:{soft:'#eee0f5',ink:'#9169aa'}};
     var COPY={
-        zhs:{name:'星光碰撞',sub:'接住光球，完成挑战！',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'蛋壳威力',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'释放威力',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；手机按住左右拖动，松开停止。',seedControls:'E / 威力按钮使用接住的蛋形能量。',fourthBasic:'第四关 · 柔性偏转 · 最多6次蛋壳威力，每次最多清理3块砖',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
-        zht:{name:'星光碰撞',sub:'接住光球，完成挑戰！',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'蛋殼威力',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'釋放威力',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；手機按住左右拖動，放開即停止。',seedControls:'E / 威力按鈕使用接住的蛋形能量。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次蛋殼威力，每次最多清理3塊磚',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
-        ja:{name:'星明かりの衝突',sub:'光のボールを受け止め、チャレンジを達成しよう！',start:'チャレンジ開始',resume:'つづける',restart:'もう一度',exit:'世界へ戻る',score:'スコア',best:'ベスト',lives:'ボール',left:'のこり',seed:'卵殻パワー',seedReady:'準備OK',seedWaiting:'待機',seedSpent:'終了',attack:'パワーを放つ',ready:'サーブの準備',readyHint:'スペース、画面クリック、またはボタンでスタート',pause:'一時停止',paused:'一時停止中',won:'すべてのブロックを消しました！',lost:'ボールがなくなりました',again:'もう一度',title:'タイトルへ',controls:'← → / A D で移動。スマホは左右にドラッグし、指を離すと停止。',seedControls:'E またはボタンで受け取った卵形エネルギーを使います。',fourthBasic:'ステージ4 · やわらか反射 · 卵殻パワーは最大6回',basic:'基本ルール · アイテムなし · 特殊ブロックなし',launch:'スタート'},
-        en:{name:'Starlight Collision',sub:'Catch the light ball and complete the challenge!',start:'Start Challenge',resume:'Resume',restart:'Restart',exit:'Return to World',score:'Score',best:'Best',lives:'Balls',left:'Left',seed:'Eggshell Power',seedReady:'Ready',seedWaiting:'Waiting',seedSpent:'Spent',attack:'Release Power',ready:'Ready to Serve',readyHint:'Press Space, click the board, or tap the button',pause:'Pause',paused:'Journey Paused',won:'All blocks cleared!',lost:'No light balls left',again:'Play Again',title:'Back to Title',controls:'Move with ← → / A D. On mobile, hold and drag sideways; release to stop.',seedControls:'Press E or the power button to use the caught egg energy.',fourthBasic:'Stage 4 · Soft deflection · Up to 6 Eggshell Power uses',basic:'Basic rules · No items · No special bricks',launch:'Launch'}
+        zhs:{name:'星光碰撞',sub:'接住光球，完成挑战！',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'蛋壳威力',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'释放威力',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；手机使用左下摇杆左右移动。',seedControls:'E / 威力按钮使用接住的蛋形能量。',fourthBasic:'第四关 · 柔性偏转 · 最多6次蛋壳威力，每次最多清理3块砖',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
+        zht:{name:'星光碰撞',sub:'接住光球，完成挑戰！',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'蛋殼威力',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'釋放威力',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；手機使用左下搖桿左右移動。',seedControls:'E / 威力按鈕使用接住的蛋形能量。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次蛋殼威力，每次最多清理3塊磚',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
+        ja:{name:'星明かりの衝突',sub:'光のボールを受け止め、チャレンジを達成しよう！',start:'チャレンジ開始',resume:'つづける',restart:'もう一度',exit:'世界へ戻る',score:'スコア',best:'ベスト',lives:'ボール',left:'のこり',seed:'卵殻パワー',seedReady:'準備OK',seedWaiting:'待機',seedSpent:'終了',attack:'パワーを放つ',ready:'サーブの準備',readyHint:'スペース、画面クリック、またはボタンでスタート',pause:'一時停止',paused:'一時停止中',won:'すべてのブロックを消しました！',lost:'ボールがなくなりました',again:'もう一度',title:'タイトルへ',controls:'← → / A D で移動。スマホは左下のスティックで左右に移動。',seedControls:'E またはボタンで受け取った卵形エネルギーを使います。',fourthBasic:'ステージ4 · やわらか反射 · 卵殻パワーは最大6回',basic:'基本ルール · アイテムなし · 特殊ブロックなし',launch:'スタート'},
+        en:{name:'Starlight Collision',sub:'Catch the light ball and complete the challenge!',start:'Start Challenge',resume:'Resume',restart:'Restart',exit:'Return to World',score:'Score',best:'Best',lives:'Balls',left:'Left',seed:'Eggshell Power',seedReady:'Ready',seedWaiting:'Waiting',seedSpent:'Spent',attack:'Release Power',ready:'Ready to Serve',readyHint:'Press Space, click the board, or tap the button',pause:'Pause',paused:'Journey Paused',won:'All blocks cleared!',lost:'No light balls left',again:'Play Again',title:'Back to Title',controls:'Move with ← → / A D. On mobile, use the lower-left stick to move sideways.',seedControls:'Press E or the power button to use the caught egg energy.',fourthBasic:'Stage 4 · Soft deflection · Up to 6 Eggshell Power uses',basic:'Basic rules · No items · No special bricks',launch:'Launch'}
     };
 
     var THEMES={
@@ -134,6 +134,7 @@
         this.rules=options.rules||(window.DanboBrickBreakerRules&&DanboBrickBreakerRules.create());
         if(!this.rules)throw new Error('BrickBreaker rules missing');
         this.storage=options.storage||{get:function(k,d){return d;},set:function(){}};
+        this.externalInput=options.input&&typeof options.input.getMoveVector==='function'?options.input:null;
         this.best=Number(this.storage.get('bestScore',0))||0;
         this.maxUnlockedLevel=clamp(Math.round(Number(this.storage.get('maxUnlockedLevel',1))||1),1,6);
         this.root=document.createElement('div');
@@ -161,6 +162,11 @@
         });
         this.overlay=this.root.querySelector('.bb-overlay');
         this.card=this.root.querySelector('.bb-card');
+        this.localJoystick=this.root.querySelector('.bb-touch-joystick');
+        this.localJoystickKnob=this.root.querySelector('.bb-touch-joystick-knob');
+        this.localJoystickInput={active:false,x:0,y:0,pointerId:null};
+        this.localJoystickCapable=!this.externalInput&&(('ontouchstart' in window)||(navigator.maxTouchPoints||0)>0||(window.matchMedia&&window.matchMedia('(pointer:coarse)').matches));
+        this.touchControlMode='';
         this.keys={left:false,right:false};
         this.pointerX=null;this.pointerActive=false;this.pointerId=null;this.pointerIsTouch=false;
         this.touchDragStartX=0;this.touchDragInput=0;
@@ -168,6 +174,7 @@
         this.boundKeyDown=this.keyDown.bind(this);
         this.boundKeyUp=this.keyUp.bind(this);
         this.boundPointer=this.pointer.bind(this);
+        this.boundLocalJoystick=this.localJoystickPointer.bind(this);
         this.boundClick=this.click.bind(this);
         window.addEventListener('keydown',this.boundKeyDown,true);
         window.addEventListener('keyup',this.boundKeyUp,true);
@@ -175,6 +182,7 @@
         this.canvas.addEventListener('pointermove',this.boundPointer);
         this.canvas.addEventListener('pointerup',this.boundPointer);
         this.canvas.addEventListener('pointercancel',this.boundPointer);
+        if(this.localJoystick){this.localJoystick.addEventListener('pointerdown',this.boundLocalJoystick);this.localJoystick.addEventListener('pointermove',this.boundLocalJoystick);this.localJoystick.addEventListener('pointerup',this.boundLocalJoystick);this.localJoystick.addEventListener('pointercancel',this.boundLocalJoystick);}
         this.root.addEventListener('click',this.boundClick);
         this.resetBoard();this.showTitle();
         var self=this;this.raf=requestAnimationFrame(function(t){self.loop(t);});
@@ -201,6 +209,7 @@
               '<button class="bb-exit-btn" data-action="exit">'+esc(t.exit)+'</button>'+
             '</header>'+
             '<main class="bb-stage"><canvas class="bb-canvas" width="960" height="720"></canvas><div class="bb-character-player" aria-hidden="true"></div></main>'+
+            '<div class="bb-touch-joystick" role="application" aria-label="Horizontal movement" hidden><div class="bb-touch-joystick-base"><div class="bb-touch-joystick-knob"></div></div></div>'+
             '<div class="bb-overlay"><section class="bb-card"></section></div>'+
             '<button class="bb-launch" data-action="launch" tabindex="-1">'+esc(t.launch)+'</button>'+
             seedButton+
@@ -883,7 +892,43 @@
         if(e.code==='ArrowRight'||e.code==='KeyD')this.keys.right=false;
         if(!this.keys.left&&!this.keys.right&&this.paddle)this.paddle.controlVx=0;
     };
+    Game.prototype.resetLocalJoystick=function(){
+        this.localJoystickInput.active=false;this.localJoystickInput.x=0;this.localJoystickInput.y=0;this.localJoystickInput.pointerId=null;
+        if(this.localJoystickKnob)this.localJoystickKnob.style.transform='translate(0,0)';
+    };
+    Game.prototype.syncTouchControlMode=function(force){
+        var mode=this.state==='playing'?'horizontal':'hidden';
+        if(!force&&mode===this.touchControlMode)return;
+        this.touchControlMode=mode;
+        if(this.externalInput&&typeof this.externalInput.setTouchMode==='function')this.externalInput.setTouchMode(mode);
+        if(this.localJoystick)this.localJoystick.hidden=!(mode==='horizontal'&&this.localJoystickCapable);
+        if(mode!=='horizontal')this.resetLocalJoystick();
+    };
+    Game.prototype.touchJoystickMove=function(){
+        var value=this.externalInput?this.externalInput.getMoveVector():this.localJoystickInput;
+        if(!value||!value.active)return 0;
+        return clamp(Number(value.x)||0,-1,1);
+    };
+    Game.prototype.localJoystickPointer=function(e){
+        if(!this.localJoystickCapable||this.touchControlMode!=='horizontal')return;
+        if(e.type==='pointerdown'){
+            if(this.localJoystickInput.active)return;
+            this.localJoystickInput.active=true;this.localJoystickInput.pointerId=e.pointerId;
+            this.localJoystick.setPointerCapture&&this.localJoystick.setPointerCapture(e.pointerId);
+        }else if(!this.localJoystickInput.active||e.pointerId!==this.localJoystickInput.pointerId)return;
+        e.preventDefault();e.stopPropagation();
+        if(e.type==='pointerup'||e.type==='pointercancel'){this.resetLocalJoystick();return;}
+        var base=this.localJoystick.querySelector('.bb-touch-joystick-base'),rect=base.getBoundingClientRect();if(!rect.width)return;
+        var dx=e.clientX-(rect.left+rect.width*.5),dy=e.clientY-(rect.top+rect.height*.5),maxR=Math.max(1,rect.width*.5-22),distance=Math.hypot(dx,dy);
+        if(distance>maxR){dx=dx/distance*maxR;dy=dy/distance*maxR;}
+        this.localJoystickInput.x=dx/maxR;this.localJoystickInput.y=dy/maxR;
+        if(this.localJoystickKnob)this.localJoystickKnob.style.transform='translate('+dx+'px,'+dy+'px)';
+    };
     Game.prototype.pointer=function(e){
+        if(e.pointerType==='touch'&&(this.externalInput||this.localJoystickCapable)){
+            if(this.state==='ready'&&e.type==='pointerdown')this.launch();
+            return;
+        }
         if(e.type==='pointerdown'){
             this.pointerActive=true;this.pointerId=e.pointerId;this.keys.left=false;this.keys.right=false;
             this.pointerIsTouch=e.pointerType==='touch';
@@ -986,6 +1031,7 @@
     };
 
     Game.prototype.update=function(dt){
+        this.syncTouchControlMode();
         if(this.padFeedback.active){
             this.padFeedback.age+=dt;
             if(this.padFeedback.age>=this.padFeedback.duration){this.padFeedback.age=this.padFeedback.duration;this.padFeedback.active=false;}
@@ -1027,9 +1073,10 @@
             if(boardBrick.hitCooldown>0)boardBrick.hitCooldown=Math.max(0,boardBrick.hitCooldown-dt);
             if(boardBrick.shellPulseAge>=0)boardBrick.shellPulseAge=Math.min(boardBrick.shellPulseDuration,boardBrick.shellPulseAge+dt);
         }
-        var previousX=this.paddle.x,unclampedX,targetVx=0;
+        var previousX=this.paddle.x,unclampedX,targetVx=0,touchMove=this.touchJoystickMove();
         var dir=(this.keys.left?-1:0)+(this.keys.right?1:0);
         if(dir){targetVx=dir*this.paddle.speed;this.paddle.controlVx=targetVx;this.paddle.x+=targetVx*dt;}
+        else if(touchMove){targetVx=touchMove*this.paddle.speed;this.paddle.controlVx=targetVx;this.paddle.x+=targetVx*dt;}
         else if(this.pointerActive&&this.pointerIsTouch&&this.touchDragInput){targetVx=this.touchDragInput*this.paddle.speed;this.paddle.controlVx=targetVx;this.paddle.x+=targetVx*dt;}
         else if(this.pointerActive&&this.pointerX!==null){this.paddle.x=this.pointerX;this.paddle.controlVx=dt>0?(this.paddle.x-previousX)/dt:0;}
         else this.paddle.controlVx=0;
@@ -1592,8 +1639,10 @@
         this.running=false;if(this.raf)cancelAnimationFrame(this.raf);
         if(this.missTimer){clearTimeout(this.missTimer);this.missTimer=0;}
         this.clearIntroTimer();
+        this.state='destroyed';this.syncTouchControlMode(true);
         window.removeEventListener('keydown',this.boundKeyDown,true);window.removeEventListener('keyup',this.boundKeyUp,true);
         this.canvas.removeEventListener('pointerdown',this.boundPointer);this.canvas.removeEventListener('pointermove',this.boundPointer);this.canvas.removeEventListener('pointerup',this.boundPointer);this.canvas.removeEventListener('pointercancel',this.boundPointer);this.root.removeEventListener('click',this.boundClick);
+        if(this.localJoystick){this.localJoystick.removeEventListener('pointerdown',this.boundLocalJoystick);this.localJoystick.removeEventListener('pointermove',this.boundLocalJoystick);this.localJoystick.removeEventListener('pointerup',this.boundLocalJoystick);this.localJoystick.removeEventListener('pointercancel',this.boundLocalJoystick);}
         if(this.characterView)this.characterView.destroy();
         if(this.audioCtx&&this.audioCtx.state!=='closed'&&this.audioCtx.close)this.audioCtx.close().catch(function(){});
         if(this.root.parentNode)this.root.parentNode.removeChild(this.root);
