@@ -18,6 +18,17 @@
         goldenGrainTraveler:{catchStyle:'bow',missStyle:'slowBow',moveStyle:'plant',catchDuration:.54,missDuration:.68,gaitSpeed:5.2,step:.014,lean:.035,turn:.045,idleFloat:.01,startDuration:.36,stopDuration:.16,aura:'≋'}
     };
 
+    var CRUISE_FOLLOW={
+        blossomTraveler:{style:'velvetFlow',response:.16},
+        herbTraveler:{style:'leafBend',response:.2},
+        saltCrystalTraveler:{style:'crystalLock',response:.42},
+        cloudwingTraveler:{style:'mistDrift',response:.1},
+        fruitbrewTraveler:{style:'orchardBounce',response:.22},
+        berryTraveler:{style:'berryJelly',response:.26},
+        spicyFlameTraveler:{style:'emberDrive',response:.35},
+        goldenGrainTraveler:{style:'claySet',response:.3}
+    };
+
     function pulseAmount(state,dt){
         if(!state)return 0;
         state.elapsed=Math.min(state.duration,state.elapsed+Math.max(0,dt||0));
@@ -34,6 +45,7 @@
         var character=options.character||{},style=character.style||{};
         this.characterId=character.id||'blossomTraveler';
         this.motion=MOTION[this.characterId]||MOTION.blossomTraveler;
+        this.cruiseFollow=CRUISE_FOLLOW[this.characterId]||CRUISE_FOLLOW.blossomTraveler;
         this.bodyColor=numberColor(style.color,0xFFFDF2);
         this.accentColor=numberColor(style.accent,0xEF4A5B);
         this.mount=options.mount;
@@ -72,7 +84,19 @@
         );
         this.model.scale.setScalar(this.baseScale);
         this.model.position.y=-0.03;
-        this.scene.add(this.model);
+        var body=this.model.userData&&this.model.userData.body,bodyTop=1.8;
+        if(body&&body.geometry){
+            if(!body.geometry.boundingBox&&body.geometry.computeBoundingBox)body.geometry.computeBoundingBox();
+            if(body.geometry.boundingBox)bodyTop=body.position.y+body.geometry.boundingBox.max.y*body.scale.y;
+        }
+        this.headAnchorY=this.model.position.y+bodyTop*this.model.scale.y;
+        this.modelBaseY=this.model.position.y-this.headAnchorY;
+        this.cruisePivot=new THREE.Group();
+        this.cruisePivot.name='brick-breaker-head-anchored-cruise-pivot';
+        this.cruisePivot.position.y=this.headAnchorY;
+        this.model.position.y=this.modelBaseY;
+        this.cruisePivot.add(this.model);
+        this.scene.add(this.cruisePivot);
         this.rig={
             mesh:this.model,onGround:true,vx:0,vy:0,walkPhase:0,
             _atkAnim:0,holding:null,heldBy:null,_hitStun:0,_stunTimer:0,
@@ -89,6 +113,40 @@
     };
 
     CharacterView.prototype.resetReaction=function(){this.reaction=null;this.mount.removeAttribute('data-reaction');};
+
+    CharacterView.prototype.updateCruiseFollow=function(normalized,moving,dt){
+        var pivot=this.cruisePivot,profile=this.cruiseFollow;if(!pivot||!profile)return;
+        var phase=this.walkPhase,style=profile.style,wave=0,beat=0,targetX=0,targetY=0,targetZ=0,scaleX=1,scaleY=1,scaleZ=1;
+        if(style==='velvetFlow'){
+            wave=Math.sin(phase*.55);targetZ=moving*(-normalized*.028+wave*.036);targetY=wave*.015*moving;targetX=wave*.006*moving;
+            scaleX=1+wave*.012*moving;scaleY=1-wave*.008*moving;
+        }else if(style==='leafBend'){
+            wave=Math.sin(phase*.72);targetZ=moving*(-normalized*.055+wave*.075);targetY=wave*.025*moving;targetX=Math.sin(phase*.36)*.012*moving;
+            scaleX=1-wave*.018*moving;scaleY=1+Math.abs(wave)*.022*moving;
+        }else if(style==='crystalLock'){
+            wave=Math.sin(phase*1.15)>=0?1:-1;targetZ=moving*(-normalized*.01+wave*.008);targetY=wave*.004*moving;
+            scaleX=1+wave*.0035*moving;scaleY=1-wave*.0035*moving;
+        }else if(style==='mistDrift'){
+            wave=Math.sin(phase*.34);targetZ=moving*(-normalized*.07+wave*.03);targetY=wave*.035*moving;targetX=(-.025+wave*.01)*moving;
+            scaleX=1-.02*moving+wave*.006*moving;scaleY=1+.04*moving;scaleZ=1-.01*moving;
+        }else if(style==='orchardBounce'){
+            wave=Math.sin(phase*.8);beat=Math.abs(Math.sin(phase*1.25));targetZ=moving*(-normalized*.03+wave*.04);targetY=wave*.02*moving;targetX=beat*.02*moving;
+            scaleX=1+beat*.045*moving;scaleY=1-beat*.05*moving;scaleZ=1+beat*.012*moving;
+        }else if(style==='berryJelly'){
+            wave=Math.sin(phase*1.8);beat=Math.abs(Math.sin(phase*1.8+.4));targetZ=moving*(-normalized*.085+wave*.07);targetY=wave*.04*moving;targetX=wave*.025*moving;
+            scaleX=1+beat*.055*moving;scaleY=1-beat*.045*moving;scaleZ=1+beat*.018*moving;
+        }else if(style==='emberDrive'){
+            wave=Math.sin(phase*1.3);targetZ=moving*(-normalized*.115+wave*.012);targetY=-normalized*.025*moving;targetX=-.045*moving;
+            scaleX=1-.025*moving;scaleY=1+.03*moving;scaleZ=1-.015*moving;
+        }else if(style==='claySet'){
+            wave=Math.sin(phase*.42);targetZ=moving*(-normalized*.014+wave*.012);targetX=wave*.005*moving;
+            scaleX=1+.018*moving;scaleY=1-.012*moving;scaleZ=1+.008*moving;
+        }
+        var frames=clamp(Math.max(0,dt||0)*60,0,2.4),blend=1-Math.pow(1-(profile.response||.2),frames);
+        pivot.rotation.x+=(targetX-pivot.rotation.x)*blend;pivot.rotation.y+=(targetY-pivot.rotation.y)*blend;pivot.rotation.z+=(targetZ-pivot.rotation.z)*blend;
+        pivot.scale.x+=(scaleX-pivot.scale.x)*blend;pivot.scale.y+=(scaleY-pivot.scale.y)*blend;pivot.scale.z+=(scaleZ-pivot.scale.z)*blend;
+        pivot.position.set(0,this.headAnchorY,0);
+    };
 
     CharacterView.prototype.render=function(x,y,velocity,dt,ballVisual){
         var boardRect=this.board.getBoundingClientRect(),stageRect=this.stage.getBoundingClientRect();
@@ -110,6 +168,7 @@
         if(this.stopMotion&&this.stopMotion.done)this.stopMotion=null;
         if(this.turnMotion&&this.turnMotion.done)this.turnMotion=null;
         if(Math.abs(normalized)>0.01)this.walkPhase+=Math.max(0,dt||0)*this.motion.gaitSpeed*(.35+Math.abs(normalized)*.65);
+        this.updateCruiseFollow(normalized,moving,dt);
         this.rig.vx=normalized;this.rig.walkPhase=this.walkPhase;
         var arms=this.model.userData&&this.model.userData._decorArms;
         if(arms)for(var ai=0;ai<arms.length;ai++){
@@ -239,7 +298,7 @@
         var idle=Math.sin(performance.now()*(this.motion.catchStyle==='float'?.0016:.0022))*this.motion.idleFloat;
         var targetModelX=receiveOffset*.22*receiveAmount,positionBlend=receiveAmount>0?.46:.22;
         this.model.position.x+=(targetModelX-this.model.position.x)*positionBlend;
-        this.model.position.y=-.03+idle+gaitLift+motionLift-motionDrop+catchLift-missDrop-previewAmount*.045-impactSquash*.055+bodyPop*.085;
+        this.model.position.y=this.modelBaseY+idle+gaitLift+motionLift-motionDrop+catchLift-missDrop-previewAmount*.045-impactSquash*.055+bodyPop*.085;
         this.renderer.render(this.scene,this.camera);
         this.lastX=x;
         this.lastNormalized=normalized;
