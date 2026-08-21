@@ -6,8 +6,8 @@
 .bb-character-canvas{position:relative;z-index:2;display:block;width:100%;height:100%;pointer-events:none}
 .bb-touch-joystick{position:absolute;z-index:9;left:12px;bottom:max(54px,calc(env(safe-area-inset-bottom) + 12px));width:110px;height:110px;pointer-events:auto;touch-action:none}
 .bb-touch-joystick[hidden]{display:none}
-.bb-touch-joystick-base{position:relative;display:flex;align-items:center;justify-content:center;width:96px;height:96px;border:2px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(255,255,255,.1)}
-.bb-touch-joystick-knob{position:absolute;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.3)}
+.bb-touch-joystick-base{position:relative;display:flex;align-items:center;justify-content:center;width:96px;height:96px;border:2px solid rgba(255,255,255,.72);border-radius:50%;background:rgba(31,83,80,.38);box-shadow:0 5px 18px rgba(28,72,70,.3),inset 0 0 0 1px rgba(255,255,255,.18)}
+.bb-touch-joystick-knob{position:absolute;width:38px;height:38px;border:2px solid rgba(35,88,83,.42);border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 4px 11px rgba(24,65,63,.32)}
 .bb-touch-punch{position:absolute;z-index:9;right:78px;bottom:max(116px,calc(env(safe-area-inset-bottom) + 74px));width:46px;height:46px;border:2px solid rgba(255,150,50,.45);border-radius:50%;background:rgba(255,150,50,.3);color:#fff;font-size:14px;font-weight:700;opacity:.46;filter:saturate(.55);pointer-events:auto;touch-action:none;transition:opacity .16s ease,filter .16s ease,box-shadow .16s ease}
 .bb-touch-punch[hidden]{display:none}.bb-touch-punch.is-ready{opacity:1;filter:none;box-shadow:0 0 18px rgba(255,218,116,.55)}
 .bb-root.bb-mobile-touch-punch .bb-seed-attack{display:none!important}
