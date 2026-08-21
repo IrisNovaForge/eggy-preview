@@ -171,7 +171,7 @@
         this.score=0;this.lives=STARTING_LIVES;this.misses=0;this.serveId=0;this.resolvedServeId=-1;this.remaining=0;this.elapsed=0;this.missHandled=false;
         if(this.characterView&&this.characterView.resetReaction)this.characterView.resetReaction();
         this.paddle={x:W*0.5,y:H-100,w:154,h:22,speed:690,controlVx:0};
-        this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:this.level===2?400:370};
+        this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:this.level===3?440:(this.level===2?400:370)};
         this.bricks=[];this.hitEffects=[];this.brickMotionTime=0;this.brickMotionDirection=1;
         this.hazard=null;this.hazardClock=0;this.hazardNextAt=6;this.hazardNextGroup='left';this.hazardSpawnCount=0;this.hazardDisabled=this.level!==2;
         this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
