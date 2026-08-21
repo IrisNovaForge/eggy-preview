@@ -3,6 +3,16 @@
 
     var W=960,H=720,STARTING_LIVES=3;
     var LEVEL_BALL_SPEEDS={1:370,2:400,3:440,4:500,5:540,6:560};
+    var WORLD_PALETTE=['#f29a91','#f5b67f','#f2d36f','#9fd1a9','#82c7d5','#b8abd6'];
+    var STAGE_WORLDS={
+        1:{sky:['#8fd8e8','#c8eadf','#ffe1aa'],horizon:'#91cfb2',ground:'#79bd99',light:'#fff4c8',accent:'#f29a91'},
+        2:{sky:['#91d8e7','#c5eadc','#f8dca8'],horizon:'#8bcaae',ground:'#72b794',light:'#fff2c2',accent:'#7ec6d3'},
+        3:{sky:['#99d9e5','#d3ebdc','#ffe4b5'],horizon:'#a3d1b2',ground:'#83bc9b',light:'#fff5d3',accent:'#f2b183'},
+        4:{sky:['#90d3e4','#c9e6dc','#ffd9ad'],horizon:'#94cab0',ground:'#76b394',light:'#fff0c7',accent:'#efa092'},
+        5:{sky:['#8fc7dc','#c8dcdf','#f5d0aa'],horizon:'#9ebfac',ground:'#789e91',light:'#ffe8bd',accent:'#b9a8d3'},
+        6:{sky:['#89cfe2','#c9e5d8','#ffd49c'],horizon:'#9ac9a8',ground:'#76ae8e',light:'#fff0b7',accent:'#ef9b82'}
+    };
+    function stageWorldFor(level){return STAGE_WORLDS[level]||STAGE_WORLDS[1];}
     var STAGE_SELECT_COPY={
         zhs:{enter:'进入关卡',select:'选择关卡',stagePrefix:'第',stageSuffix:'关',next:'进入下一关',back:'返回关卡选择',locked:'尚未解锁',levels:['破壳花园','芽围轻摆','双层柔壳','柔性偏转','回芽星巢','群芽汇辉']},
         zht:{enter:'進入關卡',select:'選擇關卡',stagePrefix:'第',stageSuffix:'關',next:'進入下一關',back:'返回關卡選擇',locked:'尚未解鎖',levels:['破殼花園','芽圍輕擺','雙層柔殼','柔性偏轉','回芽星巢','群芽匯輝']},
@@ -16,25 +26,25 @@
         en:{basic:'Stage 3 · Double Soft-shell · Breeze fluff gathers from cleared shells'}
     };
     var STAGE_FIVE_COPY={
-        zhs:{speed:'球速',buff:'柔辉芽核',basic:'第五关 · 回芽星巢 · 生命、慢风与星路芽'},
-        zht:{speed:'球速',buff:'柔輝芽核',basic:'第五關 · 回芽星巢 · 生命、慢風與星路芽'},
-        ja:{speed:'速度',buff:'柔光の芽核',basic:'ステージ5 · 芽の星巣 · ライフ、そよ風、星の芽'},
-        en:{speed:'Speed',buff:'Softglow Bud Core',basic:'Stage 5 · Bud Star Nest · Life, slow breeze and star-path buds'}
+        zhs:{speed:'球速',buff:'柔辉芽核',basic:'第五关 · 回芽星巢 · 元气蛋壳、慢风与星路芽'},
+        zht:{speed:'球速',buff:'柔輝芽核',basic:'第五關 · 回芽星巢 · 元氣蛋殼、慢風與星路芽'},
+        ja:{speed:'速度',buff:'柔光の芽核',basic:'ステージ5 · 芽の星巣 · 元気の卵殻、そよ風、星の芽'},
+        en:{speed:'Speed',buff:'Softglow Bud Core',basic:'Stage 5 · Bud Star Nest · Vitality shell, breeze and star-path buds'}
     };
     var STAGE_SIX_COPY={
-        zhs:{speed:'球速',basic:'第六关 · 群芽汇辉 · 暖壳芽与柔辉同行'},
-        zht:{speed:'球速',basic:'第六關 · 群芽匯輝 · 暖殼芽與柔輝同行'},
-        ja:{speed:'速度',basic:'ステージ6 · 芽光の集い · ぬく殻の芽と柔光の同行'},
-        en:{speed:'Speed',basic:'Stage 6 · Gathered Budglow · Warm-shell and softglow buds'}
+        zhs:{speed:'球速',basic:'第六关 · 群芽汇辉 · 元气蛋壳与柔辉同行'},
+        zht:{speed:'球速',basic:'第六關 · 群芽匯輝 · 元氣蛋殼與柔輝同行'},
+        ja:{speed:'速度',basic:'ステージ6 · 芽光の集い · 元気の卵殻と柔光の同行'},
+        en:{speed:'Speed',basic:'Stage 6 · Gathered Budglow · Vitality shell and softglow company'}
     };
     var ITEM_GUIDE_COPY={
-        zhs:{title:'本关物件',hazard:{name:'危险坠物',desc:'碰到损失1颗光球',prompt:'注意避开 · 碰到损失1颗光球',result:'光球 −1'},seed:{name:'软壳光籽',desc:'接住后可抛出清砖，最多6次',prompt:'接住后可以抛出清砖',result:'光籽已接住'},life:{name:'暖壳芽',desc:'光球＋1',prompt:'接到后光球＋1',result:'光球＋1'},slow:{name:'慢风绒',desc:'暂时降低球速',prompt:'接到后暂时降低球速',result:'慢风生效'},clear:{name:'星路芽',desc:'清理最多5块砖',prompt:'接到后清理最多5块砖',result:'清理5块'},buff:{name:'柔辉芽核',desc:'三击砖掉落，当前仅收集',prompt:'三击砖掉落 · 当前只收集',result:'柔辉已收集'},multi:{name:'柔辉芽核',desc:'接住后暂时变成2颗光球',prompt:'接住后光球暂时同行',result:'柔辉同行 · 场上2颗',status:'柔辉同行 · 场上2颗'}},
-        zht:{title:'本關物件',hazard:{name:'危險墜物',desc:'碰到損失1顆光球',prompt:'注意避開 · 碰到損失1顆光球',result:'光球 −1'},seed:{name:'軟殼光籽',desc:'接住後可拋出清磚，最多6次',prompt:'接住後可以拋出清磚',result:'光籽已接住'},life:{name:'暖殼芽',desc:'光球＋1',prompt:'接到後光球＋1',result:'光球＋1'},slow:{name:'慢風絨',desc:'暫時降低球速',prompt:'接到後暫時降低球速',result:'慢風生效'},clear:{name:'星路芽',desc:'清理最多5塊磚',prompt:'接到後清理最多5塊磚',result:'清理5塊'},buff:{name:'柔輝芽核',desc:'三擊磚掉落，目前僅收集',prompt:'三擊磚掉落 · 目前只收集',result:'柔輝已收集'},multi:{name:'柔輝芽核',desc:'接住後暫時變成2顆光球',prompt:'接住後光球暫時同行',result:'柔輝同行 · 場上2顆',status:'柔輝同行 · 場上2顆'}},
-        ja:{title:'このステージのアイテム',hazard:{name:'危険な落下物',desc:'触れるとボールを1つ失う',prompt:'よけよう · 触れるとボールを1つ失う',result:'ボール −1'},seed:{name:'やわ殻の光種',desc:'受け取って投げる・最大6回',prompt:'受け取るとブロックへ投げられる',result:'光種を受け取った'},life:{name:'ぬく殻の芽',desc:'ボール＋1',prompt:'受け取るとボール＋1',result:'ボール＋1'},slow:{name:'そよ風の綿',desc:'一時的に速度を下げる',prompt:'受け取ると一時的に速度が下がる',result:'そよ風が発動'},clear:{name:'星路の芽',desc:'最大5個のブロックを消す',prompt:'受け取ると最大5個を清掃',result:'5個を清掃'},buff:{name:'柔光の芽核',desc:'3回ブロックから落下・今は収集のみ',prompt:'3回ブロックから落下 · 今は収集のみ',result:'柔光を収集'},multi:{name:'柔光の芽核',desc:'受け取ると一時的にボールが2つになる',prompt:'受け取ると光球が一時同行',result:'柔光同行 · 2つ',status:'柔光同行 · 2つ'}},
-        en:{title:'Stage Items',hazard:{name:'Falling Hazard',desc:'Lose 1 ball on contact',prompt:'Keep clear · Contact costs 1 ball',result:'Ball −1'},seed:{name:'Soft-shell Seed',desc:'Catch and toss it, up to 6 times',prompt:'Catch it to toss at a brick',result:'Seed caught'},life:{name:'Warm-shell Bud',desc:'Ball +1',prompt:'Catch for 1 extra ball',result:'Ball +1'},slow:{name:'Breeze Fluff',desc:'Temporarily slows the ball',prompt:'Catch to slow the ball briefly',result:'Breeze active'},clear:{name:'Star-path Bud',desc:'Clears up to 5 bricks',prompt:'Catch to clear up to 5 bricks',result:'5 bricks cleared'},buff:{name:'Softglow Bud Core',desc:'Drops from 3-hit bricks; collection only',prompt:'From 3-hit bricks · collection only',result:'Softglow collected'},multi:{name:'Softglow Bud Core',desc:'Temporarily makes 2 light balls',prompt:'Catch for brief light-ball company',result:'Softglow company · 2 active',status:'Softglow company · 2 active'}}
+        zhs:{title:'本关物件',hazard:{name:'危险坠物',desc:'碰到损失1颗光球',prompt:'注意避开 · 碰到损失1颗光球',result:'光球 −1'},seed:{name:'软壳光籽',desc:'接住后可抛出清砖，最多6次',prompt:'接住后可以抛出清砖',result:'光籽已接住'},life:{name:'元气蛋壳',desc:'接住后光球＋1',prompt:'接住元气蛋壳 · 光球＋1',result:'元气恢复 · 光球＋1'},slow:{name:'慢风绒',desc:'暂时降低球速',prompt:'接到后暂时降低球速',result:'慢风生效'},clear:{name:'星路芽',desc:'清理最多5块砖',prompt:'接到后清理最多5块砖',result:'清理5块'},buff:{name:'柔辉芽核',desc:'三击砖掉落，当前仅收集',prompt:'三击砖掉落 · 当前只收集',result:'柔辉已收集'},multi:{name:'柔辉芽核',desc:'接住后暂时变成2颗光球',prompt:'接住后光球暂时同行',result:'柔辉同行 · 场上2颗',status:'柔辉同行 · 场上2颗'}},
+        zht:{title:'本關物件',hazard:{name:'危險墜物',desc:'碰到損失1顆光球',prompt:'注意避開 · 碰到損失1顆光球',result:'光球 −1'},seed:{name:'軟殼光籽',desc:'接住後可拋出清磚，最多6次',prompt:'接住後可以拋出清磚',result:'光籽已接住'},life:{name:'元氣蛋殼',desc:'接住後光球＋1',prompt:'接住元氣蛋殼 · 光球＋1',result:'元氣恢復 · 光球＋1'},slow:{name:'慢風絨',desc:'暫時降低球速',prompt:'接到後暫時降低球速',result:'慢風生效'},clear:{name:'星路芽',desc:'清理最多5塊磚',prompt:'接到後清理最多5塊磚',result:'清理5塊'},buff:{name:'柔輝芽核',desc:'三擊磚掉落，目前僅收集',prompt:'三擊磚掉落 · 目前只收集',result:'柔輝已收集'},multi:{name:'柔輝芽核',desc:'接住後暫時變成2顆光球',prompt:'接住後光球暫時同行',result:'柔輝同行 · 場上2顆',status:'柔輝同行 · 場上2顆'}},
+        ja:{title:'このステージのアイテム',hazard:{name:'危険な落下物',desc:'触れるとボールを1つ失う',prompt:'よけよう · 触れるとボールを1つ失う',result:'ボール −1'},seed:{name:'やわ殻の光種',desc:'受け取って投げる・最大6回',prompt:'受け取るとブロックへ投げられる',result:'光種を受け取った'},life:{name:'元気の卵殻',desc:'受け取るとボール＋1',prompt:'元気の卵殻を受け取る · ボール＋1',result:'元気回復 · ボール＋1'},slow:{name:'そよ風の綿',desc:'一時的に速度を下げる',prompt:'受け取ると一時的に速度が下がる',result:'そよ風が発動'},clear:{name:'星路の芽',desc:'最大5個のブロックを消す',prompt:'受け取ると最大5個を清掃',result:'5個を清掃'},buff:{name:'柔光の芽核',desc:'3回ブロックから落下・今は収集のみ',prompt:'3回ブロックから落下 · 今は収集のみ',result:'柔光を収集'},multi:{name:'柔光の芽核',desc:'受け取ると一時的にボールが2つになる',prompt:'受け取ると光球が一時同行',result:'柔光同行 · 2つ',status:'柔光同行 · 2つ'}},
+        en:{title:'Stage Items',hazard:{name:'Falling Hazard',desc:'Lose 1 ball on contact',prompt:'Keep clear · Contact costs 1 ball',result:'Ball −1'},seed:{name:'Soft-shell Seed',desc:'Catch and toss it, up to 6 times',prompt:'Catch it to toss at a brick',result:'Seed caught'},life:{name:'Vitality Shell',desc:'Catch for 1 extra ball',prompt:'Catch the vitality shell · Ball +1',result:'Vitality restored · Ball +1'},slow:{name:'Breeze Fluff',desc:'Temporarily slows the ball',prompt:'Catch to slow the ball briefly',result:'Breeze active'},clear:{name:'Star-path Bud',desc:'Clears up to 5 bricks',prompt:'Catch to clear up to 5 bricks',result:'5 bricks cleared'},buff:{name:'Softglow Bud Core',desc:'Drops from 3-hit bricks; collection only',prompt:'From 3-hit bricks · collection only',result:'Softglow collected'},multi:{name:'Softglow Bud Core',desc:'Temporarily makes 2 light balls',prompt:'Catch for brief light-ball company',result:'Softglow company · 2 active',status:'Softglow company · 2 active'}}
     };
-    var ITEM_GUIDE_ICONS={hazard:'!',seed:'❧',life:'＋',slow:'≈',clear:'✦',buff:'···',multi:'••'};
-    var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#e5f3d7',ink:'#579667'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},buff:{soft:'#eee0f5',ink:'#9169aa'},multi:{soft:'#eee0f5',ink:'#9169aa'}};
+    var ITEM_GUIDE_ICONS={hazard:'!',seed:'❧',life:'⌣',slow:'≈',clear:'✦',buff:'···',multi:'••'};
+    var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#fff0d4',ink:'#bd714f'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},buff:{soft:'#eee0f5',ink:'#9169aa'},multi:{soft:'#eee0f5',ink:'#9169aa'}};
     var COPY={
         zhs:{name:'星光碰撞',sub:'接住光球，完成挑战！',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'光籽攻击',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'抛籽',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；鼠标或触控可直接拖动。',seedControls:'E / 抛籽按钮使用接住的软壳光籽。',fourthBasic:'第四关 · 柔性偏转 · 最多6次软壳光籽',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
         zht:{name:'星光碰撞',sub:'接住光球，完成挑戰！',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'光籽攻擊',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'拋籽',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；滑鼠或觸控可直接拖動。',seedControls:'E / 拋籽按鈕使用接住的軟殼光籽。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次軟殼光籽',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
@@ -118,8 +128,9 @@
         this.stageSixText=STAGE_SIX_COPY[this.lang]||STAGE_SIX_COPY.en;
         this.stageThreeText=STAGE_THREE_COPY[this.lang]||STAGE_THREE_COPY.en;
         this.itemGuideText=ITEM_GUIDE_COPY[this.lang]||ITEM_GUIDE_COPY.en;
-        this.stageSky=this.theme.sky;
-        this.stagePalette=this.theme.palette;
+        this.stageWorld=stageWorldFor(this.level);
+        this.stageSky=this.stageWorld.sky.slice();
+        this.stagePalette=WORLD_PALETTE;
         this.rules=options.rules||(window.DanboBrickBreakerRules&&DanboBrickBreakerRules.create());
         if(!this.rules)throw new Error('BrickBreaker rules missing');
         this.storage=options.storage||{get:function(k,d){return d;},set:function(){}};
@@ -135,6 +146,9 @@
         this.root.style.setProperty('--bb-theme-sky-a',this.stageSky[0]);
         this.root.style.setProperty('--bb-theme-sky-b',this.stageSky[1]);
         this.root.style.setProperty('--bb-theme-sky-c',this.stageSky[2]);
+        this.root.style.setProperty('--bb-world-horizon',this.stageWorld.horizon);
+        this.root.style.setProperty('--bb-world-ground',this.stageWorld.ground);
+        this.root.style.setProperty('--bb-world-light',this.stageWorld.light);
         this.root.innerHTML=this.markup();
         options.mount.appendChild(this.root);
         this.canvas=this.root.querySelector('.bb-canvas');
@@ -229,6 +243,9 @@
     Game.prototype.showLevelSelect=function(){this.clearIntroTimer();this.state='select';this.overlay.hidden=false;this.card.className='bb-card bb-level-card';this.card.innerHTML=this.levelSelectHtml();this.root.classList.remove('bb-playing');this.setGameplayControlsFocusable(false);this.updateHud();this.focusFirstAction('.bb-level-choice:not(:disabled)');};
     Game.prototype.applyLevelPresentation=function(level){
         this.level=clamp(Math.round(Number(level)||1),1,6);this.root.setAttribute('data-level',String(this.level));
+        this.stageWorld=stageWorldFor(this.level);this.stageSky=this.stageWorld.sky.slice();this.stagePalette=WORLD_PALETTE;
+        this.root.style.setProperty('--bb-theme-sky-a',this.stageSky[0]);this.root.style.setProperty('--bb-theme-sky-b',this.stageSky[1]);this.root.style.setProperty('--bb-theme-sky-c',this.stageSky[2]);
+        this.root.style.setProperty('--bb-world-horizon',this.stageWorld.horizon);this.root.style.setProperty('--bb-world-ground',this.stageWorld.ground);this.root.style.setProperty('--bb-world-light',this.stageWorld.light);
         var seedPill=this.root.querySelector('.bb-seed-pill'),speedPill=this.root.querySelector('.bb-speed-pill'),seedButton=this.root.querySelector('.bb-seed-attack'),controls=this.root.querySelector('[data-controls]'),speedLabel=this.root.querySelector('[data-speed-label]');
         if(seedPill)seedPill.hidden=this.level!==4;if(speedPill)speedPill.hidden=this.level<5;if(seedButton)seedButton.hidden=this.level!==4;
         if(speedLabel)speedLabel.textContent=this.level===6?this.stageSixText.speed:this.stageFiveText.speed;
@@ -1091,9 +1108,53 @@
         }
         c.restore();
     };
+    Game.prototype.drawWorldCloud=function(c,x,y,scale,alpha){
+        c.save();c.translate(x,y);c.scale(scale,scale);c.globalAlpha=alpha;c.fillStyle='#fffdf3';
+        c.beginPath();c.arc(-24,5,18,0,Math.PI*2);c.arc(-4,-7,25,0,Math.PI*2);c.arc(23,3,19,0,Math.PI*2);c.ellipse(0,13,48,16,0,0,Math.PI*2);c.fill();c.restore();
+    };
+    Game.prototype.drawWorldSprout=function(c,x,y,scale,color,alpha){
+        c.save();c.translate(x,y);c.scale(scale,scale);c.globalAlpha=alpha;c.strokeStyle=color;c.fillStyle=color;c.lineWidth=3;c.lineCap='round';
+        c.beginPath();c.moveTo(0,17);c.quadraticCurveTo(-1,2,1,-12);c.stroke();
+        c.save();c.translate(-8,-7);c.rotate(.48);c.beginPath();c.ellipse(0,0,9,4.4,0,0,Math.PI*2);c.fill();c.restore();
+        c.save();c.translate(9,-12);c.rotate(-.42);c.beginPath();c.ellipse(0,0,9,4.4,0,0,Math.PI*2);c.fill();c.restore();c.restore();
+    };
+    Game.prototype.drawWorldShell=function(c,x,y,scale,flip,alpha){
+        c.save();c.translate(x,y);c.scale((flip?-1:1)*scale,scale);c.globalAlpha=alpha;
+        c.fillStyle='#fff7df';c.strokeStyle='rgba(207,132,102,.48)';c.lineWidth=2;
+        c.beginPath();c.moveTo(-32,-4);c.lineTo(-23,-12);c.lineTo(-12,-5);c.lineTo(-2,-14);c.lineTo(9,-5);c.lineTo(20,-11);c.lineTo(32,-3);c.bezierCurveTo(30,25,16,37,0,38);c.bezierCurveTo(-17,37,-30,24,-32,-4);c.closePath();c.fill();c.stroke();
+        c.globalAlpha*=.55;c.fillStyle='#f6c887';c.beginPath();c.ellipse(0,5,17,8,0,0,Math.PI*2);c.fill();c.restore();
+    };
+    Game.prototype.drawWorldBackdrop=function(c){
+        var world=this.stageWorld||stageWorldFor(this.level),level=this.level,sunX=[154,806,180,780,750,170][level-1],sunY=112;
+        c.save();
+        var glow=c.createRadialGradient(sunX,sunY,2,sunX,sunY,88);glow.addColorStop(0,'rgba(255,250,211,.88)');glow.addColorStop(.35,'rgba(255,239,179,.42)');glow.addColorStop(1,'rgba(255,239,179,0)');c.fillStyle=glow;c.beginPath();c.arc(sunX,sunY,88,0,Math.PI*2);c.fill();
+        this.drawWorldCloud(c,122+(level%2)*76,165,1.02,.24);this.drawWorldCloud(c,760-(level%3)*54,232,.82,.2);this.drawWorldCloud(c,485,86,.62,.15);
+        c.globalAlpha=.3;c.fillStyle=world.horizon;c.beginPath();c.moveTo(18,552);c.quadraticCurveTo(125,468,245,538);c.quadraticCurveTo(360,451,489,535);c.quadraticCurveTo(625,442,770,530);c.quadraticCurveTo(866,480,942,535);c.lineTo(942,702);c.lineTo(18,702);c.closePath();c.fill();
+        c.globalAlpha=.36;c.fillStyle=world.ground;c.beginPath();c.moveTo(18,604);c.quadraticCurveTo(170,548,328,606);c.quadraticCurveTo(484,555,636,607);c.quadraticCurveTo(790,557,942,600);c.lineTo(942,702);c.lineTo(18,702);c.closePath();c.fill();
+        if(level===1){
+            this.drawWorldShell(c,108,578,.72,false,.42);this.drawWorldShell(c,850,574,.62,true,.34);this.drawWorldSprout(c,120,545,.75,'#5e9f7e',.46);this.drawWorldSprout(c,820,551,.62,'#68aa88',.38);
+        }else if(level===2){
+            c.globalAlpha=.22;c.strokeStyle='#438fa0';c.lineWidth=3;c.lineCap='round';for(var wind=0;wind<3;wind++){c.beginPath();c.moveTo(38,150+wind*156);c.bezierCurveTo(235,105+wind*154,354,205+wind*137,530,153+wind*150);c.bezierCurveTo(675,112+wind*157,785,176+wind*151,920,139+wind*158);c.stroke();}
+            this.drawWorldSprout(c,94,568,.72,'#559d7b',.42);this.drawWorldSprout(c,872,565,.68,'#559d7b',.4);
+        }else if(level===3){
+            c.globalAlpha=.18;c.strokeStyle='#fff7df';c.lineWidth=18;c.lineCap='round';for(var shellArc=0;shellArc<3;shellArc++){c.beginPath();c.ellipse(480,248+shellArc*90,300-shellArc*36,150-shellArc*16,0,Math.PI*.12,Math.PI*.88);c.stroke();}
+            this.drawWorldShell(c,82,574,.58,false,.3);this.drawWorldShell(c,879,574,.58,true,.3);
+        }else if(level===4){
+            c.globalAlpha=.2;c.strokeStyle='#fff7df';c.lineWidth=14;c.beginPath();c.ellipse(480,280,300,244,0,0,Math.PI*2);c.stroke();c.globalAlpha=.13;c.strokeStyle=world.accent;c.lineWidth=3;c.setLineDash([12,15]);c.beginPath();c.ellipse(480,280,324,264,0,0,Math.PI*2);c.stroke();c.setLineDash([]);
+            this.drawWorldSprout(c,480,570,.82,'#5d9f7e',.4);
+        }else if(level===5){
+            c.globalAlpha=.2;c.strokeStyle='#6f8f87';c.lineWidth=8;c.lineCap='round';for(var nest=0;nest<4;nest++){c.beginPath();c.ellipse(480,557+nest*9,250-nest*24,62-nest*5,0,Math.PI*.08,Math.PI*.92);c.stroke();}
+            c.fillStyle='#fff1bd';c.globalAlpha=.42;[[106,120],[855,152],[760,335],[188,350]].forEach(function(star){c.save();c.translate(star[0],star[1]);c.rotate(Math.PI/4);c.fillRect(-3,-12,6,24);c.fillRect(-12,-3,24,6);c.restore();});
+        }else{
+            c.globalAlpha=.2;c.fillStyle='#fff6d4';[[130,540,92],[480,570,135],[825,530,96]].forEach(function(island){c.beginPath();c.ellipse(island[0],island[1],island[2],22,0,0,Math.PI*2);c.fill();});
+            this.drawWorldSprout(c,130,514,.62,'#579a78',.42);this.drawWorldSprout(c,480,535,.86,'#579a78',.48);this.drawWorldSprout(c,825,504,.66,'#579a78',.42);
+            c.globalAlpha=.12;c.strokeStyle='#fff0b7';c.lineWidth=8;for(var ray=0;ray<5;ray++){c.beginPath();c.moveTo(480,520);c.lineTo(270+ray*105,110+(ray%2)*45);c.stroke();}
+        }
+        c.restore();
+    };
     Game.prototype.drawThemeBackdrop=function(c){
         var points=[[74,76,22],[884,82,26],[76,610,28],[878,594,23],[478,656,18]];
-        for(var i=0;i<points.length;i++)this.drawMotif(c,points[i][0],points[i][1],points[i][2],i===4?.09:.13,this.theme.accent);
+        for(var i=0;i<points.length;i++)this.drawMotif(c,points[i][0],points[i][1],points[i][2],i===4?.06:.08,this.theme.accent);
     };
     Game.prototype.drawBall=function(c,ball,isCompanion){
         var b=ball||this.ball,feedback=this.ballFeedback,amount=0,scaleX=1,scaleY=1,fade=1;
@@ -1144,6 +1205,7 @@
             c.globalAlpha=.26;c.strokeStyle='rgba(91,69,30,.76)';c.lineWidth=1;for(var g=0;g<5;g++){c.beginPath();c.moveTo(x+7+g*17,y+3);c.lineTo(x+17+g*17,y+h-3);c.stroke();}for(var gh=0;gh<2;gh++){c.beginPath();c.moveTo(x+4,y+9+gh*10);c.lineTo(x+w-4,y+9+gh*10);c.stroke();}
             this.drawMotif(c,cx,cy,7,.7,'#fff4bf');
         }
+        c.globalAlpha=.18;c.strokeStyle='rgba(54,92,80,.72)';c.lineWidth=1.1;c.beginPath();c.moveTo(x+7,y+h-7);c.quadraticCurveTo(cx,cy+3,x+w-7,y+h-7);c.stroke();
         c.restore();
     };
     Game.prototype.drawSoftSeed=function(c,x,y,scale,rotation,alpha){
@@ -1176,13 +1238,17 @@
             c.restore();
         }
     };
+    Game.prototype.drawVitalityShell=function(c,x,y,scale,rotation,alpha){
+        c.save();c.translate(x,y);c.rotate(rotation||0);c.scale(scale||1,scale||1);c.globalAlpha=alpha===undefined?1:alpha;
+        var aura=c.createRadialGradient(0,1,1,0,1,21);aura.addColorStop(0,'rgba(255,224,151,.56)');aura.addColorStop(.52,'rgba(255,238,194,.24)');aura.addColorStop(1,'rgba(255,238,194,0)');c.fillStyle=aura;c.beginPath();c.arc(0,1,21,0,Math.PI*2);c.fill();
+        c.shadowColor='rgba(223,145,95,.42)';c.shadowBlur=13;var shell=c.createLinearGradient(-10,-9,10,15);shell.addColorStop(0,'#fffdf0');shell.addColorStop(.58,'#fff0cf');shell.addColorStop(1,'#efb98f');c.fillStyle=shell;c.strokeStyle='#d98b6e';c.lineWidth=1.7;
+        c.beginPath();c.moveTo(-13,-3);c.lineTo(-9,-8);c.lineTo(-4,-3);c.lineTo(1,-9);c.lineTo(6,-3);c.lineTo(11,-7);c.lineTo(14,-2);c.bezierCurveTo(13,10,7,16,0,17);c.bezierCurveTo(-8,16,-13,9,-13,-3);c.closePath();c.fill();c.shadowColor='transparent';c.stroke();
+        var core=c.createRadialGradient(-2,0,0,0,1,9);core.addColorStop(0,'#fffbe7');core.addColorStop(.5,'#ffd985');core.addColorStop(1,'rgba(242,154,118,.22)');c.fillStyle=core;c.beginPath();c.ellipse(0,3,7.5,6.2,0,0,Math.PI*2);c.fill();
+        c.globalAlpha=(alpha===undefined?1:alpha)*.72;c.fillStyle='#fff6ce';c.beginPath();c.arc(-7,-13,2,0,Math.PI*2);c.arc(7,-16,1.5,0,Math.PI*2);c.fill();c.restore();
+    };
     Game.prototype.drawStageFiveDrop=function(c,drop){
-        var bob=Math.sin(drop.age*5.2)*.08;c.save();c.translate(drop.x,drop.y);c.rotate(bob);c.shadowBlur=13;c.shadowColor=drop.type==='life'?'rgba(105,170,112,.42)':(drop.type==='slow'?'rgba(105,164,208,.4)':'rgba(220,171,63,.46)');
-        if(drop.type==='life'){
-            c.fillStyle='rgba(255,253,234,.97)';c.beginPath();c.ellipse(0,1,11,14,0,0,Math.PI*2);c.fill();c.shadowColor='transparent';
-            c.fillStyle='#75b878';c.save();c.translate(5,-13);c.rotate(-.55);c.beginPath();c.ellipse(0,0,5.5,2.8,0,0,Math.PI*2);c.fill();c.restore();
-            c.strokeStyle='#5a9c68';c.lineWidth=2;c.lineCap='round';c.beginPath();c.moveTo(-4,1);c.lineTo(4,1);c.moveTo(0,-3);c.lineTo(0,5);c.stroke();
-        }else if(drop.type==='slow'){
+        var bob=Math.sin(drop.age*5.2)*.08;if(drop.type==='life'){this.drawVitalityShell(c,drop.x,drop.y,1,bob,1);return;}c.save();c.translate(drop.x,drop.y);c.rotate(bob);c.shadowBlur=13;c.shadowColor=drop.type==='slow'?'rgba(105,164,208,.4)':'rgba(220,171,63,.46)';
+        if(drop.type==='slow'){
             c.fillStyle='rgba(221,245,255,.97)';c.beginPath();c.arc(-6,1,7,0,Math.PI*2);c.arc(0,-4,9,0,Math.PI*2);c.arc(7,1,7,0,Math.PI*2);c.ellipse(0,6,14,6.5,0,0,Math.PI*2);c.fill();c.shadowColor='transparent';
             c.strokeStyle='#65a9ce';c.lineWidth=1.8;c.lineCap='round';c.beginPath();c.moveTo(-9,2);c.quadraticCurveTo(0,-3,9,2);c.moveTo(-6,7);c.quadraticCurveTo(1,3,8,7);c.stroke();
         }else{
@@ -1234,7 +1300,7 @@
             c.restore();
         }
         if(this.stageFiveDrop){
-            var drop=this.stageFiveDrop;c.save();c.globalAlpha=.22;c.strokeStyle=drop.type==='life'?'#75b878':(drop.type==='slow'?'#65a9ce':'#d7a73e');c.lineWidth=1.3;c.beginPath();c.moveTo(drop.x,drop.y-19);c.quadraticCurveTo(drop.sourceX,drop.y-31,drop.sourceX,Math.max(drop.sourceY,drop.y-54));c.stroke();c.restore();this.drawStageFiveDrop(c,drop);
+            var drop=this.stageFiveDrop;c.save();c.globalAlpha=.22;c.strokeStyle=drop.type==='life'?'#d9936f':(drop.type==='slow'?'#65a9ce':'#d7a73e');c.lineWidth=1.3;c.beginPath();c.moveTo(drop.x,drop.y-19);c.quadraticCurveTo(drop.sourceX,drop.y-31,drop.sourceX,Math.max(drop.sourceY,drop.y-54));c.stroke();c.restore();this.drawStageFiveDrop(c,drop);
         }
         for(var buffDropIndex=0;buffDropIndex<this.stageFiveBuffDrops.length;buffDropIndex++){
             var buffDrop=this.stageFiveBuffDrops[buffDropIndex];c.save();c.globalAlpha=.24;c.fillStyle='#c59cda';
@@ -1242,7 +1308,7 @@
         }
         for(var fxIndex=0;fxIndex<this.stageFiveCollectEffects.length;fxIndex++){
             var effect=this.stageFiveCollectEffects[fxIndex],effectProgress=clamp(effect.age/effect.duration,0,1),effectFade=Math.pow(1-effectProgress,2),label=effect.type==='life'?'+1':(effect.type==='slow'?'≈':'✦5');
-            c.save();c.translate(effect.x,effect.y-effectProgress*28);c.globalAlpha=effectFade;c.fillStyle=effect.type==='life'?'#5b9c68':(effect.type==='slow'?'#4d91b7':'#b8872d');c.font='800 19px system-ui,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(label,0,0);c.restore();
+            c.save();c.translate(effect.x,effect.y-effectProgress*28);c.globalAlpha=effectFade;c.fillStyle=effect.type==='life'?'#bd714f':(effect.type==='slow'?'#4d91b7':'#b8872d');c.font='800 19px system-ui,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(label,0,0);c.restore();
         }
         for(var buffFxIndex=0;buffFxIndex<this.stageFiveBuffCollectEffects.length;buffFxIndex++){
             var buffEffect=this.stageFiveBuffCollectEffects[buffFxIndex],buffProgress=clamp(buffEffect.age/buffEffect.duration,0,1),buffFade=Math.pow(1-buffProgress,2);
@@ -1254,7 +1320,7 @@
     Game.prototype.drawStageSixItems=function(c){
         if(this.level!==6)return;
         for(var dropIndex=0;dropIndex<this.stageSixDrops.length;dropIndex++){
-            var drop=this.stageSixDrops[dropIndex];c.save();c.globalAlpha=.22;c.strokeStyle=drop.type==='life'?'#75b878':'#b58acb';c.lineWidth=1.3;c.beginPath();c.moveTo(drop.x,drop.y-19);c.quadraticCurveTo(drop.sourceX,drop.y-31,drop.sourceX,Math.max(drop.sourceY,drop.y-54));c.stroke();c.restore();
+            var drop=this.stageSixDrops[dropIndex];c.save();c.globalAlpha=.22;c.strokeStyle=drop.type==='life'?'#d9936f':'#b58acb';c.lineWidth=1.3;c.beginPath();c.moveTo(drop.x,drop.y-19);c.quadraticCurveTo(drop.sourceX,drop.y-31,drop.sourceX,Math.max(drop.sourceY,drop.y-54));c.stroke();c.restore();
             if(drop.type==='life')this.drawStageFiveDrop(c,drop);else{
                 c.save();c.globalAlpha=.24;c.fillStyle='#c59cda';for(var trailDot=0;trailDot<3;trailDot++){c.beginPath();c.arc(drop.x+Math.sin(drop.age*4+trailDot)*3,drop.y-18-trailDot*7,2.2-trailDot*.45,0,Math.PI*2);c.fill();}c.restore();this.drawStageFiveBuffDrop(c,drop);
             }
@@ -1270,7 +1336,7 @@
         }
         for(var collectIndex=0;collectIndex<this.stageSixCollectEffects.length;collectIndex++){
             var collect=this.stageSixCollectEffects[collectIndex],collectProgress=clamp(collect.age/collect.duration,0,1),collectFade=Math.pow(1-collectProgress,2);
-            c.save();c.translate(collect.x,collect.y-collectProgress*26);c.globalAlpha=collectFade;c.fillStyle=collect.type==='life'?'#5b9c68':'#9169aa';c.font='800 18px system-ui,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(collect.type==='life'?'+1':'••',0,0);c.restore();
+            c.save();c.translate(collect.x,collect.y-collectProgress*26);c.globalAlpha=collectFade;c.fillStyle=collect.type==='life'?'#bd714f':'#9169aa';c.font='800 18px system-ui,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(collect.type==='life'?'+1':'••',0,0);c.restore();
         }
     };
     Game.prototype.drawItemNotices=function(c){
@@ -1306,7 +1372,7 @@
         var c=this.ctx2d;c.clearRect(0,0,W,H);
         var bg=c.createLinearGradient(0,0,0,H);bg.addColorStop(0,this.stageSky[0]);bg.addColorStop(0.58,this.stageSky[1]);bg.addColorStop(1,this.stageSky[2]);c.fillStyle=bg;c.fillRect(0,0,W,H);
         c.globalAlpha=.45;c.fillStyle='#fff';for(var i=0;i<7;i++){c.beginPath();c.arc(82+i*142,60+(i%3)*238,16+(i%2)*9,0,Math.PI*2);c.fill();}c.globalAlpha=1;
-        this.drawThemeBackdrop(c);
+        this.drawWorldBackdrop(c);this.drawThemeBackdrop(c);
         this.roundRect(c,18,18,W-36,H-36,38,'rgba(255,255,255,.24)','rgba(255,255,255,.72)');
         for(var j=0;j<this.bricks.length;j++){
             var br=this.bricks[j];if(!br.alive)continue;
