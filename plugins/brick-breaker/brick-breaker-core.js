@@ -139,19 +139,20 @@
         this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:370};
         this.bricks=[];this.hitEffects=[];this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
         this.ballFeedback={active:false,age:0,duration:.09,axis:'y',strength:.16,type:'catch'};
-        var cols=9,rows=6,gap=12,bw=82,bh=30,brickTop=145,total=cols*bw+(cols-1)*gap,start=(W-total)*0.5;
-        var layout=[
-            {mask:'111111111',dx:0,dy:0},
-            {mask:'111111101',dx:-8,dy:3},
-            {mask:'101111111',dx:10,dy:-2},
-            {mask:'111011111',dx:-4,dy:2},
-            {mask:'111111110',dx:7,dy:-3},
-            {mask:'011110111',dx:-11,dy:1}
-        ];
-        var colors=this.theme.palette;
-        for(var row=0;row<rows;row++)for(var col=0;col<cols;col++){
-            var band=layout[row];if(band.mask.charAt(col)!=='1')continue;
-            this.bricks.push({x:start+col*(bw+gap)+band.dx,y:brickTop+row*(bh+gap)+band.dy,w:bw,h:bh,row:row,col:col,color:colors[row],alive:true});this.remaining++;
+        var bw=82,bh=30;
+        var shellLayout={
+            growth:[[446,74],[416,116],[548,120],[300,122],[531,158],[347,164],[439,202],[439,244]],
+            leftShell:[[150,196],[244,192],[336,201],[92,235],[184,241],[276,233],[70,278],[162,280],[254,281],[346,273],[101,319],[193,327],[285,316],[377,324],[174,363],[266,360],[358,368]],
+            rightShell:[[622,190],[714,177],[806,190],[646,223],[738,231],[830,228],[554,268],[646,260],[738,272],[830,264],[566,306],[658,315],[750,312],[550,352],[642,354],[734,359]],
+            fragments:[[128,407],[242,438],[350,405],[542,421],[660,394],[774,428],[842,373]]
+        };
+        var cells=shellLayout.growth.concat(shellLayout.leftShell,shellLayout.rightShell,shellLayout.fragments);
+        cells.sort(function(a,b){return a[1]-b[1]||a[0]-b[0];});
+        var paletteCounts=[9,8,8,8,8,7],paletteRow=0,rowEnd=paletteCounts[0],colors=this.theme.palette;
+        for(var cellIndex=0;cellIndex<cells.length;cellIndex++){
+            while(cellIndex>=rowEnd&&paletteRow<paletteCounts.length-1){paletteRow++;rowEnd+=paletteCounts[paletteRow];}
+            var cell=cells[cellIndex];
+            this.bricks.push({x:cell[0],y:cell[1],w:bw,h:bh,row:paletteRow,col:cellIndex%9,color:colors[paletteRow],alive:true});this.remaining++;
         }
         this.updateHud();
     };
