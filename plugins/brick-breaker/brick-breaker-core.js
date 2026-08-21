@@ -9,6 +9,14 @@
         ja:{speed:'速度',buff:'柔光の芽核',basic:'ステージ5 · 芽の星巣 · ライフ、そよ風、星の芽'},
         en:{speed:'Speed',buff:'Softglow Bud Core',basic:'Stage 5 · Bud Star Nest · Life, slow breeze and star-path buds'}
     };
+    var ITEM_GUIDE_COPY={
+        zhs:{title:'本关物件',hazard:{name:'危险坠物',desc:'碰到损失1颗光球',result:'光球 −1'},seed:{name:'软壳光籽',desc:'接住后可抛出清砖，最多6次',result:'光籽已接住'},life:{name:'暖壳芽',desc:'光球＋1',result:'光球＋1'},slow:{name:'慢风绒',desc:'暂时降低球速',result:'慢风生效'},clear:{name:'星路芽',desc:'清理最多5块砖',result:'清理5块'},buff:{name:'柔辉芽核',desc:'三击砖掉落，当前仅收集',result:'柔辉已收集'}},
+        zht:{title:'本關物件',hazard:{name:'危險墜物',desc:'碰到損失1顆光球',result:'光球 −1'},seed:{name:'軟殼光籽',desc:'接住後可拋出清磚，最多6次',result:'光籽已接住'},life:{name:'暖殼芽',desc:'光球＋1',result:'光球＋1'},slow:{name:'慢風絨',desc:'暫時降低球速',result:'慢風生效'},clear:{name:'星路芽',desc:'清理最多5塊磚',result:'清理5塊'},buff:{name:'柔輝芽核',desc:'三擊磚掉落，目前僅收集',result:'柔輝已收集'}},
+        ja:{title:'このステージのアイテム',hazard:{name:'危険な落下物',desc:'触れるとボールを1つ失う',result:'ボール −1'},seed:{name:'やわ殻の光種',desc:'受け取って投げる・最大6回',result:'光種を受け取った'},life:{name:'ぬく殻の芽',desc:'ボール＋1',result:'ボール＋1'},slow:{name:'そよ風の綿',desc:'一時的に速度を下げる',result:'そよ風が発動'},clear:{name:'星路の芽',desc:'最大5個のブロックを消す',result:'5個を清掃'},buff:{name:'柔光の芽核',desc:'3回ブロックから落下・今は収集のみ',result:'柔光を収集'}},
+        en:{title:'Stage Items',hazard:{name:'Falling Hazard',desc:'Lose 1 ball on contact',result:'Ball −1'},seed:{name:'Soft-shell Seed',desc:'Catch and toss it, up to 6 times',result:'Seed caught'},life:{name:'Warm-shell Bud',desc:'Ball +1',result:'Ball +1'},slow:{name:'Breeze Fluff',desc:'Temporarily slows the ball',result:'Breeze active'},clear:{name:'Star-path Bud',desc:'Clears up to 5 bricks',result:'5 bricks cleared'},buff:{name:'Softglow Bud Core',desc:'Drops from 3-hit bricks; collection only',result:'Softglow collected'}}
+    };
+    var ITEM_GUIDE_ICONS={hazard:'!',seed:'❧',life:'＋',slow:'≈',clear:'✦',buff:'···'};
+    var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#e5f3d7',ink:'#579667'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},buff:{soft:'#eee0f5',ink:'#9169aa'}};
     var COPY={
         zhs:{name:'星光弹球工坊',sub:'轻轻托住光球，清理天空中的彩色方块',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'光籽攻击',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'抛籽',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；鼠标或触控可直接拖动。',seedControls:'E / 抛籽按钮使用接住的软壳光籽。',fourthBasic:'第四关 · 柔性偏转 · 最多6次软壳光籽',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
         zht:{name:'星光彈球工坊',sub:'輕輕托住光球，清理天空中的彩色方塊',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'光籽攻擊',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'拋籽',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；滑鼠或觸控可直接拖動。',seedControls:'E / 拋籽按鈕使用接住的軟殼光籽。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次軟殼光籽',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
@@ -105,6 +113,7 @@
         var requestedLevel=Number(options.level);
         this.level=requestedLevel===2||requestedLevel===3||requestedLevel===4||requestedLevel===5?requestedLevel:1;
         this.stageFiveText=STAGE_FIVE_COPY[this.lang]||STAGE_FIVE_COPY.en;
+        this.itemGuideText=ITEM_GUIDE_COPY[this.lang]||ITEM_GUIDE_COPY.en;
         this.stageSky=this.level===2?LEVEL_TWO_COLORS.sky:this.theme.sky;
         this.stagePalette=this.level===2?LEVEL_TWO_COLORS.palette:this.theme.palette;
         this.rules=options.rules||(window.DanboBrickBreakerRules&&DanboBrickBreakerRules.create());
@@ -176,8 +185,24 @@
             '<footer class="bb-tip">'+esc(t.controls)+(this.level===4?' '+esc(t.seedControls):'')+'</footer>';
     };
 
-    Game.prototype.titleHtml=function(){var t=this.t,basicCopy=this.level===4?t.fourthBasic:(this.level===5?this.stageFiveText.basic:t.basic);return '<div class="bb-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-character-theme"><span>'+esc(this.theme.glyph)+'</span>'+esc(this.character.name)+'</p><p class="bb-kicker">BLOCK &amp; LIGHT</p><h1>'+esc(t.name)+'</h1><p class="bb-sub">'+esc(t.sub)+'</p><button class="bb-primary" data-action="start">'+esc(t.start)+'</button><p class="bb-note">'+esc(basicCopy)+'<br><small>Rules: '+esc(this.rules.mode||'local')+' · build '+esc(this.rules.build||1)+'</small></p>';};
+    Game.prototype.itemGuideTypes=function(){return this.level===2?['hazard']:(this.level===4?['seed']:(this.level===5?['life','slow','clear','buff']:[]));};
+    Game.prototype.itemGuideHtml=function(){
+        var types=this.itemGuideTypes();if(!types.length)return '';
+        var html='<section class="bb-item-guide" aria-label="'+esc(this.itemGuideText.title)+'"><p>'+esc(this.itemGuideText.title)+'</p><div>';
+        for(var i=0;i<types.length;i++){var type=types[i],copy=this.itemGuideText[type];html+='<article data-guide-item="'+esc(type)+'"><i aria-hidden="true">'+esc(ITEM_GUIDE_ICONS[type])+'</i><span><b>'+esc(copy.name)+'</b><small>'+esc(copy.desc)+'</small></span></article>';}
+        return html+'</div></section>';
+    };
+    Game.prototype.titleHtml=function(){var t=this.t,basicCopy=this.level===4?t.fourthBasic:(this.level===5?this.stageFiveText.basic:t.basic);return '<div class="bb-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-character-theme"><span>'+esc(this.theme.glyph)+'</span>'+esc(this.character.name)+'</p><p class="bb-kicker">BLOCK &amp; LIGHT</p><h1>'+esc(t.name)+'</h1><p class="bb-sub">'+esc(t.sub)+'</p>'+this.itemGuideHtml()+'<button class="bb-primary" data-action="start">'+esc(t.start)+'</button><p class="bb-note">'+esc(basicCopy)+'<br><small>Rules: '+esc(this.rules.mode||'local')+' · build '+esc(this.rules.build||1)+'</small></p>';};
     Game.prototype.showTitle=function(){this.state='title';this.overlay.hidden=false;this.card.innerHTML=this.titleHtml();this.root.classList.remove('bb-playing');this.updateHud();};
+
+    Game.prototype.showItemHint=function(type,target){
+        if(!this.itemGuideText[type]||this.seenItemHints[type])return false;
+        this.seenItemHints[type]=true;this.itemHints.push({type:type,target:target,x:target&&target.x||W*.5,y:target&&target.y||H*.5,age:0,duration:1.35});return true;
+    };
+    Game.prototype.showItemResult=function(type,x,y){
+        if(!this.itemGuideText[type])return false;
+        this.itemResultEffects.push({type:type,x:x===undefined?this.paddle.x:x,y:y===undefined?this.paddle.y-42:y,age:0,duration:.88});return true;
+    };
 
     Game.prototype.resetBoard=function(){
         if(this.missTimer){clearTimeout(this.missTimer);this.missTimer=0;}
@@ -192,6 +217,7 @@
         this.stageFiveSlowTime=0;this.stageFiveRecoverTime=0;this.stageFiveRecoverDuration=.8;this.stageFiveSlowSpeed=440;
         this.stageFiveCollectEffects=[];this.stageFiveClearPaths=[];
         this.stageFiveBuffDrops=[];this.stageFiveBuffCollectEffects=[];this.stageFiveBuffCollected=0;
+        this.seenItemHints={};this.itemHints=[];this.itemResultEffects=[];
         this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
         this.ballFeedback={active:false,age:0,duration:.09,axis:'y',strength:.16,type:'catch'};
         var bw=82,bh=30;
@@ -278,7 +304,7 @@
         candidates.sort(function(a,b){return a.x-b.x||a.y-b.y;});
         var source=candidates[this.hazardSpawnCount%candidates.length];
         this.hazardSpawnCount++;this.hazardNextGroup=requested==='left'?'right':'left';this.hazardNextAt=this.hazardClock+9;
-        this.hazard={state:'warning',source:source,x:source.x+source.w*.5,y:source.y+source.h+16,w:28,h:38,age:0,warningDuration:.5,speed:160,hitDuration:.16};
+        this.hazard={state:'warning',source:source,x:source.x+source.w*.5,y:source.y+source.h+16,w:28,h:38,age:0,warningDuration:.5,speed:160,hitDuration:.16};this.showItemHint('hazard',this.hazard);
         return true;
     };
 
@@ -290,6 +316,7 @@
         var hazard=this.hazard;if(!hazard||hazard.state!=='falling')return;
         hazard.state='hit';hazard.age=0;hazard.source=null;
         this.misses++;this.lives=Math.max(0,this.lives-1);this.updateHud();
+        this.showItemResult('hazard',hazard.x,hazard.y-22);
         if(this.characterView&&this.characterView.react)this.characterView.react('miss');
         if(this.options.onEvent)this.options.onEvent('hazardHit',{lives:this.lives});
         if(this.lives<=0)this.finishRound(false);
@@ -324,7 +351,7 @@
     Game.prototype.spawnSeedDrop=function(){
         if(this.level!==4||this.seedDrop||this.seedHeld||this.seedUses>=this.seedLimit||this.seedSpawnCount>=this.seedDropLimit)return false;
         var lanes=[216,704,348,612,480,282,678,414,546],x=lanes[this.seedSpawnCount%lanes.length];
-        this.seedSpawnCount++;this.seedDrop={x:x,y:52,r:11,speed:108,age:0};
+        this.seedSpawnCount++;this.seedDrop={x:x,y:52,r:11,speed:108,age:0};this.showItemHint('seed',this.seedDrop);
         return true;
     };
 
@@ -359,7 +386,7 @@
             var drop=this.seedDrop;drop.age+=dt;drop.y+=drop.speed*dt;
             var catchRect=this.seedCatchRect(),dropLeft=drop.x-drop.r,dropTop=drop.y-drop.r;
             if(dropLeft<catchRect.x+catchRect.w&&dropLeft+drop.r*2>catchRect.x&&dropTop<catchRect.y+catchRect.h&&dropTop+drop.r*2>catchRect.y){
-                this.seedHeld=true;this.seedDrop=null;this.updateHud();
+                this.seedHeld=true;this.seedDrop=null;this.updateHud();this.showItemResult('seed',drop.x,this.paddle.y-45);
                 if(this.characterView&&this.characterView.react)this.characterView.react('catch',0);
             }else if(dropTop>H+12){this.seedDrop=null;this.seedMisses++;this.seedNextAt=this.seedClock+7;this.updateHud();}
         }
@@ -388,14 +415,14 @@
         if(this.level!==5||this.stageFiveDrop)return false;
         var candidates=this.bricks.filter(function(brick){return brick.alive;});if(!candidates.length)return false;
         var source=candidates[Math.floor(Math.random()*candidates.length)],roll=Math.random(),type=roll<.28?'life':(roll<.68?'slow':'clear');
-        this.stageFiveDropCount++;this.stageFiveDrop={type:type,x:source.x+source.w*.5,y:source.y+source.h+15,r:14,speed:118,age:0,sourceX:source.x+source.w*.5,sourceY:source.y+source.h*.5};
+        this.stageFiveDropCount++;this.stageFiveDrop={type:type,x:source.x+source.w*.5,y:source.y+source.h+15,r:14,speed:118,age:0,sourceX:source.x+source.w*.5,sourceY:source.y+source.h*.5};this.showItemHint(type,this.stageFiveDrop);
         return true;
     };
 
     Game.prototype.spawnStageFiveBuffDrop=function(brick){
         if(this.level!==5||!brick||!brick.buffCarrier||brick.buffDropped)return false;
         brick.buffDropped=true;
-        this.stageFiveBuffDrops.push({x:brick.x+brick.w*.5,y:brick.y+brick.h*.5,r:13,speed:112,age:0,sourceX:brick.x+brick.w*.5,sourceY:brick.y+brick.h*.5});
+        var drop={x:brick.x+brick.w*.5,y:brick.y+brick.h*.5,r:13,speed:112,age:0,sourceX:brick.x+brick.w*.5,sourceY:brick.y+brick.h*.5};this.stageFiveBuffDrops.push(drop);this.showItemHint('buff',drop);
         return true;
     };
 
@@ -405,6 +432,7 @@
         if(index>=0)this.stageFiveBuffDrops.splice(index,1);
         this.stageFiveBuffCollected++;
         this.stageFiveBuffCollectEffects.push({x:drop.x,y:this.paddle.y-22,age:0,duration:.82});
+        this.showItemResult('buff',drop.x,this.paddle.y-54);
         this.playSoftCollision('catch');
         if(this.characterView&&this.characterView.react)this.characterView.react('catch',clamp((drop.x-this.paddle.x)/(this.paddle.w*.5),-1,1));
         if(this.options.onEvent)this.options.onEvent('stageFiveBuffCollected',{item:'softglowBudCore',name:this.stageFiveText.buff,collected:this.stageFiveBuffCollected});
@@ -456,6 +484,7 @@
             this.stageFiveSlowTime=8;this.stageFiveRecoverTime=0;this.setBallSpeed(this.stageFiveSlowSpeed);
         }else if(drop.type==='clear')this.clearStageFiveBricks(drop.x);
         this.stageFiveCollectEffects.push({type:drop.type,x:drop.x,y:this.paddle.y-20,age:0,duration:.72});
+        this.showItemResult(drop.type,drop.x,this.paddle.y-54);
         this.stageFiveDrop=null;this.stageFiveNextAt=this.stageFiveDropClock+10+Math.random()*5;this.updateHud();
         this.playSoftCollision('catch');
         if(this.characterView&&this.characterView.react)this.characterView.react('catch',clamp((drop.x-this.paddle.x)/(this.paddle.w*.5),-1,1));
@@ -645,6 +674,14 @@
         for(var buffFx=this.stageFiveBuffCollectEffects.length-1;buffFx>=0;buffFx--){
             this.stageFiveBuffCollectEffects[buffFx].age+=dt;
             if(this.stageFiveBuffCollectEffects[buffFx].age>=this.stageFiveBuffCollectEffects[buffFx].duration)this.stageFiveBuffCollectEffects.splice(buffFx,1);
+        }
+        for(var hintFx=this.itemHints.length-1;hintFx>=0;hintFx--){
+            this.itemHints[hintFx].age+=dt;
+            if(this.itemHints[hintFx].age>=this.itemHints[hintFx].duration)this.itemHints.splice(hintFx,1);
+        }
+        for(var resultFx=this.itemResultEffects.length-1;resultFx>=0;resultFx--){
+            this.itemResultEffects[resultFx].age+=dt;
+            if(this.itemResultEffects[resultFx].age>=this.itemResultEffects[resultFx].duration)this.itemResultEffects.splice(resultFx,1);
         }
         for(var bi=0;bi<this.bricks.length;bi++){
             var boardBrick=this.bricks[bi];
@@ -899,7 +936,18 @@
             var buffEffect=this.stageFiveBuffCollectEffects[buffFxIndex],buffProgress=clamp(buffEffect.age/buffEffect.duration,0,1),buffFade=Math.pow(1-buffProgress,2);
             c.save();c.translate(buffEffect.x,buffEffect.y-buffProgress*18);c.globalAlpha=buffFade*.82;
             for(var mote=0;mote<3;mote++){var angle=-Math.PI*.75+mote*Math.PI*.75+buffProgress*.9,distance=6+buffProgress*(13+mote*2);c.save();c.translate(Math.cos(angle)*distance,Math.sin(angle)*distance);c.rotate(angle);c.fillStyle=mote===1?'#ee9fb2':'#bd91d3';c.beginPath();c.ellipse(0,0,3.7-buffProgress,2-buffProgress*.45,0,0,Math.PI*2);c.fill();c.restore();}
-            c.globalAlpha=buffFade;c.fillStyle='#8f67aa';c.font='800 11px system-ui,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(this.stageFiveText.buff,0,-25-buffProgress*8);c.restore();
+            c.restore();
+        }
+    };
+    Game.prototype.drawItemNotices=function(c){
+        for(var hintIndex=0;hintIndex<this.itemHints.length;hintIndex++){
+            var hint=this.itemHints[hintIndex],copy=this.itemGuideText[hint.type],colors=ITEM_NOTICE_COLORS[hint.type]||ITEM_NOTICE_COLORS.seed,target=hint.target||hint;
+            var hintFade=Math.min(1,hint.age/.14,(hint.duration-hint.age)/.28),extent=target.r||((target.h||24)*.5),x=target.x===undefined?hint.x:target.x,y=(target.y===undefined?hint.y:target.y)-extent-18;
+            c.save();c.font='900 11px system-ui,sans-serif';var width=Math.max(64,c.measureText(copy.name).width+24);x=clamp(x,width*.5+20,W-width*.5-20);c.globalAlpha=clamp(hintFade,0,1);c.shadowColor='rgba(48,79,72,.18)';c.shadowBlur=10;this.roundRect(c,x-width*.5,y-13,width,25,11,colors.soft,'rgba(255,255,255,.9)');c.shadowColor='transparent';c.fillStyle=colors.ink;c.textAlign='center';c.textBaseline='middle';c.fillText(copy.name,x,y);c.restore();
+        }
+        for(var resultIndex=0;resultIndex<this.itemResultEffects.length;resultIndex++){
+            var result=this.itemResultEffects[resultIndex],resultCopy=this.itemGuideText[result.type],resultColors=ITEM_NOTICE_COLORS[result.type]||ITEM_NOTICE_COLORS.seed,resultProgress=clamp(result.age/result.duration,0,1),resultFade=Math.pow(1-resultProgress,2);
+            c.save();c.font='900 12px system-ui,sans-serif';var resultWidth=Math.max(72,c.measureText(resultCopy.result).width+28),resultY=result.y-resultProgress*24,resultX=clamp(result.x,resultWidth*.5+20,W-resultWidth*.5-20);c.globalAlpha=resultFade;c.shadowColor='rgba(48,79,72,.18)';c.shadowBlur=9;this.roundRect(c,resultX-resultWidth*.5,resultY-14,resultWidth,28,12,'rgba(255,255,255,.92)',resultColors.soft);c.shadowColor='transparent';c.fillStyle=resultColors.ink;c.textAlign='center';c.textBaseline='middle';c.fillText(resultCopy.result,resultX,resultY);c.restore();
         }
     };
     Game.prototype.drawHazard=function(c){
@@ -969,7 +1017,7 @@
                 shellFlash.addColorStop(0,'rgba(255,255,239,.95)');shellFlash.addColorStop(1,'rgba(255,255,239,0)');c.save();c.globalAlpha=Math.pow(1-shellFlashProgress,2);c.fillStyle=shellFlash;c.beginPath();c.arc(br.shellImpactX,br.shellImpactY,18,0,Math.PI*2);c.fill();c.restore();
             }
         }
-        this.drawHazard(c);this.drawSeedSystem(c);this.drawStageFiveItems(c);
+        this.drawHazard(c);this.drawSeedSystem(c);this.drawStageFiveItems(c);this.drawItemNotices(c);
         for(var f=0;f<this.hitEffects.length;f++){
             var effect=this.hitEffects[f],progress=clamp(effect.age/effect.duration,0,1),shrink=clamp((progress-.18)/.82,0,1),fade=(1-shrink)*(1-shrink),scale=1-shrink*.58;
             var dentPhase=clamp(progress/.28,0,1),dent=Math.sin(dentPhase*Math.PI),scaleX=scale,scaleY=scale;
