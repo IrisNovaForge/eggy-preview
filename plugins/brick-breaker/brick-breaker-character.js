@@ -5,17 +5,26 @@
         var number=Number(value);
         return Number.isFinite(number)&&number>=0&&number<=0xFFFFFF?Math.round(number):fallback;
     }
+    function clamp(value,min,max){return Math.max(min,Math.min(max,value));}
 
     var MOTION={
-        blossomTraveler:{catchStyle:'twirl',missStyle:'droop',catchDuration:.48,missDuration:.62,gaitSpeed:8.4,step:.016,lean:.052,turn:.09,idleFloat:.01,aura:'✿'},
+        blossomTraveler:{catchStyle:'twirl',missStyle:'droop',moveStyle:'flow',catchDuration:.46,missDuration:.62,gaitSpeed:7.4,step:.022,lean:.074,turn:.13,idleFloat:.018,startDuration:.22,stopDuration:.24,aura:'✿'},
         herbTraveler:{catchStyle:'sprout',missStyle:'fold',catchDuration:.36,missDuration:.48,gaitSpeed:13.2,step:.026,lean:.105,turn:.12,idleFloat:.008,aura:'❧'},
         saltCrystalTraveler:{catchStyle:'flash',missStyle:'freeze',catchDuration:.28,missDuration:.58,gaitSpeed:5.8,step:.004,lean:.026,turn:.045,idleFloat:.003,aura:'◇'},
         cloudwingTraveler:{catchStyle:'float',missStyle:'sink',catchDuration:.64,missDuration:.72,gaitSpeed:6.8,step:.007,lean:.038,turn:.065,idleFloat:.032,aura:'☁'},
         fruitbrewTraveler:{catchStyle:'doubleBounce',missStyle:'squash',catchDuration:.52,missDuration:.58,gaitSpeed:9.6,step:.028,lean:.075,turn:.1,idleFloat:.01,aura:'●'},
-        berryTraveler:{catchStyle:'wiggle',missStyle:'tremble',catchDuration:.42,missDuration:.46,gaitSpeed:14.4,step:.025,lean:.115,turn:.14,idleFloat:.014,aura:'✦'},
+        berryTraveler:{catchStyle:'wiggle',missStyle:'tremble',moveStyle:'dash',catchDuration:.3,missDuration:.46,gaitSpeed:17.2,step:.04,lean:.19,turn:.22,idleFloat:.012,startDuration:.14,stopDuration:.34,aura:'✦'},
         spicyFlameTraveler:{catchStyle:'punch',missStyle:'recoil',catchDuration:.3,missDuration:.44,gaitSpeed:12.4,step:.019,lean:.14,turn:.13,idleFloat:.006,aura:'▲'},
-        goldenGrainTraveler:{catchStyle:'bow',missStyle:'slowBow',catchDuration:.6,missDuration:.68,gaitSpeed:7.2,step:.012,lean:.048,turn:.07,idleFloat:.016,aura:'≋'}
+        goldenGrainTraveler:{catchStyle:'bow',missStyle:'slowBow',moveStyle:'plant',catchDuration:.54,missDuration:.68,gaitSpeed:5.2,step:.014,lean:.035,turn:.045,idleFloat:.01,startDuration:.36,stopDuration:.16,aura:'≋'}
     };
+
+    function pulseAmount(state,dt){
+        if(!state)return 0;
+        state.elapsed=Math.min(state.duration,state.elapsed+Math.max(0,dt||0));
+        var progress=state.duration?state.elapsed/state.duration:1;
+        if(progress>=1)state.done=true;
+        return Math.sin(Math.PI*progress);
+    }
 
     function CharacterView(options){
         options=options||{};
@@ -33,6 +42,10 @@
         this.lastX=480;
         this.walkPhase=0;
         this.reaction=null;
+        this.lastNormalized=0;
+        this.startMotion=null;
+        this.stopMotion=null;
+        this.turnMotion=null;
         this.baseScale=0.95;
         this.scene=new THREE.Scene();
         this.camera=new THREE.PerspectiveCamera(31,126/108,0.1,30);
@@ -86,7 +99,15 @@
         this.mount.style.width=(126*sx)+'px';
         this.mount.style.height=(108*sy)+'px';
 
-        var normalized=Math.max(-1,Math.min(1,(velocity||0)/690));
+        var normalized=Math.max(-1,Math.min(1,(velocity||0)/690)),moving=Math.abs(normalized),previousNormalized=this.lastNormalized||0,previousMoving=Math.abs(previousNormalized);
+        if(previousMoving<.025&&moving>=.025)this.startMotion={elapsed:0,duration:this.motion.startDuration||.18,direction:Math.sign(normalized)||1};
+        if(previousMoving>.025&&moving<.015)this.stopMotion={elapsed:0,duration:this.motion.stopDuration||.2,direction:Math.sign(previousNormalized)||1};
+        if(previousNormalized*normalized<-.006)this.turnMotion={elapsed:0,duration:this.motion.moveStyle==='dash'?.2:.26,direction:Math.sign(normalized)||1};
+        var startDirection=this.startMotion?this.startMotion.direction:(Math.sign(normalized)||1),stopDirection=this.stopMotion?this.stopMotion.direction:(Math.sign(previousNormalized)||1),turnDirection=this.turnMotion?this.turnMotion.direction:(Math.sign(normalized)||1);
+        var startAmount=pulseAmount(this.startMotion,dt),stopAmount=pulseAmount(this.stopMotion,dt),turnAmount=pulseAmount(this.turnMotion,dt);
+        if(this.startMotion&&this.startMotion.done)this.startMotion=null;
+        if(this.stopMotion&&this.stopMotion.done)this.stopMotion=null;
+        if(this.turnMotion&&this.turnMotion.done)this.turnMotion=null;
         if(Math.abs(normalized)>0.01)this.walkPhase+=Math.max(0,dt||0)*this.motion.gaitSpeed*(.35+Math.abs(normalized)*.65);
         this.rig.vx=normalized;this.rig.walkPhase=this.walkPhase;
         var arms=this.model.userData&&this.model.userData._decorArms;
@@ -137,14 +158,17 @@
         }
         var catchX=0,catchY=0,catchZ=0,catchLift=0,scaleX=0,scaleY=0,scaleZ=0;
         if(catchAmount){
-            if(this.motion.catchStyle==='twirl'){catchY=Math.sin(reactionProgress*Math.PI*2)*.32*catchAmount;catchZ=Math.sin(reactionProgress*Math.PI*2)*.07;catchLift=.11*catchAmount;}
+            if(this.motion.catchStyle==='twirl'){catchY=Math.sin(reactionProgress*Math.PI*2)*.52*catchAmount;catchZ=Math.sin(reactionProgress*Math.PI*2)*.11;catchLift=.14*catchAmount;scaleY=.028*catchAmount;}
             else if(this.motion.catchStyle==='sprout'){catchZ=-Math.sin(reactionProgress*Math.PI)*.045;catchLift=.1*catchAmount;scaleY=.035*catchAmount;}
             else if(this.motion.catchStyle==='flash'){var snap=Math.sin(Math.min(1,reactionProgress*2)*Math.PI);catchY=.08*Math.sin(reactionProgress*Math.PI*4);catchLift=.055*snap;scaleX=scaleY=scaleZ=.045*snap;}
             else if(this.motion.catchStyle==='float'){catchZ=Math.sin(reactionProgress*Math.PI*2)*.035;catchLift=.17*catchAmount;scaleY=.018*catchAmount;}
             else if(this.motion.catchStyle==='doubleBounce'){var bounce=Math.abs(Math.sin(reactionProgress*Math.PI*2))*catchAmount;catchLift=.13*bounce;scaleX=.055*bounce;scaleY=-.055*bounce;}
-            else if(this.motion.catchStyle==='wiggle'){catchZ=Math.sin(reactionProgress*Math.PI*7)*.12*catchAmount;catchY=Math.sin(reactionProgress*Math.PI*5)*.1*catchAmount;catchLift=.105*catchAmount;scaleX=.035*catchAmount;scaleY=-.025*catchAmount;}
+            else if(this.motion.catchStyle==='wiggle'){catchZ=Math.sin(reactionProgress*Math.PI*4)*.19*catchAmount;catchY=Math.sin(reactionProgress*Math.PI*2)*.17*catchAmount;catchLift=.13*catchAmount;scaleX=.065*catchAmount;scaleY=-.055*catchAmount;}
             else if(this.motion.catchStyle==='punch'){catchX=-.1*catchAmount;catchZ=-.055*catchAmount;catchLift=.085*catchAmount;scaleY=.025*catchAmount;}
-            else if(this.motion.catchStyle==='bow'){catchX=.15*catchAmount;catchLift=.045*catchAmount;}
+            else if(this.motion.catchStyle==='bow'){
+                var press=clamp(reactionProgress/.28,0,1)*clamp((.52-reactionProgress)/.18,0,1),release=reactionProgress>.32?Math.sin(Math.PI*clamp((reactionProgress-.32)/.68,0,1)):0;
+                catchX=.29*press-.08*release;catchLift=-.09*press+.12*release;scaleX=.085*press;scaleY=-.11*press+.04*release;
+            }
         }
         var missX=0,missY=0,missZ=0,missDrop=0;
         if(missAmount){
@@ -162,16 +186,30 @@
             if(reactionProgress<.18)impactSquash=Math.sin(Math.PI*reactionProgress/.18);
             if(reactionProgress>.1&&reactionProgress<.56)bodyPop=Math.sin(Math.PI*(reactionProgress-.1)/.46);
         }
-        scaleX+=previewAmount*.025+impactSquash*.09;
-        scaleY-=previewAmount*.035+impactSquash*.115;
+        var impactWeight=this.motion.moveStyle==='plant'?1.18:(this.motion.moveStyle==='dash'?.92:(this.motion.moveStyle==='flow'?.78:1));
+        scaleX+=previewAmount*.025+impactSquash*.09*impactWeight;
+        scaleY-=previewAmount*.035+impactSquash*.115*impactWeight;
         scaleY+=bodyPop*.025;
-        var moving=Math.abs(normalized),gait=Math.sin(this.walkPhase),gaitLift=Math.abs(Math.sin(this.walkPhase))*this.motion.step*moving;
+        var gait=Math.sin(this.walkPhase),gaitLift=Math.abs(Math.sin(this.walkPhase))*this.motion.step*moving;
         var gaitSway=0;
         if(this.motion.catchStyle==='twirl'||this.motion.catchStyle==='bow')gaitSway=gait*.018*moving;
         else if(this.motion.catchStyle==='wiggle')gaitSway=gait*.035*moving;
-        var targetZ=-normalized*this.motion.lean+gaitSway+catchZ+missZ-receiveOffset*(.34+.12*Math.abs(receiveOffset))*receiveAmount;
-        var targetY=normalized*this.motion.turn+catchY+missY;
-        var targetX=(this.motion.catchStyle==='punch'?-moving*.035:0)+catchX+missX;
+        var motionX=0,motionY=0,motionZ=0,motionLift=0,motionDrop=0,motionScaleX=0,motionScaleY=0;
+        if(this.motion.moveStyle==='flow'){
+            motionZ=Math.sin(this.walkPhase*.52)*.042*moving+startDirection*.04*startAmount-stopDirection*.085*stopAmount+turnDirection*.055*turnAmount;
+            motionLift=.045*startAmount+.025*stopAmount;motionY=Math.sin(this.walkPhase*.34)*.035*moving;
+        }else if(this.motion.moveStyle==='dash'){
+            motionZ=-startDirection*.15*startAmount+stopDirection*.23*stopAmount-turnDirection*.13*turnAmount+Math.sin(this.walkPhase*2)*.028*moving;
+            motionY=-startDirection*.13*startAmount+stopDirection*.16*stopAmount;motionLift=.075*startAmount;motionDrop=.035*stopAmount;
+            motionScaleX=.065*stopAmount;motionScaleY=-.075*stopAmount;
+        }else if(this.motion.moveStyle==='plant'){
+            motionX=.16*startAmount-.07*stopAmount;motionZ=-startDirection*.035*startAmount-stopDirection*.025*stopAmount;
+            motionDrop=.09*startAmount+.045*stopAmount;motionScaleX=.065*startAmount+.11*stopAmount;motionScaleY=-.09*startAmount-.13*stopAmount;
+        }
+        scaleX+=motionScaleX;scaleY+=motionScaleY;
+        var targetZ=-normalized*this.motion.lean+gaitSway+motionZ+catchZ+missZ-receiveOffset*(.34+.12*Math.abs(receiveOffset))*receiveAmount;
+        var targetY=normalized*this.motion.turn+motionY+catchY+missY;
+        var targetX=(this.motion.catchStyle==='punch'?-moving*.035:0)+motionX+catchX+missX;
         this.model.rotation.z+=(targetZ-this.model.rotation.z)*(receiveAmount>0?.42:.24);
         this.model.rotation.y+=(targetY-this.model.rotation.y)*.18;
         this.model.rotation.x+=(targetX-this.model.rotation.x)*.24;
@@ -182,9 +220,10 @@
         var idle=Math.sin(performance.now()*(this.motion.catchStyle==='float'?.0016:.0022))*this.motion.idleFloat;
         var targetModelX=receiveOffset*.22*receiveAmount,positionBlend=receiveAmount>0?.46:.22;
         this.model.position.x+=(targetModelX-this.model.position.x)*positionBlend;
-        this.model.position.y=-.03+idle+gaitLift+catchLift-missDrop-previewAmount*.045-impactSquash*.055+bodyPop*.085;
+        this.model.position.y=-.03+idle+gaitLift+motionLift-motionDrop+catchLift-missDrop-previewAmount*.045-impactSquash*.055+bodyPop*.085;
         this.renderer.render(this.scene,this.camera);
         this.lastX=x;
+        this.lastNormalized=normalized;
     };
 
     CharacterView.prototype.destroy=function(){

@@ -6,9 +6,9 @@
         set:function(key,value){try{localStorage.setItem(prefix+key,JSON.stringify(value));return true;}catch(error){return false;}}
     };
     var characters={
-        blossomTraveler:{displayName:'花香旅人',trait:'柔瓣节奏',color:0xFFFDF2,accent:0xEF4A5B},
-        berryTraveler:{displayName:'浆果旅人',trait:'浆果灵步',color:0x557FCC,accent:0xD85C91},
-        goldenGrainTraveler:{displayName:'金穗旅人',trait:'金穗稳守',color:0xE8B95C,accent:0xF3D36A}
+        blossomTraveler:{displayName:'花香旅人',trait:'柔瓣节奏｜顺滑均衡',color:0xFFFDF2,accent:0xEF4A5B},
+        berryTraveler:{displayName:'浆果旅人',trait:'浆果灵步｜疾起滑停',color:0x557FCC,accent:0xD85C91},
+        goldenGrainTraveler:{displayName:'金穗旅人',trait:'金穗稳守｜缓起稳停',color:0xE8B95C,accent:0xF3D36A}
     };
     var params=new URLSearchParams(location.search),requested=params.get('character')||'';
     var characterId=characters[requested]?requested:'blossomTraveler',definition=characters[characterId];

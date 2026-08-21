@@ -4,7 +4,7 @@
 
     var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
     var runtimeBase=window.DANBO_BRICK_BREAKER_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/brick-breaker/');
-    var pluginAssetVersion='v=20260821.3';
+    var pluginAssetVersion='v=20260821.4';
     window.DANBO_BRICK_BREAKER_BASE_URL=runtimeBase;
 
     function ensureStyle(){
@@ -23,7 +23,7 @@
 
     window.DANBO_PLUGIN_HOST.register({
         id:'brick-breaker',
-        version:'0.4.2',
+        version:'0.4.3',
         name:{zhs:'星光弹球工坊',zht:'星光彈球工坊',ja:'星明かりのブロック工房',en:'Starlight Block Workshop'},
         description:{
             zhs:'原创视觉的基础打砖块小游戏。移动挡板，让光球清理全部彩色方块。',
