@@ -3,6 +3,12 @@
 
     var W=960,H=720,STARTING_LIVES=3;
     var LEVEL_BALL_SPEEDS={1:370,2:400,3:440,4:500,5:540,6:560};
+    var STAGE_SELECT_COPY={
+        zhs:{enter:'进入关卡',select:'选择关卡',stagePrefix:'第',stageSuffix:'关',next:'进入下一关',back:'返回关卡选择',levels:['破壳花园','芽围轻摆','双层柔壳','柔性偏转','回芽星巢','群芽汇辉']},
+        zht:{enter:'進入關卡',select:'選擇關卡',stagePrefix:'第',stageSuffix:'關',next:'進入下一關',back:'返回關卡選擇',levels:['破殼花園','芽圍輕擺','雙層柔殼','柔性偏轉','回芽星巢','群芽匯輝']},
+        ja:{enter:'ステージへ',select:'ステージを選ぶ',stagePrefix:'ステージ',stageSuffix:'',next:'次のステージへ',back:'ステージ選択へ',levels:['殻ひらく花園','芽囲いのそよぎ','二重の柔殻','やわらか偏向','芽帰りの星巣','集う芽の輝き']},
+        en:{enter:'Enter Stages',select:'Choose a Stage',stagePrefix:'Stage ',stageSuffix:'',next:'Next Stage',back:'Back to Stage Select',levels:['Shellbreak Garden','Swaying Budring','Double Soft-shell','Gentle Deflection','Returning Bud Nest','Gathered Budglow']}
+    };
     var STAGE_THREE_COPY={
         zhs:{basic:'第三关 · 双层柔壳 · 慢风绒由柔壳蓄成'},
         zht:{basic:'第三關 · 雙層柔殼 · 慢風絨由柔殼蓄成'},
@@ -119,6 +125,7 @@
         this.handling=handlingFor(this.character.id);
         var requestedLevel=Number(options.level);
         this.level=requestedLevel>=2&&requestedLevel<=6?requestedLevel:1;
+        this.stageSelectText=STAGE_SELECT_COPY[this.lang]||STAGE_SELECT_COPY.en;
         this.stageFiveText=STAGE_FIVE_COPY[this.lang]||STAGE_FIVE_COPY.en;
         this.stageSixText=STAGE_SIX_COPY[this.lang]||STAGE_SIX_COPY.en;
         this.stageThreeText=STAGE_THREE_COPY[this.lang]||STAGE_THREE_COPY.en;
@@ -153,7 +160,7 @@
         this.card=this.root.querySelector('.bb-card');
         this.keys={left:false,right:false};
         this.pointerX=null;
-        this.running=true;this.state='title';this.last=performance.now();this.raf=0;this.missTimer=0;this.audioCtx=null;
+        this.running=true;this.state='title';this.last=performance.now();this.raf=0;this.missTimer=0;this.introTimer=0;this.audioCtx=null;
         this.boundKeyDown=this.keyDown.bind(this);
         this.boundKeyUp=this.keyUp.bind(this);
         this.boundPointer=this.pointer.bind(this);
@@ -170,9 +177,9 @@
     Game.prototype.markup=function(){
         var t=this.t,character=this.character;
         var characterVisual=character.portrait?'<img class="bb-character-portrait" src="'+esc(character.portrait)+'" alt="">':'';
-        var seedHud=this.level===4?'<div class="bb-hud-pill bb-seed-pill"><span>'+esc(t.seed)+'</span><b data-seeds>○ 6</b></div>':'';
-        var speedHud=this.level>=5?'<div class="bb-hud-pill"><span>'+esc(this.level===6?this.stageSixText.speed:this.stageFiveText.speed)+'</span><b data-ball-speed>'+LEVEL_BALL_SPEEDS[this.level]+'</b></div>':'';
-        var seedButton=this.level===4?'<button class="bb-seed-attack" data-action="seed" disabled><span>'+esc(t.attack)+'</span><b data-seed-ready>6</b></button>':'';
+        var seedHud='<div class="bb-hud-pill bb-seed-pill" hidden><span>'+esc(t.seed)+'</span><b data-seeds>○ 6</b></div>';
+        var speedHud='<div class="bb-hud-pill bb-speed-pill" hidden><span data-speed-label>'+esc(this.stageFiveText.speed)+'</span><b data-ball-speed>'+LEVEL_BALL_SPEEDS[this.level]+'</b></div>';
+        var seedButton='<button class="bb-seed-attack" data-action="seed" hidden disabled><span>'+esc(t.attack)+'</span><b data-seed-ready>6</b></button>';
         return '<div class="bb-sky" aria-hidden="true"><i></i><i></i><i></i></div>'+
             '<header class="bb-hud" aria-label="Game status">'+
               '<div class="bb-character-badge" role="img" aria-label="'+esc(character.name)+'" title="'+esc(character.name)+'" style="--bb-character-color:'+character.color+';--bb-character-accent:'+character.accent+'">'+
@@ -192,7 +199,7 @@
             '<button class="bb-launch" data-action="launch">'+esc(t.launch)+'</button>'+
             seedButton+
             '<aside class="bb-item-whisper" data-item-whisper data-type="seed" role="status" aria-live="polite" aria-hidden="true"><i data-item-whisper-icon aria-hidden="true"></i><span><b data-item-whisper-name></b><small data-item-whisper-copy></small></span></aside>'+
-            '<footer class="bb-tip">'+esc(t.controls)+(this.level===4?' '+esc(t.seedControls):'')+'</footer>';
+            '<footer class="bb-tip" data-controls>'+esc(t.controls)+'</footer>';
     };
 
     Game.prototype.itemGuideTypes=function(){return this.level===2?['hazard']:(this.level===3?['slow']:(this.level===4?['seed']:(this.level===5?['life','slow','clear','buff']:(this.level===6?['life','multi']:[]))));};
@@ -202,8 +209,31 @@
         for(var i=0;i<types.length;i++){var type=types[i],copy=this.itemGuideText[type];html+='<article data-guide-item="'+esc(type)+'"><i aria-hidden="true">'+esc(ITEM_GUIDE_ICONS[type])+'</i><span><b>'+esc(copy.name)+'</b><small>'+esc(copy.desc)+'</small></span></article>';}
         return html+'</div></section>';
     };
-    Game.prototype.titleHtml=function(){var t=this.t,basicCopy=this.level===3?this.stageThreeText.basic:(this.level===4?t.fourthBasic:(this.level===5?this.stageFiveText.basic:(this.level===6?this.stageSixText.basic:t.basic)));return '<div class="bb-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-character-theme"><span>'+esc(this.theme.glyph)+'</span>'+esc(this.character.name)+'</p><p class="bb-kicker">BLOCK &amp; LIGHT</p><h1>'+esc(t.name)+'</h1><p class="bb-sub">'+esc(t.sub)+'</p>'+this.itemGuideHtml()+'<button class="bb-primary" data-action="start">'+esc(t.start)+'</button><p class="bb-note">'+esc(basicCopy)+'<br><small>Rules: '+esc(this.rules.mode||'local')+' · build '+esc(this.rules.build||1)+'</small></p>';};
-    Game.prototype.showTitle=function(){this.state='title';this.overlay.hidden=false;this.card.innerHTML=this.titleHtml();this.root.classList.remove('bb-playing');this.updateHud();};
+    Game.prototype.stageLabel=function(level){return this.stageSelectText.stagePrefix+level+this.stageSelectText.stageSuffix;};
+    Game.prototype.stageName=function(level){return this.stageSelectText.levels[level-1]||this.stageSelectText.levels[0];};
+    Game.prototype.stageBasicCopy=function(){var t=this.t;return this.level===3?this.stageThreeText.basic:(this.level===4?t.fourthBasic:(this.level===5?this.stageFiveText.basic:(this.level===6?this.stageSixText.basic:t.basic)));};
+    Game.prototype.titleHtml=function(){var t=this.t;return '<div class="bb-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-character-theme"><span>'+esc(this.theme.glyph)+'</span>'+esc(this.character.name)+'</p><p class="bb-kicker">BLOCK &amp; LIGHT</p><h1>'+esc(t.name)+'</h1><p class="bb-sub">'+esc(t.sub)+'</p><button class="bb-primary" data-action="levels">'+esc(this.stageSelectText.enter)+'</button>';};
+    Game.prototype.levelSelectHtml=function(){
+        var html='<div class="bb-mark bb-level-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-kicker">BLOCK &amp; LIGHT</p><h2>'+esc(this.stageSelectText.select)+'</h2><div class="bb-level-grid">';
+        for(var level=1;level<=6;level++)html+='<button type="button" class="bb-level-choice" data-action="select-level" data-level="'+level+'" aria-label="'+esc(this.stageLabel(level)+' '+this.stageName(level))+'">'+esc(this.stageName(level))+'</button>';
+        return html+'</div>';
+    };
+    Game.prototype.levelIntroHtml=function(){return '<div class="bb-stage-sprout" aria-hidden="true"><i></i><i></i><i></i></div><p class="bb-kicker">'+esc(this.stageLabel(this.level))+'</p><h2>'+esc(this.stageName(this.level))+'</h2>';};
+    Game.prototype.clearIntroTimer=function(){if(this.introTimer){clearTimeout(this.introTimer);this.introTimer=0;}};
+    Game.prototype.showTitle=function(){this.clearIntroTimer();this.state='title';this.overlay.hidden=false;this.card.className='bb-card bb-entry-card';this.card.innerHTML=this.titleHtml();this.root.classList.remove('bb-playing');this.updateHud();};
+    Game.prototype.showLevelSelect=function(){this.clearIntroTimer();this.state='select';this.overlay.hidden=false;this.card.className='bb-card bb-level-card';this.card.innerHTML=this.levelSelectHtml();this.root.classList.remove('bb-playing');this.updateHud();};
+    Game.prototype.applyLevelPresentation=function(level){
+        this.level=clamp(Math.round(Number(level)||1),1,6);this.root.setAttribute('data-level',String(this.level));
+        var seedPill=this.root.querySelector('.bb-seed-pill'),speedPill=this.root.querySelector('.bb-speed-pill'),seedButton=this.root.querySelector('.bb-seed-attack'),controls=this.root.querySelector('[data-controls]'),speedLabel=this.root.querySelector('[data-speed-label]');
+        if(seedPill)seedPill.hidden=this.level!==4;if(speedPill)speedPill.hidden=this.level<5;if(seedButton)seedButton.hidden=this.level!==4;
+        if(speedLabel)speedLabel.textContent=this.level===6?this.stageSixText.speed:this.stageFiveText.speed;
+        if(controls)controls.textContent=this.t.controls+(this.level===4?' '+this.t.seedControls:'');
+    };
+    Game.prototype.showLevelIntro=function(level){
+        this.clearIntroTimer();this.applyLevelPresentation(level);this.resetBoard();this.state='stage-intro';this.root.classList.add('bb-playing');this.overlay.hidden=false;this.card.className='bb-card bb-stage-card';this.card.innerHTML=this.levelIntroHtml();this.updateHud();
+        if(this.options.onEvent)this.options.onEvent('levelSelect',{level:this.level,name:this.stageName(this.level)});
+        var self=this;this.introTimer=setTimeout(function(){self.introTimer=0;if(self.running&&self.state==='stage-intro')self.startGame();},900);
+    };
 
     Game.prototype.showItemHint=function(type,target){
         if(!this.itemGuideText[type]||this.seenItemHints[type])return false;
@@ -682,10 +712,10 @@
     };
 
     Game.prototype.startGame=function(){
-        this.resetBoard();this.state='ready';this.root.classList.add('bb-playing');this.showReady();
-        if(this.options.onEvent)this.options.onEvent('start',{score:0,lives:this.lives});
+        this.clearIntroTimer();this.resetBoard();this.state='ready';this.root.classList.add('bb-playing');this.showReady();
+        if(this.options.onEvent)this.options.onEvent('start',{score:0,lives:this.lives,level:this.level,name:this.stageName(this.level)});
     };
-    Game.prototype.showReady=function(){var t=this.t;this.overlay.hidden=false;this.card.innerHTML='<div class="bb-mini-ball">●</div><h2>'+esc(t.ready)+'</h2><p>'+esc(t.readyHint)+'</p><button class="bb-primary" data-action="launch">'+esc(t.launch)+'</button>';};
+    Game.prototype.showReady=function(){var t=this.t;this.overlay.hidden=false;this.card.className='bb-card bb-ready-card';this.card.innerHTML='<p class="bb-kicker">'+esc(this.stageLabel(this.level)+' · '+this.stageName(this.level))+'</p><div class="bb-mini-ball">●</div><h2>'+esc(t.ready)+'</h2><p>'+esc(t.readyHint)+'</p>'+this.itemGuideHtml()+'<button class="bb-primary" data-action="launch">'+esc(t.launch)+'</button><p class="bb-note">'+esc(this.stageBasicCopy())+'</p>';};
     Game.prototype.launch=function(){
         if(this.state!=='ready')return;
         this.ensureAudio();
@@ -704,8 +734,10 @@
         this.state=won?'won':'lost';
         if(this.score>this.best){this.best=this.score;this.storage.set('bestScore',this.best);}
         this.updateHud();this.overlay.hidden=false;
-        this.card.innerHTML='<div class="bb-result-icon">'+(won?'✦':'○')+'</div><h2>'+esc(won?this.t.won:this.t.lost)+'</h2><p class="bb-result-score">'+esc(this.t.score)+' <b>'+this.score+'</b></p><button class="bb-primary" data-action="start">'+esc(this.t.again)+'</button><button class="bb-secondary" data-action="title">'+esc(this.t.title)+'</button>';
-        if(this.options.onResult)this.options.onResult({status:won?'finished':'failed',score:this.score,best:this.best,lives:this.lives,remaining:this.remaining,time:this.elapsed});
+        this.card.className='bb-card bb-result-card';
+        var primary=won?(this.level<6?'<button class="bb-primary" data-action="next">'+esc(this.stageSelectText.next)+'</button>':'<button class="bb-primary" data-action="levels">'+esc(this.stageSelectText.back)+'</button>'):'<button class="bb-primary" data-action="start">'+esc(this.t.again)+'</button>';
+        this.card.innerHTML='<div class="bb-result-icon">'+(won?'✦':'○')+'</div><p class="bb-kicker">'+esc(this.stageLabel(this.level)+' · '+this.stageName(this.level))+'</p><h2>'+esc(won?this.t.won:this.t.lost)+'</h2><p class="bb-result-score">'+esc(this.t.score)+' <b>'+this.score+'</b></p>'+primary+(won&&this.level===6?'':'<button class="bb-secondary" data-action="levels">'+esc(this.stageSelectText.back)+'</button>');
+        if(this.options.onResult)this.options.onResult({status:won?(this.level===6?'finished':'stage-cleared'):'failed',level:this.level,name:this.stageName(this.level),score:this.score,best:this.best,lives:this.lives,remaining:this.remaining,time:this.elapsed});
     };
 
     Game.prototype.loseBall=function(){
@@ -730,7 +762,7 @@
         if(e.code==='ArrowLeft'||e.code==='KeyA')this.keys.left=true;
         if(e.code==='ArrowRight'||e.code==='KeyD')this.keys.right=true;
         if(e.code==='Space'){
-            if(this.state==='title')this.startGame();else if(this.state==='ready')this.launch();else if(this.state==='paused')this.togglePause();
+            if(this.state==='title')this.showLevelSelect();else if(this.state==='ready')this.launch();else if(this.state==='paused')this.togglePause();
         }
         if(e.code==='KeyE')this.launchSeedAttack();
         if(e.code==='Escape'||e.code==='KeyP')this.togglePause();
@@ -745,7 +777,7 @@
     Game.prototype.click=function(e){
         var button=e.target.closest&&e.target.closest('[data-action]');if(!button)return;
         var action=button.getAttribute('data-action');
-        if(action==='start')this.startGame();else if(action==='launch')this.launch();else if(action==='seed')this.launchSeedAttack();else if(action==='pause'||action==='resume')this.togglePause();else if(action==='restart')this.startGame();else if(action==='title')this.showTitle();else if(action==='exit')this.exit();
+        if(action==='levels')this.showLevelSelect();else if(action==='select-level')this.showLevelIntro(Number(button.getAttribute('data-level')));else if(action==='next')this.showLevelIntro(this.level+1);else if(action==='start')this.startGame();else if(action==='launch')this.launch();else if(action==='seed')this.launchSeedAttack();else if(action==='pause'||action==='resume')this.togglePause();else if(action==='restart')this.startGame();else if(action==='title')this.showTitle();else if(action==='exit')this.exit();
     };
 
     Game.prototype.exit=function(){if(this.options.onExit)this.options.onExit({status:'exit',score:this.score||0,best:this.best});else this.showTitle();};
@@ -1359,6 +1391,7 @@
     Game.prototype.destroy=function(){
         this.running=false;if(this.raf)cancelAnimationFrame(this.raf);
         if(this.missTimer){clearTimeout(this.missTimer);this.missTimer=0;}
+        this.clearIntroTimer();
         window.removeEventListener('keydown',this.boundKeyDown,true);window.removeEventListener('keyup',this.boundKeyUp,true);
         this.canvas.removeEventListener('pointerdown',this.boundPointer);this.canvas.removeEventListener('pointermove',this.boundPointer);this.root.removeEventListener('click',this.boundClick);
         if(this.characterView)this.characterView.destroy();

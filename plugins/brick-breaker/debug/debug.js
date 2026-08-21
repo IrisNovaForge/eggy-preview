@@ -18,14 +18,7 @@
     var params=new URLSearchParams(location.search),requested=params.get('character')||'',requestedLevel=Number(params.get('level')),level=requestedLevel>=2&&requestedLevel<=6?requestedLevel:1;
     var characterId=characters[requested]?requested:'blossomTraveler',definition=characters[characterId];
     var character={id:characterId,displayName:definition.displayName,style:{color:definition.color,accent:definition.accent}};
-    var picker=document.getElementById('brick-breaker-character-picker');
-    if(picker){
-        Object.keys(characters).forEach(function(id){var option=document.createElement('option');option.value=id;option.textContent=characters[id].displayName;picker.appendChild(option);});
-        picker.value=characterId;
-        picker.addEventListener('change',function(){var next=new URLSearchParams(location.search);next.set('character',picker.value);location.search=next.toString();});
-    }
-    var traitLabel=document.getElementById('brick-breaker-trait-label');if(traitLabel)traitLabel.textContent=(level===2?'芽围轻摆｜':(level===3?'双层柔壳｜':(level===4?'柔性偏转｜':(level===5?'回芽星巢｜':(level===6?'群芽汇辉｜':'')))))+definition.trait;
-    if(level===2)document.title='芽围轻摆｜插件调试';else if(level===3)document.title='双层柔壳｜插件调试';else if(level===4)document.title='柔性偏转｜插件调试';else if(level===5)document.title='回芽星巢｜插件调试';else if(level===6)document.title='群芽汇辉｜插件调试';
+    document.title='星光弹球工坊｜插件调试';
     window.brickBreakerDebug=window.DanboBrickBreaker.create({
         mount:document.getElementById('brick-breaker-debug'),
         character:character,
@@ -35,14 +28,5 @@
         rules:window.DanboBrickBreakerRules.create(),
         onExit:function(){window.brickBreakerDebug.showTitle();}
     });
-    document.querySelectorAll('[data-debug-reaction]').forEach(function(button){
-        button.addEventListener('click',function(){
-            var game=window.brickBreakerDebug,type=button.getAttribute('data-debug-reaction');
-            if(!game)return;
-            if(game.state==='title')game.startGame();
-            if(game.state==='ready')game.launch();
-            if(type==='catch')game.triggerPadFeedback();
-            if(game.characterView&&game.characterView.react)game.characterView.react(type,type==='catch'?game.padFeedback.offset:0);
-        });
-    });
+    if(params.get('direct')==='1')window.brickBreakerDebug.showLevelIntro(level);
 })();
