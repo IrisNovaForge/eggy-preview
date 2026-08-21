@@ -54,18 +54,6 @@
     };
     function themeFor(id){return THEMES[id]||THEMES.blossomTraveler;}
     function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
-    function approach(value,target,amount){return value<target?Math.min(target,value+amount):Math.max(target,value-amount);}
-    function stepControlVelocity(value,target,profile,dt){
-        if(!profile.active)return target;
-        if(profile.reverseAccel){
-            if(!target)profile._reversing=false;
-            else if(value&&Math.sign(value)!==Math.sign(target))profile._reversing=true;
-            if(profile._reversing){var reversed=approach(value,target,profile.reverseAccel*dt);if(reversed===target)profile._reversing=false;return reversed;}
-        }
-        if(value&&target&&Math.sign(value)!==Math.sign(target))return approach(value,0,profile.brake*dt);
-        var slowing=Math.abs(target)<Math.abs(value),rate=slowing?profile.brake:profile.accel;
-        return approach(value,target,rate*dt);
-    }
     function handlingFor(id){
         var profiles={
             blossomTraveler:{id:'blossomTraveler',trait:'柔瓣节奏',active:true,accel:6900,brake:6900,pointerGain:10,steer:1,feedback:'petalArc'},
@@ -160,7 +148,7 @@
         this.overlay=this.root.querySelector('.bb-overlay');
         this.card=this.root.querySelector('.bb-card');
         this.keys={left:false,right:false};
-        this.pointerX=null;
+        this.pointerX=null;this.pointerActive=false;this.pointerId=null;
         this.running=true;this.state='title';this.last=performance.now();this.raf=0;this.missTimer=0;this.introTimer=0;this.audioCtx=null;
         this.boundKeyDown=this.keyDown.bind(this);
         this.boundKeyUp=this.keyUp.bind(this);
@@ -170,6 +158,8 @@
         window.addEventListener('keyup',this.boundKeyUp,true);
         this.canvas.addEventListener('pointerdown',this.boundPointer);
         this.canvas.addEventListener('pointermove',this.boundPointer);
+        this.canvas.addEventListener('pointerup',this.boundPointer);
+        this.canvas.addEventListener('pointercancel',this.boundPointer);
         this.root.addEventListener('click',this.boundClick);
         this.resetBoard();this.showTitle();
         var self=this;this.raf=requestAnimationFrame(function(t){self.loop(t);});
@@ -213,7 +203,7 @@
     Game.prototype.stageLabel=function(level){return this.stageSelectText.stagePrefix+level+this.stageSelectText.stageSuffix;};
     Game.prototype.stageName=function(level){return this.stageSelectText.levels[level-1]||this.stageSelectText.levels[0];};
     Game.prototype.stageBasicCopy=function(){var t=this.t;return this.level===3?this.stageThreeText.basic:(this.level===4?t.fourthBasic:(this.level===5?this.stageFiveText.basic:(this.level===6?this.stageSixText.basic:t.basic)));};
-    Game.prototype.titleHtml=function(){var t=this.t;return '<div class="bb-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-character-theme"><span>'+esc(this.theme.glyph)+'</span>'+esc(this.character.name)+'</p><p class="bb-kicker">BLOCK &amp; LIGHT</p><h1>'+esc(t.name)+'</h1><p class="bb-sub">'+esc(t.sub)+'</p><button class="bb-primary" data-action="levels">'+esc(this.stageSelectText.enter)+'</button>';};
+    Game.prototype.titleHtml=function(){var t=this.t;return '<div class="bb-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-character-theme"><span>'+esc(this.theme.glyph)+'</span>'+esc(this.character.name)+'</p><h1>'+esc(t.name)+'</h1><p class="bb-sub">'+esc(t.sub)+'</p><button class="bb-primary" data-action="levels">'+esc(this.stageSelectText.enter)+'</button>';};
     Game.prototype.levelSelectHtml=function(){
         var html='<div class="bb-mark bb-level-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-kicker">BLOCK &amp; LIGHT</p><h2>'+esc(this.stageSelectText.select)+'</h2><div class="bb-level-grid">';
         for(var level=1;level<=6;level++){var locked=level>this.maxUnlockedLevel;html+='<button type="button" class="bb-level-choice" data-action="select-level" data-level="'+level+'" aria-label="'+esc(this.stageLabel(level)+' '+this.stageName(level)+(locked?' · '+this.stageSelectText.locked:''))+'"'+(locked?' disabled':'')+'>'+esc(this.stageName(level))+'</button>';}
@@ -306,6 +296,7 @@
 
     Game.prototype.resetBoard=function(){
         if(this.missTimer){clearTimeout(this.missTimer);this.missTimer=0;}
+        this.keys.left=false;this.keys.right=false;this.pointerActive=false;this.pointerId=null;this.pointerX=null;
         this.score=0;this.lives=STARTING_LIVES;this.misses=0;this.serveId=0;this.resolvedServeId=-1;this.remaining=0;this.elapsed=0;this.missHandled=false;
         if(this.characterView&&this.characterView.resetReaction)this.characterView.resetReaction();
         this.paddle={x:W*0.5,y:H-100,w:154,h:22,speed:690,controlVx:0};
@@ -784,8 +775,8 @@
         var code=e.code,activation=code==='Enter'||code==='Space',arrows=code==='ArrowLeft'||code==='ArrowRight'||code==='ArrowUp'||code==='ArrowDown';
         var handled=function(){e.preventDefault();e.stopPropagation();};
         if(this.state==='playing'){
-            if(code==='ArrowLeft'||code==='KeyA'){handled();this.keys.left=true;return;}
-            if(code==='ArrowRight'||code==='KeyD'){handled();this.keys.right=true;return;}
+            if(code==='ArrowLeft'||code==='KeyA'){handled();this.pointerActive=false;this.pointerX=null;this.keys.left=true;return;}
+            if(code==='ArrowRight'||code==='KeyD'){handled();this.pointerActive=false;this.pointerX=null;this.keys.right=true;return;}
             if(code==='KeyE'){handled();this.launchSeedAttack();return;}
             if(code==='Escape'||code==='KeyP'){handled();this.togglePause();return;}
             return;
@@ -816,12 +807,29 @@
         }
         if(this.state==='stage-intro'&&code==='Escape'){handled();this.showLevelSelect();}
     };
-    Game.prototype.keyUp=function(e){if(e.code==='ArrowLeft'||e.code==='KeyA')this.keys.left=false;if(e.code==='ArrowRight'||e.code==='KeyD')this.keys.right=false;};
+    Game.prototype.keyUp=function(e){
+        if(e.code==='ArrowLeft'||e.code==='KeyA')this.keys.left=false;
+        if(e.code==='ArrowRight'||e.code==='KeyD')this.keys.right=false;
+        if(!this.keys.left&&!this.keys.right&&this.paddle)this.paddle.controlVx=0;
+    };
     Game.prototype.pointer=function(e){
-        if(e.type==='pointerdown')this.canvas.setPointerCapture&&this.canvas.setPointerCapture(e.pointerId);
+        if(e.type==='pointerdown'){
+            this.pointerActive=true;this.pointerId=e.pointerId;this.keys.left=false;this.keys.right=false;
+            this.canvas.setPointerCapture&&this.canvas.setPointerCapture(e.pointerId);
+        }else if(!this.pointerActive||e.pointerId!==this.pointerId)return;
+        if(e.type==='pointercancel'){
+            this.pointerActive=false;this.pointerId=null;this.pointerX=null;
+            if(this.paddle)this.paddle.controlVx=0;
+            return;
+        }
         var rect=this.canvas.getBoundingClientRect();if(!rect.width)return;
         this.pointerX=clamp((e.clientX-rect.left)/rect.width*W,0,W);
         if(this.state==='ready'&&e.type==='pointerdown')this.launch();
+        if(e.type==='pointerup'){
+            if(this.paddle)this.paddle.x=this.rules.clampPaddle(this.pointerX,this.paddle.w,W);
+            this.pointerActive=false;this.pointerId=null;this.pointerX=null;
+            if(this.paddle)this.paddle.controlVx=0;
+        }
     };
     Game.prototype.click=function(e){
         var button=e.target.closest&&e.target.closest('[data-action]');if(!button)return;
@@ -941,20 +949,11 @@
             if(boardBrick.hitCooldown>0)boardBrick.hitCooldown=Math.max(0,boardBrick.hitCooldown-dt);
             if(boardBrick.shellPulseAge>=0)boardBrick.shellPulseAge=Math.min(boardBrick.shellPulseDuration,boardBrick.shellPulseAge+dt);
         }
-        var previousX=this.paddle.x,unclampedX,targetVx=0,pointerDelta=0,pointerDriven=false;
+        var previousX=this.paddle.x,unclampedX,targetVx=0;
         var dir=(this.keys.left?-1:0)+(this.keys.right?1:0);
-        if(dir)targetVx=dir*this.paddle.speed;
-        else if(this.pointerX!==null){
-            pointerDriven=true;pointerDelta=this.pointerX-this.paddle.x;
-            var pointerLimit=this.handling.active?Math.sqrt(2*this.handling.brake*Math.abs(pointerDelta)):this.paddle.speed;
-            targetVx=Math.sign(pointerDelta)*Math.min(this.paddle.speed,Math.abs(pointerDelta)*this.handling.pointerGain,pointerLimit);
-        }
-        if(this.handling.active){
-            this.paddle.controlVx=stepControlVelocity(this.paddle.controlVx,targetVx,this.handling,dt);this.paddle.x+=this.paddle.controlVx*dt;
-        }else if(dir){this.paddle.controlVx=targetVx;this.paddle.x+=this.paddle.controlVx*dt;}
-        else if(this.pointerX!==null){this.paddle.x+=(this.pointerX-this.paddle.x)*Math.min(1,dt*14);this.paddle.controlVx=dt>0?(this.paddle.x-previousX)/dt:0;}
+        if(dir){targetVx=dir*this.paddle.speed;this.paddle.controlVx=targetVx;this.paddle.x+=targetVx*dt;}
+        else if(this.pointerActive&&this.pointerX!==null){this.paddle.x=this.pointerX;this.paddle.controlVx=dt>0?(this.paddle.x-previousX)/dt:0;}
         else this.paddle.controlVx=0;
-        if(pointerDriven&&pointerDelta&&Math.sign(pointerDelta)!==Math.sign(this.pointerX-this.paddle.x)){this.paddle.x=this.pointerX;this.paddle.controlVx=0;}
         unclampedX=this.paddle.x;
         this.paddle.x=this.rules.clampPaddle(this.paddle.x,this.paddle.w,W);
         if(this.paddle.x!==unclampedX)this.paddle.controlVx=0;
@@ -1442,7 +1441,7 @@
         if(this.missTimer){clearTimeout(this.missTimer);this.missTimer=0;}
         this.clearIntroTimer();
         window.removeEventListener('keydown',this.boundKeyDown,true);window.removeEventListener('keyup',this.boundKeyUp,true);
-        this.canvas.removeEventListener('pointerdown',this.boundPointer);this.canvas.removeEventListener('pointermove',this.boundPointer);this.root.removeEventListener('click',this.boundClick);
+        this.canvas.removeEventListener('pointerdown',this.boundPointer);this.canvas.removeEventListener('pointermove',this.boundPointer);this.canvas.removeEventListener('pointerup',this.boundPointer);this.canvas.removeEventListener('pointercancel',this.boundPointer);this.root.removeEventListener('click',this.boundClick);
         if(this.characterView)this.characterView.destroy();
         if(this.audioCtx&&this.audioCtx.state!=='closed'&&this.audioCtx.close)this.audioCtx.close().catch(function(){});
         if(this.root.parentNode)this.root.parentNode.removeChild(this.root);
