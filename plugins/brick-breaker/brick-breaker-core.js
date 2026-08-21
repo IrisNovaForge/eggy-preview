@@ -22,6 +22,15 @@
 
     function themeFor(id){return THEMES[id]||THEMES.blossomTraveler;}
     function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+    function approach(value,target,amount){return value<target?Math.min(target,value+amount):Math.max(target,value-amount);}
+    function handlingFor(id){
+        var profiles={
+            blossomTraveler:{id:'blossomTraveler',trait:'柔瓣节奏',active:true,accel:10600,brake:12500,pointerRate:14,steer:1},
+            berryTraveler:{id:'berryTraveler',trait:'浆果灵步',active:true,accel:19700,brake:6570,pointerRate:17,steer:.98},
+            goldenGrainTraveler:{id:'goldenGrainTraveler',trait:'金穗稳守',active:true,accel:6000,brake:15300,pointerRate:10.5,steer:1.03}
+        };
+        return profiles[id]||{id:'standard',trait:'标准手感',active:false,accel:0,brake:0,pointerRate:14,steer:1};
+    }
     function esc(s){return String(s===undefined?'':s).replace(/[&<>'"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c];});}
     function cssColor(value,fallback){
         var number=Number(value);
@@ -65,6 +74,7 @@
         this.t=COPY[this.lang];
         this.character=visualCharacter(options.character,options.characterPortrait);
         this.theme=themeFor(this.character.id);
+        this.handling=handlingFor(this.character.id);
         this.rules=options.rules||(window.DanboBrickBreakerRules&&DanboBrickBreakerRules.create());
         if(!this.rules)throw new Error('BrickBreaker rules missing');
         this.storage=options.storage||{get:function(k,d){return d;},set:function(){}};
@@ -135,7 +145,7 @@
         if(this.missTimer){clearTimeout(this.missTimer);this.missTimer=0;}
         this.score=0;this.lives=STARTING_LIVES;this.misses=0;this.serveId=0;this.resolvedServeId=-1;this.remaining=0;this.elapsed=0;this.missHandled=false;
         if(this.characterView&&this.characterView.resetReaction)this.characterView.resetReaction();
-        this.paddle={x:W*0.5,y:H-100,w:154,h:22,speed:690};
+        this.paddle={x:W*0.5,y:H-100,w:154,h:22,speed:690,controlVx:0};
         this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:370};
         this.bricks=[];this.hitEffects=[];this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
         this.ballFeedback={active:false,age:0,duration:.09,axis:'y',strength:.16,type:'catch'};
@@ -292,11 +302,19 @@
             this.hitEffects[fx].age+=dt;
             if(this.hitEffects[fx].age>=this.hitEffects[fx].duration)this.hitEffects.splice(fx,1);
         }
-        var previousX=this.paddle.x;
+        var previousX=this.paddle.x,unclampedX;
         var dir=(this.keys.left?-1:0)+(this.keys.right?1:0);
-        if(dir)this.paddle.x+=dir*this.paddle.speed*dt;
-        else if(this.pointerX!==null)this.paddle.x+=(this.pointerX-this.paddle.x)*Math.min(1,dt*14);
+        if(dir){
+            if(this.handling.active){this.paddle.controlVx=approach(this.paddle.controlVx,dir*this.paddle.speed,this.handling.accel*dt);this.paddle.x+=this.paddle.controlVx*dt;}
+            else{this.paddle.controlVx=dir*this.paddle.speed;this.paddle.x+=this.paddle.controlVx*dt;}
+        }else if(this.pointerX!==null){
+            this.paddle.x+=(this.pointerX-this.paddle.x)*Math.min(1,dt*this.handling.pointerRate);this.paddle.controlVx=dt>0?(this.paddle.x-previousX)/dt:0;
+        }else if(this.handling.active){
+            this.paddle.controlVx=approach(this.paddle.controlVx,0,this.handling.brake*dt);this.paddle.x+=this.paddle.controlVx*dt;
+        }else this.paddle.controlVx=0;
+        unclampedX=this.paddle.x;
         this.paddle.x=this.rules.clampPaddle(this.paddle.x,this.paddle.w,W);
+        if(this.paddle.x!==unclampedX)this.paddle.controlVx=0;
         this.paddle.vx=dt>0?(this.paddle.x-previousX)/dt:0;
         if(this.state==='ready'){
             this.ball.x=this.paddle.x;this.ball.y=this.paddle.y-this.ball.r-7;return;
@@ -317,6 +335,7 @@
         var pr={x:p.x-p.w*0.5,y:p.y-p.h*0.5,w:p.w,h:p.h};
         if(b.vy>0&&this.rules.circleRectHit(b.x,b.y,b.r,pr)){
             b.y=pr.y-b.r-0.5;var bounce=this.rules.paddleBounce(b.x,p.x,p.w,b.speed);b.vx=bounce.vx;b.vy=bounce.vy;
+            if(this.handling.steer!==1){b.vx=clamp(b.vx*this.handling.steer,-b.speed*.94,b.speed*.94);b.vy=-Math.sqrt(Math.max(0,b.speed*b.speed-b.vx*b.vx));}
             this.triggerPadFeedback();
             if(this.characterView&&this.characterView.react)this.characterView.react('catch',this.padFeedback.offset);
         }
