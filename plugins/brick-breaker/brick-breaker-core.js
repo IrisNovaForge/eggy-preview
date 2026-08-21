@@ -4,6 +4,8 @@
     var W=960,H=720,PORTRAIT_H=1040,PORTRAIT_Y_START=300,PORTRAIT_Y_END=560,TOUCH_DEAD_ZONE=.16,TOUCH_START_THRESHOLD=.20,TOUCH_STOP_THRESHOLD=.18,TOUCH_RESPONSE_CURVE=1.35,STARTING_LIVES=3;
     var LEVEL_BALL_SPEEDS={1:370,2:400,3:440,4:500,5:540,6:560};
     var LEVEL_SEED_LIMITS={1:2,2:3,3:3,4:6,5:4,6:4};
+    var CORE_ASSET_BASE=(function(){try{var source=document.currentScript&&document.currentScript.src;return source?new URL('.',source).href:String(window.DANBO_BRICK_BREAKER_BASE_URL||'');}catch(error){return '';}})();
+    var BRICK_CONTACT_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/brick-contact-a.wav?v=20260822.45',CORE_ASSET_BASE).href:'';
     var WORLD_PALETTE=['#f29a91','#f5b67f','#f2d36f','#9fd1a9','#82c7d5','#b8abd6'];
     var STAGE_WORLDS={
         1:{sky:['#8fd8e8','#c8eadf','#ffe1aa'],horizon:'#91cfb2',ground:'#79bd99',light:'#fff4c8',accent:'#f29a91'},
@@ -175,6 +177,7 @@
         this.pointerX=null;this.pointerActive=false;this.pointerId=null;this.pointerIsTouch=false;
         this.touchDragStartX=0;this.touchDragInput=0;
         this.running=true;this.state='title';this.last=performance.now();this.raf=0;this.missTimer=0;this.introTimer=0;this.audioCtx=null;
+        this.brickContactAudioData=null;this.brickContactAudioBuffer=null;this.brickContactAudioLoad=null;this.brickContactAudioDecode=null;this.lastBrickContactAudioAt=-Infinity;this.preloadBrickContactAudio();
         this.boundKeyDown=this.keyDown.bind(this);
         this.boundKeyUp=this.keyUp.bind(this);
         this.boundPointer=this.pointer.bind(this);
@@ -1062,16 +1065,38 @@
 
     Game.prototype.exit=function(){if(this.options.onExit)this.options.onExit({status:'exit',score:this.score||0,best:this.best});else this.showTitle();};
 
+    Game.prototype.preloadBrickContactAudio=function(){
+        if(!BRICK_CONTACT_AUDIO_URL||typeof fetch!=='function'||this.brickContactAudioLoad)return this.brickContactAudioLoad;
+        var self=this;
+        this.brickContactAudioLoad=fetch(BRICK_CONTACT_AUDIO_URL,{cache:'force-cache'}).then(function(response){if(!response.ok)throw new Error('Brick contact audio '+response.status);return response.arrayBuffer();}).then(function(data){self.brickContactAudioData=data;if(self.audioCtx)self.decodeBrickContactAudio();return data;}).catch(function(){self.brickContactAudioData=null;return null;});
+        return this.brickContactAudioLoad;
+    };
+
+    Game.prototype.decodeBrickContactAudio=function(){
+        if(this.brickContactAudioBuffer||this.brickContactAudioDecode||!this.brickContactAudioData||!this.audioCtx)return this.brickContactAudioDecode;
+        var self=this,data=this.brickContactAudioData.slice(0);
+        this.brickContactAudioDecode=this.audioCtx.decodeAudioData(data).then(function(buffer){self.brickContactAudioBuffer=buffer;return buffer;}).catch(function(){return null;});
+        return this.brickContactAudioDecode;
+    };
+
     Game.prototype.ensureAudio=function(){
         if((typeof sfxEnabled!=='undefined'&&!sfxEnabled)||(typeof soundEnabled!=='undefined'&&!soundEnabled))return null;
         var AudioCtor=window.AudioContext||window.webkitAudioContext;if(!AudioCtor)return null;
         if(!this.audioCtx)this.audioCtx=new AudioCtor();
         if(this.audioCtx.state==='suspended'&&this.audioCtx.resume)this.audioCtx.resume().catch(function(){});
+        this.decodeBrickContactAudio();
         return this.audioCtx;
+    };
+
+    Game.prototype.playBrickContactAudio=function(audio){
+        if(!audio||!this.brickContactAudioBuffer||audio.currentTime-this.lastBrickContactAudioAt<.024)return false;
+        var now=audio.currentTime,source=audio.createBufferSource(),gain=audio.createGain();
+        source.buffer=this.brickContactAudioBuffer;gain.gain.setValueAtTime(.55,now);source.connect(gain);gain.connect(audio.destination);source.start(now);source.stop(now+.22);this.lastBrickContactAudioAt=now;return true;
     };
 
     Game.prototype.playSoftCollision=function(type){
         var audio=this.ensureAudio();if(!audio||audio.state==='closed')return;
+        if(type!=='catch'&&this.playBrickContactAudio(audio))return;
         var now=audio.currentTime,osc=audio.createOscillator(),gain=audio.createGain();
         osc.type='sine';osc.connect(gain);gain.connect(audio.destination);
         if(type==='catch'){
