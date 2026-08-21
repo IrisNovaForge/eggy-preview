@@ -46,10 +46,10 @@
     var ITEM_GUIDE_ICONS={hazard:'!',seed:'⌁',life:'⌣',slow:'≈',clear:'✦',buff:'···',multi:'••'};
     var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#fff0d4',ink:'#bd714f'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},buff:{soft:'#eee0f5',ink:'#9169aa'},multi:{soft:'#eee0f5',ink:'#9169aa'}};
     var COPY={
-        zhs:{name:'星光碰撞',sub:'接住光球，完成挑战！',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'蛋壳威力',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'释放威力',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；鼠标或触控可直接拖动。',seedControls:'E / 威力按钮使用接住的蛋形能量。',fourthBasic:'第四关 · 柔性偏转 · 最多6次蛋壳威力，每次最多清理3块砖',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
-        zht:{name:'星光碰撞',sub:'接住光球，完成挑戰！',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'蛋殼威力',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'釋放威力',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；滑鼠或觸控可直接拖動。',seedControls:'E / 威力按鈕使用接住的蛋形能量。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次蛋殼威力，每次最多清理3塊磚',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
-        ja:{name:'星明かりの衝突',sub:'光のボールを受け止め、チャレンジを達成しよう！',start:'チャレンジ開始',resume:'つづける',restart:'もう一度',exit:'世界へ戻る',score:'スコア',best:'ベスト',lives:'ボール',left:'のこり',seed:'卵殻パワー',seedReady:'準備OK',seedWaiting:'待機',seedSpent:'終了',attack:'パワーを放つ',ready:'サーブの準備',readyHint:'スペース、画面クリック、またはボタンでスタート',pause:'一時停止',paused:'一時停止中',won:'すべてのブロックを消しました！',lost:'ボールがなくなりました',again:'もう一度',title:'タイトルへ',controls:'← → / A D でキャラクターを移動。マウス・タッチ操作にも対応。',seedControls:'E またはボタンで受け取った卵形エネルギーを使います。',fourthBasic:'ステージ4 · やわらか反射 · 卵殻パワーは最大6回',basic:'基本ルール · アイテムなし · 特殊ブロックなし',launch:'スタート'},
-        en:{name:'Starlight Collision',sub:'Catch the light ball and complete the challenge!',start:'Start Challenge',resume:'Resume',restart:'Restart',exit:'Return to World',score:'Score',best:'Best',lives:'Balls',left:'Left',seed:'Eggshell Power',seedReady:'Ready',seedWaiting:'Waiting',seedSpent:'Spent',attack:'Release Power',ready:'Ready to Serve',readyHint:'Press Space, click the board, or tap the button',pause:'Pause',paused:'Journey Paused',won:'All blocks cleared!',lost:'No light balls left',again:'Play Again',title:'Back to Title',controls:'Move your traveler with ← → / A D, mouse, or touch.',seedControls:'Press E or the power button to use the caught egg energy.',fourthBasic:'Stage 4 · Soft deflection · Up to 6 Eggshell Power uses',basic:'Basic rules · No items · No special bricks',launch:'Launch'}
+        zhs:{name:'星光碰撞',sub:'接住光球，完成挑战！',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'蛋壳威力',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'释放威力',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；手机按住左右拖动，松开停止。',seedControls:'E / 威力按钮使用接住的蛋形能量。',fourthBasic:'第四关 · 柔性偏转 · 最多6次蛋壳威力，每次最多清理3块砖',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
+        zht:{name:'星光碰撞',sub:'接住光球，完成挑戰！',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'蛋殼威力',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'釋放威力',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；手機按住左右拖動，放開即停止。',seedControls:'E / 威力按鈕使用接住的蛋形能量。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次蛋殼威力，每次最多清理3塊磚',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
+        ja:{name:'星明かりの衝突',sub:'光のボールを受け止め、チャレンジを達成しよう！',start:'チャレンジ開始',resume:'つづける',restart:'もう一度',exit:'世界へ戻る',score:'スコア',best:'ベスト',lives:'ボール',left:'のこり',seed:'卵殻パワー',seedReady:'準備OK',seedWaiting:'待機',seedSpent:'終了',attack:'パワーを放つ',ready:'サーブの準備',readyHint:'スペース、画面クリック、またはボタンでスタート',pause:'一時停止',paused:'一時停止中',won:'すべてのブロックを消しました！',lost:'ボールがなくなりました',again:'もう一度',title:'タイトルへ',controls:'← → / A D で移動。スマホは左右にドラッグし、指を離すと停止。',seedControls:'E またはボタンで受け取った卵形エネルギーを使います。',fourthBasic:'ステージ4 · やわらか反射 · 卵殻パワーは最大6回',basic:'基本ルール · アイテムなし · 特殊ブロックなし',launch:'スタート'},
+        en:{name:'Starlight Collision',sub:'Catch the light ball and complete the challenge!',start:'Start Challenge',resume:'Resume',restart:'Restart',exit:'Return to World',score:'Score',best:'Best',lives:'Balls',left:'Left',seed:'Eggshell Power',seedReady:'Ready',seedWaiting:'Waiting',seedSpent:'Spent',attack:'Release Power',ready:'Ready to Serve',readyHint:'Press Space, click the board, or tap the button',pause:'Pause',paused:'Journey Paused',won:'All blocks cleared!',lost:'No light balls left',again:'Play Again',title:'Back to Title',controls:'Move with ← → / A D. On mobile, hold and drag sideways; release to stop.',seedControls:'Press E or the power button to use the caught egg energy.',fourthBasic:'Stage 4 · Soft deflection · Up to 6 Eggshell Power uses',basic:'Basic rules · No items · No special bricks',launch:'Launch'}
     };
 
     var THEMES={
@@ -162,7 +162,8 @@
         this.overlay=this.root.querySelector('.bb-overlay');
         this.card=this.root.querySelector('.bb-card');
         this.keys={left:false,right:false};
-        this.pointerX=null;this.pointerActive=false;this.pointerId=null;
+        this.pointerX=null;this.pointerActive=false;this.pointerId=null;this.pointerIsTouch=false;
+        this.touchDragStartX=0;this.touchDragInput=0;
         this.running=true;this.state='title';this.last=performance.now();this.raf=0;this.missTimer=0;this.introTimer=0;this.audioCtx=null;
         this.boundKeyDown=this.keyDown.bind(this);
         this.boundKeyUp=this.keyUp.bind(this);
@@ -314,7 +315,7 @@
 
     Game.prototype.resetBoard=function(){
         if(this.missTimer){clearTimeout(this.missTimer);this.missTimer=0;}
-        this.keys.left=false;this.keys.right=false;this.pointerActive=false;this.pointerId=null;this.pointerX=null;
+        this.keys.left=false;this.keys.right=false;this.pointerActive=false;this.pointerId=null;this.pointerX=null;this.pointerIsTouch=false;this.touchDragStartX=0;this.touchDragInput=0;
         this.score=0;this.lives=STARTING_LIVES;this.misses=0;this.serveId=0;this.resolvedServeId=-1;this.remaining=0;this.elapsed=0;this.missHandled=false;
         if(this.characterView&&this.characterView.resetReaction)this.characterView.resetReaction();
         this.paddle={x:W*0.5,y:H-100,w:154,h:22,speed:690,baseSpeed:690,fastSpeed:980,controlVx:0};
@@ -845,8 +846,8 @@
         var code=e.code,activation=code==='Enter'||code==='Space',arrows=code==='ArrowLeft'||code==='ArrowRight'||code==='ArrowUp'||code==='ArrowDown';
         var handled=function(){e.preventDefault();e.stopPropagation();};
         if(this.state==='playing'){
-            if(code==='ArrowLeft'||code==='KeyA'){handled();this.pointerActive=false;this.pointerX=null;this.keys.left=true;return;}
-            if(code==='ArrowRight'||code==='KeyD'){handled();this.pointerActive=false;this.pointerX=null;this.keys.right=true;return;}
+            if(code==='ArrowLeft'||code==='KeyA'){handled();this.pointerActive=false;this.pointerX=null;this.pointerIsTouch=false;this.touchDragInput=0;this.keys.left=true;return;}
+            if(code==='ArrowRight'||code==='KeyD'){handled();this.pointerActive=false;this.pointerX=null;this.pointerIsTouch=false;this.touchDragInput=0;this.keys.right=true;return;}
             if(code==='KeyE'){handled();this.launchSeedAttack();return;}
             if(code==='Escape'||code==='KeyP'){handled();this.togglePause();return;}
             return;
@@ -885,19 +886,26 @@
     Game.prototype.pointer=function(e){
         if(e.type==='pointerdown'){
             this.pointerActive=true;this.pointerId=e.pointerId;this.keys.left=false;this.keys.right=false;
+            this.pointerIsTouch=e.pointerType==='touch';
+            if(this.pointerIsTouch){this.touchDragStartX=e.clientX;this.touchDragInput=0;this.pointerX=null;}
             this.canvas.setPointerCapture&&this.canvas.setPointerCapture(e.pointerId);
         }else if(!this.pointerActive||e.pointerId!==this.pointerId)return;
         if(e.type==='pointercancel'){
-            this.pointerActive=false;this.pointerId=null;this.pointerX=null;
+            this.pointerActive=false;this.pointerId=null;this.pointerX=null;this.pointerIsTouch=false;this.touchDragInput=0;
             if(this.paddle)this.paddle.controlVx=0;
             return;
         }
-        var rect=this.canvas.getBoundingClientRect();if(!rect.width)return;
-        this.pointerX=clamp((e.clientX-rect.left)/rect.width*W,0,W);
+        if(this.pointerIsTouch){
+            var dragDistance=e.clientX-this.touchDragStartX,dragDeadZone=10,dragRange=76,dragAmount=Math.abs(dragDistance);
+            this.touchDragInput=dragAmount<=dragDeadZone?0:Math.sign(dragDistance)*clamp((dragAmount-dragDeadZone)/(dragRange-dragDeadZone),0,1);
+        }else{
+            var rect=this.canvas.getBoundingClientRect();if(!rect.width)return;
+            this.pointerX=clamp((e.clientX-rect.left)/rect.width*W,0,W);
+        }
         if(this.state==='ready'&&e.type==='pointerdown')this.launch();
         if(e.type==='pointerup'){
-            if(this.paddle)this.paddle.x=this.rules.clampPaddle(this.pointerX,this.paddle.w,W);
-            this.pointerActive=false;this.pointerId=null;this.pointerX=null;
+            if(!this.pointerIsTouch&&this.paddle)this.paddle.x=this.rules.clampPaddle(this.pointerX,this.paddle.w,W);
+            this.pointerActive=false;this.pointerId=null;this.pointerX=null;this.pointerIsTouch=false;this.touchDragInput=0;
             if(this.paddle)this.paddle.controlVx=0;
         }
     };
@@ -1022,6 +1030,7 @@
         var previousX=this.paddle.x,unclampedX,targetVx=0;
         var dir=(this.keys.left?-1:0)+(this.keys.right?1:0);
         if(dir){targetVx=dir*this.paddle.speed;this.paddle.controlVx=targetVx;this.paddle.x+=targetVx*dt;}
+        else if(this.pointerActive&&this.pointerIsTouch&&this.touchDragInput){targetVx=this.touchDragInput*this.paddle.speed;this.paddle.controlVx=targetVx;this.paddle.x+=targetVx*dt;}
         else if(this.pointerActive&&this.pointerX!==null){this.paddle.x=this.pointerX;this.paddle.controlVx=dt>0?(this.paddle.x-previousX)/dt:0;}
         else this.paddle.controlVx=0;
         unclampedX=this.paddle.x;
