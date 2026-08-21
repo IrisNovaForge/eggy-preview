@@ -3,10 +3,10 @@
 
     var W=960,H=720,STARTING_LIVES=3;
     var COPY={
-        zhs:{name:'星光弹球工坊',sub:'轻轻托住光球，清理天空中的彩色方块',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；鼠标或触控可直接拖动。',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
-        zht:{name:'星光彈球工坊',sub:'輕輕托住光球，清理天空中的彩色方塊',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；滑鼠或觸控可直接拖動。',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
-        ja:{name:'星明かりのブロック工房',sub:'光のボールを受け止め、空のカラーブロックを消そう',start:'チャレンジ開始',resume:'つづける',restart:'もう一度',exit:'世界へ戻る',score:'スコア',best:'ベスト',lives:'ボール',left:'のこり',ready:'サーブの準備',readyHint:'スペース、画面クリック、またはボタンでスタート',pause:'一時停止',paused:'一時停止中',won:'すべてのブロックを消しました！',lost:'ボールがなくなりました',again:'もう一度',title:'タイトルへ',controls:'← → / A D でキャラクターを移動。マウス・タッチ操作にも対応。',basic:'基本ルール · アイテムなし · 特殊ブロックなし',launch:'スタート'},
-        en:{name:'Starlight Block Workshop',sub:'Guide the light ball and clear the colorful sky blocks',start:'Start Challenge',resume:'Resume',restart:'Restart',exit:'Return to World',score:'Score',best:'Best',lives:'Balls',left:'Left',ready:'Ready to Serve',readyHint:'Press Space, click the board, or tap the button',pause:'Pause',paused:'Journey Paused',won:'All blocks cleared!',lost:'No light balls left',again:'Play Again',title:'Back to Title',controls:'Move your traveler with ← → / A D, mouse, or touch.',basic:'Basic rules · No items · No special bricks',launch:'Launch'}
+        zhs:{name:'星光弹球工坊',sub:'轻轻托住光球，清理天空中的彩色方块',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'光籽攻击',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'抛籽',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；鼠标或触控可直接拖动。',seedControls:'E / 抛籽按钮使用接住的软壳光籽。',fourthBasic:'第四关 · 柔性偏转 · 最多6次软壳光籽',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
+        zht:{name:'星光彈球工坊',sub:'輕輕托住光球，清理天空中的彩色方塊',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'光籽攻擊',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'拋籽',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；滑鼠或觸控可直接拖動。',seedControls:'E / 拋籽按鈕使用接住的軟殼光籽。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次軟殼光籽',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
+        ja:{name:'星明かりのブロック工房',sub:'光のボールを受け止め、空のカラーブロックを消そう',start:'チャレンジ開始',resume:'つづける',restart:'もう一度',exit:'世界へ戻る',score:'スコア',best:'ベスト',lives:'ボール',left:'のこり',seed:'光の種',seedReady:'準備OK',seedWaiting:'待機',seedSpent:'終了',attack:'種を投げる',ready:'サーブの準備',readyHint:'スペース、画面クリック、またはボタンでスタート',pause:'一時停止',paused:'一時停止中',won:'すべてのブロックを消しました！',lost:'ボールがなくなりました',again:'もう一度',title:'タイトルへ',controls:'← → / A D でキャラクターを移動。マウス・タッチ操作にも対応。',seedControls:'E またはボタンで受け取った光の種を投げます。',fourthBasic:'ステージ4 · やわらか反射 · 光の種は最大6回',basic:'基本ルール · アイテムなし · 特殊ブロックなし',launch:'スタート'},
+        en:{name:'Starlight Block Workshop',sub:'Guide the light ball and clear the colorful sky blocks',start:'Start Challenge',resume:'Resume',restart:'Restart',exit:'Return to World',score:'Score',best:'Best',lives:'Balls',left:'Left',seed:'Seed Toss',seedReady:'Ready',seedWaiting:'Waiting',seedSpent:'Spent',attack:'Toss Seed',ready:'Ready to Serve',readyHint:'Press Space, click the board, or tap the button',pause:'Pause',paused:'Journey Paused',won:'All blocks cleared!',lost:'No light balls left',again:'Play Again',title:'Back to Title',controls:'Move your traveler with ← → / A D, mouse, or touch.',seedControls:'Press E or the seed button to toss a caught soft-shell seed.',fourthBasic:'Stage 4 · Soft deflection · Up to 6 soft-shell seeds',basic:'Basic rules · No items · No special bricks',launch:'Launch'}
     };
 
     var THEMES={
@@ -144,6 +144,8 @@
     Game.prototype.markup=function(){
         var t=this.t,character=this.character;
         var characterVisual=character.portrait?'<img class="bb-character-portrait" src="'+esc(character.portrait)+'" alt="">':'';
+        var seedHud=this.level===4?'<div class="bb-hud-pill bb-seed-pill"><span>'+esc(t.seed)+'</span><b data-seeds>○ 6</b></div>':'';
+        var seedButton=this.level===4?'<button class="bb-seed-attack" data-action="seed" disabled><span>'+esc(t.attack)+'</span><b data-seed-ready>6</b></button>':'';
         return '<div class="bb-sky" aria-hidden="true"><i></i><i></i><i></i></div>'+
             '<header class="bb-hud" aria-label="Game status">'+
               '<div class="bb-character-badge" role="img" aria-label="'+esc(character.name)+'" title="'+esc(character.name)+'" style="--bb-character-color:'+character.color+';--bb-character-accent:'+character.accent+'">'+
@@ -154,16 +156,18 @@
               '<div class="bb-hud-pill"><span>'+esc(t.best)+'</span><b data-best>'+this.best+'</b></div>'+
               '<div class="bb-hud-pill"><span>'+esc(t.lives)+'</span><b data-lives>● ● ●</b></div>'+
               '<div class="bb-hud-pill"><span>'+esc(t.left)+'</span><b data-left>48</b></div>'+
+              seedHud+
               '<button class="bb-icon-btn" data-action="pause" aria-label="'+esc(t.pause)+'">Ⅱ</button>'+
               '<button class="bb-exit-btn" data-action="exit">'+esc(t.exit)+'</button>'+
             '</header>'+
             '<main class="bb-stage"><canvas class="bb-canvas" width="960" height="720"></canvas><div class="bb-character-player" aria-hidden="true"></div></main>'+
             '<div class="bb-overlay"><section class="bb-card"></section></div>'+
             '<button class="bb-launch" data-action="launch">'+esc(t.launch)+'</button>'+
-            '<footer class="bb-tip">'+esc(t.controls)+'</footer>';
+            seedButton+
+            '<footer class="bb-tip">'+esc(t.controls)+(this.level===4?' '+esc(t.seedControls):'')+'</footer>';
     };
 
-    Game.prototype.titleHtml=function(){var t=this.t;return '<div class="bb-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-character-theme"><span>'+esc(this.theme.glyph)+'</span>'+esc(this.character.name)+'</p><p class="bb-kicker">BLOCK &amp; LIGHT</p><h1>'+esc(t.name)+'</h1><p class="bb-sub">'+esc(t.sub)+'</p><button class="bb-primary" data-action="start">'+esc(t.start)+'</button><p class="bb-note">'+esc(t.basic)+'<br><small>Rules: '+esc(this.rules.mode||'local')+' · build '+esc(this.rules.build||1)+'</small></p>';};
+    Game.prototype.titleHtml=function(){var t=this.t;return '<div class="bb-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-character-theme"><span>'+esc(this.theme.glyph)+'</span>'+esc(this.character.name)+'</p><p class="bb-kicker">BLOCK &amp; LIGHT</p><h1>'+esc(t.name)+'</h1><p class="bb-sub">'+esc(t.sub)+'</p><button class="bb-primary" data-action="start">'+esc(t.start)+'</button><p class="bb-note">'+esc(this.level===4?t.fourthBasic:t.basic)+'<br><small>Rules: '+esc(this.rules.mode||'local')+' · build '+esc(this.rules.build||1)+'</small></p>';};
     Game.prototype.showTitle=function(){this.state='title';this.overlay.hidden=false;this.card.innerHTML=this.titleHtml();this.root.classList.remove('bb-playing');this.updateHud();};
 
     Game.prototype.resetBoard=function(){
@@ -174,6 +178,7 @@
         this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:this.level===3?440:(this.level===2||this.level===4?400:370)};
         this.bricks=[];this.hitEffects=[];this.brickMotionTime=0;this.brickMotionDirection=1;
         this.hazard=null;this.hazardClock=0;this.hazardNextAt=6;this.hazardNextGroup='left';this.hazardSpawnCount=0;this.hazardDisabled=this.level!==2;
+        this.seedDrop=null;this.seedProjectile=null;this.seedBursts=[];this.seedClock=0;this.seedNextAt=7;this.seedSpawnCount=0;this.seedMisses=0;this.seedHeld=false;this.seedUses=0;this.seedLimit=6;this.seedDropLimit=6;this.seedCooldown=0;
         this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
         this.ballFeedback={active:false,age:0,duration:.09,axis:'y',strength:.16,type:'catch'};
         var bw=82,bh=30;
@@ -194,6 +199,13 @@
             rightSprout:[[615,154],[707,152],[569,192],[655,194],[741,190],[601,232],[693,230],[785,234],[577,272],[669,274],[761,270],[565,312],[657,310],[749,314],[593,352],[685,350],[639,392]],
             roots:[[142,392],[326,390],[418,390],[510,390],[731,392],[206,430],[452,432],[698,430]]
         };
+        var eggyLayout={
+            crown:[[395,60],[483,60],[351,96],[439,96],[527,96]],
+            head:[[307,132],[395,132],[483,132],[571,132],[263,168],[351,168],[439,168],[527,168],[615,168]],
+            arms:[[219,204],[307,204],[395,204],[483,204],[571,204],[659,204],[131,240],[219,240],[307,240],[395,240],[483,240],[571,240],[659,240],[747,240]],
+            body:[[219,276],[307,276],[395,276],[483,276],[571,276],[659,276],[263,312],[351,312],[439,312],[527,312],[615,312],[351,348],[439,348],[527,348],[395,384],[483,384]],
+            feet:[[263,430],[351,430],[527,430],[615,430]]
+        };
         var reinforcedCells={
             '393,106':true,'485,108':true,'347,144':true,'531,144':true,'393,260':true,'485,260':true,
             '223,190':true,'209,270':true,'243,310':true,'655,194':true,'669,274':true,'657,310':true
@@ -202,6 +214,7 @@
         function addCells(list,motionGroup){for(var ci=0;ci<list.length;ci++)cells.push({x:list[ci][0],y:list[ci][1],motionGroup:motionGroup});}
         if(this.level===2){addCells(swayLayout.fixed,'fixed');addCells(swayLayout.left,'left');addCells(swayLayout.right,'right');}
         else if(this.level===3){addCells(doubleShellLayout.crown,'fixed');addCells(doubleShellLayout.leftSprout,'fixed');addCells(doubleShellLayout.rightSprout,'fixed');addCells(doubleShellLayout.roots,'fixed');}
+        else if(this.level===4){addCells(eggyLayout.crown,'fixed');addCells(eggyLayout.head,'fixed');addCells(eggyLayout.arms,'fixed');addCells(eggyLayout.body,'fixed');addCells(eggyLayout.feet,'fixed');}
         else{addCells(shellLayout.growth,'fixed');addCells(shellLayout.leftShell,'fixed');addCells(shellLayout.rightShell,'fixed');addCells(shellLayout.fragments,'fixed');}
         cells.sort(function(a,b){return a.y-b.y||a.x-b.x;});
         var paletteCounts=this.level===3?[10,9,9,9,10,9]:[9,8,8,8,8,7],paletteRow=0,rowEnd=paletteCounts[0],colors=this.stagePalette;
@@ -283,6 +296,64 @@
         if(top>H+12)this.hazard=null;
     };
 
+    Game.prototype.seedCatchRect=function(){
+        return {x:this.paddle.x-48,y:this.paddle.y-42,w:96,h:54};
+    };
+
+    Game.prototype.spawnSeedDrop=function(){
+        if(this.level!==4||this.seedDrop||this.seedHeld||this.seedUses>=this.seedLimit||this.seedSpawnCount>=this.seedDropLimit)return false;
+        var lanes=[216,704,348,612,480,282,678,414,546],x=lanes[this.seedSpawnCount%lanes.length];
+        this.seedSpawnCount++;this.seedDrop={x:x,y:52,r:11,speed:108,age:0};
+        return true;
+    };
+
+    Game.prototype.launchSeedAttack=function(){
+        if(this.level!==4||this.state!=='playing'||!this.seedHeld||this.seedUses>=this.seedLimit||this.seedCooldown>0||this.seedProjectile)return false;
+        this.seedHeld=false;this.seedUses++;this.seedCooldown=.42;
+        this.seedProjectile={x:this.paddle.x,y:this.paddle.y-46,r:8,speed:342,age:0};
+        this.seedNextAt=this.seedClock+7;this.updateHud();
+        if(this.characterView&&this.characterView.react)this.characterView.react('catch',0);
+        return true;
+    };
+
+    Game.prototype.addSeedBrickFeedback=function(brick,impactX,impactY){
+        var baseAngle=Math.PI*.5;
+        this.hitEffects.push({
+            x:brick.x,y:brick.y,w:brick.w,h:brick.h,row:brick.row,col:brick.col,color:brick.color,sparkColor:this.theme.spark,age:0,duration:.22,
+            impactX:impactX,impactY:impactY,axis:'y',normalX:0,normalY:1,
+            sparks:[
+                {angle:baseAngle-.5,speed:31,radius:2.7,color:brick.color},
+                {angle:baseAngle,speed:38,radius:2.3,color:this.theme.spark},
+                {angle:baseAngle+.5,speed:34,radius:2.5,color:brick.color}
+            ]
+        });
+        this.seedBursts.push({x:impactX,y:impactY,age:0,duration:.28});this.playSoftCollision('brick');
+    };
+
+    Game.prototype.updateSeedSystem=function(dt){
+        if(this.level!==4||this.state!=='playing')return;
+        this.seedClock+=Math.max(0,dt||0);this.seedCooldown=Math.max(0,this.seedCooldown-dt);
+        if(!this.seedDrop&&!this.seedHeld&&!this.seedProjectile&&this.seedUses<this.seedLimit&&this.seedSpawnCount<this.seedDropLimit&&this.seedClock>=this.seedNextAt)this.spawnSeedDrop();
+        if(this.seedDrop){
+            var drop=this.seedDrop;drop.age+=dt;drop.y+=drop.speed*dt;
+            var catchRect=this.seedCatchRect(),dropLeft=drop.x-drop.r,dropTop=drop.y-drop.r;
+            if(dropLeft<catchRect.x+catchRect.w&&dropLeft+drop.r*2>catchRect.x&&dropTop<catchRect.y+catchRect.h&&dropTop+drop.r*2>catchRect.y){
+                this.seedHeld=true;this.seedDrop=null;this.updateHud();
+                if(this.characterView&&this.characterView.react)this.characterView.react('catch',0);
+            }else if(dropTop>H+12){this.seedDrop=null;this.seedMisses++;this.seedNextAt=this.seedClock+7;this.updateHud();}
+        }
+        if(!this.seedProjectile)return;
+        var projectile=this.seedProjectile;projectile.age+=dt;projectile.y-=projectile.speed*dt;
+        for(var i=0;i<this.bricks.length;i++){
+            var brick=this.bricks[i];if(!brick.alive||!this.rules.circleRectHit(projectile.x,projectile.y,projectile.r,brick))continue;
+            this.addSeedBrickFeedback(brick,projectile.x,clamp(projectile.y,brick.y,brick.y+brick.h));
+            brick.hitsRemaining=0;brick.alive=false;this.remaining--;this.score+=this.rules.scoreForBrick(brick.row);this.seedProjectile=null;this.updateHud();
+            if(this.rules.isWin(this.remaining))this.finishRound(true);
+            return;
+        }
+        if(projectile.y+projectile.r<20)this.seedProjectile=null;
+    };
+
     Game.prototype.startGame=function(){
         this.resetBoard();this.state='ready';this.root.classList.add('bb-playing');this.showReady();
         if(this.options.onEvent)this.options.onEvent('start',{score:0,lives:this.lives});
@@ -327,13 +398,14 @@
     };
 
     Game.prototype.keyDown=function(e){
-        if(['ArrowLeft','ArrowRight','Space','KeyA','KeyD','Escape','KeyP'].indexOf(e.code)<0)return;
+        if(['ArrowLeft','ArrowRight','Space','KeyA','KeyD','KeyE','Escape','KeyP'].indexOf(e.code)<0)return;
         e.preventDefault();e.stopPropagation();
         if(e.code==='ArrowLeft'||e.code==='KeyA')this.keys.left=true;
         if(e.code==='ArrowRight'||e.code==='KeyD')this.keys.right=true;
         if(e.code==='Space'){
             if(this.state==='title')this.startGame();else if(this.state==='ready')this.launch();else if(this.state==='paused')this.togglePause();
         }
+        if(e.code==='KeyE')this.launchSeedAttack();
         if(e.code==='Escape'||e.code==='KeyP')this.togglePause();
     };
     Game.prototype.keyUp=function(e){if(e.code==='ArrowLeft'||e.code==='KeyA')this.keys.left=false;if(e.code==='ArrowRight'||e.code==='KeyD')this.keys.right=false;};
@@ -346,7 +418,7 @@
     Game.prototype.click=function(e){
         var button=e.target.closest&&e.target.closest('[data-action]');if(!button)return;
         var action=button.getAttribute('data-action');
-        if(action==='start')this.startGame();else if(action==='launch')this.launch();else if(action==='pause'||action==='resume')this.togglePause();else if(action==='restart')this.startGame();else if(action==='title')this.showTitle();else if(action==='exit')this.exit();
+        if(action==='start')this.startGame();else if(action==='launch')this.launch();else if(action==='seed')this.launchSeedAttack();else if(action==='pause'||action==='resume')this.togglePause();else if(action==='restart')this.startGame();else if(action==='title')this.showTitle();else if(action==='exit')this.exit();
     };
 
     Game.prototype.exit=function(){if(this.options.onExit)this.options.onExit({status:'exit',score:this.score||0,best:this.best});else this.showTitle();};
@@ -431,6 +503,10 @@
             this.hitEffects[fx].age+=dt;
             if(this.hitEffects[fx].age>=this.hitEffects[fx].duration)this.hitEffects.splice(fx,1);
         }
+        for(var seedFx=this.seedBursts.length-1;seedFx>=0;seedFx--){
+            this.seedBursts[seedFx].age+=dt;
+            if(this.seedBursts[seedFx].age>=this.seedBursts[seedFx].duration)this.seedBursts.splice(seedFx,1);
+        }
         for(var bi=0;bi<this.bricks.length;bi++){
             var boardBrick=this.bricks[bi];
             if(boardBrick.hitCooldown>0)boardBrick.hitCooldown=Math.max(0,boardBrick.hitCooldown-dt);
@@ -461,6 +537,8 @@
         if(this.state!=='playing')return;
         this.elapsed+=dt;
         this.updateHazard(dt);
+        if(this.state!=='playing')return;
+        this.updateSeedSystem(dt);
         if(this.state!=='playing')return;
         var steps=Math.max(1,Math.ceil(dt/0.006)),step=dt/steps;
         for(var s=0;s<steps&&this.state==='playing';s++)this.physicsStep(step);
@@ -504,6 +582,18 @@
         if((el=q('[data-best]')))el.textContent=this.best||0;
         if((el=q('[data-lives]')))el.textContent=new Array(Math.max(0,this.lives||0)+1).join('● ');
         if((el=q('[data-left]')))el.textContent=this.remaining||0;
+        if((el=q('[data-seeds]'))){
+            var seedRemaining=Math.max(0,(this.seedDropLimit||0)-(this.seedUses||0)-(this.seedMisses||0)),seedExhausted=this.seedUses>=this.seedLimit||(this.seedSpawnCount>=this.seedDropLimit&&!this.seedHeld&&!this.seedDrop&&!this.seedProjectile);
+            el.textContent=(seedExhausted?'—':(this.seedHeld?'●':'○'))+' '+seedRemaining;
+            el.title=seedExhausted?this.t.seedSpent:(this.seedHeld?this.t.seedReady:this.t.seedWaiting);
+        }
+        var seedButton=q('.bb-seed-attack');
+        if(seedButton){
+            var attackRemaining=Math.max(0,(this.seedDropLimit||0)-(this.seedUses||0)-(this.seedMisses||0));
+            seedButton.disabled=this.state!=='playing'||!this.seedHeld||this.seedUses>=this.seedLimit||this.seedCooldown>0||!!this.seedProjectile;
+            seedButton.setAttribute('aria-label',this.t.attack+' '+attackRemaining);
+            var seedReady=seedButton.querySelector('[data-seed-ready]');if(seedReady)seedReady.textContent=String(attackRemaining);
+        }
         var launch=q('.bb-launch');if(launch)launch.hidden=this.state!=='ready';
     };
 
@@ -583,6 +673,36 @@
         }
         c.restore();
     };
+    Game.prototype.drawSoftSeed=function(c,x,y,scale,rotation,alpha){
+        c.save();c.translate(x,y);c.rotate(rotation||0);c.scale(scale||1,scale||1);c.globalAlpha=alpha===undefined?1:alpha;
+        c.shadowColor=this.theme.glow;c.shadowBlur=11;c.fillStyle='rgba(255,252,235,.96)';c.beginPath();c.ellipse(0,1,8.5,11.5,0,0,Math.PI*2);c.fill();c.shadowColor='transparent';
+        var core=c.createRadialGradient(-2,-3,0,0,1,9);core.addColorStop(0,this.theme.spark);core.addColorStop(.55,this.theme.ballCore);core.addColorStop(1,this.theme.accent);c.globalAlpha=(alpha===undefined?1:alpha)*.78;c.fillStyle=core;c.beginPath();c.ellipse(0,2,5.2,7.2,0,0,Math.PI*2);c.fill();
+        c.globalAlpha=alpha===undefined?1:alpha;c.fillStyle=this.theme.accent;c.save();c.translate(3,-10);c.rotate(-.58);c.beginPath();c.ellipse(0,0,4.5,2.4,0,0,Math.PI*2);c.fill();c.restore();
+        c.strokeStyle='rgba(255,255,255,.9)';c.lineWidth=1.2;c.beginPath();c.arc(-2,-2,3.7,Math.PI*1.05,Math.PI*1.62);c.stroke();c.restore();
+    };
+    Game.prototype.drawSeedSystem=function(c){
+        if(this.level!==4)return;
+        if(this.seedDrop){
+            var drop=this.seedDrop,dropSway=Math.sin(drop.age*4.2)*.18;
+            this.drawSoftSeed(c,drop.x,drop.y,1,dropSway,1);
+            c.save();c.globalAlpha=.24;c.strokeStyle=this.theme.accent;c.lineWidth=1.5;c.beginPath();c.moveTo(drop.x-7,drop.y-16);c.quadraticCurveTo(drop.x,drop.y-21,drop.x+7,drop.y-16);c.stroke();c.restore();
+        }
+        if(this.seedHeld){
+            var heldY=this.paddle.y-48+Math.sin(this.elapsed*5)*2;
+            this.drawSoftSeed(c,this.paddle.x,heldY,.9,Math.sin(this.elapsed*3)*.08,1);
+        }
+        if(this.seedProjectile){
+            var projectile=this.seedProjectile;
+            c.save();c.globalAlpha=.35;var trail=c.createLinearGradient(projectile.x,projectile.y,projectile.x,projectile.y+30);trail.addColorStop(0,this.theme.ballCore);trail.addColorStop(1,'rgba(255,255,255,0)');c.strokeStyle=trail;c.lineWidth=4;c.lineCap='round';c.beginPath();c.moveTo(projectile.x,projectile.y+7);c.lineTo(projectile.x,projectile.y+29);c.stroke();c.restore();
+            this.drawSoftSeed(c,projectile.x,projectile.y,.78,projectile.age*4.8,1);
+        }
+        for(var burstIndex=0;burstIndex<this.seedBursts.length;burstIndex++){
+            var burst=this.seedBursts[burstIndex],progress=clamp(burst.age/burst.duration,0,1),fade=Math.pow(1-progress,2);
+            c.save();c.translate(burst.x,burst.y);c.globalAlpha=fade*.85;c.fillStyle=this.theme.spark;
+            for(var petal=0;petal<4;petal++){var angle=-Math.PI*.85+petal*Math.PI*.57,distance=4+progress*(12+petal*2);c.save();c.translate(Math.cos(angle)*distance,Math.sin(angle)*distance);c.rotate(angle);c.beginPath();c.ellipse(0,0,3.8-progress,1.9-progress*.45,0,0,Math.PI*2);c.fill();c.restore();}
+            c.restore();
+        }
+    };
     Game.prototype.drawHazard=function(c){
         var hazard=this.hazard;if(!hazard)return;
         var warning=hazard.state==='warning',hit=hazard.state==='hit';
@@ -638,7 +758,7 @@
                 shellFlash.addColorStop(0,'rgba(255,255,239,.95)');shellFlash.addColorStop(1,'rgba(255,255,239,0)');c.save();c.globalAlpha=Math.pow(1-shellFlashProgress,2);c.fillStyle=shellFlash;c.beginPath();c.arc(br.shellImpactX,br.shellImpactY,18,0,Math.PI*2);c.fill();c.restore();
             }
         }
-        this.drawHazard(c);
+        this.drawHazard(c);this.drawSeedSystem(c);
         for(var f=0;f<this.hitEffects.length;f++){
             var effect=this.hitEffects[f],progress=clamp(effect.age/effect.duration,0,1),shrink=clamp((progress-.18)/.82,0,1),fade=(1-shrink)*(1-shrink),scale=1-shrink*.58;
             var dentPhase=clamp(progress/.28,0,1),dent=Math.sin(dentPhase*Math.PI),scaleX=scale,scaleY=scale;
