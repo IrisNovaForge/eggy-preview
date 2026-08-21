@@ -151,7 +151,7 @@
     CharacterView.prototype.render=function(x,y,velocity,dt,ballVisual){
         var boardRect=this.board.getBoundingClientRect(),stageRect=this.stage.getBoundingClientRect();
         if(!boardRect.width||!boardRect.height)return;
-        var sx=boardRect.width/960,sy=boardRect.height/720;
+        var sx=boardRect.width/960,sy=boardRect.height/(this.board.height||720);
         this.mount.style.left=(boardRect.left-stageRect.left+(x-63)*sx)+'px';
         this.mount.style.top=(boardRect.top-stageRect.top+(y-35)*sy)+'px';
         this.mount.style.width=(126*sx)+'px';
