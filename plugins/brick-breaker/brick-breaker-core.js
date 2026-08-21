@@ -171,7 +171,7 @@
         if(this.characterView&&this.characterView.resetReaction)this.characterView.resetReaction();
         this.paddle={x:W*0.5,y:H-100,w:154,h:22,speed:690,controlVx:0};
         this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:370};
-        this.bricks=[];this.hitEffects=[];this.brickMotionTime=0;this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
+        this.bricks=[];this.hitEffects=[];this.brickMotionTime=0;this.brickMotionDirection=1;this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
         this.ballFeedback={active:false,age:0,duration:.09,axis:'y',strength:.16,type:'catch'};
         var bw=82,bh=30;
         var shellLayout={
@@ -182,8 +182,8 @@
         };
         var swayLayout={
             fixed:[[439,70],[405,108],[503,112],[413,148],[321,150],[505,152],[597,154],[369,190],[505,192],[413,230],[505,232],[553,268],[369,270],[461,272],[413,310],[505,312],[553,348],[369,350],[461,352],[461,392]],
-            left:[[135,178],[227,178],[86,218],[178,218],[270,218],[90,258],[182,258],[274,258],[86,298],[178,298],[270,298],[150,338],[242,338],[210,378]],
-            right:[[700,174],[792,174],[606,216],[698,216],[790,216],[648,256],[740,256],[832,256],[648,296],[740,296],[832,296],[648,336],[740,336],[706,374]]
+            left:[[131,178],[223,178],[82,218],[174,218],[266,218],[86,258],[178,258],[270,258],[82,298],[174,298],[266,298],[146,338],[238,338],[206,378]],
+            right:[[704,174],[796,174],[610,216],[702,216],[794,216],[652,256],[744,256],[836,256],[652,296],[744,296],[836,296],[652,336],[744,336],[710,374]]
         };
         var cells=[];
         function addCells(list,motionGroup){for(var ci=0;ci<list.length;ci++)cells.push({x:list[ci][0],y:list[ci][1],motionGroup:motionGroup});}
@@ -202,7 +202,9 @@
     Game.prototype.updateBrickMotion=function(dt){
         if(this.level!==2)return;
         this.brickMotionTime+=Math.max(0,dt||0);
-        var offset=Math.sin(this.brickMotionTime*Math.PI*2/6.4)*12;
+        var phase=this.brickMotionTime*Math.PI*2/5.2;
+        var offset=Math.sin(phase)*16;
+        this.brickMotionDirection=Math.cos(phase);
         for(var i=0;i<this.bricks.length;i++){
             var brick=this.bricks[i];
             brick.x=brick.baseX+(brick.motionGroup==='left'?offset:(brick.motionGroup==='right'?-offset:0));
@@ -495,7 +497,13 @@
         this.roundRect(c,18,18,W-36,H-36,38,'rgba(255,255,255,.24)','rgba(255,255,255,.72)');
         for(var j=0;j<this.bricks.length;j++){
             var br=this.bricks[j];if(!br.alive)continue;
-            c.save();c.shadowColor='rgba(35,92,76,.18)';c.shadowBlur=12;c.shadowOffsetY=5;this.roundRect(c,br.x,br.y,br.w,br.h,11,br.color);c.shadowColor='transparent';
+            c.save();c.shadowColor='rgba(35,92,76,.18)';c.shadowBlur=12;c.shadowOffsetY=5;
+            if(this.level===2&&br.motionGroup!=='fixed'){
+                var swayDirection=(br.motionGroup==='left'?1:-1)*this.brickMotionDirection;
+                c.shadowOffsetX=-swayDirection*3;
+                c.shadowColor='rgba(52,112,98,.24)';
+            }
+            this.roundRect(c,br.x,br.y,br.w,br.h,11,br.color);c.shadowColor='transparent';
             var shine=c.createLinearGradient(br.x,br.y,br.x,br.y+br.h);shine.addColorStop(0,'rgba(255,255,255,.5)');shine.addColorStop(.56,'rgba(255,255,255,.06)');shine.addColorStop(1,'rgba(37,80,69,.08)');this.roundRect(c,br.x+2,br.y+2,br.w-4,br.h-4,9,shine);this.drawBrickSurface(c,br);c.restore();
         }
         for(var f=0;f<this.hitEffects.length;f++){
