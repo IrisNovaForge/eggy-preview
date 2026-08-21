@@ -15,7 +15,7 @@
         spicyFlameTraveler:{displayName:'辣焰旅人',trait:'辣焰冲势｜短促强转',color:0xF26F52,accent:0xFFD05A},
         goldenGrainTraveler:{displayName:'金穗旅人',trait:'金穗稳守｜缓起稳停',color:0xE8B95C,accent:0xF3D36A}
     };
-    var params=new URLSearchParams(location.search),requested=params.get('character')||'',level=params.get('level')==='2'?2:1;
+    var params=new URLSearchParams(location.search),requested=params.get('character')||'',requestedLevel=Number(params.get('level')),level=requestedLevel===2||requestedLevel===3?requestedLevel:1;
     var characterId=characters[requested]?requested:'blossomTraveler',definition=characters[characterId];
     var character={id:characterId,displayName:definition.displayName,style:{color:definition.color,accent:definition.accent}};
     var picker=document.getElementById('brick-breaker-character-picker');
@@ -24,8 +24,8 @@
         picker.value=characterId;
         picker.addEventListener('change',function(){var next=new URLSearchParams(location.search);next.set('character',picker.value);location.search=next.toString();});
     }
-    var traitLabel=document.getElementById('brick-breaker-trait-label');if(traitLabel)traitLabel.textContent=(level===2?'芽围轻摆｜':'')+definition.trait;
-    if(level===2)document.title='芽围轻摆｜插件调试';
+    var traitLabel=document.getElementById('brick-breaker-trait-label');if(traitLabel)traitLabel.textContent=(level===2?'芽围轻摆｜':(level===3?'双层柔壳｜':''))+definition.trait;
+    if(level===2)document.title='芽围轻摆｜插件调试';else if(level===3)document.title='双层柔壳｜插件调试';
     window.brickBreakerDebug=window.DanboBrickBreaker.create({
         mount:document.getElementById('brick-breaker-debug'),
         character:character,
