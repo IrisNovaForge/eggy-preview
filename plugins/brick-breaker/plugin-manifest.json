@@ -1,6 +1,6 @@
 {
   "id": "brick-breaker",
-  "version": "0.4.11",
+  "version": "0.4.12",
   "entrance": "entrance.js",
   "scripts": [
     "brick-breaker-wasm.js",
