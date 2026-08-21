@@ -197,7 +197,7 @@
             '</header>'+
             '<main class="bb-stage"><canvas class="bb-canvas" width="960" height="720"></canvas><div class="bb-character-player" aria-hidden="true"></div></main>'+
             '<div class="bb-overlay"><section class="bb-card"></section></div>'+
-            '<button class="bb-launch" data-action="launch">'+esc(t.launch)+'</button>'+
+            '<button class="bb-launch" data-action="launch" tabindex="-1">'+esc(t.launch)+'</button>'+
             seedButton+
             '<aside class="bb-item-whisper" data-item-whisper data-type="seed" role="status" aria-live="polite" aria-hidden="true"><i data-item-whisper-icon aria-hidden="true"></i><span><b data-item-whisper-name></b><small data-item-whisper-copy></small></span></aside>'+
             '<footer class="bb-tip" data-controls>'+esc(t.controls)+'</footer>';
@@ -221,8 +221,22 @@
     };
     Game.prototype.levelIntroHtml=function(){return '<div class="bb-stage-sprout" aria-hidden="true"><i></i><i></i><i></i></div><p class="bb-kicker">'+esc(this.stageLabel(this.level))+'</p><h2>'+esc(this.stageName(this.level))+'</h2>';};
     Game.prototype.clearIntroTimer=function(){if(this.introTimer){clearTimeout(this.introTimer);this.introTimer=0;}};
-    Game.prototype.showTitle=function(){this.clearIntroTimer();this.state='title';this.overlay.hidden=false;this.card.className='bb-card bb-entry-card';this.card.innerHTML=this.titleHtml();this.root.classList.remove('bb-playing');this.updateHud();};
-    Game.prototype.showLevelSelect=function(){this.clearIntroTimer();this.state='select';this.overlay.hidden=false;this.card.className='bb-card bb-level-card';this.card.innerHTML=this.levelSelectHtml();this.root.classList.remove('bb-playing');this.updateHud();};
+    Game.prototype.focusElement=function(element){if(!element)return false;try{element.focus({preventScroll:true});}catch(error){element.focus();}return document.activeElement===element;};
+    Game.prototype.clearMenuFocus=function(){var active=document.activeElement;if(active&&this.card.contains(active)&&active.blur)active.blur();};
+    Game.prototype.setGameplayControlsFocusable=function(enabled){var controls=this.root.querySelectorAll('.bb-icon-btn,.bb-exit-btn,.bb-seed-attack');for(var i=0;i<controls.length;i++)controls[i].tabIndex=enabled?0:-1;};
+    Game.prototype.focusFirstAction=function(selector){return this.focusElement(this.card.querySelector(selector||'button:not(:disabled)'));};
+    Game.prototype.menuButtons=function(){return Array.prototype.slice.call(this.card.querySelectorAll('button:not(:disabled)'));};
+    Game.prototype.moveMenuFocus=function(direction){
+        var buttons=this.menuButtons();if(!buttons.length)return false;var index=buttons.indexOf(document.activeElement);if(index<0)index=direction<0?0:-1;index=(index+direction+buttons.length)%buttons.length;return this.focusElement(buttons[index]);
+    };
+    Game.prototype.moveLevelFocus=function(code){
+        var buttons=Array.prototype.slice.call(this.card.querySelectorAll('.bb-level-choice')),active=document.activeElement,index=buttons.indexOf(active);if(index<0){this.focusFirstAction('.bb-level-choice:not(:disabled)');return true;}
+        var target=index;if(code==='ArrowLeft'&&index%2===1)target=index-1;else if(code==='ArrowRight'&&index%2===0)target=index+1;else if(code==='ArrowUp'&&index>=2)target=index-2;else if(code==='ArrowDown'&&index+2<buttons.length)target=index+2;else if(code==='Home')target=0;else if(code==='End'){for(target=buttons.length-1;target>0&&buttons[target].disabled;target--){}}
+        if(buttons[target]&&!buttons[target].disabled)this.focusElement(buttons[target]);return true;
+    };
+    Game.prototype.activateFocusedAction=function(){var active=document.activeElement;if(!active||!this.card.contains(active)||active.disabled)active=this.card.querySelector('button:not(:disabled)');if(!active)return false;this.focusElement(active);active.click();return true;};
+    Game.prototype.showTitle=function(){this.clearIntroTimer();this.state='title';this.overlay.hidden=false;this.card.className='bb-card bb-entry-card';this.card.innerHTML=this.titleHtml();this.root.classList.remove('bb-playing');this.setGameplayControlsFocusable(false);this.updateHud();this.focusFirstAction();};
+    Game.prototype.showLevelSelect=function(){this.clearIntroTimer();this.state='select';this.overlay.hidden=false;this.card.className='bb-card bb-level-card';this.card.innerHTML=this.levelSelectHtml();this.root.classList.remove('bb-playing');this.setGameplayControlsFocusable(false);this.updateHud();this.focusFirstAction('.bb-level-choice:not(:disabled)');};
     Game.prototype.applyLevelPresentation=function(level){
         this.level=clamp(Math.round(Number(level)||1),1,6);this.root.setAttribute('data-level',String(this.level));
         var seedPill=this.root.querySelector('.bb-seed-pill'),speedPill=this.root.querySelector('.bb-speed-pill'),seedButton=this.root.querySelector('.bb-seed-attack'),controls=this.root.querySelector('[data-controls]'),speedLabel=this.root.querySelector('[data-speed-label]');
@@ -232,7 +246,7 @@
     };
     Game.prototype.showLevelIntro=function(level,bypassLock){
         var requestedLevel=clamp(Math.round(Number(level)||1),1,6);if(!bypassLock&&requestedLevel>this.maxUnlockedLevel){this.showLevelSelect();return false;}
-        this.clearIntroTimer();this.applyLevelPresentation(requestedLevel);this.resetBoard();this.state='stage-intro';this.root.classList.add('bb-playing');this.overlay.hidden=false;this.card.className='bb-card bb-stage-card';this.card.innerHTML=this.levelIntroHtml();this.updateHud();
+        this.clearIntroTimer();this.applyLevelPresentation(requestedLevel);this.resetBoard();this.state='stage-intro';this.root.classList.add('bb-playing');this.overlay.hidden=false;this.card.className='bb-card bb-stage-card';this.card.innerHTML=this.levelIntroHtml();this.setGameplayControlsFocusable(false);this.updateHud();
         if(this.options.onEvent)this.options.onEvent('levelSelect',{level:this.level,name:this.stageName(this.level)});
         var self=this;this.introTimer=setTimeout(function(){self.introTimer=0;if(self.running&&self.state==='stage-intro')self.startGame();},900);return true;
     };
@@ -722,19 +736,19 @@
         this.clearIntroTimer();this.resetBoard();this.state='ready';this.root.classList.add('bb-playing');this.showReady();
         if(this.options.onEvent)this.options.onEvent('start',{score:0,lives:this.lives,level:this.level,name:this.stageName(this.level)});
     };
-    Game.prototype.showReady=function(){var t=this.t;this.overlay.hidden=false;this.card.className='bb-card bb-ready-card';this.card.innerHTML='<p class="bb-kicker">'+esc(this.stageLabel(this.level)+' · '+this.stageName(this.level))+'</p><div class="bb-mini-ball">●</div><h2>'+esc(t.ready)+'</h2><p>'+esc(t.readyHint)+'</p>'+this.itemGuideHtml()+'<button class="bb-primary" data-action="launch">'+esc(t.launch)+'</button><p class="bb-note">'+esc(this.stageBasicCopy())+'</p>';};
+    Game.prototype.showReady=function(){var t=this.t;this.overlay.hidden=false;this.card.className='bb-card bb-ready-card';this.card.innerHTML='<p class="bb-kicker">'+esc(this.stageLabel(this.level)+' · '+this.stageName(this.level))+'</p><div class="bb-mini-ball">●</div><h2>'+esc(t.ready)+'</h2><p>'+esc(t.readyHint)+'</p>'+this.itemGuideHtml()+'<button class="bb-primary" data-action="launch">'+esc(t.launch)+'</button><p class="bb-note">'+esc(this.stageBasicCopy())+'</p>';this.setGameplayControlsFocusable(false);this.focusFirstAction();};
     Game.prototype.launch=function(){
         if(this.state!=='ready')return;
         this.ensureAudio();
         this.serveId++;this.missHandled=false;
         var direction=(Math.floor(this.elapsed*10)%2?1:-1),launchVx=this.ball.speed*.42;
         this.ball.vx=direction*launchVx;this.ball.vy=-Math.sqrt(this.ball.speed*this.ball.speed-launchVx*launchVx);
-        this.state='playing';this.overlay.hidden=true;
+        this.state='playing';this.overlay.hidden=true;this.clearMenuFocus();this.setGameplayControlsFocusable(true);
     };
     Game.prototype.togglePause=function(){
         if(this.state==='playing'){
-            this.state='paused';this.overlay.hidden=false;this.card.innerHTML='<h2>'+esc(this.t.paused)+'</h2><button class="bb-primary" data-action="resume">'+esc(this.t.resume)+'</button><button class="bb-secondary" data-action="restart">'+esc(this.t.restart)+'</button>';
-        }else if(this.state==='paused'){this.state='playing';this.overlay.hidden=true;}
+            this.state='paused';this.overlay.hidden=false;this.card.className='bb-card bb-pause-card';this.card.innerHTML='<h2>'+esc(this.t.paused)+'</h2><button class="bb-primary" data-action="resume">'+esc(this.t.resume)+'</button><button class="bb-secondary" data-action="restart">'+esc(this.t.restart)+'</button>';this.setGameplayControlsFocusable(false);this.focusFirstAction();
+        }else if(this.state==='paused'){this.state='playing';this.overlay.hidden=true;this.clearMenuFocus();this.setGameplayControlsFocusable(true);}
     };
 
     Game.prototype.finishRound=function(won){
@@ -745,6 +759,7 @@
         this.card.className='bb-card bb-result-card';
         var primary=won?(this.level<6?'<button class="bb-primary" data-action="next">'+esc(this.stageSelectText.next)+'</button>':'<button class="bb-primary" data-action="levels">'+esc(this.stageSelectText.back)+'</button>'):'<button class="bb-primary" data-action="start">'+esc(this.t.again)+'</button>';
         this.card.innerHTML='<div class="bb-result-icon">'+(won?'✦':'○')+'</div><p class="bb-kicker">'+esc(this.stageLabel(this.level)+' · '+this.stageName(this.level))+'</p><h2>'+esc(won?this.t.won:this.t.lost)+'</h2><p class="bb-result-score">'+esc(this.t.score)+' <b>'+this.score+'</b></p>'+primary+(won&&this.level===6?'':'<button class="bb-secondary" data-action="levels">'+esc(this.stageSelectText.back)+'</button>');
+        this.setGameplayControlsFocusable(false);this.focusFirstAction();
         if(this.options.onResult)this.options.onResult({status:won?(this.level===6?'finished':'stage-cleared'):'failed',level:this.level,name:this.stageName(this.level),score:this.score,best:this.best,lives:this.lives,remaining:this.remaining,time:this.elapsed});
     };
 
@@ -765,15 +780,41 @@
     };
 
     Game.prototype.keyDown=function(e){
-        if(['ArrowLeft','ArrowRight','Space','KeyA','KeyD','KeyE','Escape','KeyP'].indexOf(e.code)<0)return;
-        e.preventDefault();e.stopPropagation();
-        if(e.code==='ArrowLeft'||e.code==='KeyA')this.keys.left=true;
-        if(e.code==='ArrowRight'||e.code==='KeyD')this.keys.right=true;
-        if(e.code==='Space'){
-            if(this.state==='title')this.showLevelSelect();else if(this.state==='ready')this.launch();else if(this.state==='paused')this.togglePause();
+        if(e.altKey||e.ctrlKey||e.metaKey)return;
+        var code=e.code,activation=code==='Enter'||code==='Space',arrows=code==='ArrowLeft'||code==='ArrowRight'||code==='ArrowUp'||code==='ArrowDown';
+        var handled=function(){e.preventDefault();e.stopPropagation();};
+        if(this.state==='playing'){
+            if(code==='ArrowLeft'||code==='KeyA'){handled();this.keys.left=true;return;}
+            if(code==='ArrowRight'||code==='KeyD'){handled();this.keys.right=true;return;}
+            if(code==='KeyE'){handled();this.launchSeedAttack();return;}
+            if(code==='Escape'||code==='KeyP'){handled();this.togglePause();return;}
+            return;
         }
-        if(e.code==='KeyE')this.launchSeedAttack();
-        if(e.code==='Escape'||e.code==='KeyP')this.togglePause();
+        if(this.state==='select'){
+            if(arrows||code==='Home'||code==='End'){handled();this.moveLevelFocus(code);return;}
+            if(activation){handled();if(!e.repeat)this.activateFocusedAction();return;}
+            if(code==='Escape'){handled();this.showTitle();return;}return;
+        }
+        if(this.state==='title'){
+            if(activation){handled();if(!e.repeat)this.activateFocusedAction();return;}
+            if(arrows){handled();this.moveMenuFocus(code==='ArrowLeft'||code==='ArrowUp'?-1:1);return;}return;
+        }
+        if(this.state==='ready'){
+            if(activation){handled();if(!e.repeat)this.activateFocusedAction();return;}
+            if(arrows){handled();this.moveMenuFocus(code==='ArrowLeft'||code==='ArrowUp'?-1:1);return;}
+            if(code==='Escape'){handled();this.showLevelSelect();return;}return;
+        }
+        if(this.state==='paused'){
+            if(code==='Escape'||code==='KeyP'){handled();this.togglePause();return;}
+            if(activation){handled();if(!e.repeat)this.activateFocusedAction();return;}
+            if(arrows){handled();this.moveMenuFocus(code==='ArrowLeft'||code==='ArrowUp'?-1:1);return;}return;
+        }
+        if(this.state==='won'||this.state==='lost'){
+            if(activation){handled();if(!e.repeat)this.activateFocusedAction();return;}
+            if(arrows){handled();this.moveMenuFocus(code==='ArrowLeft'||code==='ArrowUp'?-1:1);return;}
+            if(code==='Escape'){handled();this.showLevelSelect();return;}return;
+        }
+        if(this.state==='stage-intro'&&code==='Escape'){handled();this.showLevelSelect();}
     };
     Game.prototype.keyUp=function(e){if(e.code==='ArrowLeft'||e.code==='KeyA')this.keys.left=false;if(e.code==='ArrowRight'||e.code==='KeyD')this.keys.right=false;};
     Game.prototype.pointer=function(e){
