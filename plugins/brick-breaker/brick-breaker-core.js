@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    var W=960,H=720,PORTRAIT_H=1040,PORTRAIT_Y_START=300,PORTRAIT_Y_END=560,STARTING_LIVES=3;
+    var W=960,H=720,PORTRAIT_H=1040,PORTRAIT_Y_START=300,PORTRAIT_Y_END=560,TOUCH_DEAD_ZONE=.16,TOUCH_START_THRESHOLD=.20,TOUCH_STOP_THRESHOLD=.12,TOUCH_RESPONSE_CURVE=1.35,STARTING_LIVES=3;
     var LEVEL_BALL_SPEEDS={1:370,2:400,3:440,4:500,5:540,6:560};
     var WORLD_PALETTE=['#f29a91','#f5b67f','#f2d36f','#9fd1a9','#82c7d5','#b8abd6'];
     var STAGE_WORLDS={
@@ -169,7 +169,7 @@
         this.localPunch=this.root.querySelector('.bb-touch-punch');
         this.localPunchInput={active:false,pointerId:null};
         this.localJoystickCapable=!this.externalInput&&(('ontouchstart' in window)||(navigator.maxTouchPoints||0)>0||(window.matchMedia&&window.matchMedia('(pointer:coarse)').matches));
-        this.touchControlMode='';this.touchControlsVisible=false;this.touchPunchReady=null;this.touchPunchWasDown=false;
+        this.touchControlMode='';this.touchControlsVisible=false;this.touchPunchReady=null;this.touchPunchWasDown=false;this.touchJoystickEngaged=false;
         this.keys={left:false,right:false};
         this.pointerX=null;this.pointerActive=false;this.pointerId=null;this.pointerIsTouch=false;
         this.touchDragStartX=0;this.touchDragInput=0;
@@ -372,7 +372,7 @@
 
     Game.prototype.resetBoard=function(){
         if(this.missTimer){clearTimeout(this.missTimer);this.missTimer=0;}
-        this.keys.left=false;this.keys.right=false;this.pointerActive=false;this.pointerId=null;this.pointerX=null;this.pointerIsTouch=false;this.touchDragStartX=0;this.touchDragInput=0;
+        this.keys.left=false;this.keys.right=false;this.pointerActive=false;this.pointerId=null;this.pointerX=null;this.pointerIsTouch=false;this.touchDragStartX=0;this.touchDragInput=0;this.touchJoystickEngaged=false;
         this.score=0;this.lives=STARTING_LIVES;this.misses=0;this.serveId=0;this.resolvedServeId=-1;this.remaining=0;this.elapsed=0;this.missHandled=false;
         if(this.characterView&&this.characterView.resetReaction)this.characterView.resetReaction();
         this.paddle={x:W*0.5,y:H-100,w:154,h:22,speed:690,baseSpeed:690,fastSpeed:980,controlVx:0};
@@ -941,8 +941,9 @@
         if(!this.keys.left&&!this.keys.right&&this.paddle)this.paddle.controlVx=0;
     };
     Game.prototype.resetLocalJoystick=function(){
-        this.localJoystickInput.active=false;this.localJoystickInput.x=0;this.localJoystickInput.y=0;this.localJoystickInput.pointerId=null;
+        this.localJoystickInput.active=false;this.localJoystickInput.x=0;this.localJoystickInput.y=0;this.localJoystickInput.pointerId=null;this.touchJoystickEngaged=false;
         if(this.localJoystickKnob)this.localJoystickKnob.style.transform='translate(0,0)';
+        if(this.root.classList.contains('bb-portrait-stage')&&this.paddle){this.paddle.controlVx=0;this.paddle.vx=0;}
         this.localPunchInput.active=false;this.localPunchInput.pointerId=null;this.touchPunchWasDown=false;
     };
     Game.prototype.syncTouchControlMode=function(force){
@@ -965,8 +966,23 @@
     };
     Game.prototype.touchJoystickMove=function(){
         var value=this.externalInput?this.externalInput.getMoveVector():this.localJoystickInput;
-        if(!value||!value.active)return 0;
-        return clamp(Number(value.x)||0,-1,1);
+        if(!value||!value.active){
+            this.touchJoystickEngaged=false;
+            if(this.root.classList.contains('bb-portrait-stage')&&this.paddle){this.paddle.controlVx=0;this.paddle.vx=0;}
+            return 0;
+        }
+        var raw=clamp(Number(value.x)||0,-1,1);
+        if(!this.root.classList.contains('bb-portrait-stage')){this.touchJoystickEngaged=false;return raw;}
+        var magnitude=Math.abs(raw);
+        if(this.touchJoystickEngaged){
+            if(magnitude<=TOUCH_STOP_THRESHOLD){this.touchJoystickEngaged=false;return 0;}
+        }else{
+            if(magnitude<TOUCH_START_THRESHOLD)return 0;
+            this.touchJoystickEngaged=true;
+        }
+        if(magnitude<=TOUCH_DEAD_ZONE)return 0;
+        var normalized=clamp((magnitude-TOUCH_DEAD_ZONE)/(1-TOUCH_DEAD_ZONE),0,1);
+        return Math.sign(raw)*Math.pow(normalized,TOUCH_RESPONSE_CURVE);
     };
     Game.prototype.localJoystickPointer=function(e){
         if(!this.localJoystickCapable||this.touchControlMode==='hidden')return;
