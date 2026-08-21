@@ -9,12 +9,12 @@
 
     var MOTION={
         blossomTraveler:{catchStyle:'twirl',missStyle:'droop',moveStyle:'flow',catchDuration:.46,missDuration:.62,gaitSpeed:7.4,step:.022,lean:.074,turn:.13,idleFloat:.018,startDuration:.22,stopDuration:.24,aura:'✿'},
-        herbTraveler:{catchStyle:'sprout',missStyle:'fold',catchDuration:.36,missDuration:.48,gaitSpeed:13.2,step:.026,lean:.105,turn:.12,idleFloat:.008,aura:'❧'},
-        saltCrystalTraveler:{catchStyle:'flash',missStyle:'freeze',catchDuration:.28,missDuration:.58,gaitSpeed:5.8,step:.004,lean:.026,turn:.045,idleFloat:.003,aura:'◇'},
-        cloudwingTraveler:{catchStyle:'float',missStyle:'sink',catchDuration:.64,missDuration:.72,gaitSpeed:6.8,step:.007,lean:.038,turn:.065,idleFloat:.032,aura:'☁'},
-        fruitbrewTraveler:{catchStyle:'doubleBounce',missStyle:'squash',catchDuration:.52,missDuration:.58,gaitSpeed:9.6,step:.028,lean:.075,turn:.1,idleFloat:.01,aura:'●'},
+        herbTraveler:{catchStyle:'sprout',missStyle:'fold',moveStyle:'leafTurn',catchDuration:.38,missDuration:.48,gaitSpeed:10.8,step:.024,lean:.09,turn:.15,idleFloat:.012,startDuration:.24,stopDuration:.2,turnDuration:.18,aura:'❧'},
+        saltCrystalTraveler:{catchStyle:'flash',missStyle:'freeze',moveStyle:'crystalSnap',catchDuration:.3,missDuration:.58,gaitSpeed:5.4,step:.006,lean:.022,turn:.04,idleFloat:.003,startDuration:.12,stopDuration:.12,turnDuration:.14,aura:'◇'},
+        cloudwingTraveler:{catchStyle:'float',missStyle:'sink',moveStyle:'cloudDrift',catchDuration:.6,missDuration:.72,gaitSpeed:5.6,step:.01,lean:.045,turn:.075,idleFloat:.036,startDuration:.38,stopDuration:.42,turnDuration:.34,aura:'☁'},
+        fruitbrewTraveler:{catchStyle:'doubleBounce',missStyle:'squash',moveStyle:'orchardBounce',catchDuration:.48,missDuration:.58,gaitSpeed:11.4,step:.035,lean:.09,turn:.12,idleFloat:.012,startDuration:.16,stopDuration:.32,turnDuration:.24,aura:'●'},
         berryTraveler:{catchStyle:'wiggle',missStyle:'tremble',moveStyle:'dash',catchDuration:.3,missDuration:.46,gaitSpeed:17.2,step:.04,lean:.19,turn:.22,idleFloat:.012,startDuration:.14,stopDuration:.34,aura:'✦'},
-        spicyFlameTraveler:{catchStyle:'punch',missStyle:'recoil',catchDuration:.3,missDuration:.44,gaitSpeed:12.4,step:.019,lean:.14,turn:.13,idleFloat:.006,aura:'▲'},
+        spicyFlameTraveler:{catchStyle:'punch',missStyle:'recoil',moveStyle:'emberDrive',catchDuration:.3,missDuration:.44,gaitSpeed:12.8,step:.018,lean:.16,turn:.16,idleFloat:.007,startDuration:.13,stopDuration:.18,turnDuration:.12,aura:'▲'},
         goldenGrainTraveler:{catchStyle:'bow',missStyle:'slowBow',moveStyle:'plant',catchDuration:.54,missDuration:.68,gaitSpeed:5.2,step:.014,lean:.035,turn:.045,idleFloat:.01,startDuration:.36,stopDuration:.16,aura:'≋'}
     };
 
@@ -102,9 +102,10 @@
         var normalized=Math.max(-1,Math.min(1,(velocity||0)/690)),moving=Math.abs(normalized),previousNormalized=this.lastNormalized||0,previousMoving=Math.abs(previousNormalized);
         if(previousMoving<.025&&moving>=.025)this.startMotion={elapsed:0,duration:this.motion.startDuration||.18,direction:Math.sign(normalized)||1};
         if(previousMoving>.025&&moving<.015)this.stopMotion={elapsed:0,duration:this.motion.stopDuration||.2,direction:Math.sign(previousNormalized)||1};
-        if(previousNormalized*normalized<-.006)this.turnMotion={elapsed:0,duration:this.motion.moveStyle==='dash'?.2:.26,direction:Math.sign(normalized)||1};
+        if(previousNormalized*normalized<-.006)this.turnMotion={elapsed:0,duration:this.motion.turnDuration||(this.motion.moveStyle==='dash'?.2:.26),direction:Math.sign(normalized)||1};
         var startDirection=this.startMotion?this.startMotion.direction:(Math.sign(normalized)||1),stopDirection=this.stopMotion?this.stopMotion.direction:(Math.sign(previousNormalized)||1),turnDirection=this.turnMotion?this.turnMotion.direction:(Math.sign(normalized)||1);
         var startAmount=pulseAmount(this.startMotion,dt),stopAmount=pulseAmount(this.stopMotion,dt),turnAmount=pulseAmount(this.turnMotion,dt);
+        var orchardStopAmount=this.motion.moveStyle==='orchardBounce'&&this.stopMotion?Math.abs(Math.sin(Math.PI*2*clamp(this.stopMotion.elapsed/this.stopMotion.duration,0,1))):0;
         if(this.startMotion&&this.startMotion.done)this.startMotion=null;
         if(this.stopMotion&&this.stopMotion.done)this.stopMotion=null;
         if(this.turnMotion&&this.turnMotion.done)this.turnMotion=null;
@@ -146,11 +147,11 @@
                 offset=(-side*.075-receiveOffset*.055)*catchAmount;
             }else if(missAmount){
                 if(this.motion.missStyle==='freeze')offset=0;
-                else if(this.motion.missStyle==='fold')offset=-side*.25*missAmount;
-                else if(this.motion.missStyle==='sink')offset=side*.09*missAmount;
-                else if(this.motion.missStyle==='squash')offset=-side*.22*missAmount;
+                else if(this.motion.missStyle==='fold')offset=-side*.32*missAmount;
+                else if(this.motion.missStyle==='sink')offset=side*.13*missAmount;
+                else if(this.motion.missStyle==='squash')offset=-side*.28*missAmount;
                 else if(this.motion.missStyle==='tremble')offset=-side*(.1+Math.sin(reactionProgress*Math.PI*8)*.09)*missAmount;
-                else if(this.motion.missStyle==='recoil')offset=side*.2*missAmount;
+                else if(this.motion.missStyle==='recoil')offset=side*.28*missAmount;
                 else if(this.motion.missStyle==='slowBow')offset=-side*.12*missAmount;
                 else offset=-side*.16*missAmount;
             }
@@ -159,12 +160,12 @@
         var catchX=0,catchY=0,catchZ=0,catchLift=0,scaleX=0,scaleY=0,scaleZ=0;
         if(catchAmount){
             if(this.motion.catchStyle==='twirl'){catchY=Math.sin(reactionProgress*Math.PI*2)*.52*catchAmount;catchZ=Math.sin(reactionProgress*Math.PI*2)*.11;catchLift=.14*catchAmount;scaleY=.028*catchAmount;}
-            else if(this.motion.catchStyle==='sprout'){catchZ=-Math.sin(reactionProgress*Math.PI)*.045;catchLift=.1*catchAmount;scaleY=.035*catchAmount;}
-            else if(this.motion.catchStyle==='flash'){var snap=Math.sin(Math.min(1,reactionProgress*2)*Math.PI);catchY=.08*Math.sin(reactionProgress*Math.PI*4);catchLift=.055*snap;scaleX=scaleY=scaleZ=.045*snap;}
-            else if(this.motion.catchStyle==='float'){catchZ=Math.sin(reactionProgress*Math.PI*2)*.035;catchLift=.17*catchAmount;scaleY=.018*catchAmount;}
-            else if(this.motion.catchStyle==='doubleBounce'){var bounce=Math.abs(Math.sin(reactionProgress*Math.PI*2))*catchAmount;catchLift=.13*bounce;scaleX=.055*bounce;scaleY=-.055*bounce;}
+            else if(this.motion.catchStyle==='sprout'){var sproutPress=clamp(reactionProgress/.24,0,1)*clamp((.48-reactionProgress)/.2,0,1);catchZ=-Math.sin(reactionProgress*Math.PI)*.09;catchLift=-.055*sproutPress+.18*catchAmount;scaleX=.07*sproutPress;scaleY=-.08*sproutPress+.095*catchAmount;}
+            else if(this.motion.catchStyle==='flash'){var snap=Math.sin(Math.min(1,reactionProgress*2)*Math.PI);catchY=.16*Math.sin(reactionProgress*Math.PI*4);catchLift=.085*snap;scaleX=scaleY=scaleZ=.075*snap;}
+            else if(this.motion.catchStyle==='float'){catchZ=Math.sin(reactionProgress*Math.PI*2)*.055;catchLift=.23*catchAmount;scaleY=.035*catchAmount;catchY=Math.sin(reactionProgress*Math.PI)*.09;}
+            else if(this.motion.catchStyle==='doubleBounce'){var bounce=Math.abs(Math.sin(reactionProgress*Math.PI*2))*catchAmount;catchLift=.19*bounce;scaleX=.09*bounce;scaleY=-.1*bounce;}
             else if(this.motion.catchStyle==='wiggle'){catchZ=Math.sin(reactionProgress*Math.PI*4)*.19*catchAmount;catchY=Math.sin(reactionProgress*Math.PI*2)*.17*catchAmount;catchLift=.13*catchAmount;scaleX=.065*catchAmount;scaleY=-.055*catchAmount;}
-            else if(this.motion.catchStyle==='punch'){catchX=-.1*catchAmount;catchZ=-.055*catchAmount;catchLift=.085*catchAmount;scaleY=.025*catchAmount;}
+            else if(this.motion.catchStyle==='punch'){var drive=Math.sin(Math.PI*clamp(reactionProgress/.46,0,1));catchX=-.24*drive+.11*catchAmount;catchZ=-.12*drive;catchLift=.12*drive;scaleX=.085*drive;scaleY=-.07*drive;}
             else if(this.motion.catchStyle==='bow'){
                 var press=clamp(reactionProgress/.28,0,1)*clamp((.52-reactionProgress)/.18,0,1),release=reactionProgress>.32?Math.sin(Math.PI*clamp((reactionProgress-.32)/.68,0,1)):0;
                 catchX=.29*press-.08*release;catchLift=-.09*press+.12*release;scaleX=.085*press;scaleY=-.11*press+.04*release;
@@ -173,12 +174,12 @@
         var missX=0,missY=0,missZ=0,missDrop=0;
         if(missAmount){
             if(this.motion.missStyle==='droop'){missX=.13*missAmount;missZ=.055*missAmount;missDrop=.065*missAmount;scaleY-=.035*missAmount;}
-            else if(this.motion.missStyle==='fold'){missX=.1*missAmount;missDrop=.045*missAmount;scaleX-=.045*missAmount;}
-            else if(this.motion.missStyle==='freeze'){missX=.055*missAmount;scaleX-=.018*missAmount;scaleY+=.012*missAmount;}
-            else if(this.motion.missStyle==='sink'){missZ=Math.sin(reactionProgress*Math.PI*3)*.035*missAmount;missDrop=.105*missAmount;scaleY-=.03*missAmount;}
-            else if(this.motion.missStyle==='squash'){missDrop=.07*missAmount;scaleX+=.07*missAmount;scaleY-=.09*missAmount;}
+            else if(this.motion.missStyle==='fold'){missX=.16*missAmount;missDrop=.07*missAmount;scaleX-=.08*missAmount;}
+            else if(this.motion.missStyle==='freeze'){missX=.08*missAmount;scaleX-=.04*missAmount;scaleY+=.02*missAmount;}
+            else if(this.motion.missStyle==='sink'){missZ=Math.sin(reactionProgress*Math.PI*3)*.05*missAmount;missDrop=.14*missAmount;scaleY-=.05*missAmount;}
+            else if(this.motion.missStyle==='squash'){missDrop=.09*missAmount;scaleX+=.11*missAmount;scaleY-=.14*missAmount;}
             else if(this.motion.missStyle==='tremble'){missZ=Math.sin(reactionProgress*Math.PI*10)*.1*missAmount;missDrop=.055*missAmount;}
-            else if(this.motion.missStyle==='recoil'){missX=.15*missAmount;missY=-.12*missAmount;missDrop=.05*missAmount;scaleY-=.045*missAmount;}
+            else if(this.motion.missStyle==='recoil'){missX=.22*missAmount;missY=-.18*missAmount;missDrop=.07*missAmount;scaleY-=.07*missAmount;}
             else if(this.motion.missStyle==='slowBow'){missX=.2*missAmount;missDrop=.045*missAmount;}
         }
         var impactSquash=0,bodyPop=0;
@@ -205,6 +206,24 @@
         }else if(this.motion.moveStyle==='plant'){
             motionX=.16*startAmount-.07*stopAmount;motionZ=-startDirection*.035*startAmount-stopDirection*.025*stopAmount;
             motionDrop=.09*startAmount+.045*stopAmount;motionScaleX=.065*startAmount+.11*stopAmount;motionScaleY=-.09*startAmount-.13*stopAmount;
+        }else if(this.motion.moveStyle==='leafTurn'){
+            motionZ=Math.sin(this.walkPhase*.72)*.052*moving+startDirection*.055*startAmount-stopDirection*.07*stopAmount+turnDirection*.21*turnAmount;
+            motionY=Math.sin(this.walkPhase*.46)*.055*moving+turnDirection*.11*turnAmount;motionLift=.035*startAmount+.025*turnAmount;
+            motionScaleX=.035*turnAmount;motionScaleY=-.04*turnAmount;
+        }else if(this.motion.moveStyle==='crystalSnap'){
+            motionZ=-startDirection*.035*startAmount+stopDirection*.045*stopAmount-turnDirection*.055*turnAmount;
+            motionLift=.025*startAmount;motionScaleX=.055*(startAmount+stopAmount);motionScaleY=-.06*(startAmount+stopAmount);
+        }else if(this.motion.moveStyle==='cloudDrift'){
+            motionZ=Math.sin(this.walkPhase*.38)*.045*moving+startDirection*.035*startAmount-stopDirection*.065*stopAmount+turnDirection*.04*turnAmount;
+            motionY=Math.sin(this.walkPhase*.27)*.07*moving;motionLift=.07*moving+.075*startAmount+.055*stopAmount;motionDrop=.018*turnAmount;
+            motionScaleX=.03*stopAmount;motionScaleY=-.025*stopAmount;
+        }else if(this.motion.moveStyle==='orchardBounce'){
+            motionZ=Math.sin(this.walkPhase)*.045*moving-startDirection*.07*startAmount+stopDirection*.08*stopAmount;
+            motionLift=.07*startAmount+.09*orchardStopAmount;motionDrop=.035*stopAmount;motionScaleX=.075*orchardStopAmount;motionScaleY=-.085*orchardStopAmount;
+        }else if(this.motion.moveStyle==='emberDrive'){
+            motionX=-.11*startAmount+.08*stopAmount;motionZ=-startDirection*.19*startAmount+stopDirection*.12*stopAmount-turnDirection*.24*turnAmount;
+            motionY=-startDirection*.09*startAmount+turnDirection*.14*turnAmount;motionLift=.055*startAmount+.035*turnAmount;
+            motionScaleX=.065*turnAmount;motionScaleY=-.075*turnAmount;
         }
         scaleX+=motionScaleX;scaleY+=motionScaleY;
         var targetZ=-normalized*this.motion.lean+gaitSway+motionZ+catchZ+missZ-receiveOffset*(.34+.12*Math.abs(receiveOffset))*receiveAmount;

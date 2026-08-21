@@ -25,6 +25,11 @@
     function approach(value,target,amount){return value<target?Math.min(target,value+amount):Math.max(target,value-amount);}
     function stepControlVelocity(value,target,profile,dt){
         if(!profile.active)return target;
+        if(profile.reverseAccel){
+            if(!target)profile._reversing=false;
+            else if(value&&Math.sign(value)!==Math.sign(target))profile._reversing=true;
+            if(profile._reversing){var reversed=approach(value,target,profile.reverseAccel*dt);if(reversed===target)profile._reversing=false;return reversed;}
+        }
         if(value&&target&&Math.sign(value)!==Math.sign(target))return approach(value,0,profile.brake*dt);
         var slowing=Math.abs(target)<Math.abs(value),rate=slowing?profile.brake:profile.accel;
         return approach(value,target,rate*dt);
@@ -32,7 +37,12 @@
     function handlingFor(id){
         var profiles={
             blossomTraveler:{id:'blossomTraveler',trait:'柔瓣节奏',active:true,accel:6900,brake:6900,pointerGain:10,steer:1,feedback:'petalArc'},
+            herbTraveler:{id:'herbTraveler',trait:'柔叶折返',active:true,accel:4600,brake:5175,reverseAccel:27600,pointerGain:10,steer:.96,feedback:'leafFlick'},
+            saltCrystalTraveler:{id:'saltCrystalTraveler',trait:'晶点定步',active:true,accel:13800,brake:13800,pointerGain:10,steer:1.02,feedback:'crystalGlint'},
+            cloudwingTraveler:{id:'cloudwingTraveler',trait:'云步轻浮',active:true,accel:3185,brake:2760,pointerGain:10,steer:.9,feedback:'mistRibbon'},
+            fruitbrewTraveler:{id:'fruitbrewTraveler',trait:'果园弹步',active:true,accel:8280,brake:4140,pointerGain:10,steer:1.06,feedback:'orchardDouble'},
             berryTraveler:{id:'berryTraveler',trait:'浆果灵步',active:true,accel:20700,brake:2435,pointerGain:10,steer:.84,feedback:'berryDots'},
+            spicyFlameTraveler:{id:'spicyFlameTraveler',trait:'辣焰冲势',active:true,accel:13800,brake:8280,reverseAccel:41400,pointerGain:10,steer:1.12,feedback:'emberSlash'},
             goldenGrainTraveler:{id:'goldenGrainTraveler',trait:'金穗稳守',active:true,accel:2435,brake:20700,pointerGain:10,steer:1.16,feedback:'grainLift'}
         };
         return profiles[id]||{id:'standard',trait:'标准手感',active:false,accel:0,brake:0,pointerGain:10,steer:1,feedback:'softGlow'};
@@ -293,7 +303,8 @@
         this.padFeedback.offset=clamp((this.ball.x-this.paddle.x)/(this.paddle.w*.5),-1,1);
         this.padFeedback.contactX=this.ball.x;this.padFeedback.contactY=this.paddle.y-this.paddle.h*.5;
         this.padFeedback.kind=this.handling.feedback;
-        this.padFeedback.duration=this.padFeedback.kind==='berryDots'?.18:(this.padFeedback.kind==='grainLift'?.28:.26);
+        var durations={berryDots:.18,grainLift:.28,leafFlick:.24,crystalGlint:.16,mistRibbon:.32,orchardDouble:.3,emberSlash:.16};
+        this.padFeedback.duration=durations[this.padFeedback.kind]||.26;
         this.triggerBallFeedback('catch','y');this.playSoftCollision('catch');
     };
 
@@ -494,6 +505,21 @@
                 c.globalAlpha=padFade*.88;c.strokeStyle=this.theme.ballCore;c.lineWidth=3.4-padProgress*1.4;
                 c.beginPath();c.moveTo(0,5);c.quadraticCurveTo(this.padFeedback.offset*5,-7,0,-20-padProgress*13);c.stroke();
                 c.fillStyle=this.theme.spark;for(var gr=0;gr<2;gr++){var gy=-7-padProgress*(10+gr*5),gx=(gr?1:-1)*(5+padProgress*4);c.save();c.translate(gx,gy);c.rotate((gr?1:-1)*.68);c.beginPath();c.ellipse(0,0,4.7-padProgress,2.1-padProgress*.4,0,0,Math.PI*2);c.fill();c.restore();}
+            }else if(this.padFeedback.kind==='leafFlick'){
+                c.globalAlpha=padFade*.84;c.strokeStyle=this.theme.ballCore;c.lineWidth=2.8-padProgress;
+                for(var lf=0;lf<2;lf++){var leafSide=lf?1:-1;c.beginPath();c.moveTo(0,3);c.quadraticCurveTo(leafSide*(9+padProgress*8),-4-padProgress*6,leafSide*(18+padProgress*10),-12-padProgress*5);c.stroke();c.save();c.translate(leafSide*(12+padProgress*10),-7-padProgress*8);c.rotate(leafSide*(.7+padProgress*.5));c.fillStyle=this.theme.spark;c.beginPath();c.ellipse(0,0,4.6-padProgress,2.2-padProgress*.4,0,0,Math.PI*2);c.fill();c.restore();}
+            }else if(this.padFeedback.kind==='crystalGlint'){
+                c.globalAlpha=padFade*.94;c.strokeStyle=this.theme.ballCore;c.lineWidth=2.6-padProgress*.8;
+                var glint=12+padProgress*11;c.beginPath();c.moveTo(0,-glint);c.lineTo(0,glint*.45);c.moveTo(-glint*.62,-glint*.3);c.lineTo(glint*.62,-glint*.3);c.stroke();
+                c.globalAlpha=padFade*.72;c.fillStyle=this.theme.spark;c.beginPath();c.moveTo(0,-9-padProgress*5);c.lineTo(5+padProgress*2,-3);c.lineTo(0,3+padProgress*2);c.lineTo(-5-padProgress*2,-3);c.closePath();c.fill();
+            }else if(this.padFeedback.kind==='mistRibbon'){
+                c.globalAlpha=padFade*.68;c.strokeStyle=this.theme.ballCore;c.lineWidth=4-padProgress*1.8;
+                for(var mr=0;mr<2;mr++){var mistSide=mr?1:-1;c.beginPath();c.moveTo(mistSide*3,3-mr*3);c.bezierCurveTo(mistSide*(10+padProgress*7),-6,mistSide*(18+padProgress*13),-5-padProgress*9,mistSide*(25+padProgress*14),-14-padProgress*6);c.stroke();}
+            }else if(this.padFeedback.kind==='orchardDouble'){
+                for(var od=0;od<2;od++){var local=clamp(padProgress*1.55-od*.36,0,1),orchardFade=(1-local)*(od?padFade*.72:padFade*.9);c.globalAlpha=orchardFade;c.fillStyle=od?this.theme.spark:this.theme.ballCore;c.beginPath();c.arc((od?1:-1)*(7+local*9),-4-local*(12+od*5),5-local*1.8,0,Math.PI*2);c.fill();}
+            }else if(this.padFeedback.kind==='emberSlash'){
+                c.globalAlpha=padFade*.9;c.strokeStyle=this.theme.ballCore;c.lineWidth=3.2-padProgress*1.2;
+                for(var es=0;es<3;es++){var emberX=(es-1)*8+this.padFeedback.offset*3,emberRise=11+es*4+padProgress*(10+es*3);c.beginPath();c.moveTo(emberX+(es-1)*2,3);c.lineTo(emberX-(es-1)*3,-emberRise);c.stroke();}
             }else{
                 c.globalAlpha=padFade*.82;c.scale(1+padProgress*.24,.46+padProgress*.18);
                 var padGlow=c.createRadialGradient(0,0,1,0,0,23);padGlow.addColorStop(0,'rgba(255,255,244,.96)');padGlow.addColorStop(.48,'rgba(255,246,220,.58)');padGlow.addColorStop(1,'rgba(255,255,244,0)');
