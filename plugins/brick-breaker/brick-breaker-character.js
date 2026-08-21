@@ -193,13 +193,13 @@
         ballVisual=ballVisual||{};
         var previewAmount=0,previewOffset=0;
         if(ballVisual.vy>0&&Number.isFinite(ballVisual.x)&&Number.isFinite(ballVisual.y)){
-            var approachDistance=y-ballVisual.y;
-            if(approachDistance>8&&approachDistance<118){
-                previewAmount=Math.max(0,Math.min(1,1-(approachDistance-8)/110));
-                previewOffset=Math.max(-1,Math.min(1,(ballVisual.x-x)/((ballVisual.paddleWidth||154)*.5)));
+            var approachDistance=y-ballVisual.y,receiveHalf=(ballVisual.paddleWidth||154)*.5,receiveDelta=ballVisual.x-x;
+            if(approachDistance>10&&approachDistance<104&&Math.abs(receiveDelta)<=receiveHalf){
+                previewAmount=Math.max(0,Math.min(1,1-(approachDistance-10)/94));
+                previewOffset=receiveDelta/receiveHalf;
             }
         }
-        var receiveAmount=Math.max(previewAmount*.78,strikeAmount),receiveOffset=strikeAmount>0?reactionOffset:previewOffset;
+        var receiveAmount=Math.max(previewAmount*.48,strikeAmount),receiveOffset=strikeAmount>0?reactionOffset:previewOffset;
         if(arms)for(var ri=0;ri<arms.length;ri++){
             var arm=arms[ri],side=arm.userData._side||1,offset=0;
             if(catchAmount){
@@ -247,8 +247,8 @@
             if(reactionProgress>.1&&reactionProgress<.56)bodyPop=Math.sin(Math.PI*(reactionProgress-.1)/.46);
         }
         var impactWeight=this.motion.moveStyle==='plant'?1.18:(this.motion.moveStyle==='dash'?.92:(this.motion.moveStyle==='flow'?.78:1));
-        scaleX+=previewAmount*.025+impactSquash*.09*impactWeight;
-        scaleY-=previewAmount*.035+impactSquash*.115*impactWeight;
+        scaleX+=previewAmount*.012+impactSquash*.09*impactWeight;
+        scaleY-=previewAmount*.018+impactSquash*.115*impactWeight;
         scaleY+=bodyPop*.025;
         var gait=Math.sin(this.walkPhase),gaitLift=Math.abs(Math.sin(this.walkPhase))*this.motion.step*moving;
         var gaitSway=0;
@@ -285,7 +285,9 @@
             motionScaleX=.065*turnAmount;motionScaleY=-.075*turnAmount;
         }
         scaleX+=motionScaleX;scaleY+=motionScaleY;
-        var targetZ=-normalized*this.motion.lean+gaitSway+motionZ+catchZ+missZ-receiveOffset*(.34+.12*Math.abs(receiveOffset))*receiveAmount;
+        var previewLean=-previewOffset*(.075+.025*Math.abs(previewOffset))*previewAmount;
+        var strikeLean=-reactionOffset*(.34+.12*Math.abs(reactionOffset))*strikeAmount;
+        var targetZ=-normalized*this.motion.lean+gaitSway+motionZ+catchZ+missZ+previewLean+strikeLean;
         var targetY=normalized*this.motion.turn+motionY+catchY+missY;
         var targetX=(this.motion.catchStyle==='punch'?-moving*.035:0)+motionX+catchX+missX;
         this.model.rotation.z+=(targetZ-this.model.rotation.z)*(receiveAmount>0?.42:.24);
@@ -296,9 +298,9 @@
         this.model.scale.y+=(this.baseScale*(1+scaleY-gaitSquash)-this.model.scale.y)*.28;
         this.model.scale.z+=(this.baseScale*(1+scaleZ)-this.model.scale.z)*.28;
         var idle=Math.sin(performance.now()*(this.motion.catchStyle==='float'?.0016:.0022))*this.motion.idleFloat;
-        var targetModelX=receiveOffset*.22*receiveAmount,positionBlend=receiveAmount>0?.46:.22;
+        var targetModelX=previewOffset*.065*previewAmount+reactionOffset*.22*strikeAmount,positionBlend=receiveAmount>0?.38:.22;
         this.model.position.x+=(targetModelX-this.model.position.x)*positionBlend;
-        this.model.position.y=this.modelBaseY+idle+gaitLift+motionLift-motionDrop+catchLift-missDrop-previewAmount*.045-impactSquash*.055+bodyPop*.085;
+        this.model.position.y=this.modelBaseY+idle+gaitLift+motionLift-motionDrop+catchLift-missDrop+previewAmount*(.012+.01*(1-Math.abs(previewOffset)))-impactSquash*.055+bodyPop*.085;
         this.renderer.render(this.scene,this.camera);
         this.lastX=x;
         this.lastNormalized=normalized;

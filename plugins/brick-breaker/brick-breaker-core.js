@@ -301,7 +301,7 @@
     Game.prototype.triggerPadFeedback=function(){
         this.padFeedback.active=true;this.padFeedback.age=0;
         this.padFeedback.offset=clamp((this.ball.x-this.paddle.x)/(this.paddle.w*.5),-1,1);
-        this.padFeedback.contactX=this.ball.x;this.padFeedback.contactY=this.paddle.y-this.paddle.h*.5;
+        this.padFeedback.contactX=clamp(this.ball.x,this.paddle.x-this.paddle.w*.5,this.paddle.x+this.paddle.w*.5);this.padFeedback.contactY=this.paddle.y-this.paddle.h*.5;
         this.padFeedback.kind=this.handling.feedback;
         var durations={berryDots:.18,grainLift:.28,leafFlick:.24,crystalGlint:.16,mistRibbon:.32,orchardDouble:.3,emberSlash:.16};
         this.padFeedback.duration=durations[this.padFeedback.kind]||.26;
@@ -492,6 +492,18 @@
         }
         if(this.padFeedback.active){
             var padProgress=clamp(this.padFeedback.age/this.padFeedback.duration,0,1),padFade=Math.pow(1-padProgress,2);
+            var residueProgress=clamp(this.padFeedback.age/.13,0,1),residueFade=Math.pow(1-residueProgress,2),residueDirection=this.padFeedback.offset||0;
+            if(residueProgress<1){
+                c.save();c.translate(this.padFeedback.contactX,this.padFeedback.contactY-1);c.globalAlpha=residueFade*.62;
+                var residueGlow=c.createRadialGradient(0,0,0,0,0,10+residueProgress*5);residueGlow.addColorStop(0,'rgba(255,255,246,.9)');residueGlow.addColorStop(.5,this.theme.ballCore);residueGlow.addColorStop(1,'rgba(255,255,246,0)');
+                c.fillStyle=residueGlow;c.beginPath();c.arc(0,0,10+residueProgress*5,0,Math.PI*2);c.fill();
+                c.globalAlpha=residueFade*.72;
+                for(var residueIndex=0;residueIndex<3;residueIndex++){
+                    var residueSide=residueIndex-1,residueX=residueSide*(3.5+residueProgress*5)+residueDirection*residueProgress*2,residueY=-2-residueProgress*(5+Math.abs(residueSide)*2);
+                    c.fillStyle=residueIndex===1?this.theme.spark:this.theme.ballCore;c.beginPath();c.arc(residueX,residueY,1.9-residueProgress*.65,0,Math.PI*2);c.fill();
+                }
+                c.restore();
+            }
             c.save();c.translate(this.padFeedback.contactX,this.padFeedback.contactY+1);c.lineCap='round';c.lineJoin='round';
             if(this.padFeedback.kind==='petalArc'){
                 c.globalAlpha=padFade*.82;c.strokeStyle=this.theme.ballCore;c.lineWidth=3-padProgress;
