@@ -196,15 +196,25 @@
             var cell=cells[cellIndex];
             this.bricks.push({x:cell.x,y:cell.y,baseX:cell.x,baseY:cell.y,motionGroup:cell.motionGroup,w:bw,h:bh,row:paletteRow,col:cellIndex%9,color:colors[paletteRow],alive:true});this.remaining++;
         }
+        if(this.level===2)this.updateBrickMotion(0);
         this.updateHud();
     };
 
     Game.prototype.updateBrickMotion=function(dt){
         if(this.level!==2)return;
         this.brickMotionTime+=Math.max(0,dt||0);
-        var phase=this.brickMotionTime*Math.PI*2/5.2;
-        var offset=Math.sin(phase)*16;
-        this.brickMotionDirection=Math.cos(phase);
+        var travel=1.8,hold=.3,cycle=travel*2+hold*2,cycleTime=this.brickMotionTime%cycle;
+        var offset=-16,direction=0,progress,eased;
+        if(cycleTime<travel){
+            progress=cycleTime/travel;eased=progress*progress*(3-2*progress);
+            offset=-16+32*eased;direction=Math.sin(progress*Math.PI);
+        }else if(cycleTime<travel+hold){
+            offset=16;
+        }else if(cycleTime<travel*2+hold){
+            progress=(cycleTime-travel-hold)/travel;eased=progress*progress*(3-2*progress);
+            offset=16-32*eased;direction=-Math.sin(progress*Math.PI);
+        }
+        this.brickMotionDirection=direction;
         for(var i=0;i<this.bricks.length;i++){
             var brick=this.bricks[i];
             brick.x=brick.baseX+(brick.motionGroup==='left'?offset:(brick.motionGroup==='right'?-offset:0));
