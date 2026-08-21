@@ -10,10 +10,10 @@
         en:{speed:'Speed',buff:'Softglow Bud Core',basic:'Stage 5 · Bud Star Nest · Life, slow breeze and star-path buds'}
     };
     var ITEM_GUIDE_COPY={
-        zhs:{title:'本关物件',hazard:{name:'危险坠物',desc:'碰到损失1颗光球',result:'光球 −1'},seed:{name:'软壳光籽',desc:'接住后可抛出清砖，最多6次',result:'光籽已接住'},life:{name:'暖壳芽',desc:'光球＋1',result:'光球＋1'},slow:{name:'慢风绒',desc:'暂时降低球速',result:'慢风生效'},clear:{name:'星路芽',desc:'清理最多5块砖',result:'清理5块'},buff:{name:'柔辉芽核',desc:'三击砖掉落，当前仅收集',result:'柔辉已收集'}},
-        zht:{title:'本關物件',hazard:{name:'危險墜物',desc:'碰到損失1顆光球',result:'光球 −1'},seed:{name:'軟殼光籽',desc:'接住後可拋出清磚，最多6次',result:'光籽已接住'},life:{name:'暖殼芽',desc:'光球＋1',result:'光球＋1'},slow:{name:'慢風絨',desc:'暫時降低球速',result:'慢風生效'},clear:{name:'星路芽',desc:'清理最多5塊磚',result:'清理5塊'},buff:{name:'柔輝芽核',desc:'三擊磚掉落，目前僅收集',result:'柔輝已收集'}},
-        ja:{title:'このステージのアイテム',hazard:{name:'危険な落下物',desc:'触れるとボールを1つ失う',result:'ボール −1'},seed:{name:'やわ殻の光種',desc:'受け取って投げる・最大6回',result:'光種を受け取った'},life:{name:'ぬく殻の芽',desc:'ボール＋1',result:'ボール＋1'},slow:{name:'そよ風の綿',desc:'一時的に速度を下げる',result:'そよ風が発動'},clear:{name:'星路の芽',desc:'最大5個のブロックを消す',result:'5個を清掃'},buff:{name:'柔光の芽核',desc:'3回ブロックから落下・今は収集のみ',result:'柔光を収集'}},
-        en:{title:'Stage Items',hazard:{name:'Falling Hazard',desc:'Lose 1 ball on contact',result:'Ball −1'},seed:{name:'Soft-shell Seed',desc:'Catch and toss it, up to 6 times',result:'Seed caught'},life:{name:'Warm-shell Bud',desc:'Ball +1',result:'Ball +1'},slow:{name:'Breeze Fluff',desc:'Temporarily slows the ball',result:'Breeze active'},clear:{name:'Star-path Bud',desc:'Clears up to 5 bricks',result:'5 bricks cleared'},buff:{name:'Softglow Bud Core',desc:'Drops from 3-hit bricks; collection only',result:'Softglow collected'}}
+        zhs:{title:'本关物件',hazard:{name:'危险坠物',desc:'碰到损失1颗光球',prompt:'注意避开 · 碰到损失1颗光球',result:'光球 −1'},seed:{name:'软壳光籽',desc:'接住后可抛出清砖，最多6次',prompt:'接住后可以抛出清砖',result:'光籽已接住'},life:{name:'暖壳芽',desc:'光球＋1',prompt:'接到后光球＋1',result:'光球＋1'},slow:{name:'慢风绒',desc:'暂时降低球速',prompt:'接到后暂时降低球速',result:'慢风生效'},clear:{name:'星路芽',desc:'清理最多5块砖',prompt:'接到后清理最多5块砖',result:'清理5块'},buff:{name:'柔辉芽核',desc:'三击砖掉落，当前仅收集',prompt:'三击砖掉落 · 当前只收集',result:'柔辉已收集'}},
+        zht:{title:'本關物件',hazard:{name:'危險墜物',desc:'碰到損失1顆光球',prompt:'注意避開 · 碰到損失1顆光球',result:'光球 −1'},seed:{name:'軟殼光籽',desc:'接住後可拋出清磚，最多6次',prompt:'接住後可以拋出清磚',result:'光籽已接住'},life:{name:'暖殼芽',desc:'光球＋1',prompt:'接到後光球＋1',result:'光球＋1'},slow:{name:'慢風絨',desc:'暫時降低球速',prompt:'接到後暫時降低球速',result:'慢風生效'},clear:{name:'星路芽',desc:'清理最多5塊磚',prompt:'接到後清理最多5塊磚',result:'清理5塊'},buff:{name:'柔輝芽核',desc:'三擊磚掉落，目前僅收集',prompt:'三擊磚掉落 · 目前只收集',result:'柔輝已收集'}},
+        ja:{title:'このステージのアイテム',hazard:{name:'危険な落下物',desc:'触れるとボールを1つ失う',prompt:'よけよう · 触れるとボールを1つ失う',result:'ボール −1'},seed:{name:'やわ殻の光種',desc:'受け取って投げる・最大6回',prompt:'受け取るとブロックへ投げられる',result:'光種を受け取った'},life:{name:'ぬく殻の芽',desc:'ボール＋1',prompt:'受け取るとボール＋1',result:'ボール＋1'},slow:{name:'そよ風の綿',desc:'一時的に速度を下げる',prompt:'受け取ると一時的に速度が下がる',result:'そよ風が発動'},clear:{name:'星路の芽',desc:'最大5個のブロックを消す',prompt:'受け取ると最大5個を清掃',result:'5個を清掃'},buff:{name:'柔光の芽核',desc:'3回ブロックから落下・今は収集のみ',prompt:'3回ブロックから落下 · 今は収集のみ',result:'柔光を収集'}},
+        en:{title:'Stage Items',hazard:{name:'Falling Hazard',desc:'Lose 1 ball on contact',prompt:'Keep clear · Contact costs 1 ball',result:'Ball −1'},seed:{name:'Soft-shell Seed',desc:'Catch and toss it, up to 6 times',prompt:'Catch it to toss at a brick',result:'Seed caught'},life:{name:'Warm-shell Bud',desc:'Ball +1',prompt:'Catch for 1 extra ball',result:'Ball +1'},slow:{name:'Breeze Fluff',desc:'Temporarily slows the ball',prompt:'Catch to slow the ball briefly',result:'Breeze active'},clear:{name:'Star-path Bud',desc:'Clears up to 5 bricks',prompt:'Catch to clear up to 5 bricks',result:'5 bricks cleared'},buff:{name:'Softglow Bud Core',desc:'Drops from 3-hit bricks; collection only',prompt:'From 3-hit bricks · collection only',result:'Softglow collected'}}
     };
     var ITEM_GUIDE_ICONS={hazard:'!',seed:'❧',life:'＋',slow:'≈',clear:'✦',buff:'···'};
     var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#e5f3d7',ink:'#579667'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},buff:{soft:'#eee0f5',ink:'#9169aa'}};
@@ -182,6 +182,7 @@
             '<div class="bb-overlay"><section class="bb-card"></section></div>'+
             '<button class="bb-launch" data-action="launch">'+esc(t.launch)+'</button>'+
             seedButton+
+            '<aside class="bb-item-whisper" data-item-whisper data-type="seed" role="status" aria-live="polite" aria-hidden="true"><i data-item-whisper-icon aria-hidden="true"></i><span><b data-item-whisper-name></b><small data-item-whisper-copy></small></span></aside>'+
             '<footer class="bb-tip">'+esc(t.controls)+(this.level===4?' '+esc(t.seedControls):'')+'</footer>';
     };
 
@@ -204,6 +205,41 @@
         this.itemResultEffects.push({type:type,x:x===undefined?this.paddle.x:x,y:y===undefined?this.paddle.y-42:y,age:0,duration:.88});return true;
     };
 
+    Game.prototype.itemWhisperCandidate=function(){
+        if(this.state!=='playing')return null;
+        if(this.itemResultEffects.length){
+            var result=this.itemResultEffects[this.itemResultEffects.length-1];
+            return {type:result.type,kind:'result'};
+        }
+        var active=[];
+        if(this.level===2&&this.hazard&&(this.hazard.state==='warning'||this.hazard.state==='falling'))active.push({type:'hazard',y:this.hazard.y});
+        if(this.level===4&&this.seedDrop)active.push({type:'seed',y:this.seedDrop.y});
+        if(this.level===5){
+            if(this.stageFiveDrop)active.push({type:this.stageFiveDrop.type,y:this.stageFiveDrop.y});
+            for(var i=0;i<this.stageFiveBuffDrops.length;i++)active.push({type:'buff',y:this.stageFiveBuffDrops[i].y});
+        }
+        if(!active.length)return null;
+        active.sort(function(a,b){return b.y-a.y;});
+        return {type:active[0].type,kind:'prompt'};
+    };
+
+    Game.prototype.updateItemWhisper=function(){
+        var element=this.root&&this.root.querySelector('[data-item-whisper]');if(!element)return;
+        var candidate=this.itemWhisperCandidate();
+        if(!candidate){element.classList.remove('is-visible','is-result');element.setAttribute('aria-hidden','true');this.itemWhisperKey='';return;}
+        var copy=this.itemGuideText[candidate.type];if(!copy)return;
+        var key=candidate.type+':'+candidate.kind;
+        if(this.itemWhisperKey!==key){
+            element.setAttribute('data-type',candidate.type);
+            var icon=element.querySelector('[data-item-whisper-icon]'),name=element.querySelector('[data-item-whisper-name]'),detail=element.querySelector('[data-item-whisper-copy]');
+            if(icon)icon.textContent=ITEM_GUIDE_ICONS[candidate.type]||'·';
+            if(name)name.textContent=copy.name;
+            if(detail)detail.textContent=candidate.kind==='result'?copy.result:(copy.prompt||copy.desc);
+            this.itemWhisperKey=key;
+        }
+        element.classList.toggle('is-result',candidate.kind==='result');element.classList.add('is-visible');element.setAttribute('aria-hidden','false');
+    };
+
     Game.prototype.resetBoard=function(){
         if(this.missTimer){clearTimeout(this.missTimer);this.missTimer=0;}
         this.score=0;this.lives=STARTING_LIVES;this.misses=0;this.serveId=0;this.resolvedServeId=-1;this.remaining=0;this.elapsed=0;this.missHandled=false;
@@ -217,7 +253,7 @@
         this.stageFiveSlowTime=0;this.stageFiveRecoverTime=0;this.stageFiveRecoverDuration=.8;this.stageFiveSlowSpeed=440;
         this.stageFiveCollectEffects=[];this.stageFiveClearPaths=[];
         this.stageFiveBuffDrops=[];this.stageFiveBuffCollectEffects=[];this.stageFiveBuffCollected=0;
-        this.seenItemHints={};this.itemHints=[];this.itemResultEffects=[];
+        this.seenItemHints={};this.itemHints=[];this.itemResultEffects=[];this.itemWhisperKey='';
         this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
         this.ballFeedback={active:false,age:0,duration:.09,axis:'y',strength:.16,type:'catch'};
         var bw=82,bh=30;
@@ -777,6 +813,7 @@
             var seedReady=seedButton.querySelector('[data-seed-ready]');if(seedReady)seedReady.textContent=String(attackRemaining);
         }
         var launch=q('.bb-launch');if(launch)launch.hidden=this.state!=='ready';
+        this.updateItemWhisper();
     };
 
     Game.prototype.roundRect=function(c,x,y,w,h,r,fill,stroke){
