@@ -96,7 +96,7 @@
         this.theme=themeFor(this.character.id);
         this.handling=handlingFor(this.character.id);
         var requestedLevel=Number(options.level);
-        this.level=requestedLevel===2||requestedLevel===3?requestedLevel:1;
+        this.level=requestedLevel===2||requestedLevel===3||requestedLevel===4?requestedLevel:1;
         this.stageSky=this.level===2?LEVEL_TWO_COLORS.sky:this.theme.sky;
         this.stagePalette=this.level===2?LEVEL_TWO_COLORS.palette:this.theme.palette;
         this.rules=options.rules||(window.DanboBrickBreakerRules&&DanboBrickBreakerRules.create());
@@ -171,7 +171,7 @@
         this.score=0;this.lives=STARTING_LIVES;this.misses=0;this.serveId=0;this.resolvedServeId=-1;this.remaining=0;this.elapsed=0;this.missHandled=false;
         if(this.characterView&&this.characterView.resetReaction)this.characterView.resetReaction();
         this.paddle={x:W*0.5,y:H-100,w:154,h:22,speed:690,controlVx:0};
-        this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:this.level===3?440:(this.level===2?400:370)};
+        this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:this.level===3?440:(this.level===2||this.level===4?400:370)};
         this.bricks=[];this.hitEffects=[];this.brickMotionTime=0;this.brickMotionDirection=1;
         this.hazard=null;this.hazardClock=0;this.hazardNextAt=6;this.hazardNextGroup='left';this.hazardSpawnCount=0;this.hazardDisabled=this.level!==2;
         this.padFeedback={active:false,age:0,duration:.2,offset:0,contactX:0,contactY:0};
@@ -379,6 +379,16 @@
         this.ballFeedback.axis=axis==='x'?'x':'y';this.ballFeedback.duration=type==='catch'?.09:.075;this.ballFeedback.strength=type==='catch'?.16:.09;
     };
 
+    Game.prototype.applySoftBrickDeflection=function(brick,contactX){
+        if(this.level!==4)return;
+        var b=this.ball,position=clamp((contactX-(brick.x+brick.w*.5))/(brick.w*.5),-1,1),deadZone=.18;
+        if(Math.abs(position)<=deadZone)return;
+        var influence=(Math.abs(position)-deadZone)/(1-deadZone),nudge=Math.sign(position)*influence*b.speed*Math.sin(Math.PI/22.5);
+        b.vx+=nudge;
+        var length=Math.hypot(b.vx,b.vy)||b.speed;
+        b.vx=b.vx/length*b.speed;b.vy=b.vy/length*b.speed;
+    };
+
     Game.prototype.addBrickHitFeedback=function(brick){
         var b=this.ball,cx=clamp(b.x,brick.x,brick.x+brick.w),cy=clamp(b.y,brick.y,brick.y+brick.h),dx=b.x-cx,dy=b.y-cy;
         var axis=Math.abs(dx)>Math.abs(dy)?'x':'y',normalX=0,normalY=0;
@@ -475,6 +485,7 @@
             var cx=clamp(b.x,brick.x,brick.x+brick.w),cy=clamp(b.y,brick.y,brick.y+brick.h),dx=b.x-cx,dy=b.y-cy;
             var hitAxis=Math.abs(dx)>Math.abs(dy)?'x':'y';
             if(hitAxis==='x')b.vx=dx<0?-Math.abs(b.vx):Math.abs(b.vx);else b.vy=dy<0?-Math.abs(b.vy):Math.abs(b.vy);
+            this.applySoftBrickDeflection(brick,cx);
             if(brick.hitsRemaining>1){
                 brick.hitsRemaining--;brick.hitCooldown=.07;brick.shellPulseAge=0;brick.shellImpactX=cx;brick.shellImpactY=cy;
                 this.triggerBallFeedback('brick',hitAxis);this.playSoftCollision('brick');break;
