@@ -45,7 +45,7 @@ window.createEggMesh=function(bodyColor,accentColor,characterId){
 window._updateCharacterPremiumRig=function(){};
 window._animateCuteCharacterDetails=function(){};
 
-const BUILD='20260821.28';
+const BUILD='20260821.29';
 function loadScript(source){
     return new Promise(function(resolve,reject){
         var script=document.createElement('script');script.src=source+(source.indexOf('?')>=0?'&':'?')+'v='+BUILD;script.onload=resolve;script.onerror=reject;document.body.appendChild(script);

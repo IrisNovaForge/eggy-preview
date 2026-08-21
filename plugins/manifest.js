@@ -3,7 +3,7 @@
     var externalBases=window.DANBO_PLUGIN_ASSET_BASES||{};
     var brickBreakerBase=String(externalBases['brick-breaker']||'https://irisnovaforge.github.io/eggy-preview/plugins/brick-breaker/');
     if(brickBreakerBase.charAt(brickBreakerBase.length-1)!=='/')brickBreakerBase+='/';
-    var brickBreakerAssetVersion='v=20260821.28';
+    var brickBreakerAssetVersion='v=20260821.29';
     function brickBreakerAsset(file){return brickBreakerBase+file+'?'+brickBreakerAssetVersion;}
     window.DANBO_PLUGIN_MANIFEST=[
         {
@@ -44,8 +44,8 @@
         },
         {
             id:'brick-breaker',
-            name:{zhs:'星光弹球工坊',zht:'星光彈球工坊',ja:'星明かりのブロック工房',en:'Starlight Block Workshop'},
-            version:'0.9.0',
+            name:{zhs:'星光碰撞',zht:'星光碰撞',ja:'星明かりの衝突',en:'Starlight Collision'},
+            version:'0.9.1',
             enabled:true,
             entranceScript:brickBreakerAsset('entrance.js'),
             scripts:[brickBreakerAsset('brick-breaker-wasm.js'),brickBreakerAsset('brick-breaker-rules.js'),brickBreakerAsset('brick-breaker-character.js'),brickBreakerAsset('brick-breaker-core.js'),brickBreakerAsset('plugin.js')],

@@ -4,7 +4,7 @@
 
     var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
     var runtimeBase=window.DANBO_BRICK_BREAKER_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/brick-breaker/');
-    var pluginAssetVersion='v=20260821.28';
+    var pluginAssetVersion='v=20260821.29';
     window.DANBO_BRICK_BREAKER_BASE_URL=runtimeBase;
 
     function ensureStyle(){
@@ -23,8 +23,8 @@
 
     window.DANBO_PLUGIN_HOST.register({
         id:'brick-breaker',
-        version:'0.9.0',
-        name:{zhs:'星光弹球工坊',zht:'星光彈球工坊',ja:'星明かりのブロック工房',en:'Starlight Block Workshop'},
+        version:'0.9.1',
+        name:{zhs:'星光碰撞',zht:'星光碰撞',ja:'星明かりの衝突',en:'Starlight Collision'},
         description:{
             zhs:'原创视觉的基础打砖块小游戏。移动挡板，让光球清理全部彩色方块。',
             zht:'原創視覺的基礎打磚塊小遊戲。移動擋板，讓光球清理全部彩色方塊。',
@@ -38,7 +38,7 @@
                 ctx.api.finish({status:'error',reason:'runtime missing'});
                 return {destroy:function(){}};
             }
-            if(ctx.api&&ctx.api.setTitle)ctx.api.setTitle('Starlight Block Workshop');
+            if(ctx.api&&ctx.api.setTitle)ctx.api.setTitle('Starlight Collision');
             if(ctx.net)ctx.net.send('minigame.ready',{pluginId:ctx.pluginId,characterId:ctx.character&&ctx.character.id});
             var characterPortrait=null;
             try{

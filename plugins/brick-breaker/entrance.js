@@ -2,8 +2,8 @@
     'use strict';
     if(!window.DANBO_PLUGIN_HOST||!window.DANBO_PLUGIN_HOST.registerEntrance){console.warn('[brick-breaker entrance] Plugin host missing');return;}
 
-    var NAME={zhs:'✨ 星光弹球工坊',zht:'✨ 星光彈球工坊',ja:'✨ 星明かりのブロック工房',en:'✨ Starlight Block Workshop'};
-    var DESC={zhs:'进入工坊，体验基础弹球与方块挑战？',zht:'進入工坊，體驗基礎彈球與方塊挑戰？',ja:'工房に入り、光のボールとブロックの基本チャレンジを遊びますか？',en:'Enter for a simple paddle, ball and block-clearing challenge?'};
+    var NAME={zhs:'✨ 星光碰撞',zht:'✨ 星光碰撞',ja:'✨ 星明かりの衝突',en:'✨ Starlight Collision'};
+    var DESC={zhs:'进入挑战，接住光球并完成清理？',zht:'進入挑戰，接住光球並完成清理？',ja:'チャレンジに入り、光のボールを受け止めますか？',en:'Enter the challenge and catch the light ball?'};
     function locale(map,lang){return map[lang]||map.en||map.zhs||'';}
 
     window.DANBO_PLUGIN_HOST.registerEntrance({

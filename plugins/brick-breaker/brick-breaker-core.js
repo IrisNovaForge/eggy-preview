@@ -4,10 +4,10 @@
     var W=960,H=720,STARTING_LIVES=3;
     var LEVEL_BALL_SPEEDS={1:370,2:400,3:440,4:500,5:540,6:560};
     var STAGE_SELECT_COPY={
-        zhs:{enter:'进入关卡',select:'选择关卡',stagePrefix:'第',stageSuffix:'关',next:'进入下一关',back:'返回关卡选择',levels:['破壳花园','芽围轻摆','双层柔壳','柔性偏转','回芽星巢','群芽汇辉']},
-        zht:{enter:'進入關卡',select:'選擇關卡',stagePrefix:'第',stageSuffix:'關',next:'進入下一關',back:'返回關卡選擇',levels:['破殼花園','芽圍輕擺','雙層柔殼','柔性偏轉','回芽星巢','群芽匯輝']},
-        ja:{enter:'ステージへ',select:'ステージを選ぶ',stagePrefix:'ステージ',stageSuffix:'',next:'次のステージへ',back:'ステージ選択へ',levels:['殻ひらく花園','芽囲いのそよぎ','二重の柔殻','やわらか偏向','芽帰りの星巣','集う芽の輝き']},
-        en:{enter:'Enter Stages',select:'Choose a Stage',stagePrefix:'Stage ',stageSuffix:'',next:'Next Stage',back:'Back to Stage Select',levels:['Shellbreak Garden','Swaying Budring','Double Soft-shell','Gentle Deflection','Returning Bud Nest','Gathered Budglow']}
+        zhs:{enter:'进入关卡',select:'选择关卡',stagePrefix:'第',stageSuffix:'关',next:'进入下一关',back:'返回关卡选择',locked:'尚未解锁',levels:['破壳花园','芽围轻摆','双层柔壳','柔性偏转','回芽星巢','群芽汇辉']},
+        zht:{enter:'進入關卡',select:'選擇關卡',stagePrefix:'第',stageSuffix:'關',next:'進入下一關',back:'返回關卡選擇',locked:'尚未解鎖',levels:['破殼花園','芽圍輕擺','雙層柔殼','柔性偏轉','回芽星巢','群芽匯輝']},
+        ja:{enter:'ステージへ',select:'ステージを選ぶ',stagePrefix:'ステージ',stageSuffix:'',next:'次のステージへ',back:'ステージ選択へ',locked:'未解放',levels:['殻ひらく花園','芽囲いのそよぎ','二重の柔殻','やわらか偏向','芽帰りの星巣','集う芽の輝き']},
+        en:{enter:'Enter Stages',select:'Choose a Stage',stagePrefix:'Stage ',stageSuffix:'',next:'Next Stage',back:'Back to Stage Select',locked:'Locked',levels:['Shellbreak Garden','Swaying Budring','Double Soft-shell','Gentle Deflection','Returning Bud Nest','Gathered Budglow']}
     };
     var STAGE_THREE_COPY={
         zhs:{basic:'第三关 · 双层柔壳 · 慢风绒由柔壳蓄成'},
@@ -36,10 +36,10 @@
     var ITEM_GUIDE_ICONS={hazard:'!',seed:'❧',life:'＋',slow:'≈',clear:'✦',buff:'···',multi:'••'};
     var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#e5f3d7',ink:'#579667'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},buff:{soft:'#eee0f5',ink:'#9169aa'},multi:{soft:'#eee0f5',ink:'#9169aa'}};
     var COPY={
-        zhs:{name:'星光弹球工坊',sub:'轻轻托住光球，清理天空中的彩色方块',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'光籽攻击',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'抛籽',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；鼠标或触控可直接拖动。',seedControls:'E / 抛籽按钮使用接住的软壳光籽。',fourthBasic:'第四关 · 柔性偏转 · 最多6次软壳光籽',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
-        zht:{name:'星光彈球工坊',sub:'輕輕托住光球，清理天空中的彩色方塊',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'光籽攻擊',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'拋籽',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；滑鼠或觸控可直接拖動。',seedControls:'E / 拋籽按鈕使用接住的軟殼光籽。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次軟殼光籽',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
-        ja:{name:'星明かりのブロック工房',sub:'光のボールを受け止め、空のカラーブロックを消そう',start:'チャレンジ開始',resume:'つづける',restart:'もう一度',exit:'世界へ戻る',score:'スコア',best:'ベスト',lives:'ボール',left:'のこり',seed:'光の種',seedReady:'準備OK',seedWaiting:'待機',seedSpent:'終了',attack:'種を投げる',ready:'サーブの準備',readyHint:'スペース、画面クリック、またはボタンでスタート',pause:'一時停止',paused:'一時停止中',won:'すべてのブロックを消しました！',lost:'ボールがなくなりました',again:'もう一度',title:'タイトルへ',controls:'← → / A D でキャラクターを移動。マウス・タッチ操作にも対応。',seedControls:'E またはボタンで受け取った光の種を投げます。',fourthBasic:'ステージ4 · やわらか反射 · 光の種は最大6回',basic:'基本ルール · アイテムなし · 特殊ブロックなし',launch:'スタート'},
-        en:{name:'Starlight Block Workshop',sub:'Guide the light ball and clear the colorful sky blocks',start:'Start Challenge',resume:'Resume',restart:'Restart',exit:'Return to World',score:'Score',best:'Best',lives:'Balls',left:'Left',seed:'Seed Toss',seedReady:'Ready',seedWaiting:'Waiting',seedSpent:'Spent',attack:'Toss Seed',ready:'Ready to Serve',readyHint:'Press Space, click the board, or tap the button',pause:'Pause',paused:'Journey Paused',won:'All blocks cleared!',lost:'No light balls left',again:'Play Again',title:'Back to Title',controls:'Move your traveler with ← → / A D, mouse, or touch.',seedControls:'Press E or the seed button to toss a caught soft-shell seed.',fourthBasic:'Stage 4 · Soft deflection · Up to 6 soft-shell seeds',basic:'Basic rules · No items · No special bricks',launch:'Launch'}
+        zhs:{name:'星光碰撞',sub:'接住光球，完成挑战！',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'光籽攻击',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'抛籽',ready:'准备发球',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；鼠标或触控可直接拖动。',seedControls:'E / 抛籽按钮使用接住的软壳光籽。',fourthBasic:'第四关 · 柔性偏转 · 最多6次软壳光籽',basic:'基础玩法 · 无道具 · 无特殊砖块',launch:'发球'},
+        zht:{name:'星光碰撞',sub:'接住光球，完成挑戰！',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'光籽攻擊',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'拋籽',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；滑鼠或觸控可直接拖動。',seedControls:'E / 拋籽按鈕使用接住的軟殼光籽。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次軟殼光籽',basic:'基礎玩法 · 無道具 · 無特殊磚塊',launch:'發球'},
+        ja:{name:'星明かりの衝突',sub:'光のボールを受け止め、チャレンジを達成しよう！',start:'チャレンジ開始',resume:'つづける',restart:'もう一度',exit:'世界へ戻る',score:'スコア',best:'ベスト',lives:'ボール',left:'のこり',seed:'光の種',seedReady:'準備OK',seedWaiting:'待機',seedSpent:'終了',attack:'種を投げる',ready:'サーブの準備',readyHint:'スペース、画面クリック、またはボタンでスタート',pause:'一時停止',paused:'一時停止中',won:'すべてのブロックを消しました！',lost:'ボールがなくなりました',again:'もう一度',title:'タイトルへ',controls:'← → / A D でキャラクターを移動。マウス・タッチ操作にも対応。',seedControls:'E またはボタンで受け取った光の種を投げます。',fourthBasic:'ステージ4 · やわらか反射 · 光の種は最大6回',basic:'基本ルール · アイテムなし · 特殊ブロックなし',launch:'スタート'},
+        en:{name:'Starlight Collision',sub:'Catch the light ball and complete the challenge!',start:'Start Challenge',resume:'Resume',restart:'Restart',exit:'Return to World',score:'Score',best:'Best',lives:'Balls',left:'Left',seed:'Seed Toss',seedReady:'Ready',seedWaiting:'Waiting',seedSpent:'Spent',attack:'Toss Seed',ready:'Ready to Serve',readyHint:'Press Space, click the board, or tap the button',pause:'Pause',paused:'Journey Paused',won:'All blocks cleared!',lost:'No light balls left',again:'Play Again',title:'Back to Title',controls:'Move your traveler with ← → / A D, mouse, or touch.',seedControls:'Press E or the seed button to toss a caught soft-shell seed.',fourthBasic:'Stage 4 · Soft deflection · Up to 6 soft-shell seeds',basic:'Basic rules · No items · No special bricks',launch:'Launch'}
     };
 
     var THEMES={
@@ -136,6 +136,7 @@
         if(!this.rules)throw new Error('BrickBreaker rules missing');
         this.storage=options.storage||{get:function(k,d){return d;},set:function(){}};
         this.best=Number(this.storage.get('bestScore',0))||0;
+        this.maxUnlockedLevel=clamp(Math.round(Number(this.storage.get('maxUnlockedLevel',1))||1),1,6);
         this.root=document.createElement('div');
         this.root.className='bb-root';
         this.root.setAttribute('data-character',this.character.id);
@@ -215,7 +216,7 @@
     Game.prototype.titleHtml=function(){var t=this.t;return '<div class="bb-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-character-theme"><span>'+esc(this.theme.glyph)+'</span>'+esc(this.character.name)+'</p><p class="bb-kicker">BLOCK &amp; LIGHT</p><h1>'+esc(t.name)+'</h1><p class="bb-sub">'+esc(t.sub)+'</p><button class="bb-primary" data-action="levels">'+esc(this.stageSelectText.enter)+'</button>';};
     Game.prototype.levelSelectHtml=function(){
         var html='<div class="bb-mark bb-level-mark" aria-hidden="true"><span></span><span></span><span></span></div><p class="bb-kicker">BLOCK &amp; LIGHT</p><h2>'+esc(this.stageSelectText.select)+'</h2><div class="bb-level-grid">';
-        for(var level=1;level<=6;level++)html+='<button type="button" class="bb-level-choice" data-action="select-level" data-level="'+level+'" aria-label="'+esc(this.stageLabel(level)+' '+this.stageName(level))+'">'+esc(this.stageName(level))+'</button>';
+        for(var level=1;level<=6;level++){var locked=level>this.maxUnlockedLevel;html+='<button type="button" class="bb-level-choice" data-action="select-level" data-level="'+level+'" aria-label="'+esc(this.stageLabel(level)+' '+this.stageName(level)+(locked?' · '+this.stageSelectText.locked:''))+'"'+(locked?' disabled':'')+'>'+esc(this.stageName(level))+'</button>';}
         return html+'</div>';
     };
     Game.prototype.levelIntroHtml=function(){return '<div class="bb-stage-sprout" aria-hidden="true"><i></i><i></i><i></i></div><p class="bb-kicker">'+esc(this.stageLabel(this.level))+'</p><h2>'+esc(this.stageName(this.level))+'</h2>';};
@@ -229,10 +230,16 @@
         if(speedLabel)speedLabel.textContent=this.level===6?this.stageSixText.speed:this.stageFiveText.speed;
         if(controls)controls.textContent=this.t.controls+(this.level===4?' '+this.t.seedControls:'');
     };
-    Game.prototype.showLevelIntro=function(level){
-        this.clearIntroTimer();this.applyLevelPresentation(level);this.resetBoard();this.state='stage-intro';this.root.classList.add('bb-playing');this.overlay.hidden=false;this.card.className='bb-card bb-stage-card';this.card.innerHTML=this.levelIntroHtml();this.updateHud();
+    Game.prototype.showLevelIntro=function(level,bypassLock){
+        var requestedLevel=clamp(Math.round(Number(level)||1),1,6);if(!bypassLock&&requestedLevel>this.maxUnlockedLevel){this.showLevelSelect();return false;}
+        this.clearIntroTimer();this.applyLevelPresentation(requestedLevel);this.resetBoard();this.state='stage-intro';this.root.classList.add('bb-playing');this.overlay.hidden=false;this.card.className='bb-card bb-stage-card';this.card.innerHTML=this.levelIntroHtml();this.updateHud();
         if(this.options.onEvent)this.options.onEvent('levelSelect',{level:this.level,name:this.stageName(this.level)});
-        var self=this;this.introTimer=setTimeout(function(){self.introTimer=0;if(self.running&&self.state==='stage-intro')self.startGame();},900);
+        var self=this;this.introTimer=setTimeout(function(){self.introTimer=0;if(self.running&&self.state==='stage-intro')self.startGame();},900);return true;
+    };
+    Game.prototype.unlockNextLevel=function(){
+        if(this.level>=6||this.level>this.maxUnlockedLevel||this.maxUnlockedLevel>=this.level+1)return false;
+        this.maxUnlockedLevel=this.level+1;this.storage.set('maxUnlockedLevel',this.maxUnlockedLevel);
+        if(this.options.onEvent)this.options.onEvent('levelUnlock',{level:this.maxUnlockedLevel,name:this.stageName(this.maxUnlockedLevel)});return true;
     };
 
     Game.prototype.showItemHint=function(type,target){
@@ -732,6 +739,7 @@
 
     Game.prototype.finishRound=function(won){
         this.state=won?'won':'lost';
+        if(won)this.unlockNextLevel();
         if(this.score>this.best){this.best=this.score;this.storage.set('bestScore',this.best);}
         this.updateHud();this.overlay.hidden=false;
         this.card.className='bb-card bb-result-card';

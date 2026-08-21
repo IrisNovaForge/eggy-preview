@@ -18,7 +18,7 @@
     var params=new URLSearchParams(location.search),requested=params.get('character')||'',requestedLevel=Number(params.get('level')),level=requestedLevel>=2&&requestedLevel<=6?requestedLevel:1;
     var characterId=characters[requested]?requested:'blossomTraveler',definition=characters[characterId];
     var character={id:characterId,displayName:definition.displayName,style:{color:definition.color,accent:definition.accent}};
-    document.title='星光弹球工坊｜插件调试';
+    document.title='星光碰撞｜插件调试';
     window.brickBreakerDebug=window.DanboBrickBreaker.create({
         mount:document.getElementById('brick-breaker-debug'),
         character:character,
@@ -28,5 +28,5 @@
         rules:window.DanboBrickBreakerRules.create(),
         onExit:function(){window.brickBreakerDebug.showTitle();}
     });
-    if(params.get('direct')==='1')window.brickBreakerDebug.showLevelIntro(level);
+    if(params.get('direct')==='1')window.brickBreakerDebug.showLevelIntro(level,true);
 })();
