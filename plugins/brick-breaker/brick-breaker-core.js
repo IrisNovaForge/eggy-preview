@@ -12,7 +12,7 @@
     var BALL_DROP_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/ball-drop-a.wav?v=20260822.49',CORE_ASSET_BASE).href:'';
     var STAGE_CLEAR_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/stage-clear-b.wav?v=20260822.49',CORE_ASSET_BASE).href:'';
     var STAGE_FAIL_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/stage-fail-a.wav?v=20260822.49',CORE_ASSET_BASE).href:'';
-    var BGM_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/starlight-collision-bgm-candidate-a.mp3?v=20260822.51',CORE_ASSET_BASE).href:'';
+    var BGM_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/starlight-collision-bgm-candidate-b.mp3?v=20260822.52',CORE_ASSET_BASE).href:'';
     var WORLD_PALETTE=['#f29a91','#f5b67f','#f2d36f','#9fd1a9','#82c7d5','#b8abd6'];
     var STAGE_WORLDS={
         1:{sky:['#8fd8e8','#c8eadf','#ffe1aa'],horizon:'#91cfb2',ground:'#79bd99',light:'#fff4c8',accent:'#f29a91'},
