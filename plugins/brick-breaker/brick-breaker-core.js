@@ -23,6 +23,11 @@
         6:{sky:['#89cfe2','#c9e5d8','#ffd49c'],horizon:'#9ac9a8',ground:'#76ae8e',light:'#fff0b7',accent:'#ef9b82'}
     };
     function stageWorldFor(level){return STAGE_WORLDS[level]||STAGE_WORLDS[1];}
+    function mobileBrowserGestureCapable(){
+        if(!(('ontouchstart' in window)||(navigator.maxTouchPoints||0)>0))return false;
+        if(!window.matchMedia)return true;
+        return window.matchMedia('(pointer:coarse)').matches||window.matchMedia('(hover:none)').matches;
+    }
     var STAGE_SELECT_COPY={
         zhs:{enter:'进入关卡',select:'选择关卡',stagePrefix:'第',stageSuffix:'关',next:'进入下一关',back:'返回关卡选择',locked:'尚未解锁',levels:['破壳花园','芽围轻摆','双层柔壳','柔性偏转','回芽星巢','群芽汇辉']},
         zht:{enter:'進入關卡',select:'選擇關卡',stagePrefix:'第',stageSuffix:'關',next:'進入下一關',back:'返回關卡選擇',locked:'尚未解鎖',levels:['破殼花園','芽圍輕擺','雙層柔殼','柔性偏轉','回芽星巢','群芽匯輝']},
@@ -180,6 +185,7 @@
         this.localPunchInput={active:false,pointerId:null};
         this.localJoystickCapable=!this.externalInput&&(('ontouchstart' in window)||(navigator.maxTouchPoints||0)>0||(window.matchMedia&&window.matchMedia('(pointer:coarse)').matches));
         this.touchControlMode='';this.touchControlsVisible=false;this.touchPunchReady=null;this.touchPunchWasDown=false;this.touchJoystickEngaged=false;
+        this.browserGestureLockCapable=mobileBrowserGestureCapable();this.browserGestureLockActive=false;this.browserGestureLastTapAt=0;this.browserGestureLastTapX=0;this.browserGestureLastTapY=0;
         this.keys={left:false,right:false};
         this.pointerX=null;this.pointerActive=false;this.pointerId=null;this.pointerIsTouch=false;
         this.touchDragStartX=0;this.touchDragInput=0;
@@ -196,6 +202,8 @@
         this.boundPointer=this.pointer.bind(this);
         this.boundLocalJoystick=this.localJoystickPointer.bind(this);
         this.boundLocalPunch=this.localPunchPointer.bind(this);
+        this.boundBrowserTouchGesture=this.browserTouchGesture.bind(this);
+        this.boundBrowserNativeGesture=this.browserNativeGesture.bind(this);
         this.boundClick=this.click.bind(this);
         window.addEventListener('keydown',this.boundKeyDown,true);
         window.addEventListener('keyup',this.boundKeyUp,true);
@@ -976,6 +984,43 @@
         if(this.root.classList.contains('bb-portrait-stage')&&this.paddle){this.paddle.controlVx=0;this.paddle.vx=0;}
         this.localPunchInput.active=false;this.localPunchInput.pointerId=null;this.touchPunchWasDown=false;
     };
+    Game.prototype.browserGestureTarget=function(target){
+        if(!target)return false;
+        if(this.root&&(target===this.root||this.root.contains(target)))return true;
+        var shared=document.getElementById('touch-controls');
+        return !!(shared&&(shared.classList.contains('plugin-joystick-only')||shared.classList.contains('plugin-joystick-punch'))&&(target===shared||shared.contains(target)));
+    };
+    Game.prototype.browserGestureTouchesTarget=function(list){
+        if(!list)return false;
+        for(var i=0;i<list.length;i++)if(this.browserGestureTarget(list[i].target))return true;
+        return false;
+    };
+    Game.prototype.browserTouchGesture=function(e){
+        if(!this.browserGestureLockActive)return;
+        var scoped=this.browserGestureTarget(e.target)||this.browserGestureTouchesTarget(e.touches)||this.browserGestureTouchesTarget(e.changedTouches);
+        if(!scoped)return;
+        if((e.touches&&e.touches.length>1)||e.type==='touchmove'&&(e.scale&&e.scale!==1)){if(e.cancelable)e.preventDefault();return;}
+        if(e.type!=='touchend'||!e.changedTouches||e.changedTouches.length!==1||(e.touches&&e.touches.length))return;
+        var touch=e.changedTouches[0],now=Date.now(),dx=touch.clientX-this.browserGestureLastTapX,dy=touch.clientY-this.browserGestureLastTapY;
+        if(this.browserGestureLastTapAt&&now-this.browserGestureLastTapAt<320&&dx*dx+dy*dy<900){if(e.cancelable)e.preventDefault();this.browserGestureLastTapAt=0;return;}
+        this.browserGestureLastTapAt=now;this.browserGestureLastTapX=touch.clientX;this.browserGestureLastTapY=touch.clientY;
+    };
+    Game.prototype.browserNativeGesture=function(e){
+        if(this.browserGestureLockActive&&this.browserGestureTarget(e.target)&&e.cancelable)e.preventDefault();
+    };
+    Game.prototype.setBrowserGestureLock=function(active){
+        active=!!(active&&this.browserGestureLockCapable);
+        if(active===this.browserGestureLockActive)return;
+        this.browserGestureLockActive=active;this.browserGestureLastTapAt=0;
+        document.documentElement.classList.toggle('bb-browser-gesture-lock',active);
+        var method=active?'addEventListener':'removeEventListener';
+        document[method]('touchstart',this.boundBrowserTouchGesture,{capture:true,passive:false});
+        document[method]('touchmove',this.boundBrowserTouchGesture,{capture:true,passive:false});
+        document[method]('touchend',this.boundBrowserTouchGesture,{capture:true,passive:false});
+        document[method]('gesturestart',this.boundBrowserNativeGesture,{capture:true,passive:false});
+        document[method]('gesturechange',this.boundBrowserNativeGesture,{capture:true,passive:false});
+        document[method]('gestureend',this.boundBrowserNativeGesture,{capture:true,passive:false});
+    };
     Game.prototype.syncTouchControlMode=function(force){
         var mode=this.state==='playing'?'horizontal-punch':'hidden',modeChanged=force||mode!==this.touchControlMode;
         if(modeChanged){
@@ -987,6 +1032,7 @@
             this.root.classList.toggle('bb-mobile-touch-punch',this.touchControlsVisible&&mode==='horizontal-punch');
             if(mode==='hidden')this.resetLocalJoystick();
         }
+        this.setBrowserGestureLock(mode==='horizontal-punch');
         var ready=mode==='horizontal-punch'&&this.seedHeld&&this.seedUses<this.seedLimit&&this.seedCooldown<=0&&!this.seedVolleyActive;
         if(force||ready!==this.touchPunchReady){
             this.touchPunchReady=ready;
@@ -1047,6 +1093,7 @@
     };
     Game.prototype.pointer=function(e){
         if(e.pointerType==='touch'&&(this.externalInput||this.localJoystickCapable)){
+            if(this.browserGestureLockActive&&e.cancelable)e.preventDefault();
             if(this.state==='ready'&&e.type==='pointerdown')this.launch();
             return;
         }
@@ -1921,6 +1968,7 @@
         if(this.missTimer){clearTimeout(this.missTimer);this.missTimer=0;}
         this.clearIntroTimer();
         this.state='destroyed';this.syncTouchControlMode(true);
+        this.setBrowserGestureLock(false);
         window.removeEventListener('keydown',this.boundKeyDown,true);window.removeEventListener('keyup',this.boundKeyUp,true);window.removeEventListener('resize',this.boundPresentationResize);window.removeEventListener('orientationchange',this.boundPresentationResize);
         this.canvas.removeEventListener('pointerdown',this.boundPointer);this.canvas.removeEventListener('pointermove',this.boundPointer);this.canvas.removeEventListener('pointerup',this.boundPointer);this.canvas.removeEventListener('pointercancel',this.boundPointer);this.root.removeEventListener('click',this.boundClick);
         if(this.localJoystick){this.localJoystick.removeEventListener('pointerdown',this.boundLocalJoystick);this.localJoystick.removeEventListener('pointermove',this.boundLocalJoystick);this.localJoystick.removeEventListener('pointerup',this.boundLocalJoystick);this.localJoystick.removeEventListener('pointercancel',this.boundLocalJoystick);}
