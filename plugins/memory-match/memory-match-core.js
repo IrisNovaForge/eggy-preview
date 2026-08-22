@@ -30,10 +30,10 @@
 
     function portraitIds(ids){return ids.map(function(id){return 'portrait-'+id;});}
     var LEVELS=[
-        {id:1,name:'旅人初见',hint:'从轮廓、颜色和名字认识旅人',pairs:6,desktopColumns:3,mobileColumns:3,showNames:true,faces:portraitIds(['blossomTraveler','saltCrystalTraveler','cloudwingTraveler','fruitbrewTraveler','spicyFlameTraveler','goldenGrainTraveler'])},
-        {id:2,name:'八位旅人',hint:'移除名字，记住八位旅人的外形',pairs:8,desktopColumns:4,mobileColumns:4,showNames:false,faces:portraitIds(TRAVELER_IDS)},
-        {id:3,name:'角色印记',hint:'分辨角色装饰与相近的局部构图',pairs:10,desktopColumns:5,mobileColumns:4,showNames:false,faces:TRAVELER_IDS.map(function(id){return 'motif-'+id;}).concat(['close-blossomTraveler','close-berryTraveler'])},
-        {id:4,name:'细节记忆',hint:'在相似印记中记住方向、数量和位置',pairs:12,desktopColumns:6,mobileColumns:4,showNames:false,faces:['emblem-petal-1','emblem-petal-2','emblem-petal-3','emblem-leaf-1','emblem-leaf-2','emblem-leaf-3','emblem-crystal-1','emblem-crystal-2','emblem-crystal-3','emblem-grain-1','emblem-grain-2','emblem-grain-3']}
+        {id:1,name:'旅人初见',difficulty:'入门',hint:'从轮廓、颜色和名字认识旅人',pairs:6,timeMode:'none',timeLabel:'不限时',desktopColumns:3,mobileColumns:3,showNames:true,faces:portraitIds(['blossomTraveler','saltCrystalTraveler','cloudwingTraveler','fruitbrewTraveler','spicyFlameTraveler','goldenGrainTraveler'])},
+        {id:2,name:'八位旅人',difficulty:'标准',hint:'移除名字，记住八位旅人的外形',pairs:8,timeMode:'stopwatch',timeLabel:'记录用时',desktopColumns:4,mobileColumns:4,showNames:false,faces:portraitIds(TRAVELER_IDS)},
+        {id:3,name:'角色印记',difficulty:'进阶',hint:'分辨角色装饰与相近的局部构图',pairs:10,timeMode:'target',targetSeconds:180,timeLabel:'目标 03:00',desktopColumns:5,mobileColumns:4,showNames:false,faces:TRAVELER_IDS.map(function(id){return 'motif-'+id;}).concat(['close-blossomTraveler','close-berryTraveler'])},
+        {id:4,name:'细节记忆',difficulty:'挑战',hint:'在相似印记中记住方向、数量和位置',pairs:12,timeMode:'target',targetSeconds:150,timeLabel:'目标 02:30',desktopColumns:6,mobileColumns:4,showNames:false,faces:['emblem-petal-1','emblem-petal-2','emblem-petal-3','emblem-leaf-1','emblem-leaf-2','emblem-leaf-3','emblem-crystal-1','emblem-crystal-2','emblem-crystal-3','emblem-grain-1','emblem-grain-2','emblem-grain-3']}
     ];
 
     function safeSeed(value){return ((Number(value)||Date.now())>>>0)||0x6d2b79f5;}
@@ -79,25 +79,26 @@
         var mount=options.mount,rules=options.rules||global.DanboMemoryMatchRules.create(),assetBase=String(options.assetBase||'');
         var mismatchDelay=Math.max(20,Number(options.mismatchDelayMs)||760),matchDelay=Math.max(0,Number(options.matchDelayMs)||180);
         var storage=options.storage||null,status='title',cards=[],selected=[],matchedPairs=0,attempts=0,inputLocked=false;
-        var runId=0,pendingTimer=0,destroyed=false,resultSent=false,currentLevel=LEVELS[0],selectedLevel=1;
+        var runId=0,pendingTimer=0,clockTimer=0,destroyed=false,resultSent=false,currentLevel=LEVELS[0],selectedLevel=1;
+        var startedAt=0,elapsedMs=0,targetExpired=false;
         var unlockedLevel=options.unlockAll?LEVELS.length:clamp(readStorage('unlockedLevel',1),1,LEVELS.length)|0;
 
         mount.innerHTML=''+
             '<section class="mm-game" aria-label="蛋宝翻牌记忆">'+
               '<div class="mm-sky-dot mm-sky-dot-a"></div><div class="mm-sky-dot mm-sky-dot-b"></div>'+
               '<header class="mm-header"><div class="mm-brand"><span class="mm-brand-mark" aria-hidden="true"></span><div><b>蛋宝记忆配对</b><small>MEMORY PAIRS</small></div></div>'+
-                '<div class="mm-stats" aria-live="polite"><span data-mm-level-chip>第1关</span><span>配对 <b data-mm-matches>0 / 6</b></span><span>尝试 <b data-mm-attempts>0</b></span></div></header>'+
+                '<div class="mm-stats" aria-live="polite"><span data-mm-level-chip>第1关 · 入门</span><span class="mm-time" data-mm-time>不限时</span><span>配对 <b data-mm-matches>0 / 6</b></span><span>尝试 <b data-mm-attempts>0</b></span></div></header>'+
               '<main class="mm-board-wrap"><div class="mm-board" data-mm-board aria-label="记忆卡牌区域"></div>'+
                 '<div class="mm-panel mm-title-panel is-visible" data-mm-title-panel role="dialog" aria-modal="true">'+
                   '<div class="mm-panel-emblem" aria-hidden="true"><i></i><i></i><i></i></div><p class="mm-kicker">DANBO MEMORY</p><h1>四段记忆旅程</h1><p>从完整旅人开始，逐步记住轮廓、印记与细节。</p>'+
                   '<div class="mm-level-list" data-mm-level-list></div><button class="mm-primary" type="button" data-mm-start>开始挑战</button></div>'+
-                '<div class="mm-panel mm-result" data-mm-result-panel role="dialog" aria-modal="true"><div class="mm-finish-mark" aria-hidden="true">✓</div><p class="mm-kicker">ALL PAIRED</p><h2 data-mm-result-title>关卡完成</h2><p>你用了 <b data-mm-result-attempts>0</b> 次尝试完成全部 <b data-mm-result-pairs>0</b> 组配对。</p>'+
+                '<div class="mm-panel mm-result" data-mm-result-panel role="dialog" aria-modal="true"><div class="mm-finish-mark" aria-hidden="true">✓</div><p class="mm-kicker">ALL PAIRED</p><h2 data-mm-result-title>关卡完成</h2><p>你用了 <b data-mm-result-attempts>0</b> 次尝试完成全部 <b data-mm-result-pairs>0</b> 组配对。</p><p class="mm-result-time" data-mm-result-time>本关不限时</p>'+
                   '<div class="mm-panel-actions"><button class="mm-primary" type="button" data-mm-next>下一关</button><button class="mm-secondary" type="button" data-mm-restart>重玩</button><button class="mm-secondary" type="button" data-mm-level-select>选关</button></div></div></main>'+
               '<footer class="mm-footer"><span data-mm-footer-hint>选择两张记忆牌</span><div><button type="button" data-mm-footer-restart>重新开始</button><button type="button" data-mm-exit>退出</button></div></footer></section>';
 
         var board=mount.querySelector('[data-mm-board]'),titlePanel=mount.querySelector('[data-mm-title-panel]'),resultPanel=mount.querySelector('[data-mm-result-panel]');
-        var matchText=mount.querySelector('[data-mm-matches]'),attemptText=mount.querySelector('[data-mm-attempts]'),levelChip=mount.querySelector('[data-mm-level-chip]');
-        var resultAttempts=mount.querySelector('[data-mm-result-attempts]'),resultPairs=mount.querySelector('[data-mm-result-pairs]'),resultTitle=mount.querySelector('[data-mm-result-title]');
+        var matchText=mount.querySelector('[data-mm-matches]'),attemptText=mount.querySelector('[data-mm-attempts]'),levelChip=mount.querySelector('[data-mm-level-chip]'),timeText=mount.querySelector('[data-mm-time]');
+        var resultAttempts=mount.querySelector('[data-mm-result-attempts]'),resultPairs=mount.querySelector('[data-mm-result-pairs]'),resultTitle=mount.querySelector('[data-mm-result-title]'),resultTime=mount.querySelector('[data-mm-result-time]');
         var nextButton=mount.querySelector('[data-mm-next]'),levelList=mount.querySelector('[data-mm-level-list]'),footerHint=mount.querySelector('[data-mm-footer-hint]');
 
         function readStorage(key,fallback){
@@ -111,6 +112,35 @@
                 if(storage&&typeof storage.set==='function')storage.set(key,value);
                 else if(global.localStorage)global.localStorage.setItem('memory-match:'+key,JSON.stringify(value));
             }catch(error){/* Progress persistence must never block play. */}
+        }
+        function targetSecondsFor(level){
+            var override=options.targetSecondsByLevel&&Number(options.targetSecondsByLevel[level.id]);
+            return override>0?override:Number(level.targetSeconds)||0;
+        }
+        function formatClock(milliseconds,roundUp){
+            var seconds=Math.max(0,roundUp?Math.ceil(milliseconds/1000):Math.floor(milliseconds/1000));
+            var minutes=Math.floor(seconds/60);seconds%=60;
+            return String(minutes).padStart(2,'0')+':'+String(seconds).padStart(2,'0');
+        }
+        function updateClock(){
+            if(!startedAt||currentLevel.timeMode==='none')return;
+            elapsedMs=Math.max(0,performance.now()-startedAt);
+            timeText.classList.remove('is-expired');
+            if(currentLevel.timeMode==='stopwatch'){
+                timeText.textContent='用时 '+formatClock(elapsedMs,false);return;
+            }
+            var targetMs=targetSecondsFor(currentLevel)*1000,remaining=targetMs-elapsedMs;
+            if(remaining<=0){targetExpired=true;timeText.classList.add('is-expired');timeText.textContent='目标已过 · 继续';}
+            else timeText.textContent='剩余 '+formatClock(remaining,true);
+        }
+        function stopClock(updateFirst){
+            if(updateFirst)updateClock();
+            if(clockTimer){clearInterval(clockTimer);clockTimer=0;}startedAt=0;
+        }
+        function startClock(){
+            stopClock(false);startedAt=performance.now();elapsedMs=0;targetExpired=false;timeText.classList.remove('is-expired');
+            if(currentLevel.timeMode==='none'){startedAt=0;timeText.textContent='不限时';return;}
+            updateClock();clockTimer=setInterval(updateClock,Math.max(20,Number(options.timerTickMs)||250));
         }
         function clearPending(){if(pendingTimer){clearTimeout(pendingTimer);pendingTimer=0;}}
         function schedule(callback,delay){clearPending();var expectedRun=runId;pendingTimer=setTimeout(function(){pendingTimer=0;if(!destroyed&&expectedRun===runId)callback();},delay);}
@@ -132,37 +162,40 @@
         }
         function configureBoard(){
             board.dataset.level=String(currentLevel.id);board.style.setProperty('--mm-cols',String(currentLevel.desktopColumns));board.style.setProperty('--mm-mobile-cols',String(currentLevel.mobileColumns));
-            levelChip.textContent='第'+currentLevel.id+'关';footerHint.textContent=currentLevel.name+'｜'+currentLevel.hint;
+            levelChip.textContent='第'+currentLevel.id+'关 · '+currentLevel.difficulty;timeText.textContent=currentLevel.timeLabel;timeText.classList.remove('is-expired');footerHint.textContent=currentLevel.name+'｜'+currentLevel.hint;
         }
         function updateStats(){matchText.textContent=matchedPairs+' / '+currentLevel.pairs;attemptText.textContent=String(attempts);}
         function renderCards(){board.innerHTML=cards.map(cardMarkup).join('');board.setAttribute('aria-busy',inputLocked?'true':'false');updateStats();}
         function renderLevels(){
             levelList.innerHTML=LEVELS.map(function(level){
                 var locked=!options.unlockAll&&level.id>unlockedLevel,selected=level.id===selectedLevel;
-                return '<button type="button" class="mm-level-card'+(selected?' is-selected':'')+'" data-level-id="'+level.id+'" '+(locked?'disabled aria-label="第'+level.id+'关尚未解锁"':'')+'><span>第'+level.id+'关</span><b>'+level.name+'</b><small>'+level.pairs+'组 · '+(locked?'尚未解锁':'可以挑战')+'</small><i aria-hidden="true">'+(locked?'锁':'✓')+'</i></button>';
+                return '<button type="button" class="mm-level-card'+(selected?' is-selected':'')+'" data-level-id="'+level.id+'" '+(locked?'disabled aria-label="第'+level.id+'关尚未解锁"':'')+'><span>第'+level.id+'关</span><b>'+level.name+'</b><small>'+level.pairs+'组 · '+(locked?'尚未解锁':level.timeLabel)+'</small><i aria-hidden="true">'+(locked?'锁':level.difficulty)+'</i></button>';
             }).join('');
         }
         function startGame(levelId,seed){
             if(destroyed)return false;
             var requested=levelById(levelId||selectedLevel);
             if(!options.unlockAll&&requested.id>unlockedLevel)return false;
-            clearPending();runId++;resultSent=false;currentLevel=requested;selectedLevel=requested.id;
+            clearPending();stopClock(false);runId++;resultSent=false;currentLevel=requested;selectedLevel=requested.id;
             cards=rules.createDeck(currentLevel.faces,safeSeed(seed));selected=[];matchedPairs=0;attempts=0;inputLocked=false;status='playing';
-            configureBoard();showPanel(titlePanel,false);showPanel(resultPanel,false);renderCards();
+            configureBoard();showPanel(titlePanel,false);showPanel(resultPanel,false);renderCards();startClock();
             var first=board.querySelector('.mm-card');if(first)first.focus({preventScroll:true});return true;
         }
         function returnToTitle(){
-            clearPending();runId++;status='title';inputLocked=false;selected=[];cards=[];selectedLevel=Math.min(Math.max(selectedLevel,1),unlockedLevel);currentLevel=levelById(selectedLevel);
+            clearPending();stopClock(false);startedAt=0;elapsedMs=0;targetExpired=false;runId++;status='title';inputLocked=false;selected=[];cards=[];selectedLevel=Math.min(Math.max(selectedLevel,1),unlockedLevel);currentLevel=levelById(selectedLevel);
             configureBoard();renderCards();renderLevels();showPanel(resultPanel,false);showPanel(titlePanel,true);
             var chosen=levelList.querySelector('.is-selected');if(chosen)chosen.focus({preventScroll:true});
         }
         function completeGame(){
-            status='won';inputLocked=true;
+            stopClock(true);status='won';inputLocked=true;
             if(currentLevel.id<LEVELS.length&&unlockedLevel<currentLevel.id+1){unlockedLevel=currentLevel.id+1;writeStorage('unlockedLevel',unlockedLevel);}
             renderCards();resultAttempts.textContent=String(attempts);resultPairs.textContent=String(currentLevel.pairs);resultTitle.textContent='第'+currentLevel.id+'关 · '+currentLevel.name+'完成';
+            if(currentLevel.timeMode==='none')resultTime.textContent='本关不限时，按自己的节奏完成。';
+            else if(currentLevel.timeMode==='stopwatch')resultTime.textContent='完成用时 '+formatClock(elapsedMs,false)+'。';
+            else resultTime.textContent=(targetExpired?'目标时间已过后完成':'在目标时间内完成')+' · 用时 '+formatClock(elapsedMs,false)+'。';
             nextButton.textContent=currentLevel.id<LEVELS.length?'下一关':'再次挑战';showPanel(resultPanel,true);
             if(!resultSent&&typeof options.onResult==='function'){
-                resultSent=true;options.onResult({status:'finished',level:currentLevel.id,levelName:currentLevel.name,matchedPairs:matchedPairs,attempts:attempts,pairs:currentLevel.pairs,unlockedLevel:unlockedLevel});
+                resultSent=true;options.onResult({status:'finished',level:currentLevel.id,levelName:currentLevel.name,matchedPairs:matchedPairs,attempts:attempts,pairs:currentLevel.pairs,unlockedLevel:unlockedLevel,timeMode:currentLevel.timeMode,elapsedSeconds:elapsedMs/1000,targetSeconds:targetSecondsFor(currentLevel)||null,withinTarget:currentLevel.timeMode!=='target'||!targetExpired});
             }
             nextButton.focus({preventScroll:true});
         }
@@ -180,8 +213,8 @@
             schedule(function(){finishSelection(matched);},matched?matchDelay:mismatchDelay);return true;
         }
         function exitGame(){
-            var result={status:'exit',level:currentLevel.id,matchedPairs:matchedPairs,attempts:attempts,pairs:currentLevel.pairs};
-            if(typeof options.onExit==='function'){clearPending();status='exiting';inputLocked=true;options.onExit(result);}else returnToTitle();
+            updateClock();var result={status:'exit',level:currentLevel.id,matchedPairs:matchedPairs,attempts:attempts,pairs:currentLevel.pairs,elapsedSeconds:elapsedMs/1000};
+            if(typeof options.onExit==='function'){clearPending();stopClock(false);status='exiting';inputLocked=true;options.onExit(result);}else returnToTitle();
         }
         function onClick(event){
             var target=event.target.closest('button');if(!target||!mount.contains(target))return;
@@ -198,9 +231,9 @@
 
         return {
             start:startGame,restart:function(seed){return startGame(currentLevel.id,seed);},flip:flip,showLevels:returnToTitle,
-            getLevels:function(){return LEVELS.map(function(level){return {id:level.id,name:level.name,pairs:level.pairs,desktopColumns:level.desktopColumns,mobileColumns:level.mobileColumns,faceCount:level.faces.length};});},
-            getState:function(){return {status:status,level:currentLevel.id,unlockedLevel:unlockedLevel,cards:cards.map(function(card){return {id:card.id,pairId:card.pairId,faceId:card.faceId,state:card.state};}),selected:selected.slice(),matchedPairs:matchedPairs,attempts:attempts,inputLocked:inputLocked,runId:runId};},
-            destroy:function(){if(destroyed)return;destroyed=true;status='destroyed';runId++;clearPending();mount.removeEventListener('click',onClick);mount.innerHTML='';}
+            getLevels:function(){return LEVELS.map(function(level){return {id:level.id,name:level.name,difficulty:level.difficulty,pairs:level.pairs,timeMode:level.timeMode,targetSeconds:targetSecondsFor(level)||null,timeLabel:level.timeLabel,desktopColumns:level.desktopColumns,mobileColumns:level.mobileColumns,faceCount:level.faces.length};});},
+            getState:function(){updateClock();return {status:status,level:currentLevel.id,unlockedLevel:unlockedLevel,cards:cards.map(function(card){return {id:card.id,pairId:card.pairId,faceId:card.faceId,state:card.state};}),selected:selected.slice(),matchedPairs:matchedPairs,attempts:attempts,inputLocked:inputLocked,runId:runId,timeMode:currentLevel.timeMode,elapsedSeconds:elapsedMs/1000,targetSeconds:targetSecondsFor(currentLevel)||null,targetExpired:targetExpired};},
+            destroy:function(){if(destroyed)return;destroyed=true;status='destroyed';runId++;clearPending();stopClock(false);mount.removeEventListener('click',onClick);mount.innerHTML='';}
         };
     }
 
