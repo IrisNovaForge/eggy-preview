@@ -29,8 +29,8 @@
         return window.matchMedia('(pointer:coarse)').matches||window.matchMedia('(hover:none)').matches;
     }
     var STAGE_SELECT_COPY={
-        zhs:{enter:'进入关卡',select:'选择关卡',stagePrefix:'第',stageSuffix:'关',next:'进入下一关',back:'返回关卡选择',locked:'尚未解锁',levels:['花园初遇','轻轻摇摆','层层叠叠','弹来弹去','星光闪闪','伙伴集合']},
-        zht:{enter:'進入關卡',select:'選擇關卡',stagePrefix:'第',stageSuffix:'關',next:'進入下一關',back:'返回關卡選擇',locked:'尚未解鎖',levels:['花園初遇','輕輕搖擺','層層疊疊','彈來彈去','星光閃閃','夥伴集合']},
+        zhs:{enter:'进入关卡',select:'选择关卡',stagePrefix:'第',stageSuffix:'关',next:'进入下一关',back:'返回关卡选择',locked:'尚未解锁',levels:['花园初遇','轻轻摇摆','层层叠叠','弹来弹去','闪烁星光','伙伴集合']},
+        zht:{enter:'進入關卡',select:'選擇關卡',stagePrefix:'第',stageSuffix:'關',next:'進入下一關',back:'返回關卡選擇',locked:'尚未解鎖',levels:['花園初遇','輕輕搖擺','層層疊疊','彈來彈去','閃爍星光','夥伴集合']},
         ja:{enter:'ステージへ',select:'ステージを選ぶ',stagePrefix:'ステージ',stageSuffix:'',next:'次のステージへ',back:'ステージ選択へ',locked:'未解放',levels:['殻ひらく花園','芽囲いのそよぎ','二重の柔殻','やわらか偏向','芽帰りの星巣','集う芽の輝き']},
         en:{enter:'Enter Stages',select:'Choose a Stage',stagePrefix:'Stage ',stageSuffix:'',next:'Next Stage',back:'Back to Stage Select',locked:'Locked',levels:['Shellbreak Garden','Swaying Budring','Double Soft-shell','Gentle Deflection','Returning Bud Nest','Gathered Budglow']}
     };
@@ -41,8 +41,8 @@
         en:{basic:'Stage 3 · Double Soft-shell · Breeze fluff gathers from cleared shells'}
     };
     var STAGE_FIVE_COPY={
-        zhs:{speed:'球速',buff:'柔辉芽核',basic:'第五关 · 星光闪闪 · 元气蛋壳、慢风与星路芽'},
-        zht:{speed:'球速',buff:'柔輝芽核',basic:'第五關 · 星光閃閃 · 元氣蛋殼、慢風與星路芽'},
+        zhs:{speed:'球速',buff:'柔辉芽核',basic:'第五关 · 闪烁星光 · 元气蛋壳、慢风与星路芽'},
+        zht:{speed:'球速',buff:'柔輝芽核',basic:'第五關 · 閃爍星光 · 元氣蛋殼、慢風與星路芽'},
         ja:{speed:'速度',buff:'柔光の芽核',basic:'ステージ5 · 芽の星巣 · 元気の卵殻、そよ風、星の芽'},
         en:{speed:'Speed',buff:'Softglow Bud Core',basic:'Stage 5 · Bud Star Nest · Vitality shell, breeze and star-path buds'}
     };
