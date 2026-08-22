@@ -7,6 +7,7 @@
     var CORE_ASSET_BASE=(function(){try{var source=document.currentScript&&document.currentScript.src;return source?new URL('.',source).href:String(window.DANBO_BRICK_BREAKER_BASE_URL||'');}catch(error){return '';}})();
     var BRICK_CONTACT_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/brick-contact-a.wav?v=20260822.45',CORE_ASSET_BASE).href:'';
     var CHARACTER_HEAD_BOUNCE_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/character-head-bounce-c.wav?v=20260822.46',CORE_ASSET_BASE).href:'';
+    var ITEM_CATCH_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/item-catch-b.wav?v=20260822.47',CORE_ASSET_BASE).href:'';
     var WORLD_PALETTE=['#f29a91','#f5b67f','#f2d36f','#9fd1a9','#82c7d5','#b8abd6'];
     var STAGE_WORLDS={
         1:{sky:['#8fd8e8','#c8eadf','#ffe1aa'],horizon:'#91cfb2',ground:'#79bd99',light:'#fff4c8',accent:'#f29a91'},
@@ -180,6 +181,7 @@
         this.running=true;this.state='title';this.last=performance.now();this.raf=0;this.missTimer=0;this.introTimer=0;this.audioCtx=null;
         this.brickContactAudioData=null;this.brickContactAudioBuffer=null;this.brickContactAudioLoad=null;this.brickContactAudioDecode=null;this.lastBrickContactAudioAt=-Infinity;this.preloadBrickContactAudio();
         this.characterHeadAudioData=null;this.characterHeadAudioBuffer=null;this.characterHeadAudioLoad=null;this.characterHeadAudioDecode=null;this.lastCharacterHeadAudioAt=-Infinity;this.preloadCharacterHeadAudio();
+        this.itemCatchAudioData=null;this.itemCatchAudioBuffer=null;this.itemCatchAudioLoad=null;this.itemCatchAudioDecode=null;this.lastItemCatchAudioAt=-Infinity;this.preloadItemCatchAudio();
         this.boundKeyDown=this.keyDown.bind(this);
         this.boundKeyUp=this.keyUp.bind(this);
         this.boundPointer=this.pointer.bind(this);
@@ -660,7 +662,7 @@
             var drop=this.seedDrop;drop.age+=dt;drop.y+=drop.speed*dt;
             var catchRect=this.seedCatchRect(),dropLeft=drop.x-drop.r,dropTop=drop.y-drop.r;
             if(dropLeft<catchRect.x+catchRect.w&&dropLeft+drop.r*2>catchRect.x&&dropTop<catchRect.y+catchRect.h&&dropTop+drop.r*2>catchRect.y){
-                this.seedHeld=true;this.seedDrop=null;this.updateHud();this.showItemResult('seed',drop.x,this.paddle.y-45);
+                this.seedHeld=true;this.seedDrop=null;this.updateHud();this.showItemResult('seed',drop.x,this.paddle.y-45);this.playSoftCollision('catch');
                 if(this.characterView&&this.characterView.react)this.characterView.react('catch',0);
             }else if(dropTop>H+12){this.seedDrop=null;this.seedMisses++;this.seedNextAt=this.seedClock+7;this.updateHud();}
         }
@@ -1095,12 +1097,26 @@
         return this.characterHeadAudioDecode;
     };
 
+    Game.prototype.preloadItemCatchAudio=function(){
+        if(!ITEM_CATCH_AUDIO_URL||typeof fetch!=='function'||this.itemCatchAudioLoad)return this.itemCatchAudioLoad;
+        var self=this;
+        this.itemCatchAudioLoad=fetch(ITEM_CATCH_AUDIO_URL,{cache:'force-cache'}).then(function(response){if(!response.ok)throw new Error('Item catch audio '+response.status);return response.arrayBuffer();}).then(function(data){self.itemCatchAudioData=data;if(self.audioCtx)self.decodeItemCatchAudio();return data;}).catch(function(){self.itemCatchAudioData=null;return null;});
+        return this.itemCatchAudioLoad;
+    };
+
+    Game.prototype.decodeItemCatchAudio=function(){
+        if(this.itemCatchAudioBuffer||this.itemCatchAudioDecode||!this.itemCatchAudioData||!this.audioCtx)return this.itemCatchAudioDecode;
+        var self=this,data=this.itemCatchAudioData.slice(0);
+        this.itemCatchAudioDecode=this.audioCtx.decodeAudioData(data).then(function(buffer){self.itemCatchAudioBuffer=buffer;return buffer;}).catch(function(){return null;});
+        return this.itemCatchAudioDecode;
+    };
+
     Game.prototype.ensureAudio=function(){
         if((typeof sfxEnabled!=='undefined'&&!sfxEnabled)||(typeof soundEnabled!=='undefined'&&!soundEnabled))return null;
         var AudioCtor=window.AudioContext||window.webkitAudioContext;if(!AudioCtor)return null;
         if(!this.audioCtx)this.audioCtx=new AudioCtor();
         if(this.audioCtx.state==='suspended'&&this.audioCtx.resume)this.audioCtx.resume().catch(function(){});
-        this.decodeBrickContactAudio();this.decodeCharacterHeadAudio();
+        this.decodeBrickContactAudio();this.decodeCharacterHeadAudio();this.decodeItemCatchAudio();
         return this.audioCtx;
     };
 
@@ -1116,9 +1132,16 @@
         source.buffer=this.characterHeadAudioBuffer;gain.gain.setValueAtTime(.42,now);source.connect(gain);gain.connect(audio.destination);source.start(now);source.stop(now+.32);this.lastCharacterHeadAudioAt=now;return true;
     };
 
+    Game.prototype.playItemCatchAudio=function(audio){
+        if(!audio||!this.itemCatchAudioBuffer||audio.currentTime-this.lastItemCatchAudioAt<.08)return false;
+        var now=audio.currentTime,source=audio.createBufferSource(),gain=audio.createGain();
+        source.buffer=this.itemCatchAudioBuffer;gain.gain.setValueAtTime(.26,now);source.connect(gain);gain.connect(audio.destination);source.start(now,.7);source.stop(now+.3);this.lastItemCatchAudioAt=now;return true;
+    };
+
     Game.prototype.playSoftCollision=function(type){
         var audio=this.ensureAudio();if(!audio||audio.state==='closed')return;
         if(type==='head'&&this.playCharacterHeadAudio(audio))return;
+        if(type==='catch'&&this.playItemCatchAudio(audio))return;
         if(type==='brick'&&this.playBrickContactAudio(audio))return;
         var now=audio.currentTime,osc=audio.createOscillator(),gain=audio.createGain();
         osc.type='sine';osc.connect(gain);gain.connect(audio.destination);
