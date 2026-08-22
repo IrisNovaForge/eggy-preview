@@ -415,7 +415,7 @@
         // Keep every stage's brick field inside the upper two-fifths of the board.
         // Layout coordinates below remain the authored source shapes; only their
         // presentation is compacted here so all six stages retain the same design.
-        var sourceBw=82,bw=68,bh=18,brickTop=48,brickYScale=.56;
+        var sourceBw=82,bw=68,bh=18,brickTop=48,brickYScale=.56,brickXScale=.88,boardCenterX=480;
         var shellLayout={
             growth:[[446,82],[416,116],[536,126],[316,130],[531,158],[347,164],[439,202],[439,244]],
             leftShell:[[164,202],[250,198],[336,201],[92,235],[184,241],[276,233],[70,278],[162,280],[254,281],[346,273],[101,319],[193,327],[285,316],[377,324],[174,363],[266,360],[358,368]],
@@ -474,7 +474,8 @@
             while(cellIndex>=rowEnd&&paletteRow<paletteCounts.length-1){paletteRow++;rowEnd+=paletteCounts[paletteRow];}
             var cell=cells[cellIndex],key=cell.x+','+cell.y,stageFiveTriple=this.level===5&&stageFiveTripleCells[key]===true,stageSixTriple=this.level===6&&stageSixTripleCells[key]===true,triple=stageFiveTriple||stageSixTriple;
             var reinforced=triple||(this.level===3&&reinforcedCells[key]===true)||(this.level===5&&stageFiveReinforcedCells[key]===true)||(this.level===6&&stageSixReinforcedCells[key]===true),maxHits=triple?3:(reinforced?2:1);
-            var brickX=cell.x+(sourceBw-bw)*.5,brickY=brickTop+(cell.y-60)*brickYScale;
+            var sourceCenterX=cell.x+sourceBw*.5;
+            var brickX=boardCenterX+(sourceCenterX-boardCenterX)*brickXScale-bw*.5,brickY=brickTop+(cell.y-60)*brickYScale;
             this.bricks.push({x:brickX,y:brickY,baseX:brickX,baseY:brickY,motionGroup:cell.motionGroup,w:bw,h:bh,row:paletteRow,col:cellIndex%9,color:colors[paletteRow],alive:true,reinforced:reinforced,buffCarrier:stageFiveTriple,multiCarrier:stageSixTriple,buffDropped:false,maxHits:maxHits,hitsRemaining:maxHits,hitCooldown:0,shellPulseAge:-1,shellPulseDuration:.2,shellImpactX:0,shellImpactY:0});this.remaining++;
         }
         if(this.level===2||this.level===5)this.updateBrickMotion(0);
