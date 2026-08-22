@@ -1,0 +1,13 @@
+{
+  "id": "memory-match",
+  "version": "0.1.0",
+  "entrance": "entrance.js",
+  "scripts": [
+    "memory-match-wasm.js",
+    "memory-match-rules.js",
+    "memory-match-core.js",
+    "plugin.js"
+  ],
+  "debug": "debug/"
+}
+
