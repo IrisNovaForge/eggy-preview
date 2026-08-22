@@ -41,25 +41,25 @@
         en:{basic:'Stage 3 · Double Soft-shell · Breeze fluff gathers from cleared shells'}
     };
     var STAGE_FIVE_COPY={
-        zhs:{speed:'球速',buff:'柔辉芽核',basic:'第五关 · 闪烁星光 · 元气蛋壳、慢风与星路芽'},
-        zht:{speed:'球速',buff:'柔輝芽核',basic:'第五關 · 閃爍星光 · 元氣蛋殼、慢風與星路芽'},
-        ja:{speed:'速度',buff:'柔光の芽核',basic:'ステージ5 · 芽の星巣 · 元気の卵殻、そよ風、星の芽'},
-        en:{speed:'Speed',buff:'Softglow Bud Core',basic:'Stage 5 · Bud Star Nest · Vitality shell, breeze and star-path buds'}
+        zhs:{speed:'球速',buff:'叶片收集',basic:'第五关 · 闪烁星光 · 元气蛋壳、慢风与星路芽'},
+        zht:{speed:'球速',buff:'葉片收集',basic:'第五關 · 閃爍星光 · 元氣蛋殼、慢風與星路芽'},
+        ja:{speed:'速度',buff:'葉っぱ集め',basic:'ステージ5 · 芽の星巣 · 元気の卵殻、そよ風、星の芽'},
+        en:{speed:'Speed',buff:'Leaf Collection',basic:'Stage 5 · Bud Star Nest · Vitality shell, breeze and star-path buds'}
     };
     var STAGE_SIX_COPY={
-        zhs:{speed:'球速',basic:'第六关 · 伙伴集合 · 元气蛋壳与柔辉同行'},
-        zht:{speed:'球速',basic:'第六關 · 夥伴集合 · 元氣蛋殼與柔輝同行'},
-        ja:{speed:'速度',basic:'ステージ6 · 芽光の集い · 元気の卵殻と柔光の同行'},
-        en:{speed:'Speed',basic:'Stage 6 · Gathered Budglow · Vitality shell and softglow company'}
+        zhs:{speed:'球速',basic:'第六关 · 伙伴集合 · 元气蛋壳与星星点点同行'},
+        zht:{speed:'球速',basic:'第六關 · 夥伴集合 · 元氣蛋殼與星星點點同行'},
+        ja:{speed:'速度',basic:'ステージ6 · 芽光の集い · 元気の卵殻と星のきらめき'},
+        en:{speed:'Speed',basic:'Stage 6 · Gathered Budglow · Vitality shell and scattered starlight'}
     };
     var ITEM_GUIDE_COPY={
-        zhs:{title:'本关物件',hazard:{name:'沉壳团',desc:'碰到损失1颗光球',prompt:'避开沉壳团 · 碰到损失1颗光球',result:'光球 −1'},seed:{name:'蛋壳威力',desc:'接住蛋形能量后七连发，本关最多{limit}次',prompt:'接住后可释放蛋壳威力',result:'蛋壳威力已就绪'},life:{name:'元气蛋壳',desc:'光球＋1并获得本关快速移动',prompt:'接住元气蛋壳 · 光球＋1并加快移动',result:'光球＋1 · 快速移动'},slow:{name:'慢风绒',desc:'暂时降低球速',prompt:'接到后暂时降低球速',result:'慢风生效'},clear:{name:'星路芽',desc:'清理最多5块砖',prompt:'接到后清理最多5块砖',result:'清理5块'},buff:{name:'柔辉芽核',desc:'三击砖掉落，当前仅收集',prompt:'三击砖掉落 · 当前只收集',result:'柔辉已收集'},multi:{name:'柔辉芽核',desc:'接住后暂时变成2颗光球',prompt:'接住后光球暂时同行',result:'柔辉同行 · 场上2颗',status:'柔辉同行 · 场上2颗'}},
-        zht:{title:'本關物件',hazard:{name:'沉殼團',desc:'碰到損失1顆光球',prompt:'避開沉殼團 · 碰到損失1顆光球',result:'光球 −1'},seed:{name:'蛋殼威力',desc:'接住蛋形能量後七連發，本關最多{limit}次',prompt:'接住後可釋放蛋殼威力',result:'蛋殼威力已就緒'},life:{name:'元氣蛋殼',desc:'光球＋1並獲得本關快速移動',prompt:'接住元氣蛋殼 · 光球＋1並加快移動',result:'光球＋1 · 快速移動'},slow:{name:'慢風絨',desc:'暫時降低球速',prompt:'接到後暫時降低球速',result:'慢風生效'},clear:{name:'星路芽',desc:'清理最多5塊磚',prompt:'接到後清理最多5塊磚',result:'清理5塊'},buff:{name:'柔輝芽核',desc:'三擊磚掉落，目前僅收集',prompt:'三擊磚掉落 · 目前只收集',result:'柔輝已收集'},multi:{name:'柔輝芽核',desc:'接住後暫時變成2顆光球',prompt:'接住後光球暫時同行',result:'柔輝同行 · 場上2顆',status:'柔輝同行 · 場上2顆'}},
-        ja:{title:'このステージのアイテム',hazard:{name:'沈み殻の房',desc:'触れるとボールを1つ失う',prompt:'沈み殻の房をよけよう · ボール−1',result:'ボール −1'},seed:{name:'卵殻パワー',desc:'卵形エネルギーで7連射・このステージは最大{limit}回',prompt:'受け取ると卵殻パワーを放てる',result:'卵殻パワーの準備完了'},life:{name:'元気の卵殻',desc:'ボール＋1・このステージ中は高速移動',prompt:'元気の卵殻 · ボール＋1と高速移動',result:'ボール＋1 · 高速移動'},slow:{name:'そよ風の綿',desc:'一時的に速度を下げる',prompt:'受け取ると一時的に速度が下がる',result:'そよ風が発動'},clear:{name:'星路の芽',desc:'最大5個のブロックを消す',prompt:'受け取ると最大5個を清掃',result:'5個を清掃'},buff:{name:'柔光の芽核',desc:'3回ブロックから落下・今は収集のみ',prompt:'3回ブロックから落下 · 今は収集のみ',result:'柔光を収集'},multi:{name:'柔光の芽核',desc:'受け取ると一時的にボールが2つになる',prompt:'受け取ると光球が一時同行',result:'柔光同行 · 2つ',status:'柔光同行 · 2つ'}},
-        en:{title:'Stage Items',hazard:{name:'Sunk-shell Cluster',desc:'Lose 1 ball on contact',prompt:'Avoid the sunk-shell cluster · Ball −1',result:'Ball −1'},seed:{name:'Eggshell Power',desc:'Catch the egg energy for a 7-shot stream, up to {limit} times this stage',prompt:'Catch it to ready Eggshell Power',result:'Eggshell Power ready'},life:{name:'Vitality Shell',desc:'Ball +1 and fast movement for this stage',prompt:'Catch it · Ball +1 and faster movement',result:'Ball +1 · Fast movement'},slow:{name:'Breeze Fluff',desc:'Temporarily slows the ball',prompt:'Catch to slow the ball briefly',result:'Breeze active'},clear:{name:'Star-path Bud',desc:'Clears up to 5 bricks',prompt:'Catch to clear up to 5 bricks',result:'5 bricks cleared'},buff:{name:'Softglow Bud Core',desc:'Drops from 3-hit bricks; collection only',prompt:'From 3-hit bricks · collection only',result:'Softglow collected'},multi:{name:'Softglow Bud Core',desc:'Temporarily makes 2 light balls',prompt:'Catch for brief light-ball company',result:'Softglow company · 2 active',status:'Softglow company · 2 active'}}
+        zhs:{title:'本关物件',hazard:{name:'沉壳团',desc:'碰到损失1颗光球',prompt:'避开沉壳团 · 碰到损失1颗光球',result:'光球 −1'},seed:{name:'蛋壳威力',desc:'接住蛋形能量后七连发，本关最多{limit}次',prompt:'接住后可释放蛋壳威力',result:'蛋壳威力已就绪'},life:{name:'元气蛋壳',desc:'光球＋1并获得本关快速移动',prompt:'接住元气蛋壳 · 光球＋1并加快移动',result:'光球＋1 · 快速移动'},slow:{name:'慢风绒',desc:'暂时降低球速',prompt:'接到后暂时降低球速',result:'慢风生效'},clear:{name:'星路芽',desc:'清理最多5块砖',prompt:'接到后清理最多5块砖',result:'清理5块'},buff:{name:'叶片收集',desc:'三击砖掉落，接住即可收集',prompt:'三击砖掉落 · 接住小叶片',result:'叶片已收集'},multi:{name:'星星点点',desc:'接住后暂时变成2颗光球',prompt:'接住小星星后光球暂时同行',result:'星光同行 · 场上2颗',status:'星光同行 · 场上2颗'}},
+        zht:{title:'本關物件',hazard:{name:'沉殼團',desc:'碰到損失1顆光球',prompt:'避開沉殼團 · 碰到損失1顆光球',result:'光球 −1'},seed:{name:'蛋殼威力',desc:'接住蛋形能量後七連發，本關最多{limit}次',prompt:'接住後可釋放蛋殼威力',result:'蛋殼威力已就緒'},life:{name:'元氣蛋殼',desc:'光球＋1並獲得本關快速移動',prompt:'接住元氣蛋殼 · 光球＋1並加快移動',result:'光球＋1 · 快速移動'},slow:{name:'慢風絨',desc:'暫時降低球速',prompt:'接到後暫時降低球速',result:'慢風生效'},clear:{name:'星路芽',desc:'清理最多5塊磚',prompt:'接到後清理最多5塊磚',result:'清理5塊'},buff:{name:'葉片收集',desc:'三擊磚掉落，接住即可收集',prompt:'三擊磚掉落 · 接住小葉片',result:'葉片已收集'},multi:{name:'星星點點',desc:'接住後暫時變成2顆光球',prompt:'接住小星星後光球暫時同行',result:'星光同行 · 場上2顆',status:'星光同行 · 場上2顆'}},
+        ja:{title:'このステージのアイテム',hazard:{name:'沈み殻の房',desc:'触れるとボールを1つ失う',prompt:'沈み殻の房をよけよう · ボール−1',result:'ボール −1'},seed:{name:'卵殻パワー',desc:'卵形エネルギーで7連射・このステージは最大{limit}回',prompt:'受け取ると卵殻パワーを放てる',result:'卵殻パワーの準備完了'},life:{name:'元気の卵殻',desc:'ボール＋1・このステージ中は高速移動',prompt:'元気の卵殻 · ボール＋1と高速移動',result:'ボール＋1 · 高速移動'},slow:{name:'そよ風の綿',desc:'一時的に速度を下げる',prompt:'受け取ると一時的に速度が下がる',result:'そよ風が発動'},clear:{name:'星路の芽',desc:'最大5個のブロックを消す',prompt:'受け取ると最大5個を清掃',result:'5個を清掃'},buff:{name:'葉っぱ集め',desc:'3回ブロックから落下・受け取ると収集',prompt:'3回ブロックから落下 · 小さな葉を受け取る',result:'葉を収集'},multi:{name:'星のきらめき',desc:'受け取ると一時的にボールが2つになる',prompt:'小さな星を受け取ると光球が一時同行',result:'星光同行 · 2つ',status:'星光同行 · 2つ'}},
+        en:{title:'Stage Items',hazard:{name:'Sunk-shell Cluster',desc:'Lose 1 ball on contact',prompt:'Avoid the sunk-shell cluster · Ball −1',result:'Ball −1'},seed:{name:'Eggshell Power',desc:'Catch the egg energy for a 7-shot stream, up to {limit} times this stage',prompt:'Catch it to ready Eggshell Power',result:'Eggshell Power ready'},life:{name:'Vitality Shell',desc:'Ball +1 and fast movement for this stage',prompt:'Catch it · Ball +1 and faster movement',result:'Ball +1 · Fast movement'},slow:{name:'Breeze Fluff',desc:'Temporarily slows the ball',prompt:'Catch to slow the ball briefly',result:'Breeze active'},clear:{name:'Star-path Bud',desc:'Clears up to 5 bricks',prompt:'Catch to clear up to 5 bricks',result:'5 bricks cleared'},buff:{name:'Leaf Collection',desc:'Drops from 3-hit bricks; catch the small leaf to collect it',prompt:'From 3-hit bricks · catch the small leaf',result:'Leaf collected'},multi:{name:'Scattered Starlight',desc:'Temporarily makes 2 light balls',prompt:'Catch the small stars for brief light-ball company',result:'Starlight company · 2 active',status:'Starlight company · 2 active'}}
     };
-    var ITEM_GUIDE_ICONS={hazard:'!',seed:'⌁',life:'⌣',slow:'≈',clear:'✦',buff:'···',multi:'••'};
-    var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#fff0d4',ink:'#bd714f'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},buff:{soft:'#eee0f5',ink:'#9169aa'},multi:{soft:'#eee0f5',ink:'#9169aa'}};
+    var ITEM_GUIDE_ICONS={hazard:'!',seed:'⌁',life:'⌣',slow:'≈',clear:'✦',buff:'◜',multi:'✦·'};
+    var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#fff0d4',ink:'#bd714f'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},buff:{soft:'#e5f5d7',ink:'#4f8a5d'},multi:{soft:'#fff0d3',ink:'#9b7137'}};
     var COPY={
         zhs:{name:'星光碰撞',sub:'接住光球，完成挑战！',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'蛋壳威力',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'释放威力',ready:'准备好！',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；手机使用左下摇杆左右移动。',seedControls:'E / 手机版「击」按钮使用接住的蛋形能量。',fourthBasic:'第四关 · 弹来弹去 · 最多6次蛋壳威力，每次最多清理3块砖',basic:'基础玩法 · 清空全部砖块通关',launch:'发球'},
         zht:{name:'星光碰撞',sub:'接住光球，完成挑戰！',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'蛋殼威力',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'釋放威力',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；手機使用左下搖桿左右移動。',seedControls:'E / 手機版「击」按鈕使用接住的蛋形能量。',fourthBasic:'第四關 · 彈來彈去 · 最多6次蛋殼威力，每次最多清理3塊磚',basic:'基礎玩法 · 清空全部磚塊通關',launch:'發球'},
@@ -744,7 +744,7 @@
         this.showItemResult('buff',drop.x,this.paddle.y-54);
         this.playSoftCollision('catch');
         if(this.characterView&&this.characterView.react)this.characterView.react('catch',clamp((drop.x-this.paddle.x)/(this.paddle.w*.5),-1,1));
-        if(this.options.onEvent)this.options.onEvent('stageFiveBuffCollected',{item:'softglowBudCore',name:this.stageFiveText.buff,collected:this.stageFiveBuffCollected});
+        if(this.options.onEvent)this.options.onEvent('stageFiveBuffCollected',{item:'leafCollection',name:this.stageFiveText.buff,collected:this.stageFiveBuffCollected});
         return true;
     };
 
@@ -1728,15 +1728,24 @@
             c.save();c.translate(collect.x,collect.y-collectProgress*27);c.globalAlpha=collectFade;c.fillStyle='#4e91b6';c.font='800 19px system-ui,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText('≈',0,0);c.restore();
         }
     };
-    Game.prototype.drawStageFiveBuffDrop=function(c,drop){
-        var arrival=clamp(drop.age/.18,0,1),scale=.68+.32*(arrival*arrival*(3-2*arrival)),sway=Math.sin(drop.age*4.7)*.1;
-        c.save();c.translate(drop.x,drop.y);c.rotate(sway);c.scale(scale,scale);c.shadowColor='rgba(168,116,198,.48)';c.shadowBlur=15;
-        var shell=c.createLinearGradient(-10,-13,10,14);shell.addColorStop(0,'rgba(248,239,255,.98)');shell.addColorStop(.55,'rgba(216,181,235,.98)');shell.addColorStop(1,'rgba(241,163,180,.96)');
-        c.fillStyle=shell;c.beginPath();c.moveTo(0,-15);c.bezierCurveTo(10,-11,14,1,8,10);c.bezierCurveTo(4,16,-4,16,-8,10);c.bezierCurveTo(-14,1,-10,-11,0,-15);c.closePath();c.fill();
-        c.shadowColor='transparent';c.strokeStyle='rgba(211,117,145,.82)';c.lineWidth=1.5;c.stroke();
-        c.fillStyle='rgba(255,253,255,.92)';c.beginPath();c.ellipse(0,2,6.3,8.2,0,0,Math.PI*2);c.fill();
-        var dots=[[-3,-1],[3,-1],[0,4]];for(var coreDot=0;coreDot<dots.length;coreDot++){c.fillStyle=coreDot===2?'#db8fa8':'#ad83ca';c.beginPath();c.arc(dots[coreDot][0],dots[coreDot][1],1.7,0,Math.PI*2);c.fill();}
-        c.globalAlpha=.82;c.strokeStyle='rgba(255,255,255,.92)';c.lineWidth=1.2;c.beginPath();c.arc(-2,-5,4.5,Math.PI*1.08,Math.PI*1.62);c.stroke();c.restore();
+    Game.prototype.drawStageFiveLeafDrop=function(c,drop){
+        var arrival=clamp(drop.age/.18,0,1),scale=.68+.32*(arrival*arrival*(3-2*arrival)),sway=Math.sin(drop.age*4.6)*.18;
+        c.save();c.translate(drop.x,drop.y);c.rotate(-.42+sway);c.scale(scale,scale);c.shadowColor='rgba(82,145,89,.42)';c.shadowBlur=13;
+        var leaf=c.createLinearGradient(-11,-13,11,14);leaf.addColorStop(0,'rgba(238,255,218,.98)');leaf.addColorStop(.46,'rgba(166,220,119,.98)');leaf.addColorStop(1,'rgba(83,163,102,.98)');
+        c.fillStyle=leaf;c.beginPath();c.moveTo(-2,-15);c.bezierCurveTo(9,-13,15,-4,11,5);c.bezierCurveTo(7,15,-4,17,-11,8);c.bezierCurveTo(-16,1,-12,-10,-2,-15);c.closePath();c.fill();
+        c.shadowColor='transparent';c.strokeStyle='rgba(65,127,79,.86)';c.lineWidth=1.45;c.stroke();
+        c.strokeStyle='rgba(63,125,76,.78)';c.lineWidth=1.35;c.lineCap='round';c.beginPath();c.moveTo(-9,10);c.quadraticCurveTo(-1,2,8,-10);c.moveTo(-3,4);c.lineTo(-7,-1);c.moveTo(1,0);c.lineTo(7,2);c.moveTo(4,-5);c.lineTo(1,-9);c.stroke();
+        c.globalAlpha=.72;c.strokeStyle='rgba(255,255,238,.94)';c.lineWidth=1.25;c.beginPath();c.arc(-3,-5,5.2,Math.PI*1.08,Math.PI*1.55);c.stroke();c.restore();
+    };
+    Game.prototype.drawSoftStar=function(c,x,y,size,rotation,fill,stroke,alpha){
+        c.save();c.translate(x,y);c.rotate(rotation||0);c.globalAlpha*=alpha===undefined?1:alpha;c.fillStyle=fill;c.strokeStyle=stroke||'rgba(174,126,64,.48)';c.lineWidth=Math.max(.8,size*.1);
+        c.beginPath();c.moveTo(0,-size);c.bezierCurveTo(size*.16,-size*.34,size*.34,-size*.16,size,0);c.bezierCurveTo(size*.34,size*.16,size*.16,size*.34,0,size);c.bezierCurveTo(-size*.16,size*.34,-size*.34,size*.16,-size,0);c.bezierCurveTo(-size*.34,-size*.16,-size*.16,-size*.34,0,-size);c.closePath();c.fill();c.stroke();c.restore();
+    };
+    Game.prototype.drawStageSixStarDrop=function(c,drop){
+        var arrival=clamp(drop.age/.18,0,1),scale=.7+.3*(arrival*arrival*(3-2*arrival)),pulse=.96+Math.sin(drop.age*4.2)*.04;
+        c.save();c.translate(drop.x,drop.y);c.scale(scale*pulse,scale*pulse);var aura=c.createRadialGradient(0,0,1,0,0,22);aura.addColorStop(0,'rgba(255,236,164,.42)');aura.addColorStop(1,'rgba(255,236,164,0)');c.fillStyle=aura;c.beginPath();c.arc(0,0,22,0,Math.PI*2);c.fill();
+        c.shadowColor='rgba(223,169,77,.45)';c.shadowBlur=12;var main=c.createLinearGradient(-8,-10,9,10);main.addColorStop(0,'#fffce9');main.addColorStop(.5,'#f7d77d');main.addColorStop(1,'#e9a878');this.drawSoftStar(c,-2,1,10.5,Math.sin(drop.age*2.2)*.08,main,'rgba(182,125,70,.62)',1);c.shadowColor='transparent';
+        this.drawSoftStar(c,10,-8,5.1,-.18,'#eee3ff','rgba(145,117,176,.48)',.94);this.drawSoftStar(c,-11,9,3.8,.12,'#dff5d5','rgba(92,145,94,.42)',.9);c.restore();
     };
     Game.prototype.drawStageFiveItems=function(c){
         if(this.level!==5)return;
@@ -1752,8 +1761,8 @@
             var drop=this.stageFiveDrop;c.save();c.globalAlpha=.22;c.strokeStyle=drop.type==='life'?'#d9936f':(drop.type==='slow'?'#65a9ce':'#d7a73e');c.lineWidth=1.3;c.beginPath();c.moveTo(drop.x,drop.y-19);c.quadraticCurveTo(drop.sourceX,drop.y-31,drop.sourceX,Math.max(drop.sourceY,drop.y-54));c.stroke();c.restore();this.drawStageFiveDrop(c,drop);
         }
         for(var buffDropIndex=0;buffDropIndex<this.stageFiveBuffDrops.length;buffDropIndex++){
-            var buffDrop=this.stageFiveBuffDrops[buffDropIndex];c.save();c.globalAlpha=.24;c.fillStyle='#c59cda';
-            for(var trailDot=0;trailDot<3;trailDot++){c.beginPath();c.arc(buffDrop.x+Math.sin(buffDrop.age*4+trailDot)*3,buffDrop.y-18-trailDot*7,2.2-trailDot*.45,0,Math.PI*2);c.fill();}c.restore();this.drawStageFiveBuffDrop(c,buffDrop);
+            var buffDrop=this.stageFiveBuffDrops[buffDropIndex];c.save();c.globalAlpha=.3;c.fillStyle='#85c678';
+            for(var trailDot=0;trailDot<3;trailDot++){c.save();c.translate(buffDrop.x+Math.sin(buffDrop.age*4+trailDot)*4,buffDrop.y-19-trailDot*7);c.rotate(-.45+trailDot*.4);c.beginPath();c.ellipse(0,0,2.6-trailDot*.45,1.35-trailDot*.18,0,0,Math.PI*2);c.fill();c.restore();}c.restore();this.drawStageFiveLeafDrop(c,buffDrop);
         }
         for(var fxIndex=0;fxIndex<this.stageFiveCollectEffects.length;fxIndex++){
             var effect=this.stageFiveCollectEffects[fxIndex],effectProgress=clamp(effect.age/effect.duration,0,1),effectFade=Math.pow(1-effectProgress,2),label=effect.type==='life'?'+1':(effect.type==='slow'?'≈':'✦5');
@@ -1762,30 +1771,30 @@
         for(var buffFxIndex=0;buffFxIndex<this.stageFiveBuffCollectEffects.length;buffFxIndex++){
             var buffEffect=this.stageFiveBuffCollectEffects[buffFxIndex],buffProgress=clamp(buffEffect.age/buffEffect.duration,0,1),buffFade=Math.pow(1-buffProgress,2);
             c.save();c.translate(buffEffect.x,buffEffect.y-buffProgress*18);c.globalAlpha=buffFade*.82;
-            for(var mote=0;mote<3;mote++){var angle=-Math.PI*.75+mote*Math.PI*.75+buffProgress*.9,distance=6+buffProgress*(13+mote*2);c.save();c.translate(Math.cos(angle)*distance,Math.sin(angle)*distance);c.rotate(angle);c.fillStyle=mote===1?'#ee9fb2':'#bd91d3';c.beginPath();c.ellipse(0,0,3.7-buffProgress,2-buffProgress*.45,0,0,Math.PI*2);c.fill();c.restore();}
+            for(var mote=0;mote<3;mote++){var angle=-Math.PI*.75+mote*Math.PI*.75+buffProgress*.9,distance=6+buffProgress*(13+mote*2);c.save();c.translate(Math.cos(angle)*distance,Math.sin(angle)*distance);c.rotate(angle-.35);c.fillStyle=mote===1?'#b9df84':'#68ad70';c.beginPath();c.moveTo(-3.5,0);c.quadraticCurveTo(0,-3.1,4.2,0);c.quadraticCurveTo(0,3.1,-3.5,0);c.fill();c.restore();}
             c.restore();
         }
     };
     Game.prototype.drawStageSixItems=function(c){
         if(this.level!==6)return;
         for(var dropIndex=0;dropIndex<this.stageSixDrops.length;dropIndex++){
-            var drop=this.stageSixDrops[dropIndex];c.save();c.globalAlpha=.22;c.strokeStyle=drop.type==='life'?'#d9936f':'#b58acb';c.lineWidth=1.3;c.beginPath();c.moveTo(drop.x,drop.y-19);c.quadraticCurveTo(drop.sourceX,drop.y-31,drop.sourceX,Math.max(drop.sourceY,drop.y-54));c.stroke();c.restore();
+            var drop=this.stageSixDrops[dropIndex];c.save();c.globalAlpha=.22;c.strokeStyle=drop.type==='life'?'#d9936f':'#d4a85d';c.lineWidth=1.3;c.beginPath();c.moveTo(drop.x,drop.y-19);c.quadraticCurveTo(drop.sourceX,drop.y-31,drop.sourceX,Math.max(drop.sourceY,drop.y-54));c.stroke();c.restore();
             if(drop.type==='life')this.drawStageFiveDrop(c,drop);else{
-                c.save();c.globalAlpha=.24;c.fillStyle='#c59cda';for(var trailDot=0;trailDot<3;trailDot++){c.beginPath();c.arc(drop.x+Math.sin(drop.age*4+trailDot)*3,drop.y-18-trailDot*7,2.2-trailDot*.45,0,Math.PI*2);c.fill();}c.restore();this.drawStageFiveBuffDrop(c,drop);
+                for(var trailDot=0;trailDot<3;trailDot++)this.drawSoftStar(c,drop.x+Math.sin(drop.age*3.8+trailDot)*3.5,drop.y-18-trailDot*7,2.5-trailDot*.42,trailDot*.22,trailDot===1?'#eee3ff':'#f4d98b','rgba(170,126,75,.32)',.34);this.drawStageSixStarDrop(c,drop);
             }
         }
         for(var splitIndex=0;splitIndex<this.stageSixSplitEffects.length;splitIndex++){
             var split=this.stageSixSplitEffects[splitIndex],splitProgress=clamp(split.age/split.duration,0,1),splitFade=Math.pow(1-splitProgress,2);
-            c.save();c.translate(split.x,split.y);c.globalAlpha=splitFade*.82;c.strokeStyle='#d8b5e7';c.lineWidth=3-splitProgress*1.5;c.lineCap='round';c.beginPath();c.moveTo(-3,0);c.bezierCurveTo(-13,-9-splitProgress*5,-18-splitProgress*10,-2, -25-splitProgress*8,4);c.moveTo(3,0);c.bezierCurveTo(13,9+splitProgress*4,18+splitProgress*10,2,25+splitProgress*8,-4);c.stroke();
-            c.fillStyle='#f0a9ba';for(var mote=0;mote<4;mote++){var angle=-Math.PI*.75+mote*Math.PI*.5,distance=5+splitProgress*(10+mote*2);c.beginPath();c.arc(Math.cos(angle)*distance,Math.sin(angle)*distance,2.8-splitProgress,0,Math.PI*2);c.fill();}c.restore();
+            c.save();c.translate(split.x,split.y);c.globalAlpha=splitFade*.82;c.strokeStyle='#e8c66f';c.lineWidth=3-splitProgress*1.5;c.lineCap='round';c.beginPath();c.moveTo(-3,0);c.bezierCurveTo(-13,-9-splitProgress*5,-18-splitProgress*10,-2,-25-splitProgress*8,4);c.moveTo(3,0);c.bezierCurveTo(13,9+splitProgress*4,18+splitProgress*10,2,25+splitProgress*8,-4);c.stroke();
+            for(var mote=0;mote<4;mote++){var angle=-Math.PI*.75+mote*Math.PI*.5,distance=5+splitProgress*(10+mote*2);this.drawSoftStar(c,Math.cos(angle)*distance,Math.sin(angle)*distance,3.2-splitProgress*.8,angle*.2,mote%2?'#eee3ff':'#f6d986','rgba(176,131,71,.35)',1);}c.restore();
         }
         for(var dissolveIndex=0;dissolveIndex<this.stageSixDissolveEffects.length;dissolveIndex++){
             var dissolve=this.stageSixDissolveEffects[dissolveIndex],dissolveProgress=clamp(dissolve.age/dissolve.duration,0,1),dissolveFade=Math.pow(1-dissolveProgress,2);
-            c.save();c.translate(dissolve.x,dissolve.y);c.globalAlpha=dissolveFade*.72;for(var glowDot=0;glowDot<5;glowDot++){var glowAngle=-Math.PI*.9+glowDot*Math.PI*.45,glowDistance=3+dissolveProgress*(9+glowDot*1.5);c.fillStyle=glowDot%2?'#efb0c0':'#cfafe0';c.beginPath();c.arc(Math.cos(glowAngle)*glowDistance,Math.sin(glowAngle)*glowDistance,2.6-dissolveProgress*.9,0,Math.PI*2);c.fill();}c.restore();
+            c.save();c.translate(dissolve.x,dissolve.y);c.globalAlpha=dissolveFade*.72;for(var glowDot=0;glowDot<5;glowDot++){var glowAngle=-Math.PI*.9+glowDot*Math.PI*.45,glowDistance=3+dissolveProgress*(9+glowDot*1.5);this.drawSoftStar(c,Math.cos(glowAngle)*glowDistance,Math.sin(glowAngle)*glowDistance,2.8-dissolveProgress*.8,glowAngle*.18,glowDot%2?'#eee3ff':'#f5d887','rgba(172,129,74,.3)',1);}c.restore();
         }
         for(var collectIndex=0;collectIndex<this.stageSixCollectEffects.length;collectIndex++){
             var collect=this.stageSixCollectEffects[collectIndex],collectProgress=clamp(collect.age/collect.duration,0,1),collectFade=Math.pow(1-collectProgress,2);
-            c.save();c.translate(collect.x,collect.y-collectProgress*26);c.globalAlpha=collectFade;c.fillStyle=collect.type==='life'?'#bd714f':'#9169aa';c.font='800 18px system-ui,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(collect.type==='life'?'+1':'••',0,0);c.restore();
+            c.save();c.translate(collect.x,collect.y-collectProgress*26);c.globalAlpha=collectFade;if(collect.type==='life'){c.fillStyle='#bd714f';c.font='800 18px system-ui,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText('+1',0,0);}else{this.drawSoftStar(c,-6,0,5.6,-.08,'#f6d986','rgba(176,131,71,.36)',1);this.drawSoftStar(c,5,-5,3.8,.12,'#eee3ff','rgba(145,117,176,.34)',.92);this.drawSoftStar(c,7,6,2.7,-.16,'#dff5d5','rgba(92,145,94,.32)',.86);}c.restore();
         }
     };
     Game.prototype.drawItemNotices=function(c){
