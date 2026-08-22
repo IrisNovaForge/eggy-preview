@@ -309,7 +309,7 @@
         for(var level=1;level<=6;level++){var locked=level>this.maxUnlockedLevel;html+='<button type="button" class="bb-level-choice" data-action="select-level" data-level="'+level+'" aria-label="'+esc(this.stageLabel(level)+' '+this.stageName(level)+(locked?' · '+this.stageSelectText.locked:''))+'"'+(locked?' disabled':'')+'>'+esc(this.stageName(level))+'</button>';}
         return html+'</div>';
     };
-    Game.prototype.levelIntroHtml=function(){return '<div class="bb-stage-sprout" aria-hidden="true"><i></i><i></i><i></i></div><p class="bb-kicker">'+esc(this.stageLabel(this.level))+'</p><h2>'+esc(this.stageName(this.level))+'</h2>';};
+    Game.prototype.levelIntroHtml=function(){return '<div class="bb-stage-egg" aria-hidden="true"><i></i></div><p class="bb-kicker">'+esc(this.stageLabel(this.level))+'</p><h2>'+esc(this.stageName(this.level))+'</h2>';};
     Game.prototype.clearIntroTimer=function(){if(this.introTimer){clearTimeout(this.introTimer);this.introTimer=0;}};
     Game.prototype.focusElement=function(element){if(!element)return false;try{element.focus({preventScroll:true});}catch(error){element.focus();}return document.activeElement===element;};
     Game.prototype.clearMenuFocus=function(){var active=document.activeElement;if(active&&this.card.contains(active)&&active.blur)active.blur();};
