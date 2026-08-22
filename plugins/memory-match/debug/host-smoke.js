@@ -12,7 +12,7 @@
     await wait(250);
     check(document.querySelectorAll('.mm-card').length===0,'title has no active cards before start');
     document.querySelector('[data-mm-start]').click();
-    check(document.querySelectorAll('.mm-card').length===16,'plugin creates sixteen cards');
+    check(document.querySelectorAll('.mm-card').length===12,'plugin starts the twelve-card first level');
     document.querySelector('[data-mm-exit]').click();check(finishCount===1,'exit calls host finish once');
     controller.destroy();check(document.getElementById('mount').children.length===0,'host destroy clears mount');
     report.textContent=failures.length?'FAIL\n'+failures.join('\n'):'PASS';report.id=failures.length?'report-fail':'report-pass';document.title=failures.length?'FAIL':'PASS';

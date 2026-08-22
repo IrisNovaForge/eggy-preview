@@ -4,19 +4,34 @@
     function check(value,message){if(!value)failures.push(message);}
     function wait(ms){return new Promise(function(resolve){setTimeout(resolve,ms);});}
     var rules=window.DanboMemoryMatchRules.create();
-    var first=rules.createDeck(8,12345),second=rules.createDeck(8,12345);
-    check(first.length===16,'deck length');
-    check(first.map(function(x){return x.pairId;}).join(',')===second.map(function(x){return x.pairId;}).join(','),'seed determinism');
-    var counts={};first.forEach(function(card){counts[card.pairId]=(counts[card.pairId]||0)+1;});
-    check(Object.keys(counts).length===8&&Object.keys(counts).every(function(key){return counts[key]===2;}),'exact pairs');
-    var results=0,game=window.DanboMemoryMatch.create({mount:document.getElementById('mount'),assetBase:'../',rules:rules,autoStart:true,seed:12345,mismatchDelayMs:25,matchDelayMs:10,onResult:function(){results++;}});
+    [6,8,10,12].forEach(function(pairCount){
+        var faces=[];for(var f=0;f<pairCount;f++)faces.push('test-face-'+f);
+        var first=rules.createDeck(faces,12345),second=rules.createDeck(faces,12345),counts={};
+        check(first.length===pairCount*2,'level deck length '+pairCount);
+        check(first.map(function(x){return x.faceId;}).join(',')===second.map(function(x){return x.faceId;}).join(','),'seed determinism '+pairCount);
+        first.forEach(function(card){counts[card.faceId]=(counts[card.faceId]||0)+1;});
+        check(Object.keys(counts).length===pairCount&&Object.keys(counts).every(function(key){return counts[key]===2;}),'exact pairs '+pairCount);
+    });
+    var saved={},storage={get:function(key,fallback){return Object.prototype.hasOwnProperty.call(saved,key)?saved[key]:fallback;},set:function(key,value){saved[key]=value;}};
+    var results=0,game=window.DanboMemoryMatch.create({mount:document.getElementById('mount'),assetBase:'../',rules:rules,storage:storage,autoStart:true,startLevel:1,seed:12345,mismatchDelayMs:18,matchDelayMs:5,onResult:function(){results++;}});
+    var levels=game.getLevels();check(levels.map(function(level){return level.pairs;}).join(',')==='6,8,10,12','four configured pair counts');
+    check(levels.map(function(level){return level.faceCount;}).join(',')==='6,8,10,12','four unique face sets');
     var state=game.getState(),groups={};state.cards.forEach(function(card,index){(groups[card.pairId]||(groups[card.pairId]=[])).push(index);});
     var keys=Object.keys(groups),wrongA=groups[keys[0]][0],wrongB=groups[keys[1]][0];
     check(game.flip(wrongA),'first wrong flip accepted');check(game.flip(wrongB),'second wrong flip accepted');check(!game.flip(groups[keys[2]][0]),'third card locked');
-    await wait(50);state=game.getState();check(state.cards[wrongA].state==='down'&&state.cards[wrongB].state==='down','mismatch returns down');
-    for(var i=0;i<keys.length;i++){state=game.getState();var pair=groups[keys[i]];if(state.cards[pair[0]].state==='matched')continue;game.flip(pair[0]);game.flip(pair[1]);await wait(18);}
-    await wait(30);state=game.getState();check(state.status==='won','game wins');check(state.matchedPairs===8,'all pairs matched');check(results===1,'result emitted once');
-    game.restart(777);state=game.getState();check(state.status==='playing'&&state.matchedPairs===0&&state.attempts===0,'restart resets state');game.destroy();check(document.getElementById('mount').children.length===0,'destroy clears mount');
+    await wait(30);state=game.getState();check(state.cards[wrongA].state==='down'&&state.cards[wrongB].state==='down','mismatch returns down');
+    async function solveCurrent(expectedLevel,expectedPairs){
+        var current=game.getState(),map={};current.cards.forEach(function(card,index){(map[card.pairId]||(map[card.pairId]=[])).push(index);});
+        check(current.level===expectedLevel,'started level '+expectedLevel);check(current.cards.length===expectedPairs*2,'card count level '+expectedLevel);
+        check(new Set(current.cards.map(function(card){return card.faceId;})).size===expectedPairs,'face uniqueness level '+expectedLevel);
+        for(var key of Object.keys(map)){current=game.getState();var pair=map[key];if(current.cards[pair[0]].state==='matched')continue;game.flip(pair[0]);game.flip(pair[1]);await wait(9);}
+        await wait(18);current=game.getState();check(current.status==='won','win level '+expectedLevel);check(current.matchedPairs===expectedPairs,'all pairs level '+expectedLevel);
+    }
+    await solveCurrent(1,6);check(game.getState().unlockedLevel===2&&saved.unlockedLevel===2,'level two unlocks');check(!game.start(4,9),'locked level cannot start');
+    check(game.start(2,222),'level two starts');await solveCurrent(2,8);check(game.getState().unlockedLevel===3,'level three unlocks');
+    check(game.start(3,333),'level three starts');await solveCurrent(3,10);check(game.getState().unlockedLevel===4,'level four unlocks');
+    check(game.start(4,444),'level four starts');await solveCurrent(4,12);check(results===4,'one result per level');
+    game.restart(777);state=game.getState();check(state.status==='playing'&&state.level===4&&state.matchedPairs===0&&state.attempts===0,'restart resets current level');
+    game.destroy();check(document.getElementById('mount').children.length===0,'destroy clears mount');
     report.textContent=failures.length?'FAIL\n'+failures.join('\n'):'PASS';report.id=failures.length?'report-fail':'report-pass';document.title=failures.length?'FAIL':'PASS';
 })();
-

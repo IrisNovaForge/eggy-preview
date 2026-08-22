@@ -35,12 +35,12 @@
             id:'memory-match',
             mode:wasm?'wasm':'js-fallback',
             faceIds:FACE_IDS.slice(),
-            createDeck:function(pairCount,seed){
-                pairCount=Math.max(1,Math.min(FACE_IDS.length,pairCount|0||8));
+            createDeck:function(faceSet,seed){
+                var faces=Array.isArray(faceSet)?faceSet.slice():FACE_IDS.slice(0,Math.max(1,Math.min(FACE_IDS.length,faceSet|0||8)));
                 var deck=[];
-                for(var pairId=0;pairId<pairCount;pairId++){
-                    deck.push({pairId:pairId,faceId:FACE_IDS[pairId]});
-                    deck.push({pairId:pairId,faceId:FACE_IDS[pairId]});
+                for(var pairId=0;pairId<faces.length;pairId++){
+                    deck.push({pairId:pairId,faceId:faces[pairId]});
+                    deck.push({pairId:pairId,faceId:faces[pairId]});
                 }
                 var next=randomSource(seed);
                 for(var index=deck.length-1;index>0;index--){
@@ -65,4 +65,3 @@
 
     global.DanboMemoryMatchRules={create:makeRules,faceIds:FACE_IDS.slice()};
 })(window);
-
