@@ -29,26 +29,26 @@
         return window.matchMedia('(pointer:coarse)').matches||window.matchMedia('(hover:none)').matches;
     }
     var STAGE_SELECT_COPY={
-        zhs:{enter:'进入关卡',select:'选择关卡',stagePrefix:'第',stageSuffix:'关',next:'进入下一关',back:'返回关卡选择',locked:'尚未解锁',levels:['破壳花园','芽围轻摆','双层柔壳','柔性偏转','回芽星巢','群芽汇辉']},
-        zht:{enter:'進入關卡',select:'選擇關卡',stagePrefix:'第',stageSuffix:'關',next:'進入下一關',back:'返回關卡選擇',locked:'尚未解鎖',levels:['破殼花園','芽圍輕擺','雙層柔殼','柔性偏轉','回芽星巢','群芽匯輝']},
+        zhs:{enter:'进入关卡',select:'选择关卡',stagePrefix:'第',stageSuffix:'关',next:'进入下一关',back:'返回关卡选择',locked:'尚未解锁',levels:['花园初遇','轻轻摇摆','层层叠叠','弹来弹去','星光闪闪','伙伴集合']},
+        zht:{enter:'進入關卡',select:'選擇關卡',stagePrefix:'第',stageSuffix:'關',next:'進入下一關',back:'返回關卡選擇',locked:'尚未解鎖',levels:['花園初遇','輕輕搖擺','層層疊疊','彈來彈去','星光閃閃','夥伴集合']},
         ja:{enter:'ステージへ',select:'ステージを選ぶ',stagePrefix:'ステージ',stageSuffix:'',next:'次のステージへ',back:'ステージ選択へ',locked:'未解放',levels:['殻ひらく花園','芽囲いのそよぎ','二重の柔殻','やわらか偏向','芽帰りの星巣','集う芽の輝き']},
         en:{enter:'Enter Stages',select:'Choose a Stage',stagePrefix:'Stage ',stageSuffix:'',next:'Next Stage',back:'Back to Stage Select',locked:'Locked',levels:['Shellbreak Garden','Swaying Budring','Double Soft-shell','Gentle Deflection','Returning Bud Nest','Gathered Budglow']}
     };
     var STAGE_THREE_COPY={
-        zhs:{basic:'第三关 · 双层柔壳 · 慢风绒由柔壳蓄成'},
-        zht:{basic:'第三關 · 雙層柔殼 · 慢風絨由柔殼蓄成'},
+        zhs:{basic:'第三关 · 层层叠叠 · 慢风绒由柔壳蓄成'},
+        zht:{basic:'第三關 · 層層疊疊 · 慢風絨由柔殼蓄成'},
         ja:{basic:'ステージ3 · 二重の柔殻 · 柔殻からそよ風の綿が生まれる'},
         en:{basic:'Stage 3 · Double Soft-shell · Breeze fluff gathers from cleared shells'}
     };
     var STAGE_FIVE_COPY={
-        zhs:{speed:'球速',buff:'柔辉芽核',basic:'第五关 · 回芽星巢 · 元气蛋壳、慢风与星路芽'},
-        zht:{speed:'球速',buff:'柔輝芽核',basic:'第五關 · 回芽星巢 · 元氣蛋殼、慢風與星路芽'},
+        zhs:{speed:'球速',buff:'柔辉芽核',basic:'第五关 · 星光闪闪 · 元气蛋壳、慢风与星路芽'},
+        zht:{speed:'球速',buff:'柔輝芽核',basic:'第五關 · 星光閃閃 · 元氣蛋殼、慢風與星路芽'},
         ja:{speed:'速度',buff:'柔光の芽核',basic:'ステージ5 · 芽の星巣 · 元気の卵殻、そよ風、星の芽'},
         en:{speed:'Speed',buff:'Softglow Bud Core',basic:'Stage 5 · Bud Star Nest · Vitality shell, breeze and star-path buds'}
     };
     var STAGE_SIX_COPY={
-        zhs:{speed:'球速',basic:'第六关 · 群芽汇辉 · 元气蛋壳与柔辉同行'},
-        zht:{speed:'球速',basic:'第六關 · 群芽匯輝 · 元氣蛋殼與柔輝同行'},
+        zhs:{speed:'球速',basic:'第六关 · 伙伴集合 · 元气蛋壳与柔辉同行'},
+        zht:{speed:'球速',basic:'第六關 · 夥伴集合 · 元氣蛋殼與柔輝同行'},
         ja:{speed:'速度',basic:'ステージ6 · 芽光の集い · 元気の卵殻と柔光の同行'},
         en:{speed:'Speed',basic:'Stage 6 · Gathered Budglow · Vitality shell and softglow company'}
     };
@@ -61,8 +61,8 @@
     var ITEM_GUIDE_ICONS={hazard:'!',seed:'⌁',life:'⌣',slow:'≈',clear:'✦',buff:'···',multi:'••'};
     var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#fff0d4',ink:'#bd714f'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},buff:{soft:'#eee0f5',ink:'#9169aa'},multi:{soft:'#eee0f5',ink:'#9169aa'}};
     var COPY={
-        zhs:{name:'星光碰撞',sub:'接住光球，完成挑战！',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'蛋壳威力',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'释放威力',ready:'准备好！',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；手机使用左下摇杆左右移动。',seedControls:'E / 手机版「击」按钮使用接住的蛋形能量。',fourthBasic:'第四关 · 柔性偏转 · 最多6次蛋壳威力，每次最多清理3块砖',basic:'基础玩法 · 清空全部砖块通关',launch:'发球'},
-        zht:{name:'星光碰撞',sub:'接住光球，完成挑戰！',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'蛋殼威力',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'釋放威力',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；手機使用左下搖桿左右移動。',seedControls:'E / 手機版「击」按鈕使用接住的蛋形能量。',fourthBasic:'第四關 · 柔性偏轉 · 最多6次蛋殼威力，每次最多清理3塊磚',basic:'基礎玩法 · 清空全部磚塊通關',launch:'發球'},
+        zhs:{name:'星光碰撞',sub:'接住光球，完成挑战！',start:'开始挑战',resume:'继续',restart:'重新开始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩余',seed:'蛋壳威力',seedReady:'就绪',seedWaiting:'等待',seedSpent:'用完',attack:'释放威力',ready:'准备好！',readyHint:'按空格、点击画面或轻触按钮发球',pause:'暂停',paused:'旅程暂停',won:'星光清扫完成',lost:'光球用完了',again:'再来一次',title:'返回标题',controls:'← → / A D 移动蛋宝；手机使用左下摇杆左右移动。',seedControls:'E / 手机版「击」按钮使用接住的蛋形能量。',fourthBasic:'第四关 · 弹来弹去 · 最多6次蛋壳威力，每次最多清理3块砖',basic:'基础玩法 · 清空全部砖块通关',launch:'发球'},
+        zht:{name:'星光碰撞',sub:'接住光球，完成挑戰！',start:'開始挑戰',resume:'繼續',restart:'重新開始',exit:'返回奇境',score:'得分',best:'最佳',lives:'光球',left:'剩餘',seed:'蛋殼威力',seedReady:'就緒',seedWaiting:'等待',seedSpent:'用完',attack:'釋放威力',ready:'準備發球',readyHint:'按空白鍵、點擊畫面或輕觸按鈕發球',pause:'暫停',paused:'旅程暫停',won:'方塊全部清理完成！',lost:'光球用完了',again:'再來一次',title:'返回標題',controls:'← → / A D 移動蛋寶；手機使用左下搖桿左右移動。',seedControls:'E / 手機版「击」按鈕使用接住的蛋形能量。',fourthBasic:'第四關 · 彈來彈去 · 最多6次蛋殼威力，每次最多清理3塊磚',basic:'基礎玩法 · 清空全部磚塊通關',launch:'發球'},
         ja:{name:'星明かりの衝突',sub:'光のボールを受け止め、チャレンジを達成しよう！',start:'チャレンジ開始',resume:'つづける',restart:'もう一度',exit:'世界へ戻る',score:'スコア',best:'ベスト',lives:'ボール',left:'のこり',seed:'卵殻パワー',seedReady:'準備OK',seedWaiting:'待機',seedSpent:'終了',attack:'パワーを放つ',ready:'サーブの準備',readyHint:'スペース、画面クリック、またはボタンでスタート',pause:'一時停止',paused:'一時停止中',won:'すべてのブロックを消しました！',lost:'ボールがなくなりました',again:'もう一度',title:'タイトルへ',controls:'← → / A D で移動。スマホは左下のスティックで左右に移動。',seedControls:'E またはモバイルの「击」ボタンで、受け取った卵形エネルギーを使います。',fourthBasic:'ステージ4 · やわらか反射 · 卵殻パワーは最大6回',basic:'基本ルール · すべてのブロックを消すとクリア',launch:'スタート'},
         en:{name:'Starlight Collision',sub:'Catch the light ball and complete the challenge!',start:'Start Challenge',resume:'Resume',restart:'Restart',exit:'Return to World',score:'Score',best:'Best',lives:'Balls',left:'Left',seed:'Eggshell Power',seedReady:'Ready',seedWaiting:'Waiting',seedSpent:'Spent',attack:'Release Power',ready:'Ready to Serve',readyHint:'Press Space, click the board, or tap the button',pause:'Pause',paused:'Journey Paused',won:'All blocks cleared!',lost:'No light balls left',again:'Play Again',title:'Back to Title',controls:'Move with ← → / A D. On mobile, use the lower-left stick to move sideways.',seedControls:'Press E or the mobile Hit button to use the caught egg energy.',fourthBasic:'Stage 4 · Soft deflection · Up to 6 Eggshell Power uses',basic:'Basic rules · Clear every brick to finish',launch:'Launch'}
     };
