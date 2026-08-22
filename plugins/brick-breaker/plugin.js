@@ -4,7 +4,7 @@
 
     var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
     var runtimeBase=window.DANBO_BRICK_BREAKER_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/brick-breaker/');
-    var pluginAssetVersion='v=20260822.50';
+    var pluginAssetVersion='v=20260822.51';
     window.DANBO_BRICK_BREAKER_BASE_URL=runtimeBase;
 
     function ensureStyle(){
@@ -23,7 +23,7 @@
 
     window.DANBO_PLUGIN_HOST.register({
         id:'brick-breaker',
-        version:'0.9.22',
+        version:'0.9.23',
         name:{zhs:'星光碰撞',zht:'星光碰撞',ja:'星明かりの衝突',en:'Starlight Collision'},
         description:{
             zhs:'原创视觉的基础打砖块小游戏。移动挡板，让光球清理全部彩色方块。',

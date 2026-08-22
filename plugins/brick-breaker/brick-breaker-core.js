@@ -12,6 +12,7 @@
     var BALL_DROP_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/ball-drop-a.wav?v=20260822.49',CORE_ASSET_BASE).href:'';
     var STAGE_CLEAR_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/stage-clear-b.wav?v=20260822.49',CORE_ASSET_BASE).href:'';
     var STAGE_FAIL_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/stage-fail-a.wav?v=20260822.49',CORE_ASSET_BASE).href:'';
+    var BGM_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/starlight-collision-bgm-candidate-a.mp3?v=20260822.51',CORE_ASSET_BASE).href:'';
     var WORLD_PALETTE=['#f29a91','#f5b67f','#f2d36f','#9fd1a9','#82c7d5','#b8abd6'];
     var STAGE_WORLDS={
         1:{sky:['#8fd8e8','#c8eadf','#ffe1aa'],horizon:'#91cfb2',ground:'#79bd99',light:'#fff4c8',accent:'#f29a91'},
@@ -182,7 +183,7 @@
         this.keys={left:false,right:false};
         this.pointerX=null;this.pointerActive=false;this.pointerId=null;this.pointerIsTouch=false;
         this.touchDragStartX=0;this.touchDragInput=0;
-        this.running=true;this.state='title';this.last=performance.now();this.raf=0;this.missTimer=0;this.introTimer=0;this.audioCtx=null;
+        this.running=true;this.state='title';this.last=performance.now();this.raf=0;this.missTimer=0;this.introTimer=0;this.audioCtx=null;this.bgmAudio=null;
         this.brickContactAudioData=null;this.brickContactAudioBuffer=null;this.brickContactAudioLoad=null;this.brickContactAudioDecode=null;this.lastBrickContactAudioAt=-Infinity;this.preloadBrickContactAudio();
         this.characterHeadAudioData=null;this.characterHeadAudioBuffer=null;this.characterHeadAudioLoad=null;this.characterHeadAudioDecode=null;this.lastCharacterHeadAudioAt=-Infinity;this.preloadCharacterHeadAudio();
         this.itemCatchAudioData=null;this.itemCatchAudioBuffer=null;this.itemCatchAudioLoad=null;this.itemCatchAudioDecode=null;this.lastItemCatchAudioAt=-Infinity;this.preloadItemCatchAudio();
@@ -316,8 +317,8 @@
         if(buttons[target]&&!buttons[target].disabled)this.focusElement(buttons[target]);return true;
     };
     Game.prototype.activateFocusedAction=function(){var active=document.activeElement;if(!active||!this.card.contains(active)||active.disabled)active=this.card.querySelector('button:not(:disabled)');if(!active)return false;this.focusElement(active);active.click();return true;};
-    Game.prototype.showTitle=function(){this.clearIntroTimer();this.state='title';this.overlay.hidden=false;this.card.className='bb-card bb-entry-card';this.card.innerHTML=this.titleHtml();this.root.classList.remove('bb-playing');this.setGameplayControlsFocusable(false);this.updateHud();this.focusFirstAction();};
-    Game.prototype.showLevelSelect=function(){this.clearIntroTimer();this.state='select';this.overlay.hidden=false;this.card.className='bb-card bb-level-card';this.card.innerHTML=this.levelSelectHtml();this.root.classList.remove('bb-playing');this.setGameplayControlsFocusable(false);this.updateHud();this.focusFirstAction('.bb-level-choice:not(:disabled)');};
+    Game.prototype.showTitle=function(){this.clearIntroTimer();this.stopBgm(true);this.state='title';this.overlay.hidden=false;this.card.className='bb-card bb-entry-card';this.card.innerHTML=this.titleHtml();this.root.classList.remove('bb-playing');this.setGameplayControlsFocusable(false);this.updateHud();this.focusFirstAction();};
+    Game.prototype.showLevelSelect=function(){this.clearIntroTimer();this.stopBgm(true);this.state='select';this.overlay.hidden=false;this.card.className='bb-card bb-level-card';this.card.innerHTML=this.levelSelectHtml();this.root.classList.remove('bb-playing');this.setGameplayControlsFocusable(false);this.updateHud();this.focusFirstAction('.bb-level-choice:not(:disabled)');};
     Game.prototype.applyLevelPresentation=function(level){
         this.level=clamp(Math.round(Number(level)||1),1,6);this.root.setAttribute('data-level',String(this.level));
         this.stageWorld=stageWorldFor(this.level);this.stageSky=this.stageWorld.sky.slice();this.stagePalette=WORLD_PALETTE;
@@ -878,13 +879,14 @@
     };
 
     Game.prototype.startGame=function(){
-        this.clearIntroTimer();this.resetBoard();this.state='ready';this.root.classList.add('bb-playing');this.showReady();
+        this.clearIntroTimer();this.stopBgm(true);this.resetBoard();this.state='ready';this.root.classList.add('bb-playing');this.showReady();
         if(this.options.onEvent)this.options.onEvent('start',{score:0,lives:this.lives,level:this.level,name:this.stageName(this.level)});
     };
     Game.prototype.showReady=function(){var t=this.t;this.overlay.hidden=false;this.card.className='bb-card bb-ready-card';this.card.innerHTML='<p class="bb-kicker">'+esc(this.stageLabel(this.level)+' · '+this.stageName(this.level))+'</p><div class="bb-mini-ball">●</div><h2>'+esc(t.ready)+'</h2><p>'+esc(t.readyHint)+'</p>'+this.itemGuideHtml()+'<button class="bb-primary" data-action="launch">'+esc(t.launch)+'</button><p class="bb-note">'+esc(this.stageBasicCopy())+'</p>';this.setGameplayControlsFocusable(false);this.focusFirstAction();};
     Game.prototype.launch=function(){
         if(this.state!=='ready')return;
         this.ensureAudio();
+        this.playBgm();
         this.serveId++;this.missHandled=false;
         var direction=(Math.floor(this.elapsed*10)%2?1:-1),launchVx=this.ball.speed*.42;
         this.ball.vx=direction*launchVx;this.ball.vy=-Math.sqrt(this.ball.speed*this.ball.speed-launchVx*launchVx);
@@ -892,11 +894,12 @@
     };
     Game.prototype.togglePause=function(){
         if(this.state==='playing'){
-            this.state='paused';this.overlay.hidden=false;this.card.className='bb-card bb-pause-card';this.card.innerHTML='<h2>'+esc(this.t.paused)+'</h2><button class="bb-primary" data-action="resume">'+esc(this.t.resume)+'</button><button class="bb-secondary" data-action="restart">'+esc(this.t.restart)+'</button>';this.setGameplayControlsFocusable(false);this.focusFirstAction();
-        }else if(this.state==='paused'){this.state='playing';this.overlay.hidden=true;this.clearMenuFocus();this.setGameplayControlsFocusable(true);}
+            this.pauseBgm();this.state='paused';this.overlay.hidden=false;this.card.className='bb-card bb-pause-card';this.card.innerHTML='<h2>'+esc(this.t.paused)+'</h2><button class="bb-primary" data-action="resume">'+esc(this.t.resume)+'</button><button class="bb-secondary" data-action="restart">'+esc(this.t.restart)+'</button>';this.setGameplayControlsFocusable(false);this.focusFirstAction();
+        }else if(this.state==='paused'){this.state='playing';this.playBgm();this.overlay.hidden=true;this.clearMenuFocus();this.setGameplayControlsFocusable(true);}
     };
 
     Game.prototype.finishRound=function(won){
+        this.stopBgm(true);
         this.state=won?'won':'lost';
         this.playRoundResultAudio(won);
         if(won)this.unlockNextLevel();
@@ -1185,6 +1188,21 @@
         if(this.audioCtx.state==='suspended'&&this.audioCtx.resume)this.audioCtx.resume().catch(function(){});
         this.decodeBrickContactAudio();this.decodeCharacterHeadAudio();this.decodeItemCatchAudio();this.decodeEggshellPowerAudio();this.decodeBallDropAudio();this.decodeStageClearAudio();this.decodeStageFailAudio();
         return this.audioCtx;
+    };
+
+    Game.prototype.ensureBgm=function(){
+        if(!BGM_AUDIO_URL||typeof Audio!=='function')return null;
+        if(!this.bgmAudio){this.bgmAudio=new Audio(BGM_AUDIO_URL);this.bgmAudio.loop=true;this.bgmAudio.preload='auto';this.bgmAudio.volume=.16;this.bgmAudio.setAttribute('playsinline','');}
+        return this.bgmAudio;
+    };
+    Game.prototype.playBgm=function(){
+        if(typeof soundEnabled!=='undefined'&&!soundEnabled)return false;
+        var bgm=this.ensureBgm();if(!bgm)return false;
+        var promise=bgm.play();if(promise&&promise.catch)promise.catch(function(){});return true;
+    };
+    Game.prototype.pauseBgm=function(){if(this.bgmAudio)this.bgmAudio.pause();};
+    Game.prototype.stopBgm=function(reset){
+        if(!this.bgmAudio)return;this.bgmAudio.pause();if(reset){try{this.bgmAudio.currentTime=0;}catch(error){}}
     };
 
     Game.prototype.playBrickContactAudio=function(audio){
@@ -1907,6 +1925,7 @@
         this.canvas.removeEventListener('pointerdown',this.boundPointer);this.canvas.removeEventListener('pointermove',this.boundPointer);this.canvas.removeEventListener('pointerup',this.boundPointer);this.canvas.removeEventListener('pointercancel',this.boundPointer);this.root.removeEventListener('click',this.boundClick);
         if(this.localJoystick){this.localJoystick.removeEventListener('pointerdown',this.boundLocalJoystick);this.localJoystick.removeEventListener('pointermove',this.boundLocalJoystick);this.localJoystick.removeEventListener('pointerup',this.boundLocalJoystick);this.localJoystick.removeEventListener('pointercancel',this.boundLocalJoystick);}
         if(this.localPunch){this.localPunch.removeEventListener('pointerdown',this.boundLocalPunch);this.localPunch.removeEventListener('pointerup',this.boundLocalPunch);this.localPunch.removeEventListener('pointercancel',this.boundLocalPunch);}
+        this.stopBgm(true);if(this.bgmAudio){this.bgmAudio.removeAttribute('src');this.bgmAudio.load();this.bgmAudio=null;}
         if(this.characterView)this.characterView.destroy();
         if(this.audioCtx&&this.audioCtx.state!=='closed'&&this.audioCtx.close)this.audioCtx.close().catch(function(){});
         if(this.root.parentNode)this.root.parentNode.removeChild(this.root);
