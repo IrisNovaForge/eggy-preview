@@ -9,6 +9,9 @@
     var CHARACTER_HEAD_BOUNCE_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/character-head-bounce-c.wav?v=20260822.46',CORE_ASSET_BASE).href:'';
     var ITEM_CATCH_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/item-catch-b.wav?v=20260822.47',CORE_ASSET_BASE).href:'';
     var EGGSHELL_POWER_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/eggshell-power-launch-b.wav?v=20260822.48',CORE_ASSET_BASE).href:'';
+    var BALL_DROP_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/ball-drop-a.wav?v=20260822.49',CORE_ASSET_BASE).href:'';
+    var STAGE_CLEAR_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/stage-clear-b.wav?v=20260822.49',CORE_ASSET_BASE).href:'';
+    var STAGE_FAIL_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/stage-fail-a.wav?v=20260822.49',CORE_ASSET_BASE).href:'';
     var WORLD_PALETTE=['#f29a91','#f5b67f','#f2d36f','#9fd1a9','#82c7d5','#b8abd6'];
     var STAGE_WORLDS={
         1:{sky:['#8fd8e8','#c8eadf','#ffe1aa'],horizon:'#91cfb2',ground:'#79bd99',light:'#fff4c8',accent:'#f29a91'},
@@ -184,6 +187,9 @@
         this.characterHeadAudioData=null;this.characterHeadAudioBuffer=null;this.characterHeadAudioLoad=null;this.characterHeadAudioDecode=null;this.lastCharacterHeadAudioAt=-Infinity;this.preloadCharacterHeadAudio();
         this.itemCatchAudioData=null;this.itemCatchAudioBuffer=null;this.itemCatchAudioLoad=null;this.itemCatchAudioDecode=null;this.lastItemCatchAudioAt=-Infinity;this.preloadItemCatchAudio();
         this.eggshellPowerAudioData=null;this.eggshellPowerAudioBuffer=null;this.eggshellPowerAudioLoad=null;this.eggshellPowerAudioDecode=null;this.lastEggshellPowerAudioAt=-Infinity;this.preloadEggshellPowerAudio();
+        this.ballDropAudioData=null;this.ballDropAudioBuffer=null;this.ballDropAudioLoad=null;this.ballDropAudioDecode=null;this.lastBallDropAudioAt=-Infinity;this.preloadBallDropAudio();
+        this.stageClearAudioData=null;this.stageClearAudioBuffer=null;this.stageClearAudioLoad=null;this.stageClearAudioDecode=null;this.preloadStageClearAudio();
+        this.stageFailAudioData=null;this.stageFailAudioBuffer=null;this.stageFailAudioLoad=null;this.stageFailAudioDecode=null;this.preloadStageFailAudio();
         this.boundKeyDown=this.keyDown.bind(this);
         this.boundKeyUp=this.keyUp.bind(this);
         this.boundPointer=this.pointer.bind(this);
@@ -891,6 +897,7 @@
 
     Game.prototype.finishRound=function(won){
         this.state=won?'won':'lost';
+        this.playRoundResultAudio(won);
         if(won)this.unlockNextLevel();
         if(this.score>this.best){this.best=this.score;this.storage.set('bestScore',this.best);}
         this.updateHud();this.overlay.hidden=false;
@@ -1128,12 +1135,54 @@
         return this.eggshellPowerAudioDecode;
     };
 
+    Game.prototype.preloadBallDropAudio=function(){
+        if(!BALL_DROP_AUDIO_URL||typeof fetch!=='function'||this.ballDropAudioLoad)return this.ballDropAudioLoad;
+        var self=this;
+        this.ballDropAudioLoad=fetch(BALL_DROP_AUDIO_URL,{cache:'force-cache'}).then(function(response){if(!response.ok)throw new Error('Ball drop audio '+response.status);return response.arrayBuffer();}).then(function(data){self.ballDropAudioData=data;if(self.audioCtx)self.decodeBallDropAudio();return data;}).catch(function(){self.ballDropAudioData=null;return null;});
+        return this.ballDropAudioLoad;
+    };
+
+    Game.prototype.decodeBallDropAudio=function(){
+        if(this.ballDropAudioBuffer||this.ballDropAudioDecode||!this.ballDropAudioData||!this.audioCtx)return this.ballDropAudioDecode;
+        var self=this,data=this.ballDropAudioData.slice(0);
+        this.ballDropAudioDecode=this.audioCtx.decodeAudioData(data).then(function(buffer){self.ballDropAudioBuffer=buffer;return buffer;}).catch(function(){return null;});
+        return this.ballDropAudioDecode;
+    };
+
+    Game.prototype.preloadStageClearAudio=function(){
+        if(!STAGE_CLEAR_AUDIO_URL||typeof fetch!=='function'||this.stageClearAudioLoad)return this.stageClearAudioLoad;
+        var self=this;
+        this.stageClearAudioLoad=fetch(STAGE_CLEAR_AUDIO_URL,{cache:'force-cache'}).then(function(response){if(!response.ok)throw new Error('Stage clear audio '+response.status);return response.arrayBuffer();}).then(function(data){self.stageClearAudioData=data;if(self.audioCtx)self.decodeStageClearAudio();return data;}).catch(function(){self.stageClearAudioData=null;return null;});
+        return this.stageClearAudioLoad;
+    };
+
+    Game.prototype.decodeStageClearAudio=function(){
+        if(this.stageClearAudioBuffer||this.stageClearAudioDecode||!this.stageClearAudioData||!this.audioCtx)return this.stageClearAudioDecode;
+        var self=this,data=this.stageClearAudioData.slice(0);
+        this.stageClearAudioDecode=this.audioCtx.decodeAudioData(data).then(function(buffer){self.stageClearAudioBuffer=buffer;return buffer;}).catch(function(){return null;});
+        return this.stageClearAudioDecode;
+    };
+
+    Game.prototype.preloadStageFailAudio=function(){
+        if(!STAGE_FAIL_AUDIO_URL||typeof fetch!=='function'||this.stageFailAudioLoad)return this.stageFailAudioLoad;
+        var self=this;
+        this.stageFailAudioLoad=fetch(STAGE_FAIL_AUDIO_URL,{cache:'force-cache'}).then(function(response){if(!response.ok)throw new Error('Stage fail audio '+response.status);return response.arrayBuffer();}).then(function(data){self.stageFailAudioData=data;if(self.audioCtx)self.decodeStageFailAudio();return data;}).catch(function(){self.stageFailAudioData=null;return null;});
+        return this.stageFailAudioLoad;
+    };
+
+    Game.prototype.decodeStageFailAudio=function(){
+        if(this.stageFailAudioBuffer||this.stageFailAudioDecode||!this.stageFailAudioData||!this.audioCtx)return this.stageFailAudioDecode;
+        var self=this,data=this.stageFailAudioData.slice(0);
+        this.stageFailAudioDecode=this.audioCtx.decodeAudioData(data).then(function(buffer){self.stageFailAudioBuffer=buffer;return buffer;}).catch(function(){return null;});
+        return this.stageFailAudioDecode;
+    };
+
     Game.prototype.ensureAudio=function(){
         if((typeof sfxEnabled!=='undefined'&&!sfxEnabled)||(typeof soundEnabled!=='undefined'&&!soundEnabled))return null;
         var AudioCtor=window.AudioContext||window.webkitAudioContext;if(!AudioCtor)return null;
         if(!this.audioCtx)this.audioCtx=new AudioCtor();
         if(this.audioCtx.state==='suspended'&&this.audioCtx.resume)this.audioCtx.resume().catch(function(){});
-        this.decodeBrickContactAudio();this.decodeCharacterHeadAudio();this.decodeItemCatchAudio();this.decodeEggshellPowerAudio();
+        this.decodeBrickContactAudio();this.decodeCharacterHeadAudio();this.decodeItemCatchAudio();this.decodeEggshellPowerAudio();this.decodeBallDropAudio();this.decodeStageClearAudio();this.decodeStageFailAudio();
         return this.audioCtx;
     };
 
@@ -1159,6 +1208,19 @@
         var audio=this.ensureAudio();if(!audio||!this.eggshellPowerAudioBuffer||audio.currentTime-this.lastEggshellPowerAudioAt<.12)return false;
         var now=audio.currentTime,source=audio.createBufferSource(),gain=audio.createGain();
         source.buffer=this.eggshellPowerAudioBuffer;gain.gain.setValueAtTime(.34,now);source.connect(gain);gain.connect(audio.destination);source.start(now,.85);source.stop(now+.4);this.lastEggshellPowerAudioAt=now;return true;
+    };
+
+    Game.prototype.playBallDropAudio=function(){
+        var audio=this.ensureAudio();if(!audio||!this.ballDropAudioBuffer||audio.currentTime-this.lastBallDropAudioAt<.08)return false;
+        var now=audio.currentTime,source=audio.createBufferSource(),gain=audio.createGain();
+        source.buffer=this.ballDropAudioBuffer;gain.gain.setValueAtTime(.7,now);source.connect(gain);gain.connect(audio.destination);source.start(now,.05);source.stop(now+1.1);this.lastBallDropAudioAt=now;return true;
+    };
+
+    Game.prototype.playRoundResultAudio=function(won){
+        var audio=this.ensureAudio(),buffer=won?this.stageClearAudioBuffer:this.stageFailAudioBuffer;if(!audio||!buffer)return false;
+        var now=audio.currentTime,source=audio.createBufferSource(),gain=audio.createGain();
+        source.buffer=buffer;gain.gain.setValueAtTime(won ? .48 : .24,now);source.connect(gain);gain.connect(audio.destination);
+        if(won){source.start(now,.55);source.stop(now+.95);}else{source.start(now);source.stop(now+1.5);}return true;
     };
 
     Game.prototype.playSoftCollision=function(type){
@@ -1348,6 +1410,7 @@
             if(this.rules.isWin(this.remaining)){this.finishRound(true);return false;}break;
         }
         if(b.y-b.r>H){
+            this.playBallDropAudio();
             if(this.level===6)return this.stageSixBallExit(b);
             this.loseBall();return true;
         }
