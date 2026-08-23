@@ -27,7 +27,7 @@
         if(cached)return cached;
         var base=options.baseUrl||window.DANBO_FALLING_CATCH_BASE_URL||ownBase;
         if(base.charAt(base.length-1)!=='/')base+='/';
-        var version=options.assetVersion||'v=0.2.5';
+        var version=options.assetVersion||'v=0.2.6';
         cached=instantiate(base+'wasm/danbo_falling_catch.wasm?'+version).then(function(result){
             var exports=result.instance?result.instance.exports:result.exports;
             if(!exports||exports.danbo_falling_catch_abi_version()!==1)throw new Error('Unsupported falling-catch WASM ABI');

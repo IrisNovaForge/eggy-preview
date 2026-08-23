@@ -87,7 +87,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.5');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.6');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -100,6 +100,7 @@
         var destroyed=false,phase='loading',raf=0,lastFrame=0,spawnClock=0,resultSent=false;
         var objects=[],bursts=[];
         var spawnState={lastZone:-1,lastX:null,lastObstacle:false,hasSpawned:false};
+        var crosswindState={phase:'off',direction:1,remaining:0,cycle:0};
         var worldHeight=62;
         var player={x:50,y:54.3,w:17,h:5.4,speed:61};
         var pressed={left:false,right:false};
@@ -120,6 +121,7 @@
             startingLives=clamp(Number.isFinite(livesOverride)&&livesOverride>0?livesOverride:(Number(levelRules.lives)||3),1,9)|0;
         }
         applyLevel(levelIndex(options.startLevelId||options.levelId));
+        resetCrosswindState(false);
 
         mount.innerHTML='';
         var root=make('section','dfc-shell');
@@ -207,6 +209,30 @@
         function random(){return rules.random();}
         function nextSpawnDelay(){return 0.48+random()*0.42;}
         function resetSpawnState(){spawnState.lastZone=-1;spawnState.lastX=null;spawnState.lastObstacle=false;spawnState.hasSpawned=false;}
+        function emitCrosswindPhase(){
+            if(typeof options.onEvent==='function'&&currentLevel.crosswind)options.onEvent('crosswindPhase',{levelId:currentLevel.id,phase:crosswindState.phase,direction:crosswindState.direction,cycle:crosswindState.cycle,remaining:crosswindState.remaining});
+        }
+        function resetCrosswindState(notify){
+            var crosswind=currentLevel&&currentLevel.crosswind;
+            if(!crosswind){crosswindState.phase='off';crosswindState.direction=1;crosswindState.remaining=0;crosswindState.cycle=0;return;}
+            crosswindState.phase='cue';crosswindState.direction=Number(crosswind.initialDirection)<0?-1:1;crosswindState.remaining=Number(crosswind.cueDuration)||.8;crosswindState.cycle=0;
+            if(notify)emitCrosswindPhase();
+        }
+        function updateCrosswind(dt){
+            var crosswind=currentLevel.crosswind;if(!crosswind)return;
+            crosswindState.remaining-=dt;
+            while(crosswindState.remaining<=0){
+                var overflow=-crosswindState.remaining;
+                if(crosswindState.phase==='cue'){
+                    crosswindState.phase='active';crosswindState.remaining=(Number(crosswind.activeDuration)||3)-overflow;
+                }else if(crosswindState.phase==='active'){
+                    crosswindState.phase='calm';crosswindState.remaining=(Number(crosswind.calmDuration)||1)-overflow;
+                }else{
+                    crosswindState.phase='cue';crosswindState.direction*=-1;crosswindState.cycle++;crosswindState.remaining=(Number(crosswind.cueDuration)||.8)-overflow;
+                }
+                emitCrosswindPhase();
+            }
+        }
         function distributedSpawnX(config){
             var minX=Number(config.minX),maxX=Number(config.maxX),zoneCount=Math.max(2,config.zoneCount|0),zoneWidth=(maxX-minX)/zoneCount;
             var zones=[];for(var zone=0;zone<zoneCount;zone++)if(!config.avoidRepeatZone||zone!==spawnState.lastZone)zones.push(zone);
@@ -249,7 +275,7 @@
                 type:obstacle?'obstacle':'target',kind:kind,x:spawnPosition.x,y:spawnY,
                 radius:kind==='stone'?3.2:2.8,vy:fallSpeed,drift:drift,
                 turn:(random()-.5)*3.5,rotation:random()*Math.PI*2,
-                airflowEligible:!!(airflow&&!obstacle&&airflow.affectedKinds&&airflow.affectedKinds.indexOf(kind)>=0),airflowState:'ready',airflowTimer:0
+                airflowEligible:!!(airflow&&!obstacle&&airflow.affectedKinds&&airflow.affectedKinds.indexOf(kind)>=0),airflowState:'ready',airflowTimer:0,lastCrosswindCycle:-1
             };
             objects.push(item);if(distribution){spawnState.lastObstacle=obstacle;spawnState.hasSpawned=true;}
             if(typeof options.onEvent==='function')options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,x:item.x,zone:spawnPosition.zone,drift:item.drift,airflowEligible:item.airflowEligible});
@@ -258,7 +284,7 @@
             return item.x>=airflow.centerX-airflow.halfWidth&&item.x<=airflow.centerX+airflow.halfWidth&&item.y>=airflow.top&&item.y<=airflow.bottom;
         }
         function moveObject(item,dt){
-            var airflow=currentLevel.airflow,verticalSpeed=item.vy,horizontalSpeed=item.drift;
+            var airflow=currentLevel.airflow,crosswind=currentLevel.crosswind,verticalSpeed=item.vy,horizontalSpeed=item.drift;
             if(airflow&&item.airflowEligible&&item.airflowState==='ready'&&insideAirflow(item,airflow)){
                 item.airflowState='lifting';item.airflowTimer=Number(airflow.liftDuration)||.55;
                 if(typeof options.onEvent==='function')options.onEvent('airflowEnter',{levelId:currentLevel.id,type:item.type,kind:item.kind,x:item.x,y:item.y});
@@ -267,6 +293,14 @@
                 item.airflowTimer-=dt;verticalSpeed=Number(airflow.liftSpeed)||-8;
                 horizontalSpeed+=(item.x<airflow.centerX?1:-1)*(Number(airflow.horizontalPush)||0);
                 if(item.airflowTimer<=0){item.airflowState='spent';item.drift*=.62;}
+            }
+            if(crosswind&&crosswindState.phase==='active'){
+                var windSpeed=Number(crosswind.speed)||0;
+                horizontalSpeed=clamp(horizontalSpeed+crosswindState.direction*windSpeed,-(Number(crosswind.maxHorizontalSpeed)||12),Number(crosswind.maxHorizontalSpeed)||12);
+                if(item.lastCrosswindCycle!==crosswindState.cycle){
+                    item.lastCrosswindCycle=crosswindState.cycle;
+                    if(typeof options.onEvent==='function')options.onEvent('crosswindApply',{levelId:currentLevel.id,type:item.type,kind:item.kind,direction:crosswindState.direction,speed:windSpeed,cycle:crosswindState.cycle});
+                }
             }
             item.y+=verticalSpeed*dt*(worldHeight/62);item.x+=horizontalSpeed*dt;item.rotation+=item.turn*dt;
         }
@@ -297,6 +331,7 @@
             if(pressed.left&&!pressed.right)player.x-=player.speed*dt;
             if(pressed.right&&!pressed.left)player.x+=player.speed*dt;
             player.x=clamp(player.x,player.w/2+1,100-player.w/2-1);
+            updateCrosswind(dt);
             spawnClock-=dt;
             if(spawnClock<=0){spawnObject();spawnClock=nextSpawnDelay();}
             for(var i=objects.length-1;i>=0;i--){
@@ -345,6 +380,28 @@
         function drawAirflowAura(item){
             if(item.airflowState!=='lifting')return;
             context.save();context.translate(item.x,item.y);context.strokeStyle='rgba(236,255,238,.75)';context.lineWidth=.35;context.beginPath();context.arc(0,0,item.radius+1.2,0,Math.PI*2);context.stroke();context.restore();
+        }
+        function drawCrosswind(){
+            var crosswind=currentLevel.crosswind;if(!crosswind||crosswindState.phase==='off'||crosswindState.phase==='calm')return;
+            var direction=crosswindState.direction,isCue=crosswindState.phase==='cue',now=performance.now()/1000;
+            context.save();context.lineCap='round';
+            if(isCue){
+                var pulse=.68+Math.sin(now*7)*.18,sourceX=direction>0?2:98;
+                context.globalAlpha=pulse;context.fillStyle='#fff0a8';context.fillRect(direction>0?0:96,7,4,39);
+                context.globalAlpha=.9;context.fillStyle='rgba(38,76,68,.78)';context.fillRect(41,7,18,5.2);
+                context.fillStyle='#fff7cf';context.textAlign='center';context.textBaseline='middle';context.font='800 3px system-ui, sans-serif';context.fillText(direction>0?'→  →  →':'←  ←  ←',50,9.6);
+                context.strokeStyle='#fff0a8';context.lineWidth=.7;
+                for(var c=0;c<3;c++){
+                    var cy=19+c*9;context.beginPath();context.moveTo(sourceX,cy);context.lineTo(sourceX+direction*(8+c*2),cy);context.lineTo(sourceX+direction*(5.8+c*2),cy-1.5);context.moveTo(sourceX+direction*(8+c*2),cy);context.lineTo(sourceX+direction*(5.8+c*2),cy+1.5);context.stroke();
+                }
+            }else{
+                context.strokeStyle='rgba(235,255,246,.64)';context.lineWidth=.42;
+                for(var i=0;i<8;i++){
+                    var progress=(now*(.42+i*.012)+i*.139)%1,x=direction>0?-18+progress*136:118-progress*136,y=13+(i%6)*6.2,length=8+(i%3)*2.5;
+                    context.globalAlpha=.35+(i%3)*.13;context.beginPath();context.moveTo(x,y);context.bezierCurveTo(x+direction*length*.35,y-1.2,x+direction*length*.7,y+1.2,x+direction*length,y);context.stroke();
+                }
+            }
+            context.globalAlpha=1;context.restore();
         }
         function drawLeaf(item){
             context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.fillStyle='#f1c96b';context.beginPath();context.moveTo(-3,0);context.quadraticCurveTo(0,-3.4,3,0);context.quadraticCurveTo(0,3.4,-3,0);context.fill();context.strokeStyle='#8d7f43';context.lineWidth=.35;context.beginPath();context.moveTo(-2.2,0);context.lineTo(2.5,0);context.stroke();context.restore();
@@ -399,6 +456,7 @@
             context.setTransform(scale,0,0,scale,0,0);
             drawBackground();
             drawAirflow();
+            drawCrosswind();
             for(var i=0;i<objects.length;i++){
                 var item=objects[i];drawAirflowAura(item);if(item.kind==='leaf')drawLeaf(item);else if(item.kind==='berry')drawBerry(item);else if(item.kind==='acorn')drawAcorn(item);else drawStone(item);
             }
@@ -424,7 +482,7 @@
         }
         function selectLevel(reference){
             if(destroyed||phase==='running')return false;
-            applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;resetSpawnState();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
+            applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;resetSpawnState();resetCrosswindState(false);player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
             phase=phase==='loading'?'loading':'ready';buildIntro();updateHud();
             if(typeof options.onEvent==='function')options.onEvent('levelChange',{levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,status:currentLevel.status});
             return true;
@@ -438,7 +496,7 @@
             if(phase==='loading'||destroyed)return;
             seed=(seed+0x9e3779b9)>>>0;
             rules.reset(seed,durationMs,startingLives,targetScore);
-            objects.length=0;bursts.length=0;resetSpawnState();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';
+            objects.length=0;bursts.length=0;resetSpawnState();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';resetCrosswindState(true);
             overlay.classList.add('dfc-hidden');updateHud();play('confirm');
             if(typeof options.onEvent==='function')options.onEvent('start',{seed:seed,durationMs:durationMs,targetScore:targetScore,lives:startingLives,rulesMode:rules.mode(),levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length});
         }
