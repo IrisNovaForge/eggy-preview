@@ -13,9 +13,12 @@
         assert(levels[0].rules.durationMs===30000&&levels[0].rules.targetScore===12&&levels[0].rules.lives===3,'Stage 1 keeps the original 30s / 12 points / 3 chances');
         assert(levels[0].targetCatchBox.mode==='center'&&levels[0].targetCatchBox.halfWidth===2&&levels[0].targetCatchBox.topOffset===-2.8&&levels[0].targetCatchBox.bottomOffset===-.8,'Stage 1 uses the basket-sized center-entry catch box');
         assert(levels[0].spawnDistribution.minX===7&&levels[0].spawnDistribution.maxX===93&&levels[0].spawnDistribution.zoneCount===5&&levels[0].spawnDistribution.minHorizontalGap===12&&levels[0].spawnDistribution.avoidRepeatZone&&levels[0].spawnDistribution.avoidConsecutiveObstacle,'Stage 1 uses the five-zone distributed spawn plan');
-        assert(levels.slice(1).every(function(level){return !level.targetCatchBox;}),'Stages 2-4 keep their existing target collision behavior');
-        assert(levels.slice(1).every(function(level){return !level.spawnDistribution;}),'Stages 2-4 keep their existing spawn behavior');
-        assert(levels.slice(1).every(function(level){return level.status==='framework'&&level.mechanics==='base';}),'Stages 2-4 are framework-only and reuse base mechanics');
+        assert(levels[1].targetCatchBox===levels[0].targetCatchBox&&levels[1].basketOffsetY===-17.5,'Stage 2 keeps the same overhead basket and center-entry catch box');
+        assert(levels[1].status==='playable'&&levels[1].mechanics==='updraft'&&!!levels[1].airflow,'Stage 2 enables only the updraft mechanic');
+        assert(levels[1].airflow.affectedKinds.join(',')==='leaf,berry'&&levels[1].airflow.liftSpeed<0,'Stage 2 updraft affects only lightweight targets and produces lift');
+        assert(!levels[1].spawnDistribution&&levels.slice(2).every(function(level){return !level.spawnDistribution;}),'Stage 1 remains the only stage using five-zone distribution');
+        assert(levels.slice(2).every(function(level){return !level.targetCatchBox&&!level.airflow;}),'Stages 3-4 keep their existing collision and motion behavior');
+        assert(levels.slice(2).every(function(level){return level.status==='framework'&&level.mechanics==='base';}),'Stages 3-4 remain framework-only and reuse base mechanics');
         var starts=[],rules=window.DanboFallingCatchRules.create({forceFallback:true});
         var game=window.DanboFallingCatch.create({mount:document.getElementById('mount'),rules:rules,levels:levels,lang:'zhs',seed:5,character:{id:'herbTraveler'},onEvent:function(type,payload){if(type==='start')starts.push(payload);}});
         rules.ready.then(function(){
@@ -25,7 +28,8 @@
                     assert(document.querySelector('.dfc-shell').dataset.levelNumber==='1','Stage 1 is reflected in the shared shell');
                     assert(window.DanboFallingCatchLevels.next('breezy-harvest').id==='wind-hill-rise','ordered level registry resolves the next stage');
                     assert(game.selectLevel(2)&&game.level().id==='wind-hill-rise','shared selector switches to Stage 2');
-                    assert(document.querySelector('.dfc-card').textContent.indexOf('框架测试')>=0,'Stage 2 is clearly marked as framework-only');
+                    assert(document.querySelector('.dfc-card').textContent.indexOf('上升气流')>=0,'Stage 2 intro explains the updraft');
+                    assert(document.querySelector('.dfc-card').textContent.indexOf('框架测试')<0,'Stage 2 is no longer marked as framework-only');
                     assert(game.selectLevel(3)&&game.level().id==='crystal-valley-turn','shared selector switches to Stage 3');
                     assert(game.selectLevel('starwind-confluence')&&game.level().number===4,'shared selector switches to Stage 4 by id');
                     assert(game.selectLevel(1)&&game.level().id==='breezy-harvest','shared selector returns to Stage 1');

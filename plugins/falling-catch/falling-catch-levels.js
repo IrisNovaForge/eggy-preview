@@ -6,12 +6,17 @@
         targetScore:12,
         lives:3
     });
-    var STAGE_ONE_CATCH=Object.freeze({halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'});
+    var HEAD_BASKET_CATCH=Object.freeze({halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'});
     var STAGE_ONE_SPAWN=Object.freeze({minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true});
+    var STAGE_TWO_AIRFLOW=Object.freeze({
+        centerX:50,halfWidth:14,top:14,bottom:46,
+        affectedKinds:Object.freeze(['leaf','berry']),liftDuration:.55,liftSpeed:-8,horizontalPush:3.8,
+        spawnSideMinX:18,spawnSideMaxX:34,diagonalMinSpeed:10,diagonalMaxSpeed:14
+    });
 
     var LEVELS=[
         {
-            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:STAGE_ONE_CATCH,spawnDistribution:STAGE_ONE_SPAWN,
+            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,
             name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},
             description:{
                 zhs:'带领世界旅人托住采集篮，接住风里落下的叶片、莓果和橡果，同时避开沉重的石块。',
@@ -21,9 +26,9 @@
             }
         },
         {
-            id:'wind-hill-rise',number:2,status:'framework',mechanics:'base',rules:SHARED_RULES,
+            id:'wind-hill-rise',number:2,status:'playable',mechanics:'updraft',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,airflow:STAGE_TWO_AIRFLOW,
             name:{zhs:'风丘跃起',zht:'風丘躍起',ja:'風丘の上昇',en:'Windhill Rise'},
-            description:{zhs:'第二关框架已就绪，当前暂用第一关基础规则进行顺序切换测试。',zht:'第二關框架已就緒，目前暫用第一關基礎規則進行順序切換測試。',ja:'第2ステージの枠組みです。現在は第1ステージの基本ルールで切替を確認します。',en:'Stage 2 framework is ready and temporarily uses the Stage 1 base rules for sequence testing.'}
+            description:{zhs:'左右移动头顶采集篮，判断斜向落物的路线；轻盈的自然物进入风丘上升气流后会短暂上浮并改变轨迹。',zht:'左右移動頭頂採集籃，判斷斜向落物的路線；輕盈的自然物進入風丘上升氣流後會短暫上浮並改變軌跡。',ja:'頭上のかごを左右に動かし、斜めに落ちる自然物を集めよう。軽い自然物は上昇気流で一度浮かび、軌道が変わります。',en:'Move the overhead basket left and right to read diagonal paths. Light natural objects briefly rise and change course inside the hill updraft.'}
         },
         {
             id:'crystal-valley-turn',number:3,status:'framework',mechanics:'base',rules:SHARED_RULES,

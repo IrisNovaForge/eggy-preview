@@ -87,7 +87,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.4');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.5');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -225,20 +225,50 @@
         }
         function spawnObject(){
             var distribution=currentLevel.spawnDistribution;
+            var airflow=currentLevel.airflow;
             var obstacleRate=0.28,obstacleRoll=random(),obstacle=obstacleRoll<obstacleRate;
             if(distribution&&distribution.avoidConsecutiveObstacle){
                 if(spawnState.lastObstacle)obstacle=false;
                 else obstacle=obstacleRoll<(spawnState.hasSpawned?obstacleRate/(1-obstacleRate):obstacleRate);
             }
             var kind=obstacle?'stone':['leaf','berry','acorn'][Math.floor(random()*3)];
-            var spawnPosition=distribution?distributedSpawnX(distribution):{x:7+random()*86,zone:-1};
+            var spawnPosition;
+            if(distribution)spawnPosition=distributedSpawnX(distribution);
+            else if(airflow){
+                var fromLeft=random()<.5;
+                var sideMin=Number(airflow.spawnSideMinX)||18,sideMax=Number(airflow.spawnSideMaxX)||34;
+                var sideX=sideMin+random()*(sideMax-sideMin);
+                spawnPosition={x:fromLeft?sideX:100-sideX,zone:fromLeft?0:1,fromLeft:fromLeft};
+            }else spawnPosition={x:7+random()*86,zone:-1};
+            var spawnY=-6-random()*4,fallSpeed=22+random()*10,drift=(random()-.5)*8;
+            if(airflow&&!obstacle){
+                var diagonalMin=Number(airflow.diagonalMinSpeed)||10,diagonalMax=Number(airflow.diagonalMaxSpeed)||14;
+                drift=(spawnPosition.fromLeft?1:-1)*(diagonalMin+random()*(diagonalMax-diagonalMin));
+            }
             var item={
-                type:obstacle?'obstacle':'target',kind:kind,x:spawnPosition.x,y:-6-random()*4,
-                radius:kind==='stone'?3.2:2.8,vy:22+random()*10,drift:(random()-.5)*8,
-                turn:(random()-.5)*3.5,rotation:random()*Math.PI*2
+                type:obstacle?'obstacle':'target',kind:kind,x:spawnPosition.x,y:spawnY,
+                radius:kind==='stone'?3.2:2.8,vy:fallSpeed,drift:drift,
+                turn:(random()-.5)*3.5,rotation:random()*Math.PI*2,
+                airflowEligible:!!(airflow&&!obstacle&&airflow.affectedKinds&&airflow.affectedKinds.indexOf(kind)>=0),airflowState:'ready',airflowTimer:0
             };
             objects.push(item);if(distribution){spawnState.lastObstacle=obstacle;spawnState.hasSpawned=true;}
-            if(typeof options.onEvent==='function')options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,x:item.x,zone:spawnPosition.zone});
+            if(typeof options.onEvent==='function')options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,x:item.x,zone:spawnPosition.zone,drift:item.drift,airflowEligible:item.airflowEligible});
+        }
+        function insideAirflow(item,airflow){
+            return item.x>=airflow.centerX-airflow.halfWidth&&item.x<=airflow.centerX+airflow.halfWidth&&item.y>=airflow.top&&item.y<=airflow.bottom;
+        }
+        function moveObject(item,dt){
+            var airflow=currentLevel.airflow,verticalSpeed=item.vy,horizontalSpeed=item.drift;
+            if(airflow&&item.airflowEligible&&item.airflowState==='ready'&&insideAirflow(item,airflow)){
+                item.airflowState='lifting';item.airflowTimer=Number(airflow.liftDuration)||.55;
+                if(typeof options.onEvent==='function')options.onEvent('airflowEnter',{levelId:currentLevel.id,type:item.type,kind:item.kind,x:item.x,y:item.y});
+            }
+            if(airflow&&item.airflowState==='lifting'){
+                item.airflowTimer-=dt;verticalSpeed=Number(airflow.liftSpeed)||-8;
+                horizontalSpeed+=(item.x<airflow.centerX?1:-1)*(Number(airflow.horizontalPush)||0);
+                if(item.airflowTimer<=0){item.airflowState='spent';item.drift*=.62;}
+            }
+            item.y+=verticalSpeed*dt*(worldHeight/62);item.x+=horizontalSpeed*dt;item.rotation+=item.turn*dt;
         }
         function circleRectHit(item){
             var left=player.x-player.w/2,right=player.x+player.w/2,top=player.y-player.h/2,bottom=player.y+player.h/2;
@@ -270,7 +300,7 @@
             spawnClock-=dt;
             if(spawnClock<=0){spawnObject();spawnClock=nextSpawnDelay();}
             for(var i=objects.length-1;i>=0;i--){
-                var item=objects[i];item.y+=item.vy*dt*(worldHeight/62);item.x+=item.drift*dt;item.rotation+=item.turn*dt;
+                var item=objects[i];moveObject(item,dt);
                 if(item.x<item.radius||item.x>100-item.radius)item.drift*=-1;
                 if(item.type==='target'?targetHit(item):circleRectHit(item)){objects.splice(i,1);handleObject(item);if(phase!=='running')break;continue;}
                 if(item.y>worldHeight+6)objects.splice(i,1);
@@ -296,6 +326,25 @@
             for(var i=0;i<6;i++){var x=8+i*18;context.beginPath();context.moveTo(x,16+(i%2)*5);context.bezierCurveTo(x+5,14,x+8,19,x+13,17);context.stroke();}
             context.strokeStyle='#7eb68a';context.lineWidth=.35;
             for(var g=0;g<24;g++){var gx=(g*17)%101;var gh=2+(g%4)*.5;context.beginPath();context.moveTo(gx,ground+1.5);context.quadraticCurveTo(gx-.9,ground+.5-gh*.5,gx-.2,ground-gh);context.stroke();}
+        }
+        function drawAirflow(){
+            var airflow=currentLevel.airflow;if(!airflow)return;
+            var left=airflow.centerX-airflow.halfWidth,right=airflow.centerX+airflow.halfWidth,top=airflow.top,bottom=airflow.bottom;
+            var wash=context.createLinearGradient(0,bottom,0,top);wash.addColorStop(0,'rgba(212,255,235,.04)');wash.addColorStop(.45,'rgba(222,255,243,.2)');wash.addColorStop(1,'rgba(255,255,245,.03)');
+            context.fillStyle=wash;context.beginPath();context.moveTo(left+4,bottom);context.quadraticCurveTo(left-2,(top+bottom)/2,left+5,top);context.lineTo(right-5,top);context.quadraticCurveTo(right+2,(top+bottom)/2,right-4,bottom);context.closePath();context.fill();
+            var now=performance.now()/1000;context.lineCap='round';
+            for(var i=0;i<6;i++){
+                var progress=(now*(.13+i*.012)+i*.173)%1;
+                var y=bottom-progress*(bottom-top),sway=Math.sin(now*1.5+i*1.7)*3.2;
+                context.globalAlpha=.22+.22*(1-progress);context.strokeStyle=i%2?'#f4fff1':'#c8f4df';context.lineWidth=.35+(i%3)*.09;
+                context.beginPath();context.moveTo(airflow.centerX-5+sway,y+4);context.bezierCurveTo(airflow.centerX-10+sway,y+1,airflow.centerX+8-sway,y-2,airflow.centerX+3-sway,y-6);context.stroke();
+                context.beginPath();context.moveTo(airflow.centerX+3-sway,y-6);context.lineTo(airflow.centerX+.8-sway,y-4.7);context.moveTo(airflow.centerX+3-sway,y-6);context.lineTo(airflow.centerX+4.4-sway,y-3.7);context.stroke();
+            }
+            context.globalAlpha=1;context.lineCap='butt';
+        }
+        function drawAirflowAura(item){
+            if(item.airflowState!=='lifting')return;
+            context.save();context.translate(item.x,item.y);context.strokeStyle='rgba(236,255,238,.75)';context.lineWidth=.35;context.beginPath();context.arc(0,0,item.radius+1.2,0,Math.PI*2);context.stroke();context.restore();
         }
         function drawLeaf(item){
             context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.fillStyle='#f1c96b';context.beginPath();context.moveTo(-3,0);context.quadraticCurveTo(0,-3.4,3,0);context.quadraticCurveTo(0,3.4,-3,0);context.fill();context.strokeStyle='#8d7f43';context.lineWidth=.35;context.beginPath();context.moveTo(-2.2,0);context.lineTo(2.5,0);context.stroke();context.restore();
@@ -349,8 +398,9 @@
             player.y=worldHeight-7.7;
             context.setTransform(scale,0,0,scale,0,0);
             drawBackground();
+            drawAirflow();
             for(var i=0;i<objects.length;i++){
-                var item=objects[i];if(item.kind==='leaf')drawLeaf(item);else if(item.kind==='berry')drawBerry(item);else if(item.kind==='acorn')drawAcorn(item);else drawStone(item);
+                var item=objects[i];drawAirflowAura(item);if(item.kind==='leaf')drawLeaf(item);else if(item.kind==='berry')drawBerry(item);else if(item.kind==='acorn')drawAcorn(item);else drawStone(item);
             }
             drawTravelerCollector();
             context.textAlign='center';context.textBaseline='middle';context.font='700 2.4px system-ui, sans-serif';
