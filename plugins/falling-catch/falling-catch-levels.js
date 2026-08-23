@@ -19,15 +19,15 @@
     });
     var STAGE_FOUR_AIRFLOW=Object.freeze({
         centerX:50,halfWidth:14,top:14,bottom:46,
-        affectedKinds:Object.freeze(['leaf','berry']),liftDuration:.45,liftSpeed:-6,horizontalPush:2.5,
+        affectedKinds:Object.freeze(['leaf','berry']),liftDuration:.5,liftSpeed:-7,horizontalPush:3.2,
         sideSpawn:false
     });
     var STAGE_FOUR_CROSSWIND=Object.freeze({
         cueDuration:.8,activeDuration:3,calmDuration:1,
-        speed:6,maxHorizontalSpeed:10,initialDirection:1
+        speed:7,maxHorizontalSpeed:11,initialDirection:1
     });
     var STAGE_FOUR_CONFLUENCE=Object.freeze({
-        gatherDuration:10,alternateDuration:10,comboEvery:3,comboBonus:1
+        gatherDuration:4,alternateDuration:6,comboEvery:3,comboBonus:1
     });
 
     var LEVELS=[

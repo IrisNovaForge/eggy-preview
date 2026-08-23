@@ -20,8 +20,8 @@
         assert(!levels[2].targetCatchBox&&!levels[2].airflow&&levels[2].status==='playable'&&levels[2].mechanics==='crosswind','Stage 3 adds crosswind without changing its existing catch behavior');
         assert(levels[2].crosswind.cueDuration===.8&&levels[2].crosswind.activeDuration===3&&levels[2].crosswind.calmDuration===1&&levels[2].crosswind.speed===7.5,'Stage 3 registers the isolated periodic crosswind values');
         assert(levels[3].status==='playable'&&levels[3].mechanics==='confluence'&&levels[3].basketOffsetY===-17.5&&levels[3].targetCatchBox===levels[0].targetCatchBox,'Stage 4 enables confluence with the shared overhead basket catch box');
-        assert(levels[3].spawnDistribution===levels[0].spawnDistribution&&levels[3].airflow.sideSpawn===false&&levels[3].crosswind.speed===6,'Stage 4 safely reuses distributed spawning with reduced airflow and crosswind');
-        assert(levels[3].confluence.gatherDuration===10&&levels[3].confluence.alternateDuration===10&&levels[3].confluence.comboEvery===3&&levels[3].confluence.comboBonus===1,'Stage 4 registers its three phases and three-catch bonus');
+        assert(levels[3].spawnDistribution===levels[0].spawnDistribution&&levels[3].airflow.sideSpawn===false&&levels[3].airflow.liftSpeed===-7&&levels[3].crosswind.speed===7,'Stage 4 safely reuses distributed spawning with clear finale wind strength');
+        assert(levels[3].confluence.gatherDuration===4&&levels[3].confluence.alternateDuration===6&&levels[3].confluence.comboEvery===3&&levels[3].confluence.comboBonus===1,'Stage 4 reaches convergence after 10 seconds and keeps its three-catch bonus');
         var starts=[],rules=window.DanboFallingCatchRules.create({forceFallback:true});
         var game=window.DanboFallingCatch.create({mount:document.getElementById('mount'),rules:rules,levels:levels,lang:'zhs',seed:5,character:{id:'herbTraveler'},onEvent:function(type,payload){if(type==='start')starts.push(payload);}});
         rules.ready.then(function(){

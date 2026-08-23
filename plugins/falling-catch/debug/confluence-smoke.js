@@ -26,6 +26,7 @@
                     assert(windPhases.some(function(entry){return entry.phase==='cue';})&&windPhases.some(function(entry){return entry.phase==='active';}),'periodic crosswind begins only after the gather phase');
                     assert(combos.length>=3,'wide test basket recorded at least three consecutive catches');
                     assert(combos.some(function(entry){return entry.streak===3&&entry.bonus===1&&entry.points===2;}),'every third catch awards one bonus point');
+                    assert(document.querySelector('.dfc-confluence-status.dfc-show').textContent.indexOf('Chain')>=0,'persistent Stage 4 status shows the current phase and catch chain');
                     assert(stage.rules.durationMs===30000&&stage.rules.targetScore===12&&stage.rules.lives===3,'production Stage 4 keeps 30 seconds, 12 points and three chances');
                     finish(null,game);
                 }catch(error){finish(error,game);}

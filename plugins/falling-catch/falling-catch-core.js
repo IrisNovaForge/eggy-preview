@@ -5,28 +5,28 @@
         zhs:{
             title:'风野拾集',eyebrow:'世界旅人的自然采样任务',intro:'带领世界旅人托住采集篮，接住风里落下的叶片、莓果和橡果，同时避开沉重的石块。',
             start:'开始接取',loading:'正在准备规则…',move:'左右移动',goal:'12分或坚持30秒即可过关',score:'得分',time:'时间',lives:'机会',
-            ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',combo:'连续接取 ×{count}！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
+            ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'星风汇流！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
             level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与星风汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试'
         },
         zht:{
             title:'風野拾集',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風裡落下的葉片、莓果和橡果，同時避開沉重的石塊。',
             start:'開始接取',loading:'正在準備規則…',move:'左右移動',goal:'12分或堅持30秒即可過關',score:'得分',time:'時間',lives:'機會',
-            ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',combo:'連續接取 ×{count}！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
+            ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'星風匯流！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
             level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與星風匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試'
         },
         ja:{
             title:'風のフィールド',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、葉や木の実を集めながら重い石をよけよう。',
             start:'チャレンジ開始',loading:'ルールを準備中…',move:'左右に移動',goal:'12点または30秒でクリア',score:'スコア',time:'時間',lives:'チャンス',
-            ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',combo:'連続キャッチ ×{count}！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
+            ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
             level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'風のフィールドから星風の合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト'
         },
         en:{
             title:'Breezy Harvest',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, collect leaves, berries and acorns, and stay clear of heavy stones.',
             start:'Start catching',loading:'Preparing rules…',move:'Move left and right',goal:'Reach 12 points or last 30 seconds',score:'Score',time:'Time',lives:'Chances',
-            ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',combo:'Catch chain ×{count}!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
+            ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
             level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Breezy Harvest through Starwind Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test'
         }
@@ -87,7 +87,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.7');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.8');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -155,6 +155,8 @@
         var livesBox=make('div','dfc-stat');livesBox.appendChild(make('span','',text.lives));var livesValue=make('strong','dfc-hearts','● ● ●');livesBox.appendChild(livesValue);
         hud.appendChild(scoreBox);hud.appendChild(timeBox);hud.appendChild(livesBox);stage.appendChild(hud);
         var notice=make('div','dfc-notice');stage.appendChild(notice);
+        var confluenceStatus=make('div','dfc-confluence-status');
+        var confluencePhaseValue=make('span','','');var comboValue=make('strong','','');confluenceStatus.appendChild(confluencePhaseValue);confluenceStatus.appendChild(comboValue);stage.appendChild(confluenceStatus);
 
         var overlay=make('div','dfc-overlay');
         var card=make('div','dfc-card');overlay.appendChild(card);stage.appendChild(overlay);
@@ -201,12 +203,19 @@
             var lifeText=[];for(var i=0;i<startingLives;i++)lifeText.push(i<shownLives?'●':'○');
             livesValue.textContent=lifeText.join(' ');
             livesBox.classList.toggle('dfc-danger',shownLives===1);
+            updateConfluenceStatus();
+        }
+        function confluencePhaseText(){return confluenceState.phase==='gather'?text.phaseGather:(confluenceState.phase==='alternate'?text.phaseAlternate:text.phaseConverge);}
+        function updateConfluenceStatus(){
+            var visible=!!(currentLevel.confluence&&phase==='running');
+            confluenceStatus.classList.toggle('dfc-show',visible);
+            if(visible){confluencePhaseValue.textContent=confluencePhaseText();comboValue.textContent=format(text.chain,{count:comboState.streak});}
         }
         function showNotice(message,tone){
             notice.textContent=message;
             notice.className='dfc-notice dfc-show '+(tone||'');
             clearTimeout(showNotice.timer);
-            showNotice.timer=setTimeout(function(){notice.className='dfc-notice';},650);
+            showNotice.timer=setTimeout(function(){notice.className='dfc-notice';},tone==='dfc-phase'?1200:650);
         }
         function play(name){try{if(typeof options.play==='function')options.play(name);}catch(error){}}
         function random(){return rules.random();}
@@ -238,6 +247,7 @@
         }
         function emitConfluencePhase(){
             if(typeof options.onEvent==='function'&&currentLevel.confluence)options.onEvent('confluencePhase',{levelId:currentLevel.id,phase:confluenceState.phase,elapsed:confluenceState.elapsed});
+            if(phase==='running'){showNotice(confluencePhaseText(),'dfc-phase');updateConfluenceStatus();}
         }
         function resetConfluenceState(notify){
             if(!currentLevel||!currentLevel.confluence){confluenceState.phase='off';confluenceState.elapsed=0;return;}
@@ -266,6 +276,7 @@
         function breakCombo(reason){
             if(!currentLevel.confluence||comboState.streak<=0)return;
             var previous=comboState.streak;comboState.streak=0;
+            updateConfluenceStatus();
             if(typeof options.onEvent==='function')options.onEvent('comboBreak',{levelId:currentLevel.id,reason:reason,previous:previous});
         }
         function distributedSpawnX(config){
@@ -448,11 +459,17 @@
         }
         function drawConfluence(){
             if(!currentLevel.confluence)return;
-            var now=performance.now()/1000,count=confluenceState.phase==='converge'?12:7;
-            context.save();context.fillStyle=confluenceState.phase==='converge'?'#fff0a6':'#eefbd5';
+            var now=performance.now()/1000,count=confluenceState.phase==='gather'?9:(confluenceState.phase==='alternate'?13:19);
+            context.save();
+            var tint=context.createLinearGradient(0,0,100,worldHeight);
+            if(confluenceState.phase==='gather'){tint.addColorStop(0,'rgba(228,255,218,.03)');tint.addColorStop(1,'rgba(206,247,229,.08)');}
+            else if(confluenceState.phase==='alternate'){tint.addColorStop(0,'rgba(212,246,255,.09)');tint.addColorStop(1,'rgba(239,224,255,.08)');}
+            else{tint.addColorStop(0,'rgba(255,237,170,.12)');tint.addColorStop(.5,'rgba(224,243,255,.08)');tint.addColorStop(1,'rgba(236,216,255,.13)');}
+            context.fillStyle=tint;context.fillRect(0,0,100,worldHeight);
+            context.fillStyle=confluenceState.phase==='converge'?'#ffe58c':(confluenceState.phase==='alternate'?'#e9f9ff':'#eefbd5');
             for(var i=0;i<count;i++){
-                var x=(i*23+now*(2.2+i%3))%106-3,y=9+(i*11)%38+Math.sin(now*1.4+i)*2,size=.45+(i%3)*.16;
-                context.globalAlpha=.3+(i%4)*.12;context.beginPath();context.moveTo(x,y-size*2);context.lineTo(x+size*.55,y-size*.55);context.lineTo(x+size*2,y);context.lineTo(x+size*.55,y+size*.55);context.lineTo(x,y+size*2);context.lineTo(x-size*.55,y+size*.55);context.lineTo(x-size*2,y);context.lineTo(x-size*.55,y-size*.55);context.closePath();context.fill();
+                var x=(i*23+now*(2.8+i%3))%106-3,y=8+(i*11)%41+Math.sin(now*1.7+i)*2.4,size=.5+(i%3)*.2;
+                context.globalAlpha=.36+(i%4)*.13;context.beginPath();context.moveTo(x,y-size*2);context.lineTo(x+size*.55,y-size*.55);context.lineTo(x+size*2,y);context.lineTo(x+size*.55,y+size*.55);context.lineTo(x,y+size*2);context.lineTo(x-size*.55,y+size*.55);context.lineTo(x-size*2,y);context.lineTo(x-size*.55,y-size*.55);context.closePath();context.fill();
             }
             context.globalAlpha=1;context.restore();
         }
@@ -557,6 +574,7 @@
         function finishRound(status){
             if(phase!=='running')return;
             phase='result';pressed.left=false;pressed.right=false;
+            updateConfluenceStatus();
             var state=snapshot(),won=status===window.DanboFallingCatchRules.WON;
             var reason=won?(state.score>=targetScore?'target':'timer'):'lives';
             var hasNext=won&&currentLevelIndex+1<levels.length;
