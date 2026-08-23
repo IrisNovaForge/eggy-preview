@@ -1,6 +1,6 @@
 {
   "id": "falling-catch",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "entrance": "entrance.js",
   "scripts": [
     "falling-catch-wasm.js",
