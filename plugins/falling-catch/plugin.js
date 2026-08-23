@@ -4,7 +4,7 @@
 
     var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
     var runtimeBase=window.DANBO_FALLING_CATCH_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/falling-catch/');
-    var assetVersion='v=0.1.3';
+    var assetVersion='v=0.2.0';
     window.DANBO_FALLING_CATCH_BASE_URL=runtimeBase;
 
     function ensureStyle(){
@@ -23,7 +23,7 @@
 
     window.DANBO_PLUGIN_HOST.register({
         id:'falling-catch',
-        version:'0.1.3',
+        version:'0.2.0',
         name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},
         description:{
             zhs:'移动叶编篮接取自然落物并避开石块，在三次机会内完成30秒挑战。',
@@ -33,7 +33,7 @@
         },
         create:function(ctx){
             ensureStyle();
-            if(!window.DanboFallingCatch||!window.DanboFallingCatchRules){
+            if(!window.DanboFallingCatch||!window.DanboFallingCatchRules||!window.DanboFallingCatchLevels){
                 console.error('[falling-catch] runtime missing');
                 ctx.api.finish({status:'error',reason:'runtime missing'});
                 return {destroy:function(){}};
@@ -48,6 +48,8 @@
             var game=window.DanboFallingCatch.create({
                 mount:ctx.mount,
                 rules:rules,
+                levels:window.DanboFallingCatchLevels.all(),
+                startLevelId:opts.levelId||opts.startLevelId,
                 character:ctx.character,
                 characterPortrait:characterPortrait,
                 assetBase:runtimeBase,
@@ -55,13 +57,13 @@
                 seed:opts.seed,
                 durationMs:opts.durationMs,
                 targetScore:opts.targetScore,
-                lives:3,
+                lives:opts.lives,
                 play:function(name){if(ctx.api&&ctx.api.play)ctx.api.play(name);},
                 onEvent:function(type,payload){
                     if(type==='start'&&ctx.net)ctx.net.send('minigame.startIntent',{pluginId:ctx.pluginId,characterId:ctx.character&&ctx.character.id,mode:'single',rules:'falling-catch-mvp',payload:payload||{}});
                 },
                 onResult:function(result){
-                    if(ctx.net)ctx.net.send('minigame.finishIntent',{pluginId:ctx.pluginId,status:result.status,reason:result.reason,score:result.score,lives:result.lives,remainingMs:result.remainingMs,rulesMode:result.rulesMode});
+                    if(ctx.net)ctx.net.send('minigame.finishIntent',{pluginId:ctx.pluginId,status:result.status,reason:result.reason,score:result.score,lives:result.lives,remainingMs:result.remainingMs,rulesMode:result.rulesMode,levelId:result.levelId,levelNumber:result.levelNumber,totalLevels:result.totalLevels,hasNextLevel:result.hasNextLevel});
                 },
                 onExit:function(result){ctx.api.finish(result||{status:'exit'});}
             });

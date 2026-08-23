@@ -40,7 +40,7 @@
     function start(){
         window.DANBO_PLUGIN_HOST.start('falling-catch',{
             lang:params.get('lang')||'zhs',seed:numberParam('seed',12345),durationMs:numberParam('duration',30)*1000,
-            targetScore:numberParam('target',12),forceFallback:params.get('fallback')==='1'
+            targetScore:numberParam('target',12),levelId:params.get('level')||1,forceFallback:params.get('fallback')==='1'
         });
         if(params.get('autoplay')==='1'){
             var attempts=0,timer=setInterval(function(){var button=document.querySelector('.dfc-primary');attempts++;if(button&&!button.disabled){clearInterval(timer);button.click();}else if(attempts>40)clearInterval(timer);},50);

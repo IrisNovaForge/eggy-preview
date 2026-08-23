@@ -6,25 +6,29 @@
             title:'风野拾集',eyebrow:'世界旅人的自然采样任务',intro:'带领世界旅人托住采集篮，接住风里落下的叶片、莓果和橡果，同时避开沉重的石块。',
             start:'开始接取',loading:'正在准备规则…',move:'左右移动',goal:'12分或坚持30秒即可过关',score:'得分',time:'时间',lives:'机会',
             ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
-            winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分'
+            winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
+            level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',campaignWin:'四关框架测试完成！',campaignDetail:'四个关卡的顺序切换已经完成。',restartCampaign:'从第一关开始',framework:'框架测试'
         },
         zht:{
             title:'風野拾集',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風裡落下的葉片、莓果和橡果，同時避開沉重的石塊。',
             start:'開始接取',loading:'正在準備規則…',move:'左右移動',goal:'12分或堅持30秒即可過關',score:'得分',time:'時間',lives:'機會',
             ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
-            winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分'
+            winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
+            level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',campaignWin:'四關框架測試完成！',campaignDetail:'四個關卡的順序切換已經完成。',restartCampaign:'從第一關開始',framework:'框架測試'
         },
         ja:{
             title:'風のフィールド',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、葉や木の実を集めながら重い石をよけよう。',
             start:'チャレンジ開始',loading:'ルールを準備中…',move:'左右に移動',goal:'12点または30秒でクリア',score:'スコア',time:'時間',lives:'チャンス',
             ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
-            winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点'
+            winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
+            level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',campaignWin:'4ステージ切替テスト完了！',campaignDetail:'4つのステージを順番に切り替えました。',restartCampaign:'最初から',framework:'枠組みテスト'
         },
         en:{
             title:'Breezy Harvest',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, collect leaves, berries and acorns, and stay clear of heavy stones.',
             start:'Start catching',loading:'Preparing rules…',move:'Move left and right',goal:'Reach 12 points or last 30 seconds',score:'Score',time:'Time',lives:'Chances',
             ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
-            winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts'
+            winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
+            level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',campaignWin:'Four-stage framework complete!',campaignDetail:'The four stages switched in sequence successfully.',restartCampaign:'Start from Stage 1',framework:'Framework test'
         }
     };
 
@@ -40,6 +44,7 @@
     };
 
     function clamp(value,min,max){return Math.max(min,Math.min(max,value));}
+    function format(template,values){return String(template||'').replace(/\{(\w+)\}/g,function(match,key){return values[key]===undefined?match:values[key];});}
     function localeKey(lang){
         lang=String(lang||'').toLowerCase();
         if(lang.indexOf('zh-tw')===0||lang.indexOf('zh-hk')===0||lang==='zht')return 'zht';
@@ -82,12 +87,14 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.1.3');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.0');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
-        var durationMs=clamp(Number(options.durationMs)||30000,1000,600000)|0;
-        var targetScore=clamp(Number(options.targetScore)||12,1,999)|0;
-        var startingLives=clamp(Number(options.lives)||3,1,9)|0;
+        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
+        var levels=options.levels&&options.levels.length?options.levels.slice():[fallbackLevel];
+        var currentLevelIndex=0,currentLevel=levels[0];
+        var durationOverride=Number(options.durationMs),targetOverride=Number(options.targetScore),livesOverride=Number(options.lives);
+        var durationMs=30000,targetScore=12,startingLives=3,lastResult=null;
         var initialSeed=(Number(options.seed)>>>0)||((Date.now()^Math.floor(Math.random()*0xffffffff))>>>0);
         var seed=initialSeed;
         var destroyed=false,phase='loading',raf=0,lastFrame=0,spawnClock=0,resultSent=false;
@@ -96,6 +103,23 @@
         var player={x:50,y:54.3,w:17,h:5.4,speed:61};
         var pressed={left:false,right:false};
 
+        function levelIndex(reference){
+            if(reference===undefined||reference===null||reference==='')return 0;
+            var numeric=Number(reference);
+            if(Number.isFinite(numeric)&&Math.floor(numeric)===numeric&&numeric>=1&&numeric<=levels.length)return numeric-1;
+            var id=String(reference);for(var i=0;i<levels.length;i++)if(levels[i].id===id)return i;
+            return 0;
+        }
+        function localized(value){return value&&(value[lang]||value.en||value.zhs)||'';}
+        function applyLevel(index){
+            currentLevelIndex=clamp(index|0,0,levels.length-1);currentLevel=levels[currentLevelIndex];
+            var levelRules=currentLevel.rules||{};
+            durationMs=clamp(Number.isFinite(durationOverride)&&durationOverride>0?durationOverride:(Number(levelRules.durationMs)||30000),1000,600000)|0;
+            targetScore=clamp(Number.isFinite(targetOverride)&&targetOverride>0?targetOverride:(Number(levelRules.targetScore)||12),1,999)|0;
+            startingLives=clamp(Number.isFinite(livesOverride)&&livesOverride>0?livesOverride:(Number(levelRules.lives)||3),1,9)|0;
+        }
+        applyLevel(levelIndex(options.startLevelId||options.levelId));
+
         mount.innerHTML='';
         var root=make('section','dfc-shell');
         root.setAttribute('aria-label',text.title);
@@ -103,15 +127,16 @@
         var brand=make('div','dfc-brand');
         brand.appendChild(make('span','dfc-brand-mark','⌁'));
         var brandCopy=make('div','dfc-brand-copy');
-        brandCopy.appendChild(make('strong','',text.title));
+        var brandTitle=make('strong','',text.title);brandCopy.appendChild(brandTitle);
         brandCopy.appendChild(make('small','',text.eyebrow));
         brand.appendChild(brandCopy);
         var topStatus=make('div','dfc-top-status');
         var travelerBadge=make('div','dfc-traveler-badge');
         var badgePortrait=make('img','dfc-traveler-badge-image');badgePortrait.src=portraitUrl;badgePortrait.alt='';
         travelerBadge.appendChild(badgePortrait);travelerBadge.appendChild(make('span','',traveler.name));
+        var levelBadge=make('span','dfc-level-badge','');
         var modeBadge=make('span','dfc-mode',text.loading);
-        topStatus.appendChild(travelerBadge);topStatus.appendChild(modeBadge);
+        topStatus.appendChild(travelerBadge);topStatus.appendChild(levelBadge);topStatus.appendChild(modeBadge);
         top.appendChild(brand);top.appendChild(topStatus);
 
         var stage=make('div','dfc-stage');
@@ -147,14 +172,29 @@
         var context=canvas.getContext('2d');
         if(!context)throw new Error('Canvas 2D is unavailable');
 
-        function snapshot(){return rules.snapshot();}
+        function snapshot(){
+            var state=rules.snapshot();
+            state.levelId=currentLevel.id;state.levelNumber=currentLevel.number||currentLevelIndex+1;state.totalLevels=levels.length;
+            return state;
+        }
+        function updateLevelPresentation(){
+            var levelName=localized(currentLevel.name)||text.title;
+            var levelLabel=format(text.level,{current:currentLevelIndex+1,total:levels.length});
+            brandTitle.textContent=levelName;root.setAttribute('aria-label',levelName);root.dataset.levelId=currentLevel.id;root.dataset.levelNumber=String(currentLevelIndex+1);
+            levelBadge.textContent=levelLabel;levelBadge.classList.toggle('dfc-level-framework',currentLevel.status==='framework');
+            cardEyebrow.textContent=levelLabel+(currentLevel.status==='framework'?' · '+text.framework:'');
+            cardTitle.textContent=levelName;cardBody.textContent=localized(currentLevel.description)||text.intro;
+            goal.textContent=text.goal;canvas.setAttribute('aria-label',localized(currentLevel.description)||text.intro);
+        }
         function updateHud(){
             var state=snapshot();
-            scoreValue.textContent=String(state.score);
-            timeValue.textContent=(Math.max(0,state.remainingMs)/1000).toFixed(1);
-            var lifeText=[];for(var i=0;i<startingLives;i++)lifeText.push(i<state.lives?'●':'○');
+            var idle=phase==='loading'||phase==='ready';
+            var shownScore=idle?0:state.score,shownRemaining=idle?durationMs:state.remainingMs,shownLives=idle?startingLives:state.lives;
+            scoreValue.textContent=String(shownScore);
+            timeValue.textContent=(Math.max(0,shownRemaining)/1000).toFixed(1);
+            var lifeText=[];for(var i=0;i<startingLives;i++)lifeText.push(i<shownLives?'●':'○');
             livesValue.textContent=lifeText.join(' ');
-            livesBox.classList.toggle('dfc-danger',state.lives===1);
+            livesBox.classList.toggle('dfc-danger',shownLives===1);
         }
         function showNotice(message,tone){
             notice.textContent=message;
@@ -291,30 +331,51 @@
 
         function buildIntro(){
             card.innerHTML='';
+            updateLevelPresentation();
             card.appendChild(introTraveler);card.appendChild(cardEyebrow);card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);card.appendChild(primary);
             primary.textContent=text.start;primary.disabled=phase==='loading';
             primary.onclick=startRound;
             overlay.classList.remove('dfc-hidden');
         }
+        function selectLevel(reference){
+            if(destroyed||phase==='running')return false;
+            applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
+            phase=phase==='loading'?'loading':'ready';buildIntro();updateHud();
+            if(typeof options.onEvent==='function')options.onEvent('levelChange',{levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,status:currentLevel.status});
+            return true;
+        }
+        function goToNextLevel(){
+            if(currentLevelIndex+1>=levels.length)return false;
+            return selectLevel(currentLevelIndex+2);
+        }
+        function restartCampaign(){return selectLevel(1);}
         function startRound(){
             if(phase==='loading'||destroyed)return;
             seed=(seed+0x9e3779b9)>>>0;
             rules.reset(seed,durationMs,startingLives,targetScore);
-            objects.length=0;bursts.length=0;player.x=50;spawnClock=.32;resultSent=false;phase='running';
+            objects.length=0;bursts.length=0;player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';
             overlay.classList.add('dfc-hidden');updateHud();play('confirm');
-            if(typeof options.onEvent==='function')options.onEvent('start',{seed:seed,durationMs:durationMs,targetScore:targetScore,lives:startingLives,rulesMode:rules.mode()});
+            if(typeof options.onEvent==='function')options.onEvent('start',{seed:seed,durationMs:durationMs,targetScore:targetScore,lives:startingLives,rulesMode:rules.mode(),levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length});
         }
         function finishRound(status){
             if(phase!=='running')return;
             phase='result';pressed.left=false;pressed.right=false;
             var state=snapshot(),won=status===window.DanboFallingCatchRules.WON;
             var reason=won?(state.score>=targetScore?'target':'timer'):'lives';
-            var result={status:won?'won':'lost',reason:reason,score:state.score,lives:state.lives,remainingMs:state.remainingMs,durationMs:durationMs,targetScore:targetScore,rulesMode:state.mode,seed:seed};
+            var hasNext=won&&currentLevelIndex+1<levels.length;
+            var result={status:won?'won':'lost',reason:reason,score:state.score,lives:state.lives,remainingMs:state.remainingMs,durationMs:durationMs,targetScore:targetScore,rulesMode:state.mode,seed:seed,levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,hasNextLevel:hasNext};
+            lastResult=result;
             card.innerHTML='';
             var resultGlyph=make('div','dfc-result-glyph '+(won?'dfc-result-win':'dfc-result-lose'),won?'✓':'!');
-            card.appendChild(resultGlyph);card.appendChild(make('p','dfc-card-eyebrow',won?text.ready:text.hit));card.appendChild(make('h1','',won?text.win:text.lose));card.appendChild(make('p','dfc-card-body',won?text.winDetail:text.loseDetail));
+            var resultTitle=won&&!hasNext&&levels.length>1?text.campaignWin:(won?text.win:text.lose);
+            var resultDetail=won?(hasNext?format(text.nextDetail,{name:localized(levels[currentLevelIndex+1].name)}):((levels.length>1)?text.campaignDetail:text.winDetail)):text.loseDetail;
+            card.appendChild(resultGlyph);card.appendChild(make('p','dfc-card-eyebrow',format(text.level,{current:currentLevelIndex+1,total:levels.length})));card.appendChild(make('h1','',resultTitle));card.appendChild(make('p','dfc-card-body',resultDetail));
             var summary=make('div','dfc-summary');summary.appendChild(make('strong','',state.score+' '+text.points));summary.appendChild(make('span','',text.lives+' '+state.lives+' / '+startingLives));card.appendChild(summary);
-            var actions=make('div','dfc-actions');var again=make('button','dfc-primary',text.again);again.type='button';again.onclick=startRound;var exit=make('button','dfc-secondary',text.exit);exit.type='button';exit.onclick=function(){if(typeof options.onExit==='function')options.onExit(result);else{phase='ready';buildIntro();}};actions.appendChild(again);actions.appendChild(exit);card.appendChild(actions);
+            var actions=make('div','dfc-actions');
+            if(hasNext){var next=make('button','dfc-primary dfc-next',text.next);next.type='button';next.onclick=goToNextLevel;actions.appendChild(next);}
+            else{var again=make('button','dfc-primary',won&&levels.length>1?text.restartCampaign:text.again);again.type='button';again.onclick=won&&levels.length>1?restartCampaign:startRound;actions.appendChild(again);}
+            var retry=hasNext?make('button','dfc-secondary',text.again):null;if(retry){retry.type='button';retry.onclick=startRound;actions.appendChild(retry);}
+            var exit=make('button','dfc-secondary',text.exit);exit.type='button';exit.onclick=function(){if(typeof options.onExit==='function')options.onExit(result);else{phase='ready';buildIntro();}};actions.appendChild(exit);card.appendChild(actions);
             overlay.classList.remove('dfc-hidden');play(won?'confirm':'cancel');
             if(!resultSent&&typeof options.onResult==='function'){resultSent=true;options.onResult(result);}
         }
@@ -328,7 +389,12 @@
         function keydown(event){
             if(event.key==='ArrowLeft'||event.key==='a'||event.key==='A'){pressed.left=true;event.preventDefault();}
             if(event.key==='ArrowRight'||event.key==='d'||event.key==='D'){pressed.right=true;event.preventDefault();}
-            if((event.key==='Enter'||event.key===' ')&&(phase==='ready'||phase==='result')){event.preventDefault();startRound();}
+            if((event.key==='Enter'||event.key===' ')&&(phase==='ready'||phase==='result')){
+                event.preventDefault();
+                if(phase==='result'&&lastResult&&lastResult.hasNextLevel)goToNextLevel();
+                else if(phase==='result'&&lastResult&&lastResult.status==='won'&&levels.length>1)restartCampaign();
+                else startRound();
+            }
             if(event.key==='Escape'&&typeof options.onExit==='function'){event.preventDefault();options.onExit({status:'exit',score:rules.score(),lives:rules.lives()});}
         }
         function keyup(event){
@@ -348,6 +414,8 @@
         return {
             start:startRound,
             snapshot:snapshot,
+            level:function(){return currentLevel;},
+            selectLevel:selectLevel,
             destroy:function(){
                 if(destroyed)return;destroyed=true;cancelAnimationFrame(raf);clearTimeout(showNotice.timer);
                 unbindLeft();unbindRight();window.removeEventListener('keydown',keydown);window.removeEventListener('keyup',keyup);mount.innerHTML='';
