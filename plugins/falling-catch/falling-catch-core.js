@@ -87,7 +87,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.8');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.9');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -104,6 +104,10 @@
         var confluenceState={phase:'off',elapsed:0};
         var comboState={streak:0,best:0,awards:0};
         var worldHeight=62;
+        var PLAYER_RENDER_SCALE=.3;
+        var TRAVELER_VISUAL_SCALE=.85;
+        var FALLING_OBJECT_VISUAL_SCALE=.88;
+        var STONE_COLLISION_RADIUS=2.95;
         var player={x:50,y:54.3,w:17,h:5.4,speed:61};
         var pressed={left:false,right:false};
 
@@ -319,7 +323,7 @@
             }
             var item={
                 type:obstacle?'obstacle':'target',kind:kind,x:spawnPosition.x,y:spawnY,
-                radius:kind==='stone'?3.2:2.8,vy:fallSpeed,drift:drift,
+                radius:kind==='stone'?STONE_COLLISION_RADIUS:2.8,vy:fallSpeed,drift:drift,
                 turn:(random()-.5)*3.5,rotation:random()*Math.PI*2,
                 airflowEligible:!!(airflow&&!obstacle&&airflow.affectedKinds&&airflow.affectedKinds.indexOf(kind)>=0),airflowState:'ready',airflowTimer:0,lastCrosswindCycle:-1
             };
@@ -433,7 +437,7 @@
         }
         function drawAirflowAura(item){
             if(item.airflowState!=='lifting')return;
-            context.save();context.translate(item.x,item.y);context.strokeStyle='rgba(236,255,238,.75)';context.lineWidth=.35;context.beginPath();context.arc(0,0,item.radius+1.2,0,Math.PI*2);context.stroke();context.restore();
+            context.save();context.translate(item.x,item.y);context.strokeStyle='rgba(236,255,238,.75)';context.lineWidth=.35;context.beginPath();context.arc(0,0,item.radius*FALLING_OBJECT_VISUAL_SCALE+1.2,0,Math.PI*2);context.stroke();context.restore();
         }
         function drawCrosswind(){
             var crosswind=currentLevel.crosswind;if(!crosswind||!crosswindEnabled()||crosswindState.phase==='off'||crosswindState.phase==='calm')return;
@@ -474,16 +478,16 @@
             context.globalAlpha=1;context.restore();
         }
         function drawLeaf(item){
-            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.fillStyle='#f1c96b';context.beginPath();context.moveTo(-3,0);context.quadraticCurveTo(0,-3.4,3,0);context.quadraticCurveTo(0,3.4,-3,0);context.fill();context.strokeStyle='#8d7f43';context.lineWidth=.35;context.beginPath();context.moveTo(-2.2,0);context.lineTo(2.5,0);context.stroke();context.restore();
+            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(FALLING_OBJECT_VISUAL_SCALE,FALLING_OBJECT_VISUAL_SCALE);context.fillStyle='#f1c96b';context.beginPath();context.moveTo(-3,0);context.quadraticCurveTo(0,-3.4,3,0);context.quadraticCurveTo(0,3.4,-3,0);context.fill();context.strokeStyle='#8d7f43';context.lineWidth=.35;context.beginPath();context.moveTo(-2.2,0);context.lineTo(2.5,0);context.stroke();context.restore();
         }
         function drawBerry(item){
-            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.fillStyle='#a94d68';context.beginPath();context.arc(-1.2,.4,1.55,0,Math.PI*2);context.arc(1.2,.4,1.55,0,Math.PI*2);context.arc(0,1.6,1.55,0,Math.PI*2);context.fill();context.fillStyle='#4f875e';context.beginPath();context.moveTo(0,-1);context.lineTo(-1.2,-2.6);context.lineTo(.2,-2);context.lineTo(1.5,-2.7);context.lineTo(1,-.8);context.closePath();context.fill();context.restore();
+            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(FALLING_OBJECT_VISUAL_SCALE,FALLING_OBJECT_VISUAL_SCALE);context.fillStyle='#a94d68';context.beginPath();context.arc(-1.2,.4,1.55,0,Math.PI*2);context.arc(1.2,.4,1.55,0,Math.PI*2);context.arc(0,1.6,1.55,0,Math.PI*2);context.fill();context.fillStyle='#4f875e';context.beginPath();context.moveTo(0,-1);context.lineTo(-1.2,-2.6);context.lineTo(.2,-2);context.lineTo(1.5,-2.7);context.lineTo(1,-.8);context.closePath();context.fill();context.restore();
         }
         function drawAcorn(item){
-            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.fillStyle='#b97845';context.beginPath();context.ellipse(0,.5,2.2,2.8,0,0,Math.PI*2);context.fill();context.fillStyle='#6c7045';context.beginPath();context.arc(0,-1.3,2.25,Math.PI,Math.PI*2);context.lineTo(2,-.7);context.lineTo(-2,-.7);context.closePath();context.fill();context.strokeStyle='#6c7045';context.lineWidth=.45;context.beginPath();context.moveTo(0,-2.5);context.quadraticCurveTo(.2,-3.5,1,-3.7);context.stroke();context.restore();
+            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(FALLING_OBJECT_VISUAL_SCALE,FALLING_OBJECT_VISUAL_SCALE);context.fillStyle='#b97845';context.beginPath();context.ellipse(0,.5,2.2,2.8,0,0,Math.PI*2);context.fill();context.fillStyle='#6c7045';context.beginPath();context.arc(0,-1.3,2.25,Math.PI,Math.PI*2);context.lineTo(2,-.7);context.lineTo(-2,-.7);context.closePath();context.fill();context.strokeStyle='#6c7045';context.lineWidth=.45;context.beginPath();context.moveTo(0,-2.5);context.quadraticCurveTo(.2,-3.5,1,-3.7);context.stroke();context.restore();
         }
         function drawStone(item){
-            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.fillStyle='#657270';context.beginPath();context.moveTo(-3.2,1.7);context.lineTo(-2.5,-1.8);context.lineTo(-.5,-3);context.lineTo(2.7,-1.8);context.lineTo(3.2,1.5);context.lineTo(1,3);context.lineTo(-1.8,2.7);context.closePath();context.fill();context.fillStyle='#87918d';context.beginPath();context.moveTo(-1.8,-1.4);context.lineTo(-.4,-2.4);context.lineTo(1.5,-1.7);context.lineTo(.4,-.8);context.closePath();context.fill();context.restore();
+            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(FALLING_OBJECT_VISUAL_SCALE,FALLING_OBJECT_VISUAL_SCALE);context.fillStyle='#657270';context.beginPath();context.moveTo(-3.2,1.7);context.lineTo(-2.5,-1.8);context.lineTo(-.5,-3);context.lineTo(2.7,-1.8);context.lineTo(3.2,1.5);context.lineTo(1,3);context.lineTo(-1.8,2.7);context.closePath();context.fill();context.fillStyle='#87918d';context.beginPath();context.moveTo(-1.8,-1.4);context.lineTo(-.4,-2.4);context.lineTo(1.5,-1.7);context.lineTo(.4,-.8);context.closePath();context.fill();context.restore();
         }
         function drawFallbackTraveler(bob){
             var body=canvasColor(traveler.color,'#bfe8a0'),accent=canvasColor(traveler.accent,'#8fd16a');
@@ -499,16 +503,18 @@
             var bob=phase==='running'?Math.sin(performance.now()/190)*.16:Math.sin(performance.now()/420)*.08;
             var basketOffsetY=Number(currentLevel.basketOffsetY)||0;
             context.save();context.translate(player.x,player.y);
-            context.translate(0,4.4);context.scale(.3,.3);context.translate(0,-4.4);
+            context.translate(0,4.4);context.scale(PLAYER_RENDER_SCALE,PLAYER_RENDER_SCALE);context.translate(0,-4.4);
             context.fillStyle='rgba(41,79,64,.2)';context.beginPath();context.ellipse(0,4.4,8.4,1.45,0,0,Math.PI*2);context.fill();
+            context.save();context.scale(TRAVELER_VISUAL_SCALE,TRAVELER_VISUAL_SCALE);
             context.fillStyle=canvasColor(traveler.accent,'#8fd16a');context.globalAlpha=.16;context.beginPath();context.ellipse(0,-4.7,8.8,8.1,0,0,Math.PI*2);context.fill();context.globalAlpha=1;
             if(travelerImage.complete&&travelerImage.naturalWidth){
                 var sourceHeight=Math.max(1,Math.floor(travelerImage.naturalHeight*.85));
                 context.drawImage(travelerImage,0,0,travelerImage.naturalWidth,sourceHeight,-7.4,-15.3+bob,14.8,15.2);
             }else drawFallbackTraveler(bob);
+            context.restore();
             context.strokeStyle='#76552f';context.lineWidth=.8;context.beginPath();
-            if(basketOffsetY){context.moveTo(-3.4,-11.2+bob);context.lineTo(-5.4,basketOffsetY+2.2);context.moveTo(3.4,-11.2+bob);context.lineTo(5.4,basketOffsetY+2.2);}
-            else{context.moveTo(-4.7,-3.5+bob);context.lineTo(-5.4,-1);context.moveTo(4.7,-3.5+bob);context.lineTo(5.4,-1);}
+            if(basketOffsetY){context.moveTo(-3.4*TRAVELER_VISUAL_SCALE,(-11.2+bob)*TRAVELER_VISUAL_SCALE);context.lineTo(-5.4,basketOffsetY+2.2);context.moveTo(3.4*TRAVELER_VISUAL_SCALE,(-11.2+bob)*TRAVELER_VISUAL_SCALE);context.lineTo(5.4,basketOffsetY+2.2);}
+            else{context.moveTo(-4.7*TRAVELER_VISUAL_SCALE,(-3.5+bob)*TRAVELER_VISUAL_SCALE);context.lineTo(-5.4,-1);context.moveTo(4.7*TRAVELER_VISUAL_SCALE,(-3.5+bob)*TRAVELER_VISUAL_SCALE);context.lineTo(5.4,-1);}
             context.stroke();context.save();context.translate(0,basketOffsetY);
             context.strokeStyle='#7b5b34';context.lineWidth=1;context.beginPath();context.arc(0,-1.1,5.7,Math.PI,Math.PI*2);context.stroke();
             context.fillStyle='#c49355';context.beginPath();context.moveTo(-6.7,-1);context.lineTo(6.7,-1);context.lineTo(5.4,3.6);context.quadraticCurveTo(0,4.7,-5.4,3.6);context.closePath();context.fill();
