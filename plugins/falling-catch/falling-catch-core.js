@@ -5,7 +5,7 @@
         zhs:{
             title:'风野拾集',eyebrow:'世界旅人的自然采样任务',intro:'带领世界旅人托住采集篮，接住风香草叶、莓林莓和金穗籽，同时避开苔痕风化石。',
             start:'开始接取',loading:'正在准备规则…',move:'左右移动',goal:'12分或坚持30秒即可过关',score:'得分',time:'时间',lives:'机会',
-            ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'星风汇流！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
+            ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',glimmerAppears:'蛋壳微光出现了！',lifeRestored:'蛋壳微光 +1机会',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'星风汇流！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
             level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与星风汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试',
             titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'四个关卡均可独立试玩'
@@ -13,7 +13,7 @@
         zht:{
             title:'風野拾集',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。',
             start:'開始接取',loading:'正在準備規則…',move:'左右移動',goal:'12分或堅持30秒即可過關',score:'得分',time:'時間',lives:'機會',
-            ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'星風匯流！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
+            ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',glimmerAppears:'蛋殼微光出現了！',lifeRestored:'蛋殼微光 +1機會',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'星風匯流！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
             level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與星風匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試',
             titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'四個關卡均可獨立試玩'
@@ -21,7 +21,7 @@
         ja:{
             title:'風のフィールド',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、風香草の葉、森ベリー、金穂の種を集めながら苔むした風化石をよけよう。',
             start:'チャレンジ開始',loading:'ルールを準備中…',move:'左右に移動',goal:'12点または30秒でクリア',score:'スコア',time:'時間',lives:'チャンス',
-            ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
+            ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',glimmerAppears:'卵殻の微光が現れた！',lifeRestored:'卵殻の微光 +1チャンス',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
             level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'風のフィールドから星風の合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト',
             titleIntro:'旅人と四つの風のフィールドへ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'4ステージを個別に試せます'
@@ -29,7 +29,7 @@
         en:{
             title:'Breezy Harvest',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, gather wind herbs, grove berries and golden grain seeds, and avoid mossy weathered stones.',
             start:'Start catching',loading:'Preparing rules…',move:'Move left and right',goal:'Reach 12 points or last 30 seconds',score:'Score',time:'Time',lives:'Chances',
-            ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
+            ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',glimmerAppears:'Eggshell Glimmer appeared!',lifeRestored:'Eggshell Glimmer +1 chance',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
             level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Breezy Harvest through Starwind Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test',
             titleIntro:'Travel through four wind fields and gather nature gifts in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'All four stages are open for direct play'
@@ -93,10 +93,10 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.4');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.5');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
-        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.72,berry:.74,acorn:.70,stone:.70},stoneCollisionRadius:2.4},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
+        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:8,maxElapsed:22,delayMin:2,delayMax:4,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.72,berry:.74,acorn:.70,stone:.70},stoneCollisionRadius:2.4},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
         var levels=options.levels&&options.levels.length?options.levels.slice():[fallbackLevel];
         var currentLevelIndex=0,currentLevel=levels[0];
         var durationOverride=Number(options.durationMs),targetOverride=Number(options.targetScore),livesOverride=Number(options.lives);
@@ -107,6 +107,7 @@
         var initialScreen=options.initialScreen==='stage-title'?'stage-title':(options.initialScreen==='select'?'select':'title');
         var objects=[],bursts=[];
         var spawnState={lastZone:-1,lastX:null,lastObstacle:false,hasSpawned:false};
+        var recoveryState={elapsed:0,state:'waiting',delay:0,count:0};
         var crosswindState={phase:'off',direction:1,remaining:0,cycle:0};
         var confluenceState={phase:'off',elapsed:0};
         var comboState={streak:0,best:0,awards:0};
@@ -234,6 +235,7 @@
         function random(){return rules.random();}
         function nextSpawnDelay(){return 0.48+random()*0.42;}
         function resetSpawnState(){spawnState.lastZone=-1;spawnState.lastX=null;spawnState.lastObstacle=false;spawnState.hasSpawned=false;}
+        function resetRecoveryState(){recoveryState.elapsed=0;recoveryState.state='waiting';recoveryState.delay=0;recoveryState.count=0;}
         function resetCollectorMotion(){
             collectorMotion.velocity=0;collectorMotion.moveAmount=0;collectorMotion.gaitPhase=0;collectorMotion.input=0;collectorMotion.facing=1;
             collectorMotion.startPulse=0;collectorMotion.stopPulse=0;collectorMotion.turnPulse=0;collectorMotion.turnDirection=0;
@@ -395,11 +397,41 @@
             objects.push(item);if(distribution){spawnState.lastObstacle=obstacle;spawnState.hasSpawned=true;}
             if(typeof options.onEvent==='function')options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,presentationKind:item.presentationKind,x:item.x,zone:spawnPosition.zone,drift:item.drift,airflowEligible:item.airflowEligible});
         }
+        function recoverySpawnX(config){
+            var minX=Number(config.minX),maxX=Number(config.maxX);if(!Number.isFinite(minX))minX=9;if(!Number.isFinite(maxX))maxX=91;if(maxX<minX){var swap=maxX;maxX=minX;minX=swap;}
+            var safeGap=Math.max(0,Number(config.safeObstacleGap)||16),best={x:minX+(maxX-minX)*random(),clearance:-1};
+            for(var attempt=0;attempt<8;attempt++){
+                var candidate=minX+(maxX-minX)*random(),clearance=Infinity;
+                for(var i=0;i<objects.length;i++)if(objects[i].type==='obstacle')clearance=Math.min(clearance,Math.abs(candidate-objects[i].x));
+                if(clearance>best.clearance)best={x:candidate,clearance:clearance};
+                if(clearance>=safeGap)return candidate;
+            }
+            return best.x;
+        }
+        function spawnRecovery(){
+            var config=currentLevel.recovery;if(!config||recoveryState.count>=Math.max(1,Number(config.maxPerRound)||1))return false;
+            var item={type:'recovery',kind:config.kind||'shell-glimmer',presentationKind:config.kind||'shell-glimmer',x:recoverySpawnX(config),y:-7,radius:2.35,vy:Number(config.fallSpeed)||18,drift:0,turn:.55,rotation:random()*Math.PI*2,age:0,floatPhase:random()*Math.PI*2,airflowEligible:false,airflowState:'immune',airflowTimer:0,lastCrosswindCycle:-1};
+            objects.push(item);recoveryState.count++;recoveryState.state='spawned';showNotice(text.glimmerAppears,'dfc-good');
+            if(typeof options.onEvent==='function'){options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,presentationKind:item.presentationKind,x:item.x,zone:-1,drift:0,airflowEligible:false});options.onEvent('recoverySpawn',{levelId:currentLevel.id,kind:item.kind,x:item.x,count:recoveryState.count});}
+            return true;
+        }
+        function updateRecovery(dt){
+            var config=currentLevel.recovery;if(!config||recoveryState.state==='spawned'||recoveryState.state==='collected'||recoveryState.state==='missed')return;
+            recoveryState.elapsed+=dt;var minElapsed=Math.max(0,Number(config.minElapsed)||8),maxElapsed=Math.max(minElapsed,Number(config.maxElapsed)||22),maxLives=Math.max(1,Number(config.maxLives)||3);
+            if(recoveryState.state==='waiting'){
+                if(recoveryState.elapsed>maxElapsed)return;
+                if(recoveryState.elapsed>=minElapsed&&rules.lives()<maxLives){var delayMin=Math.max(0,Number(config.delayMin)||2),delayMax=Math.max(delayMin,Number(config.delayMax)||4);recoveryState.delay=delayMin+random()*(delayMax-delayMin);recoveryState.delay=Math.min(recoveryState.delay,Math.max(0,maxElapsed-recoveryState.elapsed));recoveryState.state='queued';}
+            }
+            if(recoveryState.state==='queued'){recoveryState.delay-=dt;if(recoveryState.delay<=0)spawnRecovery();}
+        }
         function insideAirflow(item,airflow){
             return item.x>=airflow.centerX-airflow.halfWidth&&item.x<=airflow.centerX+airflow.halfWidth&&item.y>=airflow.top&&item.y<=airflow.bottom;
         }
         function moveObject(item,dt){
             var airflow=currentLevel.airflow,crosswind=currentLevel.crosswind,verticalSpeed=item.vy,horizontalSpeed=item.drift;
+            if(item.type==='recovery'){
+                item.age=(item.age||0)+dt;horizontalSpeed=Math.sin(item.age*2.15+item.floatPhase)*.72;item.y+=verticalSpeed*dt*(worldHeight/62);item.x+=horizontalSpeed*dt;item.rotation+=item.turn*dt;return;
+            }
             if(airflow&&airflowEnabled()&&item.airflowEligible&&item.airflowState==='ready'&&insideAirflow(item,airflow)){
                 item.airflowState='lifting';item.airflowTimer=Number(airflow.liftDuration)||.55;
                 if(typeof options.onEvent==='function')options.onEvent('airflowEnter',{levelId:currentLevel.id,type:item.type,kind:item.kind,x:item.x,y:item.y});
@@ -434,7 +466,11 @@
             bursts.push({x:item.x,y:item.y,label:label,color:color,life:1});
         }
         function handleObject(item){
-            if(item.type==='target'){
+            if(item.type==='recovery'){
+                var before=rules.lives(),cap=Math.max(1,Number(currentLevel.recovery&&currentLevel.recovery.maxLives)||3);rules.restore(1,cap);recoveryState.state='collected';
+                addBurst(item,'+1','#fff4c7');showNotice(text.lifeRestored,'dfc-good');play('confirm');
+                if(typeof options.onEvent==='function')options.onEvent('recoveryCollect',{levelId:currentLevel.id,kind:item.kind,before:before,lives:rules.lives(),cap:cap});
+            }else if(item.type==='target'){
                 var points=1,comboAward=false;
                 if(currentLevel.confluence){
                     var combo=currentLevel.confluence,every=Math.max(2,Number(combo.comboEvery)||3),bonus=Math.max(0,Number(combo.comboBonus)||1);
@@ -457,13 +493,14 @@
             player.x=clamp(player.x,player.w/2+1,100-player.w/2-1);
             var traveled=dt>0?(player.x-previousX)/(player.speed*dt):0;updateCollectorMotion(traveled,dt);
             if(currentLevel.confluence)updateConfluence(dt);else updateCrosswind(dt);
+            updateRecovery(dt);
             spawnClock-=dt;
             if(spawnClock<=0){spawnObject();spawnClock=nextSpawnDelay();}
             for(var i=objects.length-1;i>=0;i--){
                 var item=objects[i];moveObject(item,dt);
                 if(item.x<item.radius||item.x>100-item.radius)item.drift*=-1;
-                if(item.type==='target'?targetHit(item):circleRectHit(item)){objects.splice(i,1);handleObject(item);if(phase!=='running')break;continue;}
-                if(item.y>worldHeight+6){if(item.type==='target')breakCombo('miss');objects.splice(i,1);}
+                if(item.type==='obstacle'?circleRectHit(item):targetHit(item)){objects.splice(i,1);handleObject(item);if(phase!=='running')break;continue;}
+                if(item.y>worldHeight+6){if(item.type==='target')breakCombo('miss');if(item.type==='recovery'){recoveryState.state='missed';if(typeof options.onEvent==='function')options.onEvent('recoveryMiss',{levelId:currentLevel.id,kind:item.kind});}objects.splice(i,1);}
             }
             for(var b=bursts.length-1;b>=0;b--){bursts[b].life-=dt*1.6;bursts[b].y-=dt*5;if(bursts[b].life<=0)bursts.splice(b,1);}
             if(phase==='running'){
@@ -587,6 +624,17 @@
             }
             context.restore();
         }
+        function drawEggshellGlimmer(item){
+            var pulse=.92+Math.sin(performance.now()/240+item.floatPhase)*.08;
+            context.save();context.translate(item.x,item.y);context.rotate(Math.sin(item.rotation*.7)*.12);context.scale(pulse,pulse);
+            var aura=context.createRadialGradient(0,0,.25,0,0,5.3);aura.addColorStop(0,'rgba(255,251,205,.82)');aura.addColorStop(.42,'rgba(239,255,219,.38)');aura.addColorStop(1,'rgba(210,255,230,0)');context.fillStyle=aura;context.beginPath();context.arc(0,0,5.3,0,Math.PI*2);context.fill();
+            context.fillStyle='#fff8dd';context.beginPath();context.moveTo(-.45,-2.65);context.bezierCurveTo(-2.45,-2.8,-3.45,-1.05,-3.1,.8);context.bezierCurveTo(-2.82,2.28,-1.45,3.02,-.3,2.1);context.quadraticCurveTo(-1.08,1.42,-.48,.76);context.quadraticCurveTo(-1.2,.12,-.42,-.48);context.quadraticCurveTo(-1.08,-1.12,-.45,-2.65);context.fill();
+            context.fillStyle='#f3e8c9';context.beginPath();context.moveTo(.45,-2.65);context.bezierCurveTo(2.45,-2.8,3.45,-1.05,3.1,.8);context.bezierCurveTo(2.82,2.28,1.45,3.02,.3,2.1);context.quadraticCurveTo(1.08,1.42,.48,.76);context.quadraticCurveTo(1.2,.12,.42,-.48);context.quadraticCurveTo(1.08,-1.12,.45,-2.65);context.fill();
+            context.fillStyle='rgba(255,255,255,.72)';context.beginPath();context.ellipse(-1.85,-1.18,.62,.9,-.42,0,Math.PI*2);context.fill();context.beginPath();context.ellipse(1.55,-1.38,.52,.76,.38,0,Math.PI*2);context.fill();
+            var core=context.createRadialGradient(-.25,-.25,.12,0,0,2.25);core.addColorStop(0,'#fffbd1');core.addColorStop(.52,'#e6f6b0');core.addColorStop(1,'rgba(182,232,166,.08)');context.fillStyle=core;context.beginPath();context.arc(0,.05,2.25,0,Math.PI*2);context.fill();
+            context.fillStyle='rgba(255,247,174,.78)';for(var i=0;i<3;i++){var angle=item.rotation+i*Math.PI*2/3;context.beginPath();context.arc(Math.cos(angle)*(3.45+i*.1),Math.sin(angle)*(2.7+i*.12),.28-i*.035,0,Math.PI*2);context.fill();}
+            context.restore();
+        }
         function drawFallbackTraveler(bob){
             var body=canvasColor(traveler.color,'#bfe8a0'),accent=canvasColor(traveler.accent,'#8fd16a');
             context.save();context.translate(0,bob-6.8);
@@ -647,7 +695,7 @@
             drawAirflow();
             drawCrosswind();
             for(var i=0;i<objects.length;i++){
-                var item=objects[i];drawAirflowAura(item);if(item.kind==='leaf')drawLeaf(item);else if(item.kind==='berry')drawBerry(item);else if(item.kind==='acorn')drawAcorn(item);else drawStone(item);
+                var item=objects[i];drawAirflowAura(item);if(item.kind==='shell-glimmer')drawEggshellGlimmer(item);else if(item.kind==='leaf')drawLeaf(item);else if(item.kind==='berry')drawBerry(item);else if(item.kind==='acorn')drawAcorn(item);else drawStone(item);
             }
             drawTravelerCollector();
             context.textAlign='center';context.textBaseline='middle';context.font='700 2.4px system-ui, sans-serif';
@@ -696,7 +744,7 @@
             var first=grid.querySelector('button');if(first)setTimeout(function(){try{first.focus({preventScroll:true});}catch(error){first.focus();}},0);return true;
         }
         function resetLevelForMenu(reference){
-            applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;resetSpawnState();resetCrosswindState(false);resetConfluenceState(false);resetComboState();resetCollectorMotion();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
+            applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;resetSpawnState();resetRecoveryState();resetCrosswindState(false);resetConfluenceState(false);resetComboState();resetCollectorMotion();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
         }
         function buildReady(){
             if(destroyed||phase==='loading')return false;clearStageTitleTimer();phase='ready';setScreen('ready');updateLevelPresentation();card.className='dfc-card dfc-ready-card';card.innerHTML='';
@@ -722,7 +770,7 @@
             clearStageTitleTimer();
             seed=(seed+0x9e3779b9)>>>0;
             rules.reset(seed,durationMs,startingLives,targetScore);
-            objects.length=0;bursts.length=0;resetSpawnState();resetComboState();resetCollectorMotion();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';setScreen('running');resetCrosswindState(!currentLevel.confluence);resetConfluenceState(true);
+            objects.length=0;bursts.length=0;resetSpawnState();resetRecoveryState();resetComboState();resetCollectorMotion();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';setScreen('running');resetCrosswindState(!currentLevel.confluence);resetConfluenceState(true);
             overlay.classList.add('dfc-hidden');updateHud();play('confirm');
             if(typeof options.onEvent==='function')options.onEvent('start',{seed:seed,durationMs:durationMs,targetScore:targetScore,lives:startingLives,rulesMode:rules.mode(),levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length});
         }

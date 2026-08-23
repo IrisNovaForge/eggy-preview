@@ -34,6 +34,11 @@
                 if(state.lives===0)state.status=LOST;
                 return state.status;
             },
+            restore:function(value,maxLives){
+                if(state.status!==RUNNING)return state.status;
+                state.lives=Math.min(clamp(maxLives|0,1,9),state.lives+clamp(value|0,0,9));
+                return state.status;
+            },
             score:function(){return state.score;},
             lives:function(){return state.lives;},
             remainingMs:function(){return state.remainingMs;},
@@ -55,6 +60,7 @@
             tick:function(deltaMs){return exports.danbo_falling_catch_tick(deltaMs|0);},
             collect:function(value){return exports.danbo_falling_catch_collect(value|0);},
             hit:function(){return exports.danbo_falling_catch_hit();},
+            restore:function(value,maxLives){return exports.danbo_falling_catch_restore(value|0,maxLives|0);},
             score:function(){return exports.danbo_falling_catch_score();},
             lives:function(){return exports.danbo_falling_catch_lives();},
             remainingMs:function(){return exports.danbo_falling_catch_remaining_ms();},
@@ -87,6 +93,7 @@
             tick:function(deltaMs){return backend.tick(deltaMs);},
             collect:function(value){return backend.collect(value);},
             hit:function(){return backend.hit();},
+            restore:function(value,maxLives){return backend.restore(value,maxLives);},
             score:function(){return backend.score();},
             lives:function(){return backend.lives();},
             remainingMs:function(){return backend.remainingMs();},
