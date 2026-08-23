@@ -7,28 +7,32 @@
             start:'开始接取',loading:'正在准备规则…',move:'左右移动',goal:'12分或坚持30秒即可过关',score:'得分',time:'时间',lives:'机会',
             ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'星风汇流！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
-            level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与星风汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试'
+            level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与星风汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试',
+            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'四个关卡均可独立试玩'
         },
         zht:{
             title:'風野拾集',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風裡落下的葉片、莓果和橡果，同時避開沉重的石塊。',
             start:'開始接取',loading:'正在準備規則…',move:'左右移動',goal:'12分或堅持30秒即可過關',score:'得分',time:'時間',lives:'機會',
             ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'星風匯流！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
-            level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與星風匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試'
+            level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與星風匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試',
+            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'四個關卡均可獨立試玩'
         },
         ja:{
             title:'風のフィールド',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、葉や木の実を集めながら重い石をよけよう。',
             start:'チャレンジ開始',loading:'ルールを準備中…',move:'左右に移動',goal:'12点または30秒でクリア',score:'スコア',time:'時間',lives:'チャンス',
             ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
-            level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'風のフィールドから星風の合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト'
+            level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'風のフィールドから星風の合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト',
+            titleIntro:'旅人と四つの風のフィールドへ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'4ステージを個別に試せます'
         },
         en:{
             title:'Breezy Harvest',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, collect leaves, berries and acorns, and stay clear of heavy stones.',
             start:'Start catching',loading:'Preparing rules…',move:'Move left and right',goal:'Reach 12 points or last 30 seconds',score:'Score',time:'Time',lives:'Chances',
             ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
-            level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Breezy Harvest through Starwind Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test'
+            level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Breezy Harvest through Starwind Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test',
+            titleIntro:'Travel through four wind fields and gather nature gifts in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'All four stages are open for direct play'
         }
     };
 
@@ -87,7 +91,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.9');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.0');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -97,7 +101,8 @@
         var durationMs=30000,targetScore=12,startingLives=3,lastResult=null;
         var initialSeed=(Number(options.seed)>>>0)||((Date.now()^Math.floor(Math.random()*0xffffffff))>>>0);
         var seed=initialSeed;
-        var destroyed=false,phase='loading',raf=0,lastFrame=0,spawnClock=0,resultSent=false;
+        var destroyed=false,phase='loading',raf=0,lastFrame=0,spawnClock=0,resultSent=false,stageTitleTimer=0;
+        var initialScreen=options.initialScreen==='stage-title'?'stage-title':(options.initialScreen==='select'?'select':'title');
         var objects=[],bursts=[];
         var spawnState={lastZone:-1,lastX:null,lastObstacle:false,hasSpawned:false};
         var crosswindState={phase:'off',direction:1,remaining:0,cycle:0};
@@ -200,7 +205,7 @@
         }
         function updateHud(){
             var state=snapshot();
-            var idle=phase==='loading'||phase==='ready';
+            var idle=phase!=='running'&&phase!=='result';
             var shownScore=idle?0:state.score,shownRemaining=idle?durationMs:state.remainingMs,shownLives=idle?startingLives:state.lives;
             scoreValue.textContent=String(shownScore);
             timeValue.textContent=(Math.max(0,shownRemaining)/1000).toFixed(1);
@@ -549,21 +554,57 @@
             draw();raf=requestAnimationFrame(frame);
         }
 
-        function buildIntro(){
-            card.innerHTML='';
-            updateLevelPresentation();
-            card.appendChild(introTraveler);card.appendChild(cardEyebrow);card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);card.appendChild(primary);
-            primary.textContent=text.start;primary.disabled=phase==='loading';
-            primary.onclick=startRound;
-            overlay.classList.remove('dfc-hidden');
+        function setScreen(name){root.dataset.screen=name;}
+        function clearStageTitleTimer(){if(stageTitleTimer){clearTimeout(stageTitleTimer);stageTitleTimer=0;}}
+        function makeTitleEmblem(theme,compact){
+            var emblem=make('div','dfc-title-emblem dfc-title-emblem-'+(theme||'harvest')+(compact?' dfc-title-emblem-compact':''));
+            emblem.setAttribute('aria-hidden','true');
+            var wind=make('span','dfc-title-wind');wind.appendChild(make('i'));wind.appendChild(make('i'));wind.appendChild(make('i'));
+            var basket=make('span','dfc-title-basket');basket.appendChild(make('i'));basket.appendChild(make('i'));
+            var drops=make('span','dfc-title-drops');drops.appendChild(make('i'));drops.appendChild(make('i'));drops.appendChild(make('i'));
+            emblem.appendChild(wind);emblem.appendChild(basket);emblem.appendChild(drops);return emblem;
         }
-        function selectLevel(reference){
-            if(destroyed||phase==='running')return false;
+        function updateOverallPresentation(){
+            brandTitle.textContent=text.title;root.setAttribute('aria-label',text.title);root.dataset.levelId='';root.dataset.levelNumber='0';
+            levelBadge.textContent=text.chooseLevel;levelBadge.classList.remove('dfc-level-framework');
+        }
+        function showTitle(){
+            if(destroyed)return false;clearStageTitleTimer();phase=phase==='loading'?'loading':'title';setScreen('title');updateOverallPresentation();
+            card.className='dfc-card dfc-entry-card';card.innerHTML='';
+            card.appendChild(makeTitleEmblem('harvest',false));card.appendChild(introTraveler);card.appendChild(make('p','dfc-card-eyebrow',text.eyebrow));card.appendChild(make('h1','',text.title));card.appendChild(make('p','dfc-card-body',text.titleIntro));
+            var enter=make('button','dfc-primary',phase==='loading'?text.loading:text.enterLevels);enter.type='button';enter.disabled=phase==='loading';enter.onclick=showLevelSelect;card.appendChild(enter);
+            if(typeof options.onExit==='function'){var exitTitle=make('button','dfc-secondary dfc-title-exit',text.exit);exitTitle.type='button';exitTitle.onclick=function(){options.onExit({status:'exit',score:rules.score(),lives:rules.lives()});};card.appendChild(exitTitle);}
+            overlay.classList.remove('dfc-hidden');updateHud();if(!enter.disabled)setTimeout(function(){try{enter.focus({preventScroll:true});}catch(error){enter.focus();}},0);return true;
+        }
+        function showLevelSelect(){
+            if(destroyed||phase==='loading'||phase==='running')return false;clearStageTitleTimer();phase='select';setScreen('select');updateOverallPresentation();card.className='dfc-card dfc-level-card';card.innerHTML='';
+            card.appendChild(makeTitleEmblem('harvest',true));card.appendChild(make('p','dfc-card-eyebrow',text.allOpen));card.appendChild(make('h1','',text.chooseLevel));
+            var grid=make('div','dfc-level-grid');
+            for(var i=0;i<levels.length;i++)(function(index){
+                var level=levels[index],choice=make('button','dfc-level-choice dfc-level-choice-'+(level.titleTheme||level.mechanics||'base'));choice.type='button';choice.dataset.levelId=level.id;
+                choice.appendChild(make('span','dfc-level-number',format(text.level,{current:index+1,total:levels.length})));choice.appendChild(make('strong','',localized(level.name)));choice.appendChild(make('small','',localized(level.tagline)||localized(level.description)));
+                choice.onclick=function(){showStageTitle(index+1,true);};grid.appendChild(choice);
+            })(i);
+            card.appendChild(grid);var back=make('button','dfc-secondary',text.backTitle);back.type='button';back.onclick=showTitle;card.appendChild(back);overlay.classList.remove('dfc-hidden');
+            var first=grid.querySelector('button');if(first)setTimeout(function(){try{first.focus({preventScroll:true});}catch(error){first.focus();}},0);return true;
+        }
+        function resetLevelForMenu(reference){
             applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;resetSpawnState();resetCrosswindState(false);resetConfluenceState(false);resetComboState();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
-            phase=phase==='loading'?'loading':'ready';buildIntro();updateHud();
-            if(typeof options.onEvent==='function')options.onEvent('levelChange',{levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,status:currentLevel.status});
-            return true;
         }
+        function buildReady(){
+            if(destroyed||phase==='loading')return false;clearStageTitleTimer();phase='ready';setScreen('ready');updateLevelPresentation();card.className='dfc-card dfc-ready-card';card.innerHTML='';
+            card.appendChild(introTraveler);card.appendChild(make('p','dfc-card-eyebrow',text.stageReady+' · '+format(text.level,{current:currentLevelIndex+1,total:levels.length})));card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);
+            var actions=make('div','dfc-actions');primary.textContent=text.start;primary.disabled=false;primary.onclick=startRound;actions.appendChild(primary);var back=make('button','dfc-secondary',text.backLevels);back.type='button';back.onclick=showLevelSelect;actions.appendChild(back);card.appendChild(actions);
+            overlay.classList.remove('dfc-hidden');updateHud();setTimeout(function(){try{primary.focus({preventScroll:true});}catch(error){primary.focus();}},0);return true;
+        }
+        function showStageTitle(reference,notify){
+            if(destroyed||phase==='loading'||phase==='running')return false;clearStageTitleTimer();resetLevelForMenu(reference);phase='stage-title';setScreen('stage-title');updateLevelPresentation();card.className='dfc-card dfc-stage-title-card dfc-stage-title-'+(currentLevel.titleTheme||currentLevel.mechanics||'base');card.innerHTML='';
+            card.appendChild(makeTitleEmblem(currentLevel.titleTheme||currentLevel.mechanics||'base',false));card.appendChild(make('p','dfc-card-eyebrow',format(text.level,{current:currentLevelIndex+1,total:levels.length})));card.appendChild(make('h1','',localized(currentLevel.name)||text.title));card.appendChild(make('p','dfc-stage-tagline',localized(currentLevel.tagline)||localized(currentLevel.description)));
+            var progress=make('div','dfc-stage-progress');for(var i=0;i<levels.length;i++)progress.appendChild(make('i',i===currentLevelIndex?'dfc-active':''));card.appendChild(progress);overlay.classList.remove('dfc-hidden');updateHud();
+            if(notify!==false&&typeof options.onEvent==='function')options.onEvent('levelChange',{levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,status:currentLevel.status});
+            stageTitleTimer=setTimeout(function(){stageTitleTimer=0;if(!destroyed&&phase==='stage-title')buildReady();},900);return true;
+        }
+        function selectLevel(reference){return showStageTitle(reference,true);}
         function goToNextLevel(){
             if(currentLevelIndex+1>=levels.length)return false;
             return selectLevel(currentLevelIndex+2);
@@ -571,22 +612,23 @@
         function restartCampaign(){return selectLevel(1);}
         function startRound(){
             if(phase==='loading'||destroyed)return;
+            clearStageTitleTimer();
             seed=(seed+0x9e3779b9)>>>0;
             rules.reset(seed,durationMs,startingLives,targetScore);
-            objects.length=0;bursts.length=0;resetSpawnState();resetComboState();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';resetCrosswindState(!currentLevel.confluence);resetConfluenceState(true);
+            objects.length=0;bursts.length=0;resetSpawnState();resetComboState();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';setScreen('running');resetCrosswindState(!currentLevel.confluence);resetConfluenceState(true);
             overlay.classList.add('dfc-hidden');updateHud();play('confirm');
             if(typeof options.onEvent==='function')options.onEvent('start',{seed:seed,durationMs:durationMs,targetScore:targetScore,lives:startingLives,rulesMode:rules.mode(),levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length});
         }
         function finishRound(status){
             if(phase!=='running')return;
-            phase='result';pressed.left=false;pressed.right=false;
+            phase='result';setScreen('result');pressed.left=false;pressed.right=false;
             updateConfluenceStatus();
             var state=snapshot(),won=status===window.DanboFallingCatchRules.WON;
             var reason=won?(state.score>=targetScore?'target':'timer'):'lives';
             var hasNext=won&&currentLevelIndex+1<levels.length;
             var result={status:won?'won':'lost',reason:reason,score:state.score,lives:state.lives,remainingMs:state.remainingMs,durationMs:durationMs,targetScore:targetScore,rulesMode:state.mode,seed:seed,levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,hasNextLevel:hasNext,bestChain:comboState.best,comboBonus:comboState.awards};
             lastResult=result;
-            card.innerHTML='';
+            card.className='dfc-card dfc-result-card';card.innerHTML='';
             var resultGlyph=make('div','dfc-result-glyph '+(won?'dfc-result-win':'dfc-result-lose'),won?'✓':'!');
             var resultTitle=won&&!hasNext&&levels.length>1?text.campaignWin:(won?text.win:text.lose);
             var resultDetail=won?(hasNext?format(text.nextDetail,{name:localized(levels[currentLevelIndex+1].name)}):((levels.length>1)?text.campaignDetail:text.winDetail)):text.loseDetail;
@@ -596,7 +638,8 @@
             if(hasNext){var next=make('button','dfc-primary dfc-next',text.next);next.type='button';next.onclick=goToNextLevel;actions.appendChild(next);}
             else{var again=make('button','dfc-primary',won&&levels.length>1?text.restartCampaign:text.again);again.type='button';again.onclick=won&&levels.length>1?restartCampaign:startRound;actions.appendChild(again);}
             var retry=hasNext?make('button','dfc-secondary',text.again):null;if(retry){retry.type='button';retry.onclick=startRound;actions.appendChild(retry);}
-            var exit=make('button','dfc-secondary',text.exit);exit.type='button';exit.onclick=function(){if(typeof options.onExit==='function')options.onExit(result);else{phase='ready';buildIntro();}};actions.appendChild(exit);card.appendChild(actions);
+            var levelsButton=make('button','dfc-secondary',text.backLevels);levelsButton.type='button';levelsButton.onclick=showLevelSelect;actions.appendChild(levelsButton);
+            if(typeof options.onExit==='function'){var exit=make('button','dfc-secondary',text.exit);exit.type='button';exit.onclick=function(){options.onExit(result);};actions.appendChild(exit);}card.appendChild(actions);
             overlay.classList.remove('dfc-hidden');play(won?'confirm':'cancel');
             if(!resultSent&&typeof options.onResult==='function'){resultSent=true;options.onResult(result);}
         }
@@ -607,16 +650,27 @@
             button.addEventListener('pointerdown',down);button.addEventListener('pointerup',up);button.addEventListener('pointercancel',up);button.addEventListener('lostpointercapture',up);
             return function(){button.removeEventListener('pointerdown',down);button.removeEventListener('pointerup',up);button.removeEventListener('pointercancel',up);button.removeEventListener('lostpointercapture',up);};
         }
+        function activateMenuButton(selector){
+            var active=document.activeElement;if(!active||!card.contains(active)||active.disabled)active=card.querySelector(selector||'button:not(:disabled)');
+            if(!active)return false;active.click();return true;
+        }
         function keydown(event){
-            if(event.key==='ArrowLeft'||event.key==='a'||event.key==='A'){pressed.left=true;event.preventDefault();}
-            if(event.key==='ArrowRight'||event.key==='d'||event.key==='D'){pressed.right=true;event.preventDefault();}
-            if((event.key==='Enter'||event.key===' ')&&(phase==='ready'||phase==='result')){
+            if(phase==='running'&&(event.key==='ArrowLeft'||event.key==='a'||event.key==='A')){pressed.left=true;event.preventDefault();}
+            if(phase==='running'&&(event.key==='ArrowRight'||event.key==='d'||event.key==='D')){pressed.right=true;event.preventDefault();}
+            if((event.key==='Enter'||event.key===' ')&&(phase==='title'||phase==='select'||phase==='stage-title'||phase==='ready'||phase==='result')){
                 event.preventDefault();
-                if(phase==='result'&&lastResult&&lastResult.hasNextLevel)goToNextLevel();
+                if(phase==='title')showLevelSelect();
+                else if(phase==='select')activateMenuButton('.dfc-level-choice');
+                else if(phase==='stage-title')buildReady();
+                else if(phase==='result'&&lastResult&&lastResult.hasNextLevel)goToNextLevel();
                 else if(phase==='result'&&lastResult&&lastResult.status==='won'&&levels.length>1)restartCampaign();
                 else startRound();
             }
-            if(event.key==='Escape'&&typeof options.onExit==='function'){event.preventDefault();options.onExit({status:'exit',score:rules.score(),lives:rules.lives()});}
+            if(event.key==='Escape'){
+                if(phase==='select'){event.preventDefault();showTitle();}
+                else if(phase==='stage-title'||phase==='ready'||phase==='result'){event.preventDefault();showLevelSelect();}
+                else if(typeof options.onExit==='function'){event.preventDefault();options.onExit({status:'exit',score:rules.score(),lives:rules.lives()});}
+            }
         }
         function keyup(event){
             if(event.key==='ArrowLeft'||event.key==='a'||event.key==='A')pressed.left=false;
@@ -627,8 +681,8 @@
 
         rules.ready.then(function(){
             if(destroyed)return;
-            phase='ready';modeBadge.textContent=rules.mode()==='wasm'?text.wasm:text.fallback;modeBadge.classList.add(rules.mode()==='wasm'?'dfc-mode-wasm':'dfc-mode-js');
-            buildIntro();updateHud();
+            phase='title';modeBadge.textContent=rules.mode()==='wasm'?text.wasm:text.fallback;modeBadge.classList.add(rules.mode()==='wasm'?'dfc-mode-wasm':'dfc-mode-js');
+            if(initialScreen==='stage-title')showStageTitle(currentLevelIndex+1,false);else if(initialScreen==='select')showLevelSelect();else showTitle();updateHud();
         });
         updateHud();raf=requestAnimationFrame(frame);
 
@@ -637,8 +691,11 @@
             snapshot:snapshot,
             level:function(){return currentLevel;},
             selectLevel:selectLevel,
+            showTitle:showTitle,
+            showLevelSelect:showLevelSelect,
+            screen:function(){return phase;},
             destroy:function(){
-                if(destroyed)return;destroyed=true;cancelAnimationFrame(raf);clearTimeout(showNotice.timer);
+                if(destroyed)return;destroyed=true;cancelAnimationFrame(raf);clearTimeout(showNotice.timer);clearStageTitleTimer();
                 unbindLeft();unbindRight();window.removeEventListener('keydown',keydown);window.removeEventListener('keyup',keyup);mount.innerHTML='';
             }
         };

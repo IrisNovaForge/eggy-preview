@@ -28,13 +28,13 @@
             setTimeout(function(){
                 try{
                     assert(game.level().id==='breezy-harvest','campaign starts at Stage 1');
-                    assert(document.querySelector('.dfc-shell').dataset.levelNumber==='1','Stage 1 is reflected in the shared shell');
+                    assert(game.screen()==='title'&&document.querySelector('.dfc-entry-card'),'normal campaign entry starts on the game title page');
                     assert(window.DanboFallingCatchLevels.next('breezy-harvest').id==='wind-hill-rise','ordered level registry resolves the next stage');
                     assert(game.selectLevel(2)&&game.level().id==='wind-hill-rise','shared selector switches to Stage 2');
                     assert(document.querySelector('.dfc-card').textContent.indexOf('上升气流')>=0,'Stage 2 intro explains the updraft');
                     assert(document.querySelector('.dfc-card').textContent.indexOf('框架测试')<0,'Stage 2 is no longer marked as framework-only');
                     assert(game.selectLevel(3)&&game.level().id==='crystal-valley-turn','shared selector switches to Stage 3');
-                    assert(document.querySelector('.dfc-card').textContent.indexOf('周期横风')>=0,'Stage 3 intro explains the periodic crosswind');
+                    assert(document.querySelector('.dfc-card').textContent.indexOf('横风')>=0,'Stage 3 title explains the crosswind');
                     assert(document.querySelector('.dfc-card').textContent.indexOf('框架测试')<0,'Stage 3 is no longer marked as framework-only');
                     assert(game.selectLevel('starwind-confluence')&&game.level().number===4,'shared selector switches to Stage 4 by id');
                     assert(document.querySelector('.dfc-card').textContent.indexOf('连续接取')>=0,'Stage 4 intro explains the catch-chain reward');

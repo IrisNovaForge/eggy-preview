@@ -34,6 +34,8 @@
         {
             id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,
             name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},
+            tagline:{zhs:'接住自然物，避开沉重石块',zht:'接住自然物，避開沉重石塊',ja:'自然の実りを集め、重い石をよけよう',en:'Catch nature gifts and avoid heavy stones'},
+            titleTheme:'meadow',
             description:{
                 zhs:'带领世界旅人托住采集篮，接住风里落下的叶片、莓果和橡果，同时避开沉重的石块。',
                 zht:'帶領世界旅人托住採集籃，接住風裡落下的葉片、莓果和橡果，同時避開沉重的石塊。',
@@ -44,16 +46,22 @@
         {
             id:'wind-hill-rise',number:2,status:'playable',mechanics:'updraft',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,airflow:STAGE_TWO_AIRFLOW,
             name:{zhs:'风丘跃起',zht:'風丘躍起',ja:'風丘の上昇',en:'Windhill Rise'},
+            tagline:{zhs:'留意上升气流改变落点',zht:'留意上升氣流改變落點',ja:'上昇気流による着地点の変化を読もう',en:'Read how the updraft changes each landing point'},
+            titleTheme:'updraft',
             description:{zhs:'左右移动头顶采集篮，判断斜向落物的路线；轻盈的自然物进入风丘上升气流后会短暂上浮并改变轨迹。',zht:'左右移動頭頂採集籃，判斷斜向落物的路線；輕盈的自然物進入風丘上升氣流後會短暫上浮並改變軌跡。',ja:'頭上のかごを左右に動かし、斜めに落ちる自然物を集めよう。軽い自然物は上昇気流で一度浮かび、軌道が変わります。',en:'Move the overhead basket left and right to read diagonal paths. Light natural objects briefly rise and change course inside the hill updraft.'}
         },
         {
             id:'crystal-valley-turn',number:3,status:'playable',mechanics:'crosswind',rules:SHARED_RULES,crosswind:STAGE_THREE_CROSSWIND,
             name:{zhs:'晶谷回旋',zht:'晶谷迴旋',ja:'晶谷の旋回',en:'Crystal Valley Turn'},
+            tagline:{zhs:'观察预告，判断横风方向',zht:'觀察預告，判斷橫風方向',ja:'予告を見て横風の向きを判断しよう',en:'Watch the cue and judge the crosswind direction'},
+            titleTheme:'crystal',
             description:{zhs:'观察风向预告，在左右交替的周期横风中判断目标物和障碍物不断偏移的落点。',zht:'觀察風向預告，在左右交替的週期橫風中判斷目標物和障礙物不斷偏移的落點。',ja:'風向きの予告を見て、左右交互に吹く横風でずれる落下物と障害物の着地点を読もう。',en:'Watch the direction cue and read the shifting landing points of collectibles and hazards in alternating crosswinds.'}
         },
         {
             id:'starwind-confluence',number:4,status:'playable',mechanics:'confluence',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,airflow:STAGE_FOUR_AIRFLOW,crosswind:STAGE_FOUR_CROSSWIND,confluence:STAGE_FOUR_CONFLUENCE,
             name:{zhs:'星风汇流',zht:'星風匯流',ja:'星風の合流',en:'Starwind Confluence'},
+            tagline:{zhs:'连续接取，迎接最终汇流',zht:'連續接取，迎接最終匯流',ja:'連続キャッチで最後の合流へ',en:'Build a catch chain through the final confluence'},
+            titleTheme:'starwind',
             description:{zhs:'在分散落物、上升气流和周期横风逐步汇合的最终挑战中连续接取；每连续接到3个目标物可获得1分奖励。',zht:'在分散落物、上升氣流和週期橫風逐步匯合的最終挑戰中連續接取；每連續接到3個目標物可獲得1分獎勵。',ja:'分散落下、上昇気流、周期横風が段階的に合流する最終チャレンジ。3個連続で集めるたびに1点ボーナス。',en:'Face a final challenge where distributed drops, updrafts and periodic crosswinds converge in stages. Every three catches in a row awards one bonus point.'}
         }
     ];
