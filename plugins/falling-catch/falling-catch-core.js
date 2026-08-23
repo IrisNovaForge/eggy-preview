@@ -3,29 +3,40 @@
 
     var COPY={
         zhs:{
-            title:'风野拾集',eyebrow:'30秒自然接取挑战',intro:'移动叶编篮，接住从风里落下的叶片、莓果和橡果，同时避开沉重的石块。',
+            title:'风野拾集',eyebrow:'世界旅人的自然采样任务',intro:'带领世界旅人托住采集篮，接住风里落下的叶片、莓果和橡果，同时避开沉重的石块。',
             start:'开始接取',loading:'正在准备规则…',move:'左右移动',goal:'12分或坚持30秒即可过关',score:'得分',time:'时间',lives:'机会',
-            ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',hit:'小心石块！',win:'风野收获完成！',lose:'篮子被砸坏了',
+            ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分'
         },
         zht:{
-            title:'風野拾集',eyebrow:'30秒自然接取挑戰',intro:'移動葉編籃，接住從風裡落下的葉片、莓果和橡果，同時避開沉重的石塊。',
+            title:'風野拾集',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風裡落下的葉片、莓果和橡果，同時避開沉重的石塊。',
             start:'開始接取',loading:'正在準備規則…',move:'左右移動',goal:'12分或堅持30秒即可過關',score:'得分',time:'時間',lives:'機會',
-            ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',hit:'小心石塊！',win:'風野收穫完成！',lose:'籃子被砸壞了',
+            ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分'
         },
         ja:{
-            title:'風のフィールド',eyebrow:'30秒の自然キャッチチャレンジ',intro:'葉編みのかごを動かし、葉や木の実を集めながら重い石をよけよう。',
+            title:'風のフィールド',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、葉や木の実を集めながら重い石をよけよう。',
             start:'チャレンジ開始',loading:'ルールを準備中…',move:'左右に移動',goal:'12点または30秒でクリア',score:'スコア',time:'時間',lives:'チャンス',
             ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点'
         },
         en:{
-            title:'Breezy Harvest',eyebrow:'30-second nature catch',intro:'Guide a woven leaf basket, collect leaves, berries and acorns, and stay clear of heavy stones.',
+            title:'Breezy Harvest',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, collect leaves, berries and acorns, and stay clear of heavy stones.',
             start:'Start catching',loading:'Preparing rules…',move:'Move left and right',goal:'Reach 12 points or last 30 seconds',score:'Score',time:'Time',lives:'Chances',
             ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts'
         }
+    };
+
+    var TRAVELERS={
+        blossomTraveler:{file:'blossomTraveler.png',names:{zhs:'蜜蕊旅人',zht:'蜜蕊旅人',ja:'花蜜の旅人',en:'Blossom Traveler'},color:'#f5f5f0',accent:'#cc2222'},
+        herbTraveler:{file:'herbTraveler.png',names:{zhs:'香草旅人',zht:'香草旅人',ja:'ハーブの旅人',en:'Herb Traveler'},color:'#bfe8a0',accent:'#8fd16a'},
+        saltCrystalTraveler:{file:'saltCrystalTraveler.png',names:{zhs:'盐晶旅人',zht:'鹽晶旅人',ja:'塩晶の旅人',en:'Salt Crystal Traveler'},color:'#f4e9e1',accent:'#e7b6c8'},
+        cloudwingTraveler:{file:'cloudwingTraveler.png',names:{zhs:'云翼旅人',zht:'雲翼旅人',ja:'雲翼の旅人',en:'Cloudwing Traveler'},color:'#ddf5ff',accent:'#78bfe6'},
+        fruitbrewTraveler:{file:'fruitbrewTraveler.png',names:{zhs:'果酿旅人',zht:'果釀旅人',ja:'果実醸しの旅人',en:'Fruitbrew Traveler'},color:'#ff9c91',accent:'#78b766'},
+        berryTraveler:{file:'berryTraveler.png',names:{zhs:'浆果旅人',zht:'漿果旅人',ja:'ベリーの旅人',en:'Berry Traveler'},color:'#557fcc',accent:'#d85c91'},
+        spicyFlameTraveler:{file:'spicyFlameTraveler.png',names:{zhs:'辣焰旅人',zht:'辣焰旅人',ja:'辛炎の旅人',en:'Spicy Flame Traveler'},color:'#f26f52',accent:'#ffd05a'},
+        goldenGrainTraveler:{file:'goldenGrainTraveler.png',names:{zhs:'金穗旅人',zht:'金穗旅人',ja:'金穂の旅人',en:'Golden Grain Traveler'},color:'#e8b95c',accent:'#f3d36a'}
     };
 
     function clamp(value,min,max){return Math.max(min,Math.min(max,value));}
@@ -42,6 +53,21 @@
         if(text!==undefined)node.textContent=text;
         return node;
     }
+    function travelerProfile(character,lang){
+        character=character||{};
+        var id=String(character.id||character.name||'herbTraveler');
+        var base=TRAVELERS[id]||TRAVELERS.herbTraveler;
+        return {
+            id:TRAVELERS[id]?id:'herbTraveler',file:base.file,
+            name:character.displayName||base.names[lang]||base.names.en,
+            color:(character.style&&character.style.color)||base.color,
+            accent:(character.style&&character.style.accent)||base.accent
+        };
+    }
+    function canvasColor(value,fallback){
+        if(typeof value==='number')return '#'+('000000'+(value>>>0).toString(16)).slice(-6);
+        return typeof value==='string'&&value?value:fallback;
+    }
 
     function create(options){
         options=options||{};
@@ -52,6 +78,13 @@
         var rules=options.rules;
         var lang=localeKey(options.lang||document.documentElement.lang||navigator.language);
         var text=COPY[lang]||COPY.en;
+        var traveler=travelerProfile(options.character,lang);
+        var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
+        if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
+        var portraitValue=options.characterPortrait;
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.1.1');
+        var travelerImage=new Image();
+        travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var durationMs=clamp(Number(options.durationMs)||30000,1000,600000)|0;
         var targetScore=clamp(Number(options.targetScore)||12,1,999)|0;
         var startingLives=clamp(Number(options.lives)||3,1,9)|0;
@@ -73,8 +106,13 @@
         brandCopy.appendChild(make('strong','',text.title));
         brandCopy.appendChild(make('small','',text.eyebrow));
         brand.appendChild(brandCopy);
+        var topStatus=make('div','dfc-top-status');
+        var travelerBadge=make('div','dfc-traveler-badge');
+        var badgePortrait=make('img','dfc-traveler-badge-image');badgePortrait.src=portraitUrl;badgePortrait.alt='';
+        travelerBadge.appendChild(badgePortrait);travelerBadge.appendChild(make('span','',traveler.name));
         var modeBadge=make('span','dfc-mode',text.loading);
-        top.appendChild(brand);top.appendChild(modeBadge);
+        topStatus.appendChild(travelerBadge);topStatus.appendChild(modeBadge);
+        top.appendChild(brand);top.appendChild(topStatus);
 
         var stage=make('div','dfc-stage');
         var canvas=make('canvas','dfc-canvas');
@@ -89,13 +127,15 @@
 
         var overlay=make('div','dfc-overlay');
         var card=make('div','dfc-card');overlay.appendChild(card);stage.appendChild(overlay);
-        var introGlyph=make('div','dfc-intro-glyph');introGlyph.innerHTML='<i></i><i></i><i></i>';
+        var introTraveler=make('div','dfc-intro-traveler');
+        var introPortrait=make('img','');introPortrait.src=portraitUrl;introPortrait.alt=traveler.name;
+        introTraveler.appendChild(introPortrait);introTraveler.appendChild(make('span','',traveler.name));
         var cardEyebrow=make('p','dfc-card-eyebrow',text.eyebrow);
         var cardTitle=make('h1','',text.title);
         var cardBody=make('p','dfc-card-body',text.intro);
         var goal=make('p','dfc-goal',text.goal);
         var primary=make('button','dfc-primary',text.loading);primary.type='button';primary.disabled=true;
-        card.appendChild(introGlyph);card.appendChild(cardEyebrow);card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);card.appendChild(primary);
+        card.appendChild(introTraveler);card.appendChild(cardEyebrow);card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);card.appendChild(primary);
 
         var controls=make('div','dfc-controls');
         var leftButton=make('button','dfc-move dfc-left','←');leftButton.type='button';leftButton.setAttribute('aria-label',text.move+' — left');
@@ -198,12 +238,30 @@
         function drawStone(item){
             context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.fillStyle='#657270';context.beginPath();context.moveTo(-3.2,1.7);context.lineTo(-2.5,-1.8);context.lineTo(-.5,-3);context.lineTo(2.7,-1.8);context.lineTo(3.2,1.5);context.lineTo(1,3);context.lineTo(-1.8,2.7);context.closePath();context.fill();context.fillStyle='#87918d';context.beginPath();context.moveTo(-1.8,-1.4);context.lineTo(-.4,-2.4);context.lineTo(1.5,-1.7);context.lineTo(.4,-.8);context.closePath();context.fill();context.restore();
         }
-        function drawBasket(){
-            context.save();context.translate(player.x,player.y);context.fillStyle='rgba(41,79,64,.18)';context.beginPath();context.ellipse(0,4.1,10,1.8,0,0,Math.PI*2);context.fill();
-            context.strokeStyle='#7b5b34';context.lineWidth=1.2;context.beginPath();context.arc(0,-1,7,Math.PI,Math.PI*2);context.stroke();
-            context.fillStyle='#c49355';context.beginPath();context.moveTo(-8,-1);context.lineTo(8,-1);context.lineTo(6.2,4);context.quadraticCurveTo(0,5.4,-6.2,4);context.closePath();context.fill();
-            context.strokeStyle='#8a6338';context.lineWidth=.45;for(var i=-5;i<=5;i+=2.5){context.beginPath();context.moveTo(i,-.7);context.lineTo(i*.78,4.1);context.stroke();}for(var y=.4;y<4;y+=1.2){context.beginPath();context.moveTo(-7.5+y*.25,y);context.lineTo(7.5-y*.25,y);context.stroke();}
-            context.fillStyle='#e6d18c';context.beginPath();context.ellipse(0,-1,8.2,1.35,0,0,Math.PI*2);context.fill();context.strokeStyle='#795631';context.lineWidth=.55;context.stroke();context.restore();
+        function drawFallbackTraveler(bob){
+            var body=canvasColor(traveler.color,'#bfe8a0'),accent=canvasColor(traveler.accent,'#8fd16a');
+            context.save();context.translate(0,bob-6.8);
+            context.fillStyle=body;context.beginPath();context.moveTo(0,-6.8);context.bezierCurveTo(-4.2,-6.2,-5.3,-1.2,-4.2,2.7);context.bezierCurveTo(-3.1,6,3.1,6,4.2,2.7);context.bezierCurveTo(5.3,-1.2,4.2,-6.2,0,-6.8);context.fill();
+            context.strokeStyle='#4d6759';context.lineWidth=.35;context.fillStyle='#355f4b';
+            context.beginPath();context.arc(-1.65,-1.4,.55,0,Math.PI*2);context.arc(1.65,-1.4,.55,0,Math.PI*2);context.fill();
+            context.beginPath();context.arc(0,.25,1.35,.15,Math.PI-.15);context.stroke();
+            context.strokeStyle=accent;context.lineWidth=1.1;context.beginPath();context.moveTo(0,-6.2);context.quadraticCurveTo(-1.4,-8,-2.8,-7.2);context.moveTo(0,-6.2);context.quadraticCurveTo(1.5,-8.2,3,-7.2);context.stroke();
+            context.restore();
+        }
+        function drawTravelerCollector(){
+            var bob=phase==='running'?Math.sin(performance.now()/190)*.16:Math.sin(performance.now()/420)*.08;
+            context.save();context.translate(player.x,player.y);
+            context.fillStyle='rgba(41,79,64,.2)';context.beginPath();context.ellipse(0,4.4,8.4,1.45,0,0,Math.PI*2);context.fill();
+            context.fillStyle=canvasColor(traveler.accent,'#8fd16a');context.globalAlpha=.16;context.beginPath();context.ellipse(0,-4.7,8.8,8.1,0,0,Math.PI*2);context.fill();context.globalAlpha=1;
+            if(travelerImage.complete&&travelerImage.naturalWidth){
+                var sourceHeight=Math.max(1,Math.floor(travelerImage.naturalHeight*.85));
+                context.drawImage(travelerImage,0,0,travelerImage.naturalWidth,sourceHeight,-7.4,-15.3+bob,14.8,15.2);
+            }else drawFallbackTraveler(bob);
+            context.strokeStyle='#76552f';context.lineWidth=.8;context.beginPath();context.moveTo(-4.7,-3.5+bob);context.lineTo(-5.4,-1);context.moveTo(4.7,-3.5+bob);context.lineTo(5.4,-1);context.stroke();
+            context.strokeStyle='#7b5b34';context.lineWidth=1;context.beginPath();context.arc(0,-1.1,5.7,Math.PI,Math.PI*2);context.stroke();
+            context.fillStyle='#c49355';context.beginPath();context.moveTo(-6.7,-1);context.lineTo(6.7,-1);context.lineTo(5.4,3.6);context.quadraticCurveTo(0,4.7,-5.4,3.6);context.closePath();context.fill();
+            context.strokeStyle='#8a6338';context.lineWidth=.4;for(var i=-4.5;i<=4.5;i+=2.25){context.beginPath();context.moveTo(i,-.7);context.lineTo(i*.78,3.7);context.stroke();}for(var y=.25;y<3.6;y+=1.05){context.beginPath();context.moveTo(-6.2+y*.24,y);context.lineTo(6.2-y*.24,y);context.stroke();}
+            context.fillStyle='#ead58f';context.beginPath();context.ellipse(0,-1,6.9,1.08,0,0,Math.PI*2);context.fill();context.strokeStyle='#795631';context.lineWidth=.5;context.stroke();context.restore();
         }
         function draw(){
             var rect=canvas.getBoundingClientRect();
@@ -218,7 +276,7 @@
             for(var i=0;i<objects.length;i++){
                 var item=objects[i];if(item.kind==='leaf')drawLeaf(item);else if(item.kind==='berry')drawBerry(item);else if(item.kind==='acorn')drawAcorn(item);else drawStone(item);
             }
-            drawBasket();
+            drawTravelerCollector();
             context.textAlign='center';context.textBaseline='middle';context.font='700 2.4px system-ui, sans-serif';
             for(var b=0;b<bursts.length;b++){var burst=bursts[b];context.globalAlpha=clamp(burst.life,0,1);context.fillStyle=burst.color;context.fillText(burst.label,burst.x,burst.y);context.globalAlpha=1;}
         }
@@ -232,7 +290,7 @@
 
         function buildIntro(){
             card.innerHTML='';
-            card.appendChild(introGlyph);card.appendChild(cardEyebrow);card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);card.appendChild(primary);
+            card.appendChild(introTraveler);card.appendChild(cardEyebrow);card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);card.appendChild(primary);
             primary.textContent=text.start;primary.disabled=phase==='loading';
             primary.onclick=startRound;
             overlay.classList.remove('dfc-hidden');

@@ -3,6 +3,9 @@
     var plugins={},active=null;
     var params=new URLSearchParams(location.search);
     var memory={};
+    var travelerIds=['blossomTraveler','herbTraveler','saltCrystalTraveler','cloudwingTraveler','fruitbrewTraveler','berryTraveler','spicyFlameTraveler','goldenGrainTraveler'];
+    var travelerNames={blossomTraveler:'蜜蕊旅人',herbTraveler:'香草旅人',saltCrystalTraveler:'盐晶旅人',cloudwingTraveler:'云翼旅人',fruitbrewTraveler:'果酿旅人',berryTraveler:'浆果旅人',spicyFlameTraveler:'辣焰旅人',goldenGrainTraveler:'金穗旅人'};
+    var selectedTraveler=params.get('character');if(travelerIds.indexOf(selectedTraveler)<0)selectedTraveler='herbTraveler';
     window.DANBO_FALLING_CATCH_BASE_URL=new URL('../',location.href).href;
     window.DANBO_PLUGIN_HOST={
         register:function(plugin){plugins[plugin.id]=plugin;},
@@ -13,7 +16,7 @@
             var mount=document.getElementById('game');
             var ctx={
                 pluginId:id,options:options||{},mount:mount,
-                character:{schemaVersion:1,id:'meadow-traveler',name:'Meadow Traveler',displayName:'Meadow Traveler',style:{color:'#7fb07b',accent:'#f0ca6c'},stats:{},abilities:[]},
+                character:{schemaVersion:1,id:selectedTraveler,name:selectedTraveler,displayName:travelerNames[selectedTraveler],style:{},stats:{},abilities:[]},
                 storage:{get:function(key,fallback){return Object.prototype.hasOwnProperty.call(memory,key)?memory[key]:fallback;},set:function(key,value){memory[key]=value;}},
                 net:{send:function(type,payload){window.__fallingCatchEvents.push({type:type,payload:payload});}},
                 api:{

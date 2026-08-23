@@ -4,7 +4,7 @@
 
     var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
     var runtimeBase=window.DANBO_FALLING_CATCH_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/falling-catch/');
-    var assetVersion='v=0.1.0';
+    var assetVersion='v=0.1.1';
     window.DANBO_FALLING_CATCH_BASE_URL=runtimeBase;
 
     function ensureStyle(){
@@ -23,7 +23,7 @@
 
     window.DANBO_PLUGIN_HOST.register({
         id:'falling-catch',
-        version:'0.1.0',
+        version:'0.1.1',
         name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},
         description:{
             zhs:'移动叶编篮接取自然落物并避开石块，在三次机会内完成30秒挑战。',
@@ -40,10 +40,17 @@
             }
             if(ctx.api&&ctx.api.setTitle)ctx.api.setTitle('Breezy Harvest');
             var opts=ctx.options||{};
+            var characterPortrait=null;
+            try{
+                if(typeof window.DANBO_GET_CHARACTER_PORTRAIT==='function')characterPortrait=window.DANBO_GET_CHARACTER_PORTRAIT(ctx.character&&ctx.character.id);
+            }catch(error){console.warn('[falling-catch] selected traveler portrait unavailable',error);}
             var rules=window.DanboFallingCatchRules.create({baseUrl:runtimeBase,assetVersion:assetVersion,forceFallback:!!opts.forceFallback});
             var game=window.DanboFallingCatch.create({
                 mount:ctx.mount,
                 rules:rules,
+                character:ctx.character,
+                characterPortrait:characterPortrait,
+                assetBase:runtimeBase,
                 lang:opts.lang||pageLang(),
                 seed:opts.seed,
                 durationMs:opts.durationMs,
