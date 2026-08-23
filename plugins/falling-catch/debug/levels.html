@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Falling Catch · 四关独立测试入口</title>
+  <style>
+    :root{color-scheme:light;--ink:#24483f;--leaf:#4f8b68;--leaf-dark:#35654f;--cream:#fff9df;--line:rgba(36,72,63,.15)}
+    *{box-sizing:border-box}html,body{min-height:100%;margin:0}body{display:grid;place-items:center;padding:28px;background:linear-gradient(155deg,#9dded2 0%,#dff1c5 54%,#f5e3a7 100%);color:var(--ink);font-family:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN","Yuanti SC",system-ui,sans-serif}
+    main{width:min(960px,100%);padding:clamp(24px,5vw,48px);border:2px solid rgba(255,255,255,.72);border-radius:32px 14px 32px 14px;background:rgba(255,249,223,.94);box-shadow:0 24px 70px rgba(31,69,57,.22)}
+    header{text-align:center}header small{display:inline-block;padding:7px 11px;border-radius:999px;background:#e7efd0;color:#476657;font-weight:900;letter-spacing:.08em}h1{margin:14px 0 8px;font-size:clamp(30px,6vw,52px);line-height:1.05}header p{margin:0;color:#5d766d;line-height:1.7}
+    .levels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:30px}.level{display:flex;flex-direction:column;min-height:210px;padding:22px;border:2px solid var(--line);border-radius:24px 10px 24px 10px;background:#fffdf2;color:inherit;text-decoration:none;transition:transform .14s ease,border-color .14s ease,box-shadow .14s ease}.level:hover,.level:focus-visible{outline:0;transform:translateY(-4px);border-color:#6e9a7b;box-shadow:0 15px 28px rgba(45,82,64,.15)}
+    .meta{display:flex;align-items:center;justify-content:space-between;gap:8px}.number{font-size:12px;font-weight:1000;letter-spacing:.12em;color:#547064}.status{padding:5px 9px;border-radius:999px;background:#e4f5d6;color:#326247;font-size:11px;font-weight:900}.status.framework{background:#e8eff4;color:#526b78}.level h2{margin:19px 0 8px;font-size:28px}.level p{margin:0;color:#60776e;line-height:1.65}.enter{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:20px;color:var(--leaf-dark);font-weight:1000}.enter::after{content:'→';font-size:20px}
+    footer{margin-top:24px;text-align:center;color:#6b8078;font-size:12px;line-height:1.7}
+    @media(max-width:680px){body{padding:14px}main{padding:22px;border-radius:24px 10px}.levels{grid-template-columns:1fr}.level{min-height:180px}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <small>falling-catch · standalone v0.2.1</small>
+      <h1>四关独立测试入口</h1>
+      <p>每个入口直接载入指定关卡；四关仍共用同一个插件、核心代码与规则系统。</p>
+    </header>
+    <section class="levels" aria-label="关卡测试入口">
+      <a class="level" data-level-id="breezy-harvest" href="./?level=breezy-harvest&amp;character=herbTraveler&amp;v=021">
+        <span class="meta"><span class="number">LEVEL 01</span><span class="status">基础玩法</span></span>
+        <h2>风野拾集</h2><p>左右移动，接取自然落物并避开石块。</p><span class="enter">直接测试第1关</span>
+      </a>
+      <a class="level" data-level-id="wind-hill-rise" href="./?level=wind-hill-rise&amp;character=herbTraveler&amp;v=021">
+        <span class="meta"><span class="number">LEVEL 02</span><span class="status framework">框架占位</span></span>
+        <h2>风丘跃起</h2><p>独立入口已就绪；新机制将在后续单独实现。</p><span class="enter">直接测试第2关</span>
+      </a>
+      <a class="level" data-level-id="crystal-valley-turn" href="./?level=crystal-valley-turn&amp;character=herbTraveler&amp;v=021">
+        <span class="meta"><span class="number">LEVEL 03</span><span class="status framework">框架占位</span></span>
+        <h2>晶谷回旋</h2><p>独立入口已就绪；新机制将在后续单独实现。</p><span class="enter">直接测试第3关</span>
+      </a>
+      <a class="level" data-level-id="starwind-confluence" href="./?level=starwind-confluence&amp;character=herbTraveler&amp;v=021">
+        <span class="meta"><span class="number">LEVEL 04</span><span class="status framework">框架占位</span></span>
+        <h2>星风汇流</h2><p>独立入口已就绪；新机制将在后续单独实现。</p><span class="enter">直接测试第4关</span>
+      </a>
+    </section>
+    <footer>测试入口仅用于独立插件开发预览，不接入总游戏。</footer>
+  </main>
+</body>
+</html>
