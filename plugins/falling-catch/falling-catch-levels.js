@@ -11,11 +11,23 @@
     var STAGE_TWO_AIRFLOW=Object.freeze({
         centerX:50,halfWidth:14,top:14,bottom:46,
         affectedKinds:Object.freeze(['leaf','berry']),liftDuration:.55,liftSpeed:-8,horizontalPush:3.8,
-        spawnSideMinX:18,spawnSideMaxX:34,diagonalMinSpeed:10,diagonalMaxSpeed:14
+        sideSpawn:true,spawnSideMinX:18,spawnSideMaxX:34,diagonalMinSpeed:10,diagonalMaxSpeed:14
     });
     var STAGE_THREE_CROSSWIND=Object.freeze({
         cueDuration:.8,activeDuration:3,calmDuration:1,
         speed:7.5,maxHorizontalSpeed:12,initialDirection:1
+    });
+    var STAGE_FOUR_AIRFLOW=Object.freeze({
+        centerX:50,halfWidth:14,top:14,bottom:46,
+        affectedKinds:Object.freeze(['leaf','berry']),liftDuration:.45,liftSpeed:-6,horizontalPush:2.5,
+        sideSpawn:false
+    });
+    var STAGE_FOUR_CROSSWIND=Object.freeze({
+        cueDuration:.8,activeDuration:3,calmDuration:1,
+        speed:6,maxHorizontalSpeed:10,initialDirection:1
+    });
+    var STAGE_FOUR_CONFLUENCE=Object.freeze({
+        gatherDuration:10,alternateDuration:10,comboEvery:3,comboBonus:1
     });
 
     var LEVELS=[
@@ -40,9 +52,9 @@
             description:{zhs:'观察风向预告，在左右交替的周期横风中判断目标物和障碍物不断偏移的落点。',zht:'觀察風向預告，在左右交替的週期橫風中判斷目標物和障礙物不斷偏移的落點。',ja:'風向きの予告を見て、左右交互に吹く横風でずれる落下物と障害物の着地点を読もう。',en:'Watch the direction cue and read the shifting landing points of collectibles and hazards in alternating crosswinds.'}
         },
         {
-            id:'starwind-confluence',number:4,status:'framework',mechanics:'base',rules:SHARED_RULES,
+            id:'starwind-confluence',number:4,status:'playable',mechanics:'confluence',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,airflow:STAGE_FOUR_AIRFLOW,crosswind:STAGE_FOUR_CROSSWIND,confluence:STAGE_FOUR_CONFLUENCE,
             name:{zhs:'星风汇流',zht:'星風匯流',ja:'星風の合流',en:'Starwind Confluence'},
-            description:{zhs:'第四关框架已就绪，当前暂用第一关基础规则进行顺序切换测试。',zht:'第四關框架已就緒，目前暫用第一關基礎規則進行順序切換測試。',ja:'第4ステージの枠組みです。現在は第1ステージの基本ルールで切替を確認します。',en:'Stage 4 framework is ready and temporarily uses the Stage 1 base rules for sequence testing.'}
+            description:{zhs:'在分散落物、上升气流和周期横风逐步汇合的最终挑战中连续接取；每连续接到3个目标物可获得1分奖励。',zht:'在分散落物、上升氣流和週期橫風逐步匯合的最終挑戰中連續接取；每連續接到3個目標物可獲得1分獎勵。',ja:'分散落下、上昇気流、周期横風が段階的に合流する最終チャレンジ。3個連続で集めるたびに1点ボーナス。',en:'Face a final challenge where distributed drops, updrafts and periodic crosswinds converge in stages. Every three catches in a row awards one bonus point.'}
         }
     ];
 

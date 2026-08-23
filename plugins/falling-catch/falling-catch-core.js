@@ -5,30 +5,30 @@
         zhs:{
             title:'风野拾集',eyebrow:'世界旅人的自然采样任务',intro:'带领世界旅人托住采集篮，接住风里落下的叶片、莓果和橡果，同时避开沉重的石块。',
             start:'开始接取',loading:'正在准备规则…',move:'左右移动',goal:'12分或坚持30秒即可过关',score:'得分',time:'时间',lives:'机会',
-            ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
+            ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',combo:'连续接取 ×{count}！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
-            level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',campaignWin:'四关框架测试完成！',campaignDetail:'四个关卡的顺序切换已经完成。',restartCampaign:'从第一关开始',framework:'框架测试'
+            level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与星风汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试'
         },
         zht:{
             title:'風野拾集',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風裡落下的葉片、莓果和橡果，同時避開沉重的石塊。',
             start:'開始接取',loading:'正在準備規則…',move:'左右移動',goal:'12分或堅持30秒即可過關',score:'得分',time:'時間',lives:'機會',
-            ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
+            ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',combo:'連續接取 ×{count}！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
-            level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',campaignWin:'四關框架測試完成！',campaignDetail:'四個關卡的順序切換已經完成。',restartCampaign:'從第一關開始',framework:'框架測試'
+            level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與星風匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試'
         },
         ja:{
             title:'風のフィールド',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、葉や木の実を集めながら重い石をよけよう。',
             start:'チャレンジ開始',loading:'ルールを準備中…',move:'左右に移動',goal:'12点または30秒でクリア',score:'スコア',time:'時間',lives:'チャンス',
-            ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
+            ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',combo:'連続キャッチ ×{count}！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
-            level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',campaignWin:'4ステージ切替テスト完了！',campaignDetail:'4つのステージを順番に切り替えました。',restartCampaign:'最初から',framework:'枠組みテスト'
+            level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'風のフィールドから星風の合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト'
         },
         en:{
             title:'Breezy Harvest',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, collect leaves, berries and acorns, and stay clear of heavy stones.',
             start:'Start catching',loading:'Preparing rules…',move:'Move left and right',goal:'Reach 12 points or last 30 seconds',score:'Score',time:'Time',lives:'Chances',
-            ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
+            ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',combo:'Catch chain ×{count}!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
-            level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',campaignWin:'Four-stage framework complete!',campaignDetail:'The four stages switched in sequence successfully.',restartCampaign:'Start from Stage 1',framework:'Framework test'
+            level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Breezy Harvest through Starwind Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test'
         }
     };
 
@@ -87,7 +87,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.6');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.7');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -101,6 +101,8 @@
         var objects=[],bursts=[];
         var spawnState={lastZone:-1,lastX:null,lastObstacle:false,hasSpawned:false};
         var crosswindState={phase:'off',direction:1,remaining:0,cycle:0};
+        var confluenceState={phase:'off',elapsed:0};
+        var comboState={streak:0,best:0,awards:0};
         var worldHeight=62;
         var player={x:50,y:54.3,w:17,h:5.4,speed:61};
         var pressed={left:false,right:false};
@@ -122,6 +124,7 @@
         }
         applyLevel(levelIndex(options.startLevelId||options.levelId));
         resetCrosswindState(false);
+        resetConfluenceState(false);
 
         mount.innerHTML='';
         var root=make('section','dfc-shell');
@@ -233,6 +236,38 @@
                 emitCrosswindPhase();
             }
         }
+        function emitConfluencePhase(){
+            if(typeof options.onEvent==='function'&&currentLevel.confluence)options.onEvent('confluencePhase',{levelId:currentLevel.id,phase:confluenceState.phase,elapsed:confluenceState.elapsed});
+        }
+        function resetConfluenceState(notify){
+            if(!currentLevel||!currentLevel.confluence){confluenceState.phase='off';confluenceState.elapsed=0;return;}
+            confluenceState.phase='gather';confluenceState.elapsed=0;if(notify)emitConfluencePhase();
+        }
+        function updateConfluence(dt){
+            var config=currentLevel.confluence;if(!config)return;
+            confluenceState.elapsed+=dt;
+            var gatherEnd=Number(config.gatherDuration)||10,convergeStart=gatherEnd+(Number(config.alternateDuration)||10);
+            var nextPhase=confluenceState.elapsed<gatherEnd?'gather':(confluenceState.elapsed<convergeStart?'alternate':'converge');
+            if(nextPhase!==confluenceState.phase){
+                confluenceState.phase=nextPhase;
+                if(nextPhase==='alternate')resetCrosswindState(true);
+                emitConfluencePhase();
+            }
+            if(confluenceState.phase!=='gather')updateCrosswind(dt);
+        }
+        function airflowEnabled(){
+            if(!currentLevel.airflow)return false;
+            if(!currentLevel.confluence)return true;
+            if(confluenceState.phase==='gather'||confluenceState.phase==='converge')return true;
+            return confluenceState.phase==='alternate'&&crosswindState.phase==='calm';
+        }
+        function crosswindEnabled(){return !!(currentLevel.crosswind&&(!currentLevel.confluence||confluenceState.phase!=='gather'));}
+        function resetComboState(){comboState.streak=0;comboState.best=0;comboState.awards=0;}
+        function breakCombo(reason){
+            if(!currentLevel.confluence||comboState.streak<=0)return;
+            var previous=comboState.streak;comboState.streak=0;
+            if(typeof options.onEvent==='function')options.onEvent('comboBreak',{levelId:currentLevel.id,reason:reason,previous:previous});
+        }
         function distributedSpawnX(config){
             var minX=Number(config.minX),maxX=Number(config.maxX),zoneCount=Math.max(2,config.zoneCount|0),zoneWidth=(maxX-minX)/zoneCount;
             var zones=[];for(var zone=0;zone<zoneCount;zone++)if(!config.avoidRepeatZone||zone!==spawnState.lastZone)zones.push(zone);
@@ -260,14 +295,14 @@
             var kind=obstacle?'stone':['leaf','berry','acorn'][Math.floor(random()*3)];
             var spawnPosition;
             if(distribution)spawnPosition=distributedSpawnX(distribution);
-            else if(airflow){
+            else if(airflow&&airflow.sideSpawn!==false){
                 var fromLeft=random()<.5;
                 var sideMin=Number(airflow.spawnSideMinX)||18,sideMax=Number(airflow.spawnSideMaxX)||34;
                 var sideX=sideMin+random()*(sideMax-sideMin);
                 spawnPosition={x:fromLeft?sideX:100-sideX,zone:fromLeft?0:1,fromLeft:fromLeft};
             }else spawnPosition={x:7+random()*86,zone:-1};
             var spawnY=-6-random()*4,fallSpeed=22+random()*10,drift=(random()-.5)*8;
-            if(airflow&&!obstacle){
+            if(airflow&&!obstacle&&airflow.sideSpawn!==false){
                 var diagonalMin=Number(airflow.diagonalMinSpeed)||10,diagonalMax=Number(airflow.diagonalMaxSpeed)||14;
                 drift=(spawnPosition.fromLeft?1:-1)*(diagonalMin+random()*(diagonalMax-diagonalMin));
             }
@@ -285,7 +320,7 @@
         }
         function moveObject(item,dt){
             var airflow=currentLevel.airflow,crosswind=currentLevel.crosswind,verticalSpeed=item.vy,horizontalSpeed=item.drift;
-            if(airflow&&item.airflowEligible&&item.airflowState==='ready'&&insideAirflow(item,airflow)){
+            if(airflow&&airflowEnabled()&&item.airflowEligible&&item.airflowState==='ready'&&insideAirflow(item,airflow)){
                 item.airflowState='lifting';item.airflowTimer=Number(airflow.liftDuration)||.55;
                 if(typeof options.onEvent==='function')options.onEvent('airflowEnter',{levelId:currentLevel.id,type:item.type,kind:item.kind,x:item.x,y:item.y});
             }
@@ -294,7 +329,7 @@
                 horizontalSpeed+=(item.x<airflow.centerX?1:-1)*(Number(airflow.horizontalPush)||0);
                 if(item.airflowTimer<=0){item.airflowState='spent';item.drift*=.62;}
             }
-            if(crosswind&&crosswindState.phase==='active'){
+            if(crosswind&&crosswindEnabled()&&crosswindState.phase==='active'){
                 var windSpeed=Number(crosswind.speed)||0;
                 horizontalSpeed=clamp(horizontalSpeed+crosswindState.direction*windSpeed,-(Number(crosswind.maxHorizontalSpeed)||12),Number(crosswind.maxHorizontalSpeed)||12);
                 if(item.lastCrosswindCycle!==crosswindState.cycle){
@@ -320,8 +355,16 @@
         }
         function handleObject(item){
             if(item.type==='target'){
-                rules.collect(1);addBurst(item,'+1','#fff4b0');showNotice(text.caught,'dfc-good');play('confirm');
+                var points=1,comboAward=false;
+                if(currentLevel.confluence){
+                    var combo=currentLevel.confluence,every=Math.max(2,Number(combo.comboEvery)||3),bonus=Math.max(0,Number(combo.comboBonus)||1);
+                    comboState.streak++;comboState.best=Math.max(comboState.best,comboState.streak);
+                    if(comboState.streak%every===0){points+=bonus;comboState.awards+=bonus;comboAward=true;}
+                    if(typeof options.onEvent==='function')options.onEvent('combo',{levelId:currentLevel.id,streak:comboState.streak,points:points,bonus:comboAward?bonus:0,best:comboState.best});
+                }
+                rules.collect(points);addBurst(item,'+'+points,comboAward?'#fff1a3':'#fff4b0');showNotice(comboAward?format(text.combo,{count:comboState.streak}):text.caught,'dfc-good');play('confirm');
             }else{
+                breakCombo('obstacle');
                 rules.hit();addBurst(item,'−1','#ffd4cd');showNotice(text.hit,'dfc-bad');root.classList.remove('dfc-shake');void root.offsetWidth;root.classList.add('dfc-shake');play('cancel');
             }
             updateHud();
@@ -331,14 +374,14 @@
             if(pressed.left&&!pressed.right)player.x-=player.speed*dt;
             if(pressed.right&&!pressed.left)player.x+=player.speed*dt;
             player.x=clamp(player.x,player.w/2+1,100-player.w/2-1);
-            updateCrosswind(dt);
+            if(currentLevel.confluence)updateConfluence(dt);else updateCrosswind(dt);
             spawnClock-=dt;
             if(spawnClock<=0){spawnObject();spawnClock=nextSpawnDelay();}
             for(var i=objects.length-1;i>=0;i--){
                 var item=objects[i];moveObject(item,dt);
                 if(item.x<item.radius||item.x>100-item.radius)item.drift*=-1;
                 if(item.type==='target'?targetHit(item):circleRectHit(item)){objects.splice(i,1);handleObject(item);if(phase!=='running')break;continue;}
-                if(item.y>worldHeight+6)objects.splice(i,1);
+                if(item.y>worldHeight+6){if(item.type==='target')breakCombo('miss');objects.splice(i,1);}
             }
             for(var b=bursts.length-1;b>=0;b--){bursts[b].life-=dt*1.6;bursts[b].y-=dt*5;if(bursts[b].life<=0)bursts.splice(b,1);}
             if(phase==='running'){
@@ -363,7 +406,7 @@
             for(var g=0;g<24;g++){var gx=(g*17)%101;var gh=2+(g%4)*.5;context.beginPath();context.moveTo(gx,ground+1.5);context.quadraticCurveTo(gx-.9,ground+.5-gh*.5,gx-.2,ground-gh);context.stroke();}
         }
         function drawAirflow(){
-            var airflow=currentLevel.airflow;if(!airflow)return;
+            var airflow=currentLevel.airflow;if(!airflow||!airflowEnabled())return;
             var left=airflow.centerX-airflow.halfWidth,right=airflow.centerX+airflow.halfWidth,top=airflow.top,bottom=airflow.bottom;
             var wash=context.createLinearGradient(0,bottom,0,top);wash.addColorStop(0,'rgba(212,255,235,.04)');wash.addColorStop(.45,'rgba(222,255,243,.2)');wash.addColorStop(1,'rgba(255,255,245,.03)');
             context.fillStyle=wash;context.beginPath();context.moveTo(left+4,bottom);context.quadraticCurveTo(left-2,(top+bottom)/2,left+5,top);context.lineTo(right-5,top);context.quadraticCurveTo(right+2,(top+bottom)/2,right-4,bottom);context.closePath();context.fill();
@@ -382,7 +425,7 @@
             context.save();context.translate(item.x,item.y);context.strokeStyle='rgba(236,255,238,.75)';context.lineWidth=.35;context.beginPath();context.arc(0,0,item.radius+1.2,0,Math.PI*2);context.stroke();context.restore();
         }
         function drawCrosswind(){
-            var crosswind=currentLevel.crosswind;if(!crosswind||crosswindState.phase==='off'||crosswindState.phase==='calm')return;
+            var crosswind=currentLevel.crosswind;if(!crosswind||!crosswindEnabled()||crosswindState.phase==='off'||crosswindState.phase==='calm')return;
             var direction=crosswindState.direction,isCue=crosswindState.phase==='cue',now=performance.now()/1000;
             context.save();context.lineCap='round';
             if(isCue){
@@ -400,6 +443,16 @@
                     var progress=(now*(.42+i*.012)+i*.139)%1,x=direction>0?-18+progress*136:118-progress*136,y=13+(i%6)*6.2,length=8+(i%3)*2.5;
                     context.globalAlpha=.35+(i%3)*.13;context.beginPath();context.moveTo(x,y);context.bezierCurveTo(x+direction*length*.35,y-1.2,x+direction*length*.7,y+1.2,x+direction*length,y);context.stroke();
                 }
+            }
+            context.globalAlpha=1;context.restore();
+        }
+        function drawConfluence(){
+            if(!currentLevel.confluence)return;
+            var now=performance.now()/1000,count=confluenceState.phase==='converge'?12:7;
+            context.save();context.fillStyle=confluenceState.phase==='converge'?'#fff0a6':'#eefbd5';
+            for(var i=0;i<count;i++){
+                var x=(i*23+now*(2.2+i%3))%106-3,y=9+(i*11)%38+Math.sin(now*1.4+i)*2,size=.45+(i%3)*.16;
+                context.globalAlpha=.3+(i%4)*.12;context.beginPath();context.moveTo(x,y-size*2);context.lineTo(x+size*.55,y-size*.55);context.lineTo(x+size*2,y);context.lineTo(x+size*.55,y+size*.55);context.lineTo(x,y+size*2);context.lineTo(x-size*.55,y+size*.55);context.lineTo(x-size*2,y);context.lineTo(x-size*.55,y-size*.55);context.closePath();context.fill();
             }
             context.globalAlpha=1;context.restore();
         }
@@ -455,6 +508,7 @@
             player.y=worldHeight-7.7;
             context.setTransform(scale,0,0,scale,0,0);
             drawBackground();
+            drawConfluence();
             drawAirflow();
             drawCrosswind();
             for(var i=0;i<objects.length;i++){
@@ -482,7 +536,7 @@
         }
         function selectLevel(reference){
             if(destroyed||phase==='running')return false;
-            applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;resetSpawnState();resetCrosswindState(false);player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
+            applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;resetSpawnState();resetCrosswindState(false);resetConfluenceState(false);resetComboState();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
             phase=phase==='loading'?'loading':'ready';buildIntro();updateHud();
             if(typeof options.onEvent==='function')options.onEvent('levelChange',{levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,status:currentLevel.status});
             return true;
@@ -496,7 +550,7 @@
             if(phase==='loading'||destroyed)return;
             seed=(seed+0x9e3779b9)>>>0;
             rules.reset(seed,durationMs,startingLives,targetScore);
-            objects.length=0;bursts.length=0;resetSpawnState();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';resetCrosswindState(true);
+            objects.length=0;bursts.length=0;resetSpawnState();resetComboState();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';resetCrosswindState(!currentLevel.confluence);resetConfluenceState(true);
             overlay.classList.add('dfc-hidden');updateHud();play('confirm');
             if(typeof options.onEvent==='function')options.onEvent('start',{seed:seed,durationMs:durationMs,targetScore:targetScore,lives:startingLives,rulesMode:rules.mode(),levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length});
         }
@@ -506,7 +560,7 @@
             var state=snapshot(),won=status===window.DanboFallingCatchRules.WON;
             var reason=won?(state.score>=targetScore?'target':'timer'):'lives';
             var hasNext=won&&currentLevelIndex+1<levels.length;
-            var result={status:won?'won':'lost',reason:reason,score:state.score,lives:state.lives,remainingMs:state.remainingMs,durationMs:durationMs,targetScore:targetScore,rulesMode:state.mode,seed:seed,levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,hasNextLevel:hasNext};
+            var result={status:won?'won':'lost',reason:reason,score:state.score,lives:state.lives,remainingMs:state.remainingMs,durationMs:durationMs,targetScore:targetScore,rulesMode:state.mode,seed:seed,levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,hasNextLevel:hasNext,bestChain:comboState.best,comboBonus:comboState.awards};
             lastResult=result;
             card.innerHTML='';
             var resultGlyph=make('div','dfc-result-glyph '+(won?'dfc-result-win':'dfc-result-lose'),won?'✓':'!');
