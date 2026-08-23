@@ -11,6 +11,8 @@
         assert(levels.length===4,'four levels are registered');
         assert(levels.map(function(level){return level.id;}).join(',')==='breezy-harvest,wind-hill-rise,crystal-valley-turn,starwind-confluence','level order is stable');
         assert(levels[0].rules.durationMs===30000&&levels[0].rules.targetScore===12&&levels[0].rules.lives===3,'Stage 1 keeps the original 30s / 12 points / 3 chances');
+        assert(levels[0].targetCatchBox.mode==='center'&&levels[0].targetCatchBox.halfWidth===2&&levels[0].targetCatchBox.topOffset===-2.8&&levels[0].targetCatchBox.bottomOffset===-.8,'Stage 1 uses the basket-sized center-entry catch box');
+        assert(levels.slice(1).every(function(level){return !level.targetCatchBox;}),'Stages 2-4 keep their existing target collision behavior');
         assert(levels.slice(1).every(function(level){return level.status==='framework'&&level.mechanics==='base';}),'Stages 2-4 are framework-only and reuse base mechanics');
         var starts=[],rules=window.DanboFallingCatchRules.create({forceFallback:true});
         var game=window.DanboFallingCatch.create({mount:document.getElementById('mount'),rules:rules,levels:levels,lang:'zhs',seed:5,character:{id:'herbTraveler'},onEvent:function(type,payload){if(type==='start')starts.push(payload);}});

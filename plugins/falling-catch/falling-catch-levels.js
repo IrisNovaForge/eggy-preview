@@ -6,10 +6,11 @@
         targetScore:12,
         lives:3
     });
+    var STAGE_ONE_CATCH=Object.freeze({halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'});
 
     var LEVELS=[
         {
-            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,
+            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:STAGE_ONE_CATCH,
             name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},
             description:{
                 zhs:'带领世界旅人托住采集篮，接住风里落下的叶片、莓果和橡果，同时避开沉重的石块。',

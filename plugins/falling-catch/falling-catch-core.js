@@ -87,10 +87,10 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.2');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.3');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
-        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
+        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
         var levels=options.levels&&options.levels.length?options.levels.slice():[fallbackLevel];
         var currentLevelIndex=0,currentLevel=levels[0];
         var durationOverride=Number(options.durationMs),targetOverride=Number(options.targetScore),livesOverride=Number(options.lives);
@@ -220,6 +220,11 @@
             var dx=item.x-nearX,dy=item.y-nearY;
             return dx*dx+dy*dy<=item.radius*item.radius;
         }
+        function targetHit(item){
+            var box=currentLevel.targetCatchBox;
+            if(!box)return circleRectHit(item);
+            return item.x>=player.x-box.halfWidth&&item.x<=player.x+box.halfWidth&&item.y>=player.y+box.topOffset&&item.y<=player.y+box.bottomOffset;
+        }
         function addBurst(item,label,color){
             bursts.push({x:item.x,y:item.y,label:label,color:color,life:1});
         }
@@ -241,7 +246,7 @@
             for(var i=objects.length-1;i>=0;i--){
                 var item=objects[i];item.y+=item.vy*dt*(worldHeight/62);item.x+=item.drift*dt;item.rotation+=item.turn*dt;
                 if(item.x<item.radius||item.x>100-item.radius)item.drift*=-1;
-                if(circleRectHit(item)){objects.splice(i,1);handleObject(item);if(phase!=='running')break;continue;}
+                if(item.type==='target'?targetHit(item):circleRectHit(item)){objects.splice(i,1);handleObject(item);if(phase!=='running')break;continue;}
                 if(item.y>worldHeight+6)objects.splice(i,1);
             }
             for(var b=bursts.length-1;b>=0;b--){bursts[b].life-=dt*1.6;bursts[b].y-=dt*5;if(bursts[b].life<=0)bursts.splice(b,1);}
