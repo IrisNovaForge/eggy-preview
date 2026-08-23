@@ -87,10 +87,10 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.1');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.2');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
-        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
+        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
         var levels=options.levels&&options.levels.length?options.levels.slice():[fallbackLevel];
         var currentLevelIndex=0,currentLevel=levels[0];
         var durationOverride=Number(options.durationMs),targetOverride=Number(options.targetScore),livesOverride=Number(options.lives);
@@ -290,6 +290,7 @@
         }
         function drawTravelerCollector(){
             var bob=phase==='running'?Math.sin(performance.now()/190)*.16:Math.sin(performance.now()/420)*.08;
+            var basketOffsetY=Number(currentLevel.basketOffsetY)||0;
             context.save();context.translate(player.x,player.y);
             context.translate(0,4.4);context.scale(.3,.3);context.translate(0,-4.4);
             context.fillStyle='rgba(41,79,64,.2)';context.beginPath();context.ellipse(0,4.4,8.4,1.45,0,0,Math.PI*2);context.fill();
@@ -298,11 +299,14 @@
                 var sourceHeight=Math.max(1,Math.floor(travelerImage.naturalHeight*.85));
                 context.drawImage(travelerImage,0,0,travelerImage.naturalWidth,sourceHeight,-7.4,-15.3+bob,14.8,15.2);
             }else drawFallbackTraveler(bob);
-            context.strokeStyle='#76552f';context.lineWidth=.8;context.beginPath();context.moveTo(-4.7,-3.5+bob);context.lineTo(-5.4,-1);context.moveTo(4.7,-3.5+bob);context.lineTo(5.4,-1);context.stroke();
+            context.strokeStyle='#76552f';context.lineWidth=.8;context.beginPath();
+            if(basketOffsetY){context.moveTo(-3.4,-11.2+bob);context.lineTo(-5.4,basketOffsetY+2.2);context.moveTo(3.4,-11.2+bob);context.lineTo(5.4,basketOffsetY+2.2);}
+            else{context.moveTo(-4.7,-3.5+bob);context.lineTo(-5.4,-1);context.moveTo(4.7,-3.5+bob);context.lineTo(5.4,-1);}
+            context.stroke();context.save();context.translate(0,basketOffsetY);
             context.strokeStyle='#7b5b34';context.lineWidth=1;context.beginPath();context.arc(0,-1.1,5.7,Math.PI,Math.PI*2);context.stroke();
             context.fillStyle='#c49355';context.beginPath();context.moveTo(-6.7,-1);context.lineTo(6.7,-1);context.lineTo(5.4,3.6);context.quadraticCurveTo(0,4.7,-5.4,3.6);context.closePath();context.fill();
             context.strokeStyle='#8a6338';context.lineWidth=.4;for(var i=-4.5;i<=4.5;i+=2.25){context.beginPath();context.moveTo(i,-.7);context.lineTo(i*.78,3.7);context.stroke();}for(var y=.25;y<3.6;y+=1.05){context.beginPath();context.moveTo(-6.2+y*.24,y);context.lineTo(6.2-y*.24,y);context.stroke();}
-            context.fillStyle='#ead58f';context.beginPath();context.ellipse(0,-1,6.9,1.08,0,0,Math.PI*2);context.fill();context.strokeStyle='#795631';context.lineWidth=.5;context.stroke();context.restore();
+            context.fillStyle='#ead58f';context.beginPath();context.ellipse(0,-1,6.9,1.08,0,0,Math.PI*2);context.fill();context.strokeStyle='#795631';context.lineWidth=.5;context.stroke();context.restore();context.restore();
         }
         function draw(){
             var rect=canvas.getBoundingClientRect();

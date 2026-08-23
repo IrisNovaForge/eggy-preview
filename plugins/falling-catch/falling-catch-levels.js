@@ -9,7 +9,7 @@
 
     var LEVELS=[
         {
-            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,
+            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,
             name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},
             description:{
                 zhs:'带领世界旅人托住采集篮，接住风里落下的叶片、莓果和橡果，同时避开沉重的石块。',
