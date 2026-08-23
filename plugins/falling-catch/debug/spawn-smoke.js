@@ -24,6 +24,8 @@
                         }
                     }
                     assert(spawns.every(function(spawn){return spawn.levelId==='breezy-harvest';}),'spawn planner is scoped to Stage 1');
+                    var stageOneKinds={leaf:'wind-herb-leaf',berry:'berry-grove-berry',acorn:'golden-grain-seed',stone:'moss-weathered-stone'};
+                    assert(spawns.every(function(spawn){return spawn.presentationKind===stageOneKinds[spawn.kind];}),'Stage 1 spawns use the DANBO meadow presentation kinds');
                     finish(null,game);
                 }catch(error){finish(error,game);}
             },5600);

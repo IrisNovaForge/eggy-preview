@@ -8,6 +8,13 @@
     });
     var HEAD_BASKET_CATCH=Object.freeze({halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'});
     var STAGE_ONE_SPAWN=Object.freeze({minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true});
+    var STAGE_ONE_OBJECTS=Object.freeze({
+        theme:'danbo-meadow',
+        targets:Object.freeze(['wind-herb-leaf','berry-grove-berry','golden-grain-seed']),
+        obstacle:'moss-weathered-stone',
+        visualScales:Object.freeze({leaf:.72,berry:.74,acorn:.70,stone:.70}),
+        stoneCollisionRadius:2.4
+    });
     var STAGE_TWO_AIRFLOW=Object.freeze({
         centerX:50,halfWidth:14,top:14,bottom:46,
         affectedKinds:Object.freeze(['leaf','berry']),liftDuration:.55,liftSpeed:-8,horizontalPush:3.8,
@@ -32,15 +39,15 @@
 
     var LEVELS=[
         {
-            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,
+            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,objectPresentation:STAGE_ONE_OBJECTS,
             name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},
-            tagline:{zhs:'接住自然物，避开沉重石块',zht:'接住自然物，避開沉重石塊',ja:'自然の実りを集め、重い石をよけよう',en:'Catch nature gifts and avoid heavy stones'},
+            tagline:{zhs:'收集风香草叶、莓林莓与金穗籽',zht:'收集風香草葉、莓林莓與金穗籽',ja:'風香草の葉、森ベリー、金穂の種を集めよう',en:'Gather wind herbs, grove berries and golden grain seeds'},
             titleTheme:'meadow',
             description:{
-                zhs:'带领世界旅人托住采集篮，接住风里落下的叶片、莓果和橡果，同时避开沉重的石块。',
-                zht:'帶領世界旅人托住採集籃，接住風裡落下的葉片、莓果和橡果，同時避開沉重的石塊。',
-                ja:'世界の旅人と採集かごを動かし、葉や木の実を集めながら重い石をよけよう。',
-                en:'Guide a World Traveler holding a woven field basket, collect leaves, berries and acorns, and stay clear of heavy stones.'
+                zhs:'带领世界旅人托住采集篮，接住风香草叶、莓林莓和金穗籽，同时避开苔痕风化石。',
+                zht:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。',
+                ja:'世界の旅人と採集かごを動かし、風香草の葉、森ベリー、金穂の種を集めながら苔むした風化石をよけよう。',
+                en:'Guide a World Traveler holding a woven field basket, gather wind herbs, grove berries and golden grain seeds, and avoid mossy weathered stones.'
             }
         },
         {

@@ -3,7 +3,7 @@
 
     var COPY={
         zhs:{
-            title:'风野拾集',eyebrow:'世界旅人的自然采样任务',intro:'带领世界旅人托住采集篮，接住风里落下的叶片、莓果和橡果，同时避开沉重的石块。',
+            title:'风野拾集',eyebrow:'世界旅人的自然采样任务',intro:'带领世界旅人托住采集篮，接住风香草叶、莓林莓和金穗籽，同时避开苔痕风化石。',
             start:'开始接取',loading:'正在准备规则…',move:'左右移动',goal:'12分或坚持30秒即可过关',score:'得分',time:'时间',lives:'机会',
             ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'星风汇流！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
@@ -11,7 +11,7 @@
             titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'四个关卡均可独立试玩'
         },
         zht:{
-            title:'風野拾集',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風裡落下的葉片、莓果和橡果，同時避開沉重的石塊。',
+            title:'風野拾集',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。',
             start:'開始接取',loading:'正在準備規則…',move:'左右移動',goal:'12分或堅持30秒即可過關',score:'得分',time:'時間',lives:'機會',
             ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'星風匯流！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
@@ -19,7 +19,7 @@
             titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'四個關卡均可獨立試玩'
         },
         ja:{
-            title:'風のフィールド',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、葉や木の実を集めながら重い石をよけよう。',
+            title:'風のフィールド',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、風香草の葉、森ベリー、金穂の種を集めながら苔むした風化石をよけよう。',
             start:'チャレンジ開始',loading:'ルールを準備中…',move:'左右に移動',goal:'12点または30秒でクリア',score:'スコア',time:'時間',lives:'チャンス',
             ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
@@ -27,7 +27,7 @@
             titleIntro:'旅人と四つの風のフィールドへ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'4ステージを個別に試せます'
         },
         en:{
-            title:'Breezy Harvest',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, collect leaves, berries and acorns, and stay clear of heavy stones.',
+            title:'Breezy Harvest',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, gather wind herbs, grove berries and golden grain seeds, and avoid mossy weathered stones.',
             start:'Start catching',loading:'Preparing rules…',move:'Move left and right',goal:'Reach 12 points or last 30 seconds',score:'Score',time:'Time',lives:'Chances',
             ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
@@ -91,10 +91,10 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.0');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.1');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
-        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
+        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.72,berry:.74,acorn:.70,stone:.70},stoneCollisionRadius:2.4},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
         var levels=options.levels&&options.levels.length?options.levels.slice():[fallbackLevel];
         var currentLevelIndex=0,currentLevel=levels[0];
         var durationOverride=Number(options.durationMs),targetOverride=Number(options.targetScore),livesOverride=Number(options.lives);
@@ -304,6 +304,24 @@
             spawnState.lastZone=chosen.zone;spawnState.lastX=chosen.x;
             return chosen;
         }
+        function objectPresentation(){return currentLevel.objectPresentation||null;}
+        function fallingObjectScale(kind){
+            var presentation=objectPresentation(),scales=presentation&&presentation.visualScales;
+            var value=scales&&Number(scales[kind]);
+            return Number.isFinite(value)&&value>0?value:FALLING_OBJECT_VISUAL_SCALE;
+        }
+        function stoneCollisionRadius(){
+            var presentation=objectPresentation(),value=presentation&&Number(presentation.stoneCollisionRadius);
+            return Number.isFinite(value)&&value>0?value:STONE_COLLISION_RADIUS;
+        }
+        function presentationKind(kind){
+            var presentation=objectPresentation();
+            if(!presentation)return kind;
+            if(kind==='stone')return presentation.obstacle||kind;
+            var index=['leaf','berry','acorn'].indexOf(kind);
+            return index>=0&&presentation.targets&&presentation.targets[index]?presentation.targets[index]:kind;
+        }
+        function usesDanboMeadowObjects(){var presentation=objectPresentation();return !!(presentation&&presentation.theme==='danbo-meadow');}
         function spawnObject(){
             var distribution=currentLevel.spawnDistribution;
             var airflow=currentLevel.airflow;
@@ -327,13 +345,13 @@
                 drift=(spawnPosition.fromLeft?1:-1)*(diagonalMin+random()*(diagonalMax-diagonalMin));
             }
             var item={
-                type:obstacle?'obstacle':'target',kind:kind,x:spawnPosition.x,y:spawnY,
-                radius:kind==='stone'?STONE_COLLISION_RADIUS:2.8,vy:fallSpeed,drift:drift,
+                type:obstacle?'obstacle':'target',kind:kind,presentationKind:presentationKind(kind),x:spawnPosition.x,y:spawnY,
+                radius:kind==='stone'?stoneCollisionRadius():2.8,vy:fallSpeed,drift:drift,
                 turn:(random()-.5)*3.5,rotation:random()*Math.PI*2,
                 airflowEligible:!!(airflow&&!obstacle&&airflow.affectedKinds&&airflow.affectedKinds.indexOf(kind)>=0),airflowState:'ready',airflowTimer:0,lastCrosswindCycle:-1
             };
             objects.push(item);if(distribution){spawnState.lastObstacle=obstacle;spawnState.hasSpawned=true;}
-            if(typeof options.onEvent==='function')options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,x:item.x,zone:spawnPosition.zone,drift:item.drift,airflowEligible:item.airflowEligible});
+            if(typeof options.onEvent==='function')options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,presentationKind:item.presentationKind,x:item.x,zone:spawnPosition.zone,drift:item.drift,airflowEligible:item.airflowEligible});
         }
         function insideAirflow(item,airflow){
             return item.x>=airflow.centerX-airflow.halfWidth&&item.x<=airflow.centerX+airflow.halfWidth&&item.y>=airflow.top&&item.y<=airflow.bottom;
@@ -442,7 +460,7 @@
         }
         function drawAirflowAura(item){
             if(item.airflowState!=='lifting')return;
-            context.save();context.translate(item.x,item.y);context.strokeStyle='rgba(236,255,238,.75)';context.lineWidth=.35;context.beginPath();context.arc(0,0,item.radius*FALLING_OBJECT_VISUAL_SCALE+1.2,0,Math.PI*2);context.stroke();context.restore();
+            context.save();context.translate(item.x,item.y);context.strokeStyle='rgba(236,255,238,.75)';context.lineWidth=.35;context.beginPath();context.arc(0,0,item.radius*fallingObjectScale(item.kind)+1.2,0,Math.PI*2);context.stroke();context.restore();
         }
         function drawCrosswind(){
             var crosswind=currentLevel.crosswind;if(!crosswind||!crosswindEnabled()||crosswindState.phase==='off'||crosswindState.phase==='calm')return;
@@ -483,16 +501,47 @@
             context.globalAlpha=1;context.restore();
         }
         function drawLeaf(item){
-            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(FALLING_OBJECT_VISUAL_SCALE,FALLING_OBJECT_VISUAL_SCALE);context.fillStyle='#f1c96b';context.beginPath();context.moveTo(-3,0);context.quadraticCurveTo(0,-3.4,3,0);context.quadraticCurveTo(0,3.4,-3,0);context.fill();context.strokeStyle='#8d7f43';context.lineWidth=.35;context.beginPath();context.moveTo(-2.2,0);context.lineTo(2.5,0);context.stroke();context.restore();
+            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(fallingObjectScale(item.kind),fallingObjectScale(item.kind));
+            if(usesDanboMeadowObjects()){
+                context.strokeStyle='#557a49';context.lineWidth=.48;context.lineCap='round';context.beginPath();context.moveTo(-2.3,2.8);context.quadraticCurveTo(-.2,.3,1.7,-2.9);context.stroke();
+                context.fillStyle='#79ad62';context.beginPath();context.moveTo(-.4,.8);context.quadraticCurveTo(-3.3,-.2,-3,-2.5);context.quadraticCurveTo(-.6,-2.7,.6,-.2);context.closePath();context.fill();
+                context.fillStyle='#a6cf76';context.beginPath();context.moveTo(.5,-.7);context.quadraticCurveTo(3.2,-1.2,3,-3.4);context.quadraticCurveTo(.9,-3.7,.1,-1.5);context.closePath();context.fill();
+                context.strokeStyle='rgba(238,255,210,.72)';context.lineWidth=.3;context.beginPath();context.moveTo(-2.25,-1.65);context.quadraticCurveTo(-1.2,-1.1,-.35,-.1);context.moveTo(2.35,-2.75);context.quadraticCurveTo(1.45,-2.2,.55,-1.05);context.stroke();
+            }else{
+                context.fillStyle='#f1c96b';context.beginPath();context.moveTo(-3,0);context.quadraticCurveTo(0,-3.4,3,0);context.quadraticCurveTo(0,3.4,-3,0);context.fill();context.strokeStyle='#8d7f43';context.lineWidth=.35;context.beginPath();context.moveTo(-2.2,0);context.lineTo(2.5,0);context.stroke();
+            }
+            context.restore();
         }
         function drawBerry(item){
-            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(FALLING_OBJECT_VISUAL_SCALE,FALLING_OBJECT_VISUAL_SCALE);context.fillStyle='#a94d68';context.beginPath();context.arc(-1.2,.4,1.55,0,Math.PI*2);context.arc(1.2,.4,1.55,0,Math.PI*2);context.arc(0,1.6,1.55,0,Math.PI*2);context.fill();context.fillStyle='#4f875e';context.beginPath();context.moveTo(0,-1);context.lineTo(-1.2,-2.6);context.lineTo(.2,-2);context.lineTo(1.5,-2.7);context.lineTo(1,-.8);context.closePath();context.fill();context.restore();
+            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(fallingObjectScale(item.kind),fallingObjectScale(item.kind));
+            if(usesDanboMeadowObjects()){
+                context.fillStyle='#6a4f9e';context.beginPath();context.arc(-1.25,.35,1.5,0,Math.PI*2);context.arc(1.2,.35,1.5,0,Math.PI*2);context.arc(0,1.65,1.55,0,Math.PI*2);context.fill();
+                context.fillStyle='rgba(226,206,246,.72)';context.beginPath();context.arc(-1.65,-.05,.36,0,Math.PI*2);context.arc(.76,-.12,.32,0,Math.PI*2);context.arc(-.4,1.15,.3,0,Math.PI*2);context.fill();
+                context.fillStyle='#628657';context.beginPath();context.moveTo(0,-.85);context.lineTo(-1.7,-2.2);context.lineTo(-.35,-2.05);context.lineTo(.15,-3);context.lineTo(.72,-1.95);context.lineTo(1.8,-2.28);context.lineTo(.95,-.72);context.closePath();context.fill();
+            }else{
+                context.fillStyle='#a94d68';context.beginPath();context.arc(-1.2,.4,1.55,0,Math.PI*2);context.arc(1.2,.4,1.55,0,Math.PI*2);context.arc(0,1.6,1.55,0,Math.PI*2);context.fill();context.fillStyle='#4f875e';context.beginPath();context.moveTo(0,-1);context.lineTo(-1.2,-2.6);context.lineTo(.2,-2);context.lineTo(1.5,-2.7);context.lineTo(1,-.8);context.closePath();context.fill();
+            }
+            context.restore();
         }
         function drawAcorn(item){
-            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(FALLING_OBJECT_VISUAL_SCALE,FALLING_OBJECT_VISUAL_SCALE);context.fillStyle='#b97845';context.beginPath();context.ellipse(0,.5,2.2,2.8,0,0,Math.PI*2);context.fill();context.fillStyle='#6c7045';context.beginPath();context.arc(0,-1.3,2.25,Math.PI,Math.PI*2);context.lineTo(2,-.7);context.lineTo(-2,-.7);context.closePath();context.fill();context.strokeStyle='#6c7045';context.lineWidth=.45;context.beginPath();context.moveTo(0,-2.5);context.quadraticCurveTo(.2,-3.5,1,-3.7);context.stroke();context.restore();
+            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(fallingObjectScale(item.kind),fallingObjectScale(item.kind));
+            if(usesDanboMeadowObjects()){
+                context.fillStyle='#e4b94f';context.beginPath();context.moveTo(0,-3.45);context.bezierCurveTo(2.45,-1.8,2.25,1.55,0,3.35);context.bezierCurveTo(-2.25,1.55,-2.45,-1.8,0,-3.45);context.fill();
+                context.fillStyle='#f4d876';context.beginPath();context.moveTo(0,-2.65);context.bezierCurveTo(1.25,-1.25,1.05,1.25,0,2.25);context.bezierCurveTo(-.65,.55,-.65,-1.1,0,-2.65);context.fill();
+                context.strokeStyle='#9a7738';context.lineWidth=.38;context.beginPath();context.moveTo(0,-2.9);context.lineTo(0,2.55);context.moveTo(-1.15,-1.65);context.quadraticCurveTo(-2.5,-1.25,-2.75,-.25);context.moveTo(1.15,-1.65);context.quadraticCurveTo(2.5,-1.25,2.75,-.25);context.stroke();
+            }else{
+                context.fillStyle='#b97845';context.beginPath();context.ellipse(0,.5,2.2,2.8,0,0,Math.PI*2);context.fill();context.fillStyle='#6c7045';context.beginPath();context.arc(0,-1.3,2.25,Math.PI,Math.PI*2);context.lineTo(2,-.7);context.lineTo(-2,-.7);context.closePath();context.fill();context.strokeStyle='#6c7045';context.lineWidth=.45;context.beginPath();context.moveTo(0,-2.5);context.quadraticCurveTo(.2,-3.5,1,-3.7);context.stroke();
+            }
+            context.restore();
         }
         function drawStone(item){
-            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(FALLING_OBJECT_VISUAL_SCALE,FALLING_OBJECT_VISUAL_SCALE);context.fillStyle='#657270';context.beginPath();context.moveTo(-3.2,1.7);context.lineTo(-2.5,-1.8);context.lineTo(-.5,-3);context.lineTo(2.7,-1.8);context.lineTo(3.2,1.5);context.lineTo(1,3);context.lineTo(-1.8,2.7);context.closePath();context.fill();context.fillStyle='#87918d';context.beginPath();context.moveTo(-1.8,-1.4);context.lineTo(-.4,-2.4);context.lineTo(1.5,-1.7);context.lineTo(.4,-.8);context.closePath();context.fill();context.restore();
+            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(fallingObjectScale(item.kind),fallingObjectScale(item.kind));
+            context.fillStyle=usesDanboMeadowObjects()?'#68736c':'#657270';context.beginPath();context.moveTo(-3.2,1.7);context.lineTo(-2.5,-1.8);context.lineTo(-.5,-3);context.lineTo(2.7,-1.8);context.lineTo(3.2,1.5);context.lineTo(1,3);context.lineTo(-1.8,2.7);context.closePath();context.fill();
+            context.fillStyle=usesDanboMeadowObjects()?'#8b9588':'#87918d';context.beginPath();context.moveTo(-1.8,-1.4);context.lineTo(-.4,-2.4);context.lineTo(1.5,-1.7);context.lineTo(.4,-.8);context.closePath();context.fill();
+            if(usesDanboMeadowObjects()){
+                context.fillStyle='#6f925d';context.beginPath();context.moveTo(-2.75,-1.25);context.quadraticCurveTo(-1.75,-2.25,-.55,-2.45);context.lineTo(.5,-1.68);context.quadraticCurveTo(-.85,-1.2,-1.75,-.35);context.closePath();context.fill();context.fillStyle='#a8bc77';context.beginPath();context.arc(-1.45,-1.55,.38,0,Math.PI*2);context.arc(-.65,-1.82,.28,0,Math.PI*2);context.fill();
+            }
+            context.restore();
         }
         function drawFallbackTraveler(bob){
             var body=canvasColor(traveler.color,'#bfe8a0'),accent=canvasColor(traveler.accent,'#8fd16a');
