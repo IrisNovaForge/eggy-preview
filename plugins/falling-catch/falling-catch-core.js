@@ -87,10 +87,10 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.3');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.2.4');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
-        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
+        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
         var levels=options.levels&&options.levels.length?options.levels.slice():[fallbackLevel];
         var currentLevelIndex=0,currentLevel=levels[0];
         var durationOverride=Number(options.durationMs),targetOverride=Number(options.targetScore),livesOverride=Number(options.lives);
@@ -99,6 +99,7 @@
         var seed=initialSeed;
         var destroyed=false,phase='loading',raf=0,lastFrame=0,spawnClock=0,resultSent=false;
         var objects=[],bursts=[];
+        var spawnState={lastZone:-1,lastX:null,lastObstacle:false,hasSpawned:false};
         var worldHeight=62;
         var player={x:50,y:54.3,w:17,h:5.4,speed:61};
         var pressed={left:false,right:false};
@@ -205,14 +206,39 @@
         function play(name){try{if(typeof options.play==='function')options.play(name);}catch(error){}}
         function random(){return rules.random();}
         function nextSpawnDelay(){return 0.48+random()*0.42;}
+        function resetSpawnState(){spawnState.lastZone=-1;spawnState.lastX=null;spawnState.lastObstacle=false;spawnState.hasSpawned=false;}
+        function distributedSpawnX(config){
+            var minX=Number(config.minX),maxX=Number(config.maxX),zoneCount=Math.max(2,config.zoneCount|0),zoneWidth=(maxX-minX)/zoneCount;
+            var zones=[];for(var zone=0;zone<zoneCount;zone++)if(!config.avoidRepeatZone||zone!==spawnState.lastZone)zones.push(zone);
+            for(var i=zones.length-1;i>0;i--){var swapIndex=Math.floor(random()*(i+1)),swap=zones[i];zones[i]=zones[swapIndex];zones[swapIndex]=swap;}
+            var chosen=null,farthest=null,minGap=Math.max(0,Number(config.minHorizontalGap)||0);
+            for(var z=0;z<zones.length;z++){
+                var candidateZone=zones[z],candidateX=minX+candidateZone*zoneWidth+random()*zoneWidth;
+                var distance=spawnState.lastX===null?Infinity:Math.abs(candidateX-spawnState.lastX);
+                var candidate={x:candidateX,zone:candidateZone,distance:distance};
+                if(!farthest||candidate.distance>farthest.distance)farthest=candidate;
+                if(distance>=minGap){chosen=candidate;break;}
+            }
+            chosen=chosen||farthest||{x:minX+random()*(maxX-minX),zone:-1};
+            spawnState.lastZone=chosen.zone;spawnState.lastX=chosen.x;
+            return chosen;
+        }
         function spawnObject(){
-            var obstacle=random()<0.28;
+            var distribution=currentLevel.spawnDistribution;
+            var obstacleRate=0.28,obstacleRoll=random(),obstacle=obstacleRoll<obstacleRate;
+            if(distribution&&distribution.avoidConsecutiveObstacle){
+                if(spawnState.lastObstacle)obstacle=false;
+                else obstacle=obstacleRoll<(spawnState.hasSpawned?obstacleRate/(1-obstacleRate):obstacleRate);
+            }
             var kind=obstacle?'stone':['leaf','berry','acorn'][Math.floor(random()*3)];
-            objects.push({
-                type:obstacle?'obstacle':'target',kind:kind,x:7+random()*86,y:-6-random()*4,
+            var spawnPosition=distribution?distributedSpawnX(distribution):{x:7+random()*86,zone:-1};
+            var item={
+                type:obstacle?'obstacle':'target',kind:kind,x:spawnPosition.x,y:-6-random()*4,
                 radius:kind==='stone'?3.2:2.8,vy:22+random()*10,drift:(random()-.5)*8,
                 turn:(random()-.5)*3.5,rotation:random()*Math.PI*2
-            });
+            };
+            objects.push(item);if(distribution){spawnState.lastObstacle=obstacle;spawnState.hasSpawned=true;}
+            if(typeof options.onEvent==='function')options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,x:item.x,zone:spawnPosition.zone});
         }
         function circleRectHit(item){
             var left=player.x-player.w/2,right=player.x+player.w/2,top=player.y-player.h/2,bottom=player.y+player.h/2;
@@ -348,7 +374,7 @@
         }
         function selectLevel(reference){
             if(destroyed||phase==='running')return false;
-            applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
+            applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;resetSpawnState();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
             phase=phase==='loading'?'loading':'ready';buildIntro();updateHud();
             if(typeof options.onEvent==='function')options.onEvent('levelChange',{levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,status:currentLevel.status});
             return true;
@@ -362,7 +388,7 @@
             if(phase==='loading'||destroyed)return;
             seed=(seed+0x9e3779b9)>>>0;
             rules.reset(seed,durationMs,startingLives,targetScore);
-            objects.length=0;bursts.length=0;player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';
+            objects.length=0;bursts.length=0;resetSpawnState();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';
             overlay.classList.add('dfc-hidden');updateHud();play('confirm');
             if(typeof options.onEvent==='function')options.onEvent('start',{seed:seed,durationMs:durationMs,targetScore:targetScore,lives:startingLives,rulesMode:rules.mode(),levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length});
         }
