@@ -82,7 +82,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.1.2');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.1.3');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var durationMs=clamp(Number(options.durationMs)||30000,1000,600000)|0;
@@ -251,7 +251,7 @@
         function drawTravelerCollector(){
             var bob=phase==='running'?Math.sin(performance.now()/190)*.16:Math.sin(performance.now()/420)*.08;
             context.save();context.translate(player.x,player.y);
-            context.translate(0,4.4);context.scale(.6,.6);context.translate(0,-4.4);
+            context.translate(0,4.4);context.scale(.3,.3);context.translate(0,-4.4);
             context.fillStyle='rgba(41,79,64,.2)';context.beginPath();context.ellipse(0,4.4,8.4,1.45,0,0,Math.PI*2);context.fill();
             context.fillStyle=canvasColor(traveler.accent,'#8fd16a');context.globalAlpha=.16;context.beginPath();context.ellipse(0,-4.7,8.8,8.1,0,0,Math.PI*2);context.fill();context.globalAlpha=1;
             if(travelerImage.complete&&travelerImage.naturalWidth){
