@@ -93,7 +93,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.3');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.4');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.72,berry:.74,acorn:.70,stone:.70},stoneCollisionRadius:2.4},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -603,9 +603,9 @@
         }
         function drawCollectorSteps(pose){
             if(phase!=='running'||pose.move<.08)return;
-            context.save();context.globalAlpha=.16+.28*pose.move;context.strokeStyle=canvasColor(traveler.accent,'#8fd16a');context.lineWidth=.55;context.lineCap='round';
+            context.save();context.globalAlpha=.12+.2*pose.move;context.fillStyle=canvasColor(traveler.accent,'#8fd16a');
             var trail=-pose.facing,offset=(collectorMotion.gaitPhase%1)*1.2;
-            for(var i=0;i<2;i++){var x=trail*(5.4+i*2.4+offset);context.beginPath();context.moveTo(x,3.6-i*.12);context.quadraticCurveTo(x+trail*1.2,2.9,x+trail*2.35,3.35);context.stroke();}
+            for(var i=0;i<3;i++){var x=trail*(5.8+i*2.05+offset*.65),size=1.05-i*.2;context.beginPath();context.ellipse(x,3.45-i*.18,size,.42,0,0,Math.PI*2);context.fill();}
             context.restore();
         }
         function drawTravelerCollector(){
@@ -625,14 +625,13 @@
             context.restore();
             var hands=simplifiedTraveler?characterRenderer.handAnchors(pose):{left:{x:-3.4,y:-11.2},right:{x:3.4,y:-11.2}};
             var leftShoulder=transformCollectorPoint(hands.left.x*TRAVELER_VISUAL_SCALE,hands.left.y*TRAVELER_VISUAL_SCALE,pose),rightShoulder=transformCollectorPoint(hands.right.x*TRAVELER_VISUAL_SCALE,hands.right.y*TRAVELER_VISUAL_SCALE,pose);
-            context.strokeStyle='#76552f';context.lineWidth=.8;context.beginPath();
+            context.strokeStyle='rgba(160,116,65,.76)';context.lineWidth=1.05;context.lineCap='round';context.beginPath();
             if(basketOffsetY){context.moveTo(leftShoulder.x,leftShoulder.y);context.lineTo(pose.basketX-5.4,basketOffsetY+pose.basketY+2.2);context.moveTo(rightShoulder.x,rightShoulder.y);context.lineTo(pose.basketX+5.4,basketOffsetY+pose.basketY+2.2);}
             else{context.moveTo(leftShoulder.x,leftShoulder.y+7.7*TRAVELER_VISUAL_SCALE);context.lineTo(pose.basketX-5.4,pose.basketY-1);context.moveTo(rightShoulder.x,rightShoulder.y+7.7*TRAVELER_VISUAL_SCALE);context.lineTo(pose.basketX+5.4,pose.basketY-1);}
             context.stroke();context.save();context.translate(pose.basketX,basketOffsetY+pose.basketY);context.rotate(pose.basketRotation);context.scale(pose.basketScaleX,pose.basketScaleY);
-            context.strokeStyle='#7b5b34';context.lineWidth=1;context.beginPath();context.arc(0,-1.1,5.7,Math.PI,Math.PI*2);context.stroke();
-            context.fillStyle='#c49355';context.beginPath();context.moveTo(-6.7,-1);context.lineTo(6.7,-1);context.lineTo(5.4,3.6);context.quadraticCurveTo(0,4.7,-5.4,3.6);context.closePath();context.fill();
-            context.strokeStyle='#8a6338';context.lineWidth=.4;for(var i=-4.5;i<=4.5;i+=2.25){context.beginPath();context.moveTo(i,-.7);context.lineTo(i*.78,3.7);context.stroke();}for(var y=.25;y<3.6;y+=1.05){context.beginPath();context.moveTo(-6.2+y*.24,y);context.lineTo(6.2-y*.24,y);context.stroke();}
-            context.fillStyle='#ead58f';context.beginPath();context.ellipse(0,-1,6.9,1.08,0,0,Math.PI*2);context.fill();context.strokeStyle='#795631';context.lineWidth=.5;context.stroke();context.restore();context.restore();
+            context.strokeStyle='rgba(183,134,74,.82)';context.lineWidth=1.15;context.lineCap='round';context.beginPath();context.arc(0,-1.05,5.65,Math.PI+.08,Math.PI*2-.08);context.stroke();
+            var basketShade=context.createLinearGradient(0,-1,0,4.4);basketShade.addColorStop(0,'#deb978');basketShade.addColorStop(1,'#bd854d');context.fillStyle=basketShade;context.beginPath();context.moveTo(-6.55,-.75);context.quadraticCurveTo(-6.05,3.75,-4.8,4.05);context.quadraticCurveTo(0,5.05,4.8,4.05);context.quadraticCurveTo(6.05,3.75,6.55,-.75);context.closePath();context.fill();
+            context.fillStyle='#f1d99a';context.beginPath();context.ellipse(0,-.8,6.7,1.12,0,0,Math.PI*2);context.fill();context.fillStyle='rgba(151,104,57,.25)';context.beginPath();context.ellipse(0,-.74,5.55,.62,0,0,Math.PI*2);context.fill();context.fillStyle='rgba(255,255,255,.16)';context.beginPath();context.ellipse(-2.6,1.55,1.45,2.05,-.18,0,Math.PI*2);context.fill();context.restore();context.restore();
         }
         function draw(){
             var rect=canvas.getBoundingClientRect();
