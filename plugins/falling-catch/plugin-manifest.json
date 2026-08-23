@@ -1,11 +1,12 @@
 {
   "id": "falling-catch",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "entrance": "entrance.js",
   "scripts": [
     "falling-catch-wasm.js",
     "falling-catch-rules.js",
     "falling-catch-levels.js",
+    "falling-catch-character.js",
     "falling-catch-core.js",
     "plugin.js"
   ],

@@ -88,10 +88,12 @@
         var lang=localeKey(options.lang||document.documentElement.lang||navigator.language);
         var text=COPY[lang]||COPY.en;
         var traveler=travelerProfile(options.character,lang);
+        var characterRenderer=window.DanboFallingCatchCharacter&&typeof window.DanboFallingCatchCharacter.draw==='function'?window.DanboFallingCatchCharacter:null;
+        var simplifiedTraveler=characterRenderer?characterRenderer.profile(traveler):null;
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.2');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.3');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.72,berry:.74,acorn:.70,stone:.70},stoneCollisionRadius:2.4},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -108,7 +110,7 @@
         var crosswindState={phase:'off',direction:1,remaining:0,cycle:0};
         var confluenceState={phase:'off',elapsed:0};
         var comboState={streak:0,best:0,awards:0};
-        var collectorMotion={velocity:0,moveAmount:0,gaitPhase:0,input:0,facing:1,startPulse:0,stopPulse:0,turnPulse:0,turnDirection:0,reaction:'',reactionElapsed:0,reactionDuration:0};
+        var collectorMotion={velocity:0,moveAmount:0,gaitPhase:0,input:0,facing:1,startPulse:0,stopPulse:0,turnPulse:0,turnDirection:0};
         var worldHeight=62;
         var PLAYER_RENDER_SCALE=.3;
         var TRAVELER_VISUAL_SCALE=.85;
@@ -139,6 +141,7 @@
         mount.innerHTML='';
         var root=make('section','dfc-shell');
         root.setAttribute('aria-label',text.title);
+        root.dataset.characterRenderer=simplifiedTraveler?'simplified-canvas':'portrait-fallback';
         var top=make('header','dfc-topbar');
         var brand=make('div','dfc-brand');
         brand.appendChild(make('span','dfc-brand-mark','⌁'));
@@ -234,11 +237,6 @@
         function resetCollectorMotion(){
             collectorMotion.velocity=0;collectorMotion.moveAmount=0;collectorMotion.gaitPhase=0;collectorMotion.input=0;collectorMotion.facing=1;
             collectorMotion.startPulse=0;collectorMotion.stopPulse=0;collectorMotion.turnPulse=0;collectorMotion.turnDirection=0;
-            collectorMotion.reaction='';collectorMotion.reactionElapsed=0;collectorMotion.reactionDuration=0;
-        }
-        function triggerCollectorReaction(type){
-            collectorMotion.reaction=type;collectorMotion.reactionElapsed=0;collectorMotion.reactionDuration=type==='hit'?.46:.34;
-            if(typeof options.onEvent==='function')options.onEvent('characterReaction',{levelId:currentLevel.id,type:type});
         }
         function updateCollectorMotion(direction,dt){
             direction=direction>0?1:(direction<0?-1:0);
@@ -254,34 +252,26 @@
             collectorMotion.startPulse=Math.max(0,collectorMotion.startPulse-dt*4.2);
             collectorMotion.stopPulse=Math.max(0,collectorMotion.stopPulse-dt*3.6);
             collectorMotion.turnPulse=Math.max(0,collectorMotion.turnPulse-dt*3.8);
-            if(collectorMotion.reaction){
-                collectorMotion.reactionElapsed+=dt;
-                if(collectorMotion.reactionElapsed>=collectorMotion.reactionDuration){collectorMotion.reaction='';collectorMotion.reactionElapsed=0;collectorMotion.reactionDuration=0;}
-            }
         }
         function motionPulse(value){return value>0?Math.sin((1-value)*Math.PI):0;}
         function collectorPose(){
             var move=clamp(collectorMotion.moveAmount,0,1),step=Math.sin(collectorMotion.gaitPhase),beat=Math.abs(step);
             var idle=Math.sin(performance.now()/360)*.18*(1-move*.82),start=motionPulse(collectorMotion.startPulse),stop=motionPulse(collectorMotion.stopPulse),turn=motionPulse(collectorMotion.turnPulse);
-            var reactionProgress=collectorMotion.reactionDuration?clamp(collectorMotion.reactionElapsed/collectorMotion.reactionDuration,0,1):0;
-            var reactionAmount=collectorMotion.reaction?Math.sin(reactionProgress*Math.PI):0;
-            var catching=collectorMotion.reaction==='catch'?reactionAmount:0,hitting=collectorMotion.reaction==='hit'?reactionAmount:0;
-            var hitWave=hitting*Math.sin(reactionProgress*Math.PI*5)*(1-reactionProgress*.55);
-            var bodyX=step*.3*move+collectorMotion.turnDirection*turn*.42+hitWave*1.05;
-            var bodyY=idle-beat*.82*move+start*.42-stop*.34-catching*.72+hitting*.18;
-            var lean=collectorMotion.velocity*.1+step*.021*move-collectorMotion.turnDirection*turn*.095+hitWave*.045;
-            var scaleX=1+beat*.045*move+start*.055+stop*.035+catching*.065+hitting*.1;
-            var scaleY=1-beat*.035*move-start*.065+stop*.028+catching*.055-hitting*.115;
+            var bodyX=step*.3*move+collectorMotion.turnDirection*turn*.42;
+            var bodyY=idle-beat*.82*move+start*.42-stop*.34;
+            var lean=collectorMotion.velocity*.1+step*.021*move-collectorMotion.turnDirection*turn*.095;
+            var scaleX=1+beat*.045*move+start*.055+stop*.035;
+            var scaleY=1-beat*.035*move-start*.065+stop*.028;
             return {
                 move:move,step:step,beat:beat,facing:collectorMotion.facing,bodyX:bodyX,bodyY:bodyY,lean:lean,scaleX:scaleX,scaleY:scaleY,
-                basketX:-collectorMotion.velocity*.34+step*.13*move+collectorMotion.turnDirection*turn*.18+hitWave*.32,
-                basketY:bodyY*.38+beat*.13*move-catching*.22+hitting*.12,
-                basketRotation:-lean*.36-step*.027*move+hitWave*.035,
-                basketScaleX:1+catching*.035+hitting*.045,basketScaleY:1-catching*.025-hitting*.055,
-                shadowScaleX:1+beat*.075*move+start*.05+hitting*.08,shadowScaleY:1-beat*.13*move-start*.04-hitting*.07
+                basketX:-collectorMotion.velocity*.34+step*.13*move+collectorMotion.turnDirection*turn*.18,
+                basketY:bodyY*.38+beat*.13*move,
+                basketRotation:-lean*.36-step*.027*move,
+                basketScaleX:1,basketScaleY:1,
+                shadowScaleX:1+beat*.075*move+start*.05,shadowScaleY:1-beat*.13*move-start*.04
             };
         }
-        function collectorMotionSnapshot(){return {velocity:collectorMotion.velocity,moveAmount:collectorMotion.moveAmount,gaitPhase:collectorMotion.gaitPhase,input:collectorMotion.input,facing:collectorMotion.facing,startPulse:collectorMotion.startPulse,stopPulse:collectorMotion.stopPulse,turnPulse:collectorMotion.turnPulse,reaction:collectorMotion.reaction};}
+        function collectorMotionSnapshot(){return {velocity:collectorMotion.velocity,moveAmount:collectorMotion.moveAmount,gaitPhase:collectorMotion.gaitPhase,input:collectorMotion.input,facing:collectorMotion.facing,startPulse:collectorMotion.startPulse,stopPulse:collectorMotion.stopPulse,turnPulse:collectorMotion.turnPulse};}
         function emitCrosswindPhase(){
             if(typeof options.onEvent==='function'&&currentLevel.crosswind)options.onEvent('crosswindPhase',{levelId:currentLevel.id,phase:crosswindState.phase,direction:crosswindState.direction,cycle:crosswindState.cycle,remaining:crosswindState.remaining});
         }
@@ -452,10 +442,10 @@
                     if(comboState.streak%every===0){points+=bonus;comboState.awards+=bonus;comboAward=true;}
                     if(typeof options.onEvent==='function')options.onEvent('combo',{levelId:currentLevel.id,streak:comboState.streak,points:points,bonus:comboAward?bonus:0,best:comboState.best});
                 }
-                rules.collect(points);triggerCollectorReaction('catch');addBurst(item,'+'+points,comboAward?'#fff1a3':'#fff4b0');showNotice(comboAward?format(text.combo,{count:comboState.streak}):text.caught,'dfc-good');play('confirm');
+                rules.collect(points);addBurst(item,'+'+points,comboAward?'#fff1a3':'#fff4b0');showNotice(comboAward?format(text.combo,{count:comboState.streak}):text.caught,'dfc-good');play('confirm');
             }else{
                 breakCombo('obstacle');
-                rules.hit();triggerCollectorReaction('hit');addBurst(item,'−1','#ffd4cd');showNotice(text.hit,'dfc-bad');root.classList.remove('dfc-shake');void root.offsetWidth;root.classList.add('dfc-shake');play('cancel');
+                rules.hit();addBurst(item,'−1','#ffd4cd');showNotice(text.hit,'dfc-bad');root.classList.remove('dfc-shake');void root.offsetWidth;root.classList.add('dfc-shake');play('cancel');
             }
             updateHud();
             if(rules.status()!==window.DanboFallingCatchRules.RUNNING)finishRound(rules.status());
@@ -626,12 +616,15 @@
             context.save();context.translate(0,4.4);context.scale(pose.shadowScaleX,pose.shadowScaleY);context.translate(0,-4.4);context.fillStyle='rgba(41,79,64,.2)';context.beginPath();context.ellipse(0,4.4,8.4,1.45,0,0,Math.PI*2);context.fill();context.restore();
             context.save();context.translate(pose.bodyX,pose.bodyY);context.rotate(pose.lean);context.scale(pose.scaleX,pose.scaleY);context.scale(TRAVELER_VISUAL_SCALE,TRAVELER_VISUAL_SCALE);
             context.fillStyle=canvasColor(traveler.accent,'#8fd16a');context.globalAlpha=.16;context.beginPath();context.ellipse(0,-4.7,8.8,8.1,0,0,Math.PI*2);context.fill();context.globalAlpha=1;
-            if(travelerImage.complete&&travelerImage.naturalWidth){
+            if(simplifiedTraveler){
+                characterRenderer.draw(context,simplifiedTraveler,pose);
+            }else if(travelerImage.complete&&travelerImage.naturalWidth){
                 var sourceHeight=Math.max(1,Math.floor(travelerImage.naturalHeight*.85));
                 context.drawImage(travelerImage,0,0,travelerImage.naturalWidth,sourceHeight,-7.4,-15.3,14.8,15.2);
             }else drawFallbackTraveler(0);
             context.restore();
-            var leftShoulder=transformCollectorPoint(-3.4*TRAVELER_VISUAL_SCALE,-11.2*TRAVELER_VISUAL_SCALE,pose),rightShoulder=transformCollectorPoint(3.4*TRAVELER_VISUAL_SCALE,-11.2*TRAVELER_VISUAL_SCALE,pose);
+            var hands=simplifiedTraveler?characterRenderer.handAnchors(pose):{left:{x:-3.4,y:-11.2},right:{x:3.4,y:-11.2}};
+            var leftShoulder=transformCollectorPoint(hands.left.x*TRAVELER_VISUAL_SCALE,hands.left.y*TRAVELER_VISUAL_SCALE,pose),rightShoulder=transformCollectorPoint(hands.right.x*TRAVELER_VISUAL_SCALE,hands.right.y*TRAVELER_VISUAL_SCALE,pose);
             context.strokeStyle='#76552f';context.lineWidth=.8;context.beginPath();
             if(basketOffsetY){context.moveTo(leftShoulder.x,leftShoulder.y);context.lineTo(pose.basketX-5.4,basketOffsetY+pose.basketY+2.2);context.moveTo(rightShoulder.x,rightShoulder.y);context.lineTo(pose.basketX+5.4,basketOffsetY+pose.basketY+2.2);}
             else{context.moveTo(leftShoulder.x,leftShoulder.y+7.7*TRAVELER_VISUAL_SCALE);context.lineTo(pose.basketX-5.4,pose.basketY-1);context.moveTo(rightShoulder.x,rightShoulder.y+7.7*TRAVELER_VISUAL_SCALE);context.lineTo(pose.basketX+5.4,pose.basketY-1);}

@@ -15,6 +15,7 @@
             setTimeout(function(){
                 try{
                     var running=game.motion();
+                    assert(document.querySelector('.dfc-shell').dataset.characterRenderer==='simplified-canvas','gameplay uses the independent simplified character renderer');
                     assert(running.moveAmount>.15,'right movement builds a visible run amount ('+running.moveAmount.toFixed(3)+')');
                     assert(running.velocity>.15&&running.facing===1,'motion follows the travel direction ('+running.velocity.toFixed(3)+')');
                     assert(running.gaitPhase>.05,'movement advances the gait cycle ('+running.gaitPhase.toFixed(3)+')');
