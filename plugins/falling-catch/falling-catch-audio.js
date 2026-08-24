@@ -4,8 +4,8 @@
     var SOUNDS=Object.freeze({
         'catch-success':Object.freeze({file:'assets/audio/catch-success.wav',volume:.82,poolSize:4}),
         'obstacle-hit':Object.freeze({file:'assets/audio/obstacle-hit.wav',volume:.78,poolSize:3}),
-        'level-clear':Object.freeze({file:'assets/audio/outcome-clear.wav',volume:.78,poolSize:1}),
-        'round-fail':Object.freeze({file:'assets/audio/outcome-retry.wav',volume:.76,poolSize:1})
+        'level-clear':Object.freeze({file:'assets/audio/outcome-clear.wav',inlineKey:'level-clear',volume:.78,poolSize:1}),
+        'round-fail':Object.freeze({file:'assets/audio/outcome-retry.wav',inlineKey:'round-fail',volume:.76,poolSize:1})
     });
 
     function create(options){
@@ -17,7 +17,8 @@
         var entries={},destroyed=false;
 
         function createNode(definition){
-            var node=new Audio(assetBase+definition.file+suffix);
+            var inlineData=window.DanboFallingCatchOutcomeAudioData,source=definition.inlineKey&&inlineData&&inlineData[definition.inlineKey];
+            var node=new Audio(source||assetBase+definition.file+suffix);
             node.preload='auto';node.volume=definition.volume;return node;
         }
         Object.keys(SOUNDS).forEach(function(name){

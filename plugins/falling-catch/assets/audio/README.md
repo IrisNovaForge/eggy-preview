@@ -34,4 +34,4 @@ The obstacle sound is played only when the Traveler's body collides with an obst
 - Post-processing: active-event trim, 6 ms fade-in, 85 ms fade-out, peak normalization to -7.5 dBFS.
 - Format: WAV, mono, 44.1 kHz, 16-bit PCM, approximately 0.74 seconds.
 
-These two files play only on their corresponding round-result screens. No API key is stored in this repository.
+These two files play only on their corresponding round-result screens. `falling-catch-outcome-audio-data.js` contains generated data-URI copies for reliable static-host delivery; the WAV files remain the editable source assets and runtime fallback. No API key is stored in this repository.

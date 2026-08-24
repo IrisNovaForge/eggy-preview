@@ -5,14 +5,15 @@
     try{
         assert(window.DanboFallingCatchAudio&&window.DanboFallingCatchAudio.sounds['catch-success'],'the plugin declares the selected ordinary catch sound');
         assert(window.DanboFallingCatchAudio.sounds['obstacle-hit'],'the plugin declares the selected obstacle-hit sound');
+        assert(window.DanboFallingCatchOutcomeAudioData&&/^data:audio\/wav;base64,/.test(window.DanboFallingCatchOutcomeAudioData['level-clear'])&&/^data:audio\/wav;base64,/.test(window.DanboFallingCatchOutcomeAudioData['round-fail']),'both approved outcome WAVs have static-host-safe inline sources');
         assert(window.DanboFallingCatchAudio.sounds['level-clear'],'the plugin declares the original level-clear sound');
         assert(window.DanboFallingCatchAudio.sounds['round-fail'],'the plugin declares the original round-fail sound');
         assert(Object.keys(window.DanboFallingCatchAudio.sounds).length===4,'only the four approved gameplay sounds are bundled');
         var audio=window.DanboFallingCatchAudio.create({assetBase:window.DANBO_FALLING_CATCH_BASE_URL,assetVersion:'v=test'});
         var catchNodes=window.__audioNodes.filter(function(node){return /assets\/audio\/catch-success\.wav\?v=test$/.test(node.src);});
         var hitNodes=window.__audioNodes.filter(function(node){return /assets\/audio\/obstacle-hit\.wav\?v=test$/.test(node.src);});
-        var clearNodes=window.__audioNodes.filter(function(node){return /assets\/audio\/outcome-clear\.wav\?v=test$/.test(node.src);});
-        var failNodes=window.__audioNodes.filter(function(node){return /assets\/audio\/outcome-retry\.wav\?v=test$/.test(node.src);});
+        var clearNodes=window.__audioNodes.filter(function(node){return node.src===window.DanboFallingCatchOutcomeAudioData['level-clear'];});
+        var failNodes=window.__audioNodes.filter(function(node){return node.src===window.DanboFallingCatchOutcomeAudioData['round-fail'];});
         assert(catchNodes.length===4,'the catch WAV is preloaded into its overlap-safe pool');
         assert(hitNodes.length===3,'the obstacle WAV is preloaded into a compact overlap-safe pool');
         assert(clearNodes.length===1&&failNodes.length===1,'each outcome WAV uses one dedicated node');

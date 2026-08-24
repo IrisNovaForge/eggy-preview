@@ -4,5 +4,5 @@
 <script>
 (function(){var nodes=[];function FakeAudio(src){this.src=src;this.paused=true;this.ended=false;this.currentTime=5;this.volume=1;this.playCount=0;this.pauseCount=0;nodes.push(this);}FakeAudio.prototype.play=function(){this.paused=false;this.playCount++;return Promise.resolve();};FakeAudio.prototype.pause=function(){this.paused=true;this.pauseCount++;};FakeAudio.prototype.removeAttribute=function(name){if(name==='src')this.src='';};FakeAudio.prototype.load=function(){};window.Audio=FakeAudio;window.__audioNodes=nodes;window.DANBO_FALLING_CATCH_BASE_URL=new URL('../',location.href).href;})();
 </script>
-<script src="../falling-catch-audio.js"></script><script src="audio-smoke.js"></script>
+<script src="../falling-catch-outcome-audio-data.js"></script><script src="../falling-catch-audio.js"></script><script src="audio-smoke.js"></script>
 </body></html>
