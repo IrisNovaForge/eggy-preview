@@ -12,7 +12,9 @@
             try{
                 var joystick=document.querySelector('.dfc-touch-joystick'),jumpButton=document.querySelector('.dfc-jump-button');assert(joystick.hidden,'local wind-bud stick stays hidden on menus');local.game.start();
                 assert(!joystick.hidden&&document.querySelector('.dfc-shell').dataset.touchControl==='local','touch gameplay reveals the original local single-axis stick');
-                assert(jumpButton.hidden&&document.querySelector('.dfc-shell').dataset.touchJump==='hidden','the mobile Leap handle stays absent from Stage 1');
+                assert(!jumpButton.hidden&&!jumpButton.disabled&&jumpButton.dataset.state==='unavailable'&&jumpButton.getAttribute('aria-disabled')==='true'&&document.querySelector('.dfc-shell').dataset.touchJump==='visible','the mobile Leap handle remains visible but visually unavailable in Stage 1');
+                jumpButton.dispatchEvent(new PointerEvent('pointerdown',{pointerId:6,pointerType:'touch',bubbles:true,cancelable:true}));
+                assert(document.querySelector('.dfc-notice').textContent.indexOf('Stage 3')>=0&&document.querySelector('.dfc-notice').classList.contains('dfc-help'),'tapping the unavailable Stage 1 Leap handle explains when the feature begins');
                 var base=joystick.querySelector('.dfc-touch-joystick-base'),knob=joystick.querySelector('.dfc-touch-joystick-knob'),rect=base.getBoundingClientRect(),knobRect=knob.getBoundingClientRect(),x=rect.left+rect.width*.82,y=rect.top+rect.height*.5;
                 assert(Math.abs(rect.width-rect.height)<1&&parseFloat(getComputedStyle(base).borderTopLeftRadius)>=rect.width*.49,'local wind-bud base uses the original soft circular handle shape');
                 assert(Math.abs(knobRect.width-42)<1&&Math.abs(knobRect.height-50)<1,'egg-shaped knob keeps its original proportions');

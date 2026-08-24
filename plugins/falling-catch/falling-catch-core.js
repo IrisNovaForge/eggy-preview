@@ -8,7 +8,7 @@
             ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',glimmerAppears:'蛋壳微光出现了！',lifeRestored:'蛋壳微光 +1机会',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'星风汇流！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
             level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',unlockedDetail:'新关卡已解锁：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与星风汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试',
-            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'依次完成关卡，解锁下一片风之场地',locked:'尚未解锁',lockedDetail:'完成上一关后解锁',currentProgress:'当前进度',touchMove:'左右拖动风芽摇杆',guideTitle:'本关物件',windSproutAppears:'跃风芽出现了！',windSproutStored:'跃风已经储存',jumpLabel:'跃风',jumpAction:'跃'
+            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'依次完成关卡，解锁下一片风之场地',locked:'尚未解锁',lockedDetail:'完成上一关后解锁',currentProgress:'当前进度',touchMove:'左右拖动风芽摇杆',guideTitle:'本关物件',windSproutAppears:'跃风芽出现了！',windSproutStored:'跃风已经储存',jumpLabel:'跃风',jumpAction:'跃',jumpUnavailable:'本关没有跃风芽，跃起功能从第3关开启',jumpNeedSprout:'先接住跃风芽，才能使用跃起'
         },
         zht:{
             title:'風中取物',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。',
@@ -16,7 +16,7 @@
             ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',glimmerAppears:'蛋殼微光出現了！',lifeRestored:'蛋殼微光 +1機會',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'星風匯流！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
             level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',unlockedDetail:'新關卡已解鎖：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與星風匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試',
-            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'依次完成關卡，解鎖下一片風之場地',locked:'尚未解鎖',lockedDetail:'完成上一關後解鎖',currentProgress:'目前進度',touchMove:'左右拖動風芽搖桿',guideTitle:'本關物件',windSproutAppears:'躍風芽出現了！',windSproutStored:'躍風已經儲存',jumpLabel:'躍風',jumpAction:'躍'
+            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'依次完成關卡，解鎖下一片風之場地',locked:'尚未解鎖',lockedDetail:'完成上一關後解鎖',currentProgress:'目前進度',touchMove:'左右拖動風芽搖桿',guideTitle:'本關物件',windSproutAppears:'躍風芽出現了！',windSproutStored:'躍風已經儲存',jumpLabel:'躍風',jumpAction:'躍',jumpUnavailable:'本關沒有躍風芽，躍起功能從第3關開啟',jumpNeedSprout:'先接住躍風芽，才能使用躍起'
         },
         ja:{
             title:'風の中でキャッチ',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、風香草の葉、森ベリー、金穂の種を集めながら苔むした風化石をよけよう。',
@@ -24,7 +24,7 @@
             ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',glimmerAppears:'卵殻の微光が現れた！',lifeRestored:'卵殻の微光 +1チャンス',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
             level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',unlockedDetail:'新しいステージを解放：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'風のフィールドから星風の合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト',
-            titleIntro:'旅人と四つの風のフィールドへ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'順番にクリアして次の風のフィールドを解放しよう',locked:'未解放',lockedDetail:'前のステージをクリアすると解放',currentProgress:'現在の進行',touchMove:'風芽スティックを左右へ',guideTitle:'このステージのアイテム',windSproutAppears:'跳風の芽が現れた！',windSproutStored:'跳風をためました',jumpLabel:'跳風',jumpAction:'跳'
+            titleIntro:'旅人と四つの風のフィールドへ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'順番にクリアして次の風のフィールドを解放しよう',locked:'未解放',lockedDetail:'前のステージをクリアすると解放',currentProgress:'現在の進行',touchMove:'風芽スティックを左右へ',guideTitle:'このステージのアイテム',windSproutAppears:'跳風の芽が現れた！',windSproutStored:'跳風をためました',jumpLabel:'跳風',jumpAction:'跳',jumpUnavailable:'このステージには跳風の芽がありません。ジャンプはステージ3から使えます',jumpNeedSprout:'先に跳風の芽を取るとジャンプできます'
         },
         en:{
             title:'Catching in the Wind',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, gather wind herbs, grove berries and golden grain seeds, and avoid mossy weathered stones.',
@@ -32,7 +32,7 @@
             ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',glimmerAppears:'Eggshell Glimmer appeared!',lifeRestored:'Eggshell Glimmer +1 chance',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
             level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',unlockedDetail:'New stage unlocked: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Breezy Harvest through Starwind Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test',
-            titleIntro:'Travel through four wind fields and gather nature gifts in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'Clear each stage in order to unlock the next wind field',locked:'Locked',lockedDetail:'Clear the previous stage to unlock',currentProgress:'Current progress',touchMove:'Slide the wind-bud stick sideways',guideTitle:'Stage Items',windSproutAppears:'Wind Sprout appeared!',windSproutStored:'Wind leap stored',jumpLabel:'Wind leap',jumpAction:'Leap'
+            titleIntro:'Travel through four wind fields and gather nature gifts in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'Clear each stage in order to unlock the next wind field',locked:'Locked',lockedDetail:'Clear the previous stage to unlock',currentProgress:'Current progress',touchMove:'Slide the wind-bud stick sideways',guideTitle:'Stage Items',windSproutAppears:'Wind Sprout appeared!',windSproutStored:'Wind leap stored',jumpLabel:'Wind leap',jumpAction:'Leap',jumpUnavailable:'No Wind Sprout appears here. Leaping unlocks in Stage 3',jumpNeedSprout:'Catch a Wind Sprout before using Leap'
         }
     };
 
@@ -93,7 +93,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.6');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.7');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -251,17 +251,18 @@
             if(visible){confluencePhaseValue.textContent=confluencePhaseText();comboValue.textContent=format(text.chain,{count:comboState.streak});}
         }
         function updateJumpUI(){
-            var available=!!(currentLevel.jumpPower&&phase==='running'),touchAction=available&&(localTouchCapable||touchControlsVisible);
+            var running=phase==='running',available=!!(currentLevel.jumpPower&&running),touchAction=running&&(localTouchCapable||touchControlsVisible);
             jumpStatus.classList.toggle('dfc-show',available);jumpStatusValue.textContent='×'+jumpState.charge;
-            jumpButton.hidden=!touchAction;jumpButton.disabled=!available||jumpState.charge<=0||jumpState.airborne;
-            var buttonState=jumpState.airborne?'airborne':(jumpState.charge>0?'ready':'waiting');jumpButton.dataset.state=buttonState;jumpButton.setAttribute('aria-disabled',jumpButton.disabled?'true':'false');
+            jumpButton.hidden=!touchAction;jumpButton.disabled=jumpState.airborne;
+            var buttonState=!available?'unavailable':(jumpState.airborne?'airborne':(jumpState.charge>0?'ready':'waiting')),logicallyDisabled=!available||jumpState.charge<=0||jumpState.airborne;jumpButton.dataset.state=buttonState;jumpButton.setAttribute('aria-disabled',logicallyDisabled?'true':'false');
+            jumpButton.setAttribute('aria-label',text.jumpAction+(buttonState==='unavailable'?' · '+text.jumpUnavailable:(buttonState==='waiting'?' · '+text.jumpNeedSprout:'')));
             jumpButton.classList.toggle('dfc-ready',buttonState==='ready');root.dataset.jumpCharge=String(jumpState.charge);root.dataset.airborne=jumpState.airborne?'true':'false';root.dataset.touchJump=touchAction?'visible':'hidden';
         }
         function showNotice(message,tone){
             notice.textContent=message;
             notice.className='dfc-notice dfc-show '+(tone||'');
             clearTimeout(showNotice.timer);
-            showNotice.timer=setTimeout(function(){notice.className='dfc-notice';},tone==='dfc-phase'?1200:650);
+            showNotice.timer=setTimeout(function(){notice.className='dfc-notice';},tone==='dfc-phase'||tone==='dfc-help'?1400:650);
         }
         function play(name){try{if(typeof options.play==='function')options.play(name);}catch(error){}}
         function random(){return rules.random();}
@@ -1017,7 +1018,13 @@
             if(event.key==='ArrowLeft'||event.key==='a'||event.key==='A')pressed.left=false;
             if(event.key==='ArrowRight'||event.key==='d'||event.key==='D')pressed.right=false;
         }
-        function jumpButtonPointer(event){event.preventDefault();event.stopPropagation();triggerJump('touch');}
+        function jumpButtonPointer(event){
+            event.preventDefault();event.stopPropagation();
+            if(phase!=='running')return;
+            if(!currentLevel.jumpPower){showNotice(text.jumpUnavailable,'dfc-help');return;}
+            if(jumpState.charge<=0){showNotice(text.jumpNeedSprout,'dfc-help');return;}
+            triggerJump('touch');
+        }
         var unbindLeft=bindHold(leftButton,'left'),unbindRight=bindHold(rightButton,'right');
         touchJoystick.addEventListener('pointerdown',localJoystickPointer);touchJoystick.addEventListener('pointermove',localJoystickPointer);touchJoystick.addEventListener('pointerup',localJoystickPointer);touchJoystick.addEventListener('pointercancel',localJoystickPointer);touchJoystick.addEventListener('lostpointercapture',localJoystickPointer);
         jumpButton.addEventListener('pointerdown',jumpButtonPointer);

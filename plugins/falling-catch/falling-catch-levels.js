@@ -96,10 +96,10 @@
             tagline:{zhs:'收集风香草叶、莓林莓与金穗籽',zht:'收集風香草葉、莓林莓與金穗籽',ja:'風香草の葉、森ベリー、金穂の種を集めよう',en:'Gather wind herbs, grove berries and golden grain seeds'},
             titleTheme:'meadow',
             description:{
-                zhs:'带领世界旅人托住采集篮，接住风香草叶、莓林莓和金穗籽，同时避开苔痕风化石。',
-                zht:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。',
-                ja:'世界の旅人と採集かごを動かし、風香草の葉、森ベリー、金穂の種を集めながら苔むした風化石をよけよう。',
-                en:'Guide a World Traveler holding a woven field basket, gather wind herbs, grove berries and golden grain seeds, and avoid mossy weathered stones.'
+                zhs:'带领世界旅人托住采集篮，接住风香草叶、莓林莓和金穗籽，同时避开苔痕风化石。本关没有跃风芽，跃起从第3关开启。',
+                zht:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。本關沒有躍風芽，躍起從第3關開啟。',
+                ja:'世界の旅人と採集かごを動かし、自然物を集めながら苔むした風化石をよけよう。このステージに跳風の芽はなく、ジャンプはステージ3から使えます。',
+                en:'Guide a World Traveler to gather natural objects and avoid mossy stones. No Wind Sprout appears here; leaping begins in Stage 3.'
             }
         },
         {
@@ -107,7 +107,7 @@
             name:{zhs:'风丘跃起',zht:'風丘躍起',ja:'風丘の上昇',en:'Windhill Rise'},
             tagline:{zhs:'留意上升气流改变落点',zht:'留意上升氣流改變落點',ja:'上昇気流による着地点の変化を読もう',en:'Read how the updraft changes each landing point'},
             titleTheme:'updraft',
-            description:{zhs:'左右移动头顶采集篮，判断斜向落物的路线；轻盈的自然物进入风丘上升气流后会短暂上浮并改变轨迹。',zht:'左右移動頭頂採集籃，判斷斜向落物的路線；輕盈的自然物進入風丘上升氣流後會短暫上浮並改變軌跡。',ja:'頭上のかごを左右に動かし、斜めに落ちる自然物を集めよう。軽い自然物は上昇気流で一度浮かび、軌道が変わります。',en:'Move the overhead basket left and right to read diagonal paths. Light natural objects briefly rise and change course inside the hill updraft.'}
+            description:{zhs:'左右移动头顶采集篮，判断斜向落物的路线；轻盈自然物会被上升气流改变轨迹。本关没有跃风芽，跃起从第3关开启。',zht:'左右移動頭頂採集籃，判斷斜向落物的路線；輕盈自然物會被上升氣流改變軌跡。本關沒有躍風芽，躍起從第3關開啟。',ja:'斜めに落ちる自然物と上昇気流で変わる軌道を読もう。このステージに跳風の芽はなく、ジャンプはステージ3から使えます。',en:'Read diagonal paths altered by the updraft. No Wind Sprout appears here; leaping begins in Stage 3.'}
         },
         {
             id:'crystal-valley-turn',number:3,status:'playable',mechanics:'crosswind',rules:SHARED_RULES,spawnDistribution:STAGE_THREE_SPAWN,dropTuning:STAGE_THREE_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,crosswind:STAGE_THREE_CROSSWIND,recovery:STAGE_THREE_RECOVERY,jumpPower:STAGE_THREE_JUMP,guideItems:STAGE_THREE_GUIDE,

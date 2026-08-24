@@ -39,7 +39,7 @@
                 assert(game.snapshot().score===0&&game.snapshot().lives===3,'Wind Sprouts and jumps do not alter score or chances');finish();
             },0);
         }});
-        rules.ready.then(function(){game.start();}).catch(finish);
+        rules.ready.then(function(){game.start();var waitingButton=mount.querySelector('.dfc-jump-button');assert(!waitingButton.hidden&&!waitingButton.disabled&&waitingButton.dataset.state==='waiting'&&waitingButton.getAttribute('aria-disabled')==='true','Stage 4 keeps Leap visible but waiting before a Wind Sprout is caught');waitingButton.dispatchEvent(new PointerEvent('pointerdown',{pointerId:18,pointerType:'touch',bubbles:true,cancelable:true}));assert(mount.querySelector('.dfc-notice').textContent.indexOf('Wind Sprout')>=0,'tapping an empty Leap handle explains that a Wind Sprout is required');}).catch(finish);
         timeout=setTimeout(function(){finish(new Error('Timed out waiting for both Wind Sprout jumps'));},5000);
     }catch(error){finish(error);}
 })();
