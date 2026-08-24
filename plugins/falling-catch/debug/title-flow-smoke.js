@@ -9,6 +9,8 @@
         rules.ready.then(function(){
             try{
                 assert(game.screen()==='title'&&!!document.querySelector('.dfc-entry-card'),'plugin opens on the game title page');
+                assert(!document.querySelector('.dfc-brand-copy small'),'top brand does not render the removed overall-game subtitle');
+                assert(!document.querySelector('.dfc-entry-card .dfc-card-eyebrow'),'title card does not render the removed overall-game subtitle');
                 assert(document.querySelector('.dfc-entry-card h1').textContent==='风中取物','the overall game title uses 风中取物 while stage names remain independent');
                 assert(!document.querySelector('.dfc-entry-card .dfc-intro-traveler'),'the overall title card does not show the selected Traveler portrait option');
                 assert(document.querySelector('.dfc-entry-card').textContent.indexOf('进入关卡')>=0,'title page exposes the stage entry action');
