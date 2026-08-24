@@ -24,7 +24,7 @@ The obstacle sound is played only when the Traveler's body collides with an obst
 - Generated specifically for this project with Stable Audio 3 Medium; seed `8609`.
 - Negative direction excluded coins, bells, fanfares, victory jingles, arcade cues, music and voices.
 - Post-processing: active-event trim, 6 ms fade-in, 95 ms fade-out, peak normalization to -7.5 dBFS.
-- Format: WAV, stereo, 44.1 kHz, 16-bit PCM, approximately 0.82 seconds.
+- Format: WAV, mono, 44.1 kHz, 16-bit PCM, approximately 0.82 seconds.
 
 `round-fail.wav` is the dedicated failed-result sound.
 
@@ -32,6 +32,6 @@ The obstacle sound is played only when the Traveler's body collides with an obst
 - Generated specifically for this project with Stable Audio 3 Medium; seed `8623`.
 - Negative direction excluded buzzers, alarms, descending musical scales, sad music, arcade cues, harsh impacts and voices.
 - Post-processing: active-event trim, 6 ms fade-in, 85 ms fade-out, peak normalization to -7.5 dBFS.
-- Format: WAV, stereo, 44.1 kHz, 16-bit PCM, approximately 0.74 seconds.
+- Format: WAV, mono, 44.1 kHz, 16-bit PCM, approximately 0.74 seconds.
 
 These two files play only on their corresponding round-result screens. No API key is stored in this repository.
