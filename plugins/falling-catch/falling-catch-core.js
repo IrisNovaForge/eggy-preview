@@ -93,7 +93,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.7');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.8');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -123,10 +123,13 @@
         var worldHeight=62;
         var PLAYER_RENDER_SCALE=.3;
         var TRAVELER_VISUAL_SCALE=.85;
+        var MOBILE_TRAVELER_VISUAL_SCALE=1.08;
         var FALLING_OBJECT_VISUAL_SCALE=.88;
         var STONE_COLLISION_RADIUS=2.95;
         var DESKTOP_DROP_SCALE=.70;
+        var MOBILE_DROP_SCALE=1.25;
         var desktopDropMedia=window.matchMedia?window.matchMedia('(min-width:768px) and (pointer:fine)'):null;
+        var mobileScaleMedia=window.matchMedia?window.matchMedia('(max-width:640px) and (pointer:coarse)'):null;
         var player={x:50,y:54.3,w:17,h:5.4,speed:61};
         var pressed={left:false,right:false};
 
@@ -394,7 +397,9 @@
             return chosen;
         }
         function objectPresentation(){return currentLevel.objectPresentation||null;}
-        function responsiveDropScale(){return desktopDropMedia&&desktopDropMedia.matches?DESKTOP_DROP_SCALE:1;}
+        function responsiveDropScale(){return desktopDropMedia&&desktopDropMedia.matches?DESKTOP_DROP_SCALE:(mobileScaleMedia&&mobileScaleMedia.matches?MOBILE_DROP_SCALE:1);}
+        function responsiveCollisionScale(){return desktopDropMedia&&desktopDropMedia.matches?DESKTOP_DROP_SCALE:1;}
+        function responsiveTravelerScale(){return mobileScaleMedia&&mobileScaleMedia.matches?MOBILE_TRAVELER_VISUAL_SCALE:TRAVELER_VISUAL_SCALE;}
         function fallingObjectScale(kind){
             var presentation=objectPresentation(),scales=presentation&&presentation.visualScales;
             var value=scales&&Number(scales[kind]);
@@ -402,11 +407,11 @@
         }
         function stoneCollisionRadius(){
             var presentation=objectPresentation(),value=presentation&&Number(presentation.stoneCollisionRadius);
-            value=Number.isFinite(value)&&value>0?value:STONE_COLLISION_RADIUS;return value*responsiveDropScale();
+            value=Number.isFinite(value)&&value>0?value:STONE_COLLISION_RADIUS;return value*responsiveCollisionScale();
         }
         function targetCollisionRadius(){
             var presentation=objectPresentation(),value=presentation&&Number(presentation.targetCollisionRadius);
-            value=Number.isFinite(value)&&value>0?value:2.8;return value*responsiveDropScale();
+            value=Number.isFinite(value)&&value>0?value:2.8;return value*responsiveCollisionScale();
         }
         function presentationKind(kind){
             var presentation=objectPresentation();
@@ -794,7 +799,8 @@
             drawCollectorSteps(pose);
             context.save();context.globalAlpha=1-jumpRatio*.58;context.translate(0,4.4);context.scale(pose.shadowScaleX*(1-jumpRatio*.3),pose.shadowScaleY*(1-jumpRatio*.18));context.translate(0,-4.4);context.fillStyle='rgba(41,79,64,.2)';context.beginPath();context.ellipse(0,4.4,8.4,1.45,0,0,Math.PI*2);context.fill();context.restore();
             if(jumpState.offsetY)context.translate(0,jumpState.offsetY/PLAYER_RENDER_SCALE);
-            context.save();context.translate(pose.bodyX,pose.bodyY);context.rotate(pose.lean);context.scale(pose.scaleX,pose.scaleY);context.scale(TRAVELER_VISUAL_SCALE,TRAVELER_VISUAL_SCALE);
+            var travelerVisualScale=responsiveTravelerScale();
+            context.save();context.translate(pose.bodyX,pose.bodyY);context.rotate(pose.lean);context.scale(pose.scaleX,pose.scaleY);context.scale(travelerVisualScale,travelerVisualScale);
             context.fillStyle=canvasColor(traveler.accent,'#8fd16a');context.globalAlpha=.16;context.beginPath();context.ellipse(0,-4.7,8.8,8.1,0,0,Math.PI*2);context.fill();context.globalAlpha=1;
             if(simplifiedTraveler){
                 characterRenderer.draw(context,simplifiedTraveler,pose);
@@ -804,7 +810,7 @@
             }else drawFallbackTraveler(0);
             context.restore();
             var hands=simplifiedTraveler?characterRenderer.handAnchors(pose):{left:{x:-3.4,y:-11.2},right:{x:3.4,y:-11.2}};
-            var leftShoulder=transformCollectorPoint(hands.left.x*TRAVELER_VISUAL_SCALE,hands.left.y*TRAVELER_VISUAL_SCALE,pose),rightShoulder=transformCollectorPoint(hands.right.x*TRAVELER_VISUAL_SCALE,hands.right.y*TRAVELER_VISUAL_SCALE,pose);
+            var leftShoulder=transformCollectorPoint(hands.left.x*travelerVisualScale,hands.left.y*travelerVisualScale,pose),rightShoulder=transformCollectorPoint(hands.right.x*travelerVisualScale,hands.right.y*travelerVisualScale,pose);
             context.strokeStyle='rgba(160,116,65,.76)';context.lineWidth=1.05;context.lineCap='round';context.beginPath();
             if(basketOffsetY){context.moveTo(leftShoulder.x,leftShoulder.y);context.lineTo(pose.basketX-5.4,basketOffsetY+pose.basketY+2.2);context.moveTo(rightShoulder.x,rightShoulder.y);context.lineTo(pose.basketX+5.4,basketOffsetY+pose.basketY+2.2);}
             else{context.moveTo(leftShoulder.x,leftShoulder.y+7.7*TRAVELER_VISUAL_SCALE);context.lineTo(pose.basketX-5.4,pose.basketY-1);context.moveTo(rightShoulder.x,rightShoulder.y+7.7*TRAVELER_VISUAL_SCALE);context.lineTo(pose.basketX+5.4,pose.basketY-1);}
