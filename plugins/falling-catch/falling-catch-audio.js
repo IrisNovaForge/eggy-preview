@@ -4,8 +4,8 @@
     var SOUNDS=Object.freeze({
         'catch-success':Object.freeze({file:'assets/audio/catch-success.wav',volume:.82,poolSize:4}),
         'obstacle-hit':Object.freeze({file:'assets/audio/obstacle-hit.wav',volume:.78,poolSize:3}),
-        'level-clear':Object.freeze({file:'assets/audio/level-clear.wav',volume:.78,poolSize:1}),
-        'round-fail':Object.freeze({file:'assets/audio/round-fail.wav',volume:.76,poolSize:1})
+        'level-clear':Object.freeze({file:'assets/audio/outcome-clear.wav',volume:.78,poolSize:1}),
+        'round-fail':Object.freeze({file:'assets/audio/outcome-retry.wav',volume:.76,poolSize:1})
     });
 
     function create(options){

@@ -18,7 +18,7 @@
 
 The obstacle sound is played only when the Traveler's body collides with an obstacle.
 
-`level-clear.wav` is the dedicated clear-result sound.
+`outcome-clear.wav` is the dedicated clear-result sound.
 
 - Original prompt concept: a golden grain seed settling into a woven grass basket, followed by one light upward breath of fresh leaves.
 - Generated specifically for this project with Stable Audio 3 Medium; seed `8609`.
@@ -26,7 +26,7 @@ The obstacle sound is played only when the Traveler's body collides with an obst
 - Post-processing: active-event trim, 6 ms fade-in, 95 ms fade-out, peak normalization to -7.5 dBFS.
 - Format: WAV, mono, 44.1 kHz, 16-bit PCM, approximately 0.82 seconds.
 
-`round-fail.wav` is the dedicated failed-result sound.
+`outcome-retry.wav` is the dedicated failed-result sound.
 
 - Original prompt concept: a soft leaf bundle settling onto springy moss with a rounded touch and a brief downward breath of air.
 - Generated specifically for this project with Stable Audio 3 Medium; seed `8623`.

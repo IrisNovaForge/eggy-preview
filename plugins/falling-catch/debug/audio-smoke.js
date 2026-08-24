@@ -11,8 +11,8 @@
         var audio=window.DanboFallingCatchAudio.create({assetBase:window.DANBO_FALLING_CATCH_BASE_URL,assetVersion:'v=test'});
         var catchNodes=window.__audioNodes.filter(function(node){return /assets\/audio\/catch-success\.wav\?v=test$/.test(node.src);});
         var hitNodes=window.__audioNodes.filter(function(node){return /assets\/audio\/obstacle-hit\.wav\?v=test$/.test(node.src);});
-        var clearNodes=window.__audioNodes.filter(function(node){return /assets\/audio\/level-clear\.wav\?v=test$/.test(node.src);});
-        var failNodes=window.__audioNodes.filter(function(node){return /assets\/audio\/round-fail\.wav\?v=test$/.test(node.src);});
+        var clearNodes=window.__audioNodes.filter(function(node){return /assets\/audio\/outcome-clear\.wav\?v=test$/.test(node.src);});
+        var failNodes=window.__audioNodes.filter(function(node){return /assets\/audio\/outcome-retry\.wav\?v=test$/.test(node.src);});
         assert(catchNodes.length===4,'the catch WAV is preloaded into its overlap-safe pool');
         assert(hitNodes.length===3,'the obstacle WAV is preloaded into a compact overlap-safe pool');
         assert(clearNodes.length===1&&failNodes.length===1,'each outcome WAV uses one dedicated node');
