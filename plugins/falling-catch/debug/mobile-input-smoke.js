@@ -10,8 +10,9 @@
     try{
         var local=makeGame({forceTouchControls:true});local.rules.ready.then(function(){
             try{
-                var joystick=document.querySelector('.dfc-touch-joystick');assert(joystick.hidden,'local wind-bud stick stays hidden on menus');local.game.start();
+                var joystick=document.querySelector('.dfc-touch-joystick'),jumpButton=document.querySelector('.dfc-jump-button');assert(joystick.hidden,'local wind-bud stick stays hidden on menus');local.game.start();
                 assert(!joystick.hidden&&document.querySelector('.dfc-shell').dataset.touchControl==='local','touch gameplay reveals the original local single-axis stick');
+                assert(jumpButton.hidden&&document.querySelector('.dfc-shell').dataset.touchJump==='hidden','the mobile Leap handle stays absent from Stage 1');
                 var base=joystick.querySelector('.dfc-touch-joystick-base'),knob=joystick.querySelector('.dfc-touch-joystick-knob'),rect=base.getBoundingClientRect(),knobRect=knob.getBoundingClientRect(),x=rect.left+rect.width*.82,y=rect.top+rect.height*.5;
                 assert(Math.abs(rect.width-rect.height)<1&&parseFloat(getComputedStyle(base).borderTopLeftRadius)>=rect.width*.49,'local wind-bud base uses the original soft circular handle shape');
                 assert(Math.abs(knobRect.width-42)<1&&Math.abs(knobRect.height-50)<1,'egg-shaped knob keeps its original proportions');

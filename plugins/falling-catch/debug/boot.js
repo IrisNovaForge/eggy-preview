@@ -35,7 +35,7 @@
         var mount=document.getElementById('game');mount.innerHTML='';
         var box=document.createElement('div');box.style.cssText='height:100%;display:grid;place-items:center;padding:24px;background:#dff1c5;font-family:system-ui,sans-serif;color:#24483f;text-align:center';
         var button=document.createElement('button');button.textContent='重新进入独立试玩';button.style.cssText='border:0;border-radius:14px;padding:13px 18px;background:#4f8b68;color:white;font-weight:800;cursor:pointer';button.onclick=start;
-        var inner=document.createElement('div');var title=document.createElement('h1');title.textContent='已退出风野拾集';var detail=document.createElement('p');detail.textContent=result&&result.score!==undefined?'本轮得分：'+result.score:'可以随时重新进入。';inner.appendChild(title);inner.appendChild(detail);inner.appendChild(button);box.appendChild(inner);mount.appendChild(box);
+        var inner=document.createElement('div');var title=document.createElement('h1');title.textContent='已退出风中取物';var detail=document.createElement('p');detail.textContent=result&&result.score!==undefined?'本轮得分：'+result.score:'可以随时重新进入。';inner.appendChild(title);inner.appendChild(detail);inner.appendChild(button);box.appendChild(inner);mount.appendChild(box);
     }
     function start(){
         window.DANBO_PLUGIN_HOST.start('falling-catch',{

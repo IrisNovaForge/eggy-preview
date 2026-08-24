@@ -2,7 +2,7 @@
     'use strict';
     if(!window.DANBO_PLUGIN_HOST||!window.DANBO_PLUGIN_HOST.registerEntrance){console.warn('[falling-catch entrance] Plugin host missing');return;}
 
-    var NAME={zhs:'🍃 风野拾集',zht:'🍃 風野拾集',ja:'🍃 風のフィールド',en:'🍃 Breezy Harvest'};
+    var NAME={zhs:'🍃 风中取物',zht:'🍃 風中取物',ja:'🍃 風の中でキャッチ',en:'🍃 Catching in the Wind'};
     var DESC={zhs:'进入风野，接取自然落物并避开石块？',zht:'進入風野，接取自然落物並避開石塊？',ja:'風のフィールドで木の実を集めますか？',en:'Enter the meadow to catch nature finds and avoid stones?'};
     function locale(map,lang){return map[lang]||map.en||map.zhs||'';}
 

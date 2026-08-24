@@ -22,9 +22,12 @@
             if(type==='jumpPowerCollect')later(function(){
                 assert(game.snapshot().jumpCharge===1,'catching a Wind Sprout stores one jump without changing the life counter');
                 var button=mount.querySelector('.dfc-jump-button');assert(button&&!button.hidden&&!button.disabled,'touch play exposes an enabled circular jump control when charged');
+                assert(button.textContent==='Leap'&&button.dataset.state==='ready'&&button.getAttribute('aria-disabled')==='false','the mobile-only action handle has a clear short label and ready state');
+                var buttonRect=button.getBoundingClientRect();assert(Math.abs(buttonRect.width-buttonRect.height)<1&&parseFloat(getComputedStyle(button).borderTopLeftRadius)>=buttonRect.width*.49,'the Leap handle keeps a distinct circular touch target');
                 if(jumpNumber===0)button.dispatchEvent(new PointerEvent('pointerdown',{pointerId:19,pointerType:'touch',bubbles:true,cancelable:true}));
                 else window.dispatchEvent(new KeyboardEvent('keydown',{key:' ',bubbles:true,cancelable:true}));
                 assert(game.jumpState().airborne&&game.snapshot().jumpCharge===0,'using the control consumes the stored jump and starts the rise');
+                assert(button.disabled&&button.dataset.state==='airborne'&&button.getAttribute('aria-disabled')==='true','the mobile Leap handle disables immediately during the jump');
                 later(function(){assert(game.jumpState().offsetY<-3,'the Traveler and overhead basket visibly rise during the jump arc');},100);
             },0);
             if(type==='jumpStart')jumpNumber++;

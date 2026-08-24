@@ -4,7 +4,7 @@
 
     var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
     var runtimeBase=window.DANBO_FALLING_CATCH_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/falling-catch/');
-    var assetVersion='v=0.4.2';
+    var assetVersion='v=0.4.3';
     window.DANBO_FALLING_CATCH_BASE_URL=runtimeBase;
 
     function ensureStyle(){
@@ -23,8 +23,8 @@
 
     window.DANBO_PLUGIN_HOST.register({
         id:'falling-catch',
-        version:'0.4.2',
-        name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},
+        version:'0.4.3',
+        name:{zhs:'风中取物',zht:'風中取物',ja:'風の中でキャッチ',en:'Catching in the Wind'},
         description:{
             zhs:'移动头顶采集篮接取蛋宝世界的自然落物并避开障碍，在三次机会内完成30秒挑战。',
             zht:'移動頭頂採集籃接取蛋寶世界的自然落物並避開障礙，在三次機會內完成30秒挑戰。',
@@ -38,7 +38,7 @@
                 ctx.api.finish({status:'error',reason:'runtime missing'});
                 return {destroy:function(){}};
             }
-            if(ctx.api&&ctx.api.setTitle)ctx.api.setTitle('Breezy Harvest');
+            if(ctx.api&&ctx.api.setTitle)ctx.api.setTitle('Catching in the Wind');
             var opts=ctx.options||{};
             var characterPortrait=null;
             try{
