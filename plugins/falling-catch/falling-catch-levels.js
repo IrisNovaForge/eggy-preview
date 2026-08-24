@@ -63,10 +63,35 @@
     });}
     var STAGE_THREE_JUMP=windSprout(1,7,14,18);
     var STAGE_FOUR_JUMP=windSprout(2,5,10,24);
+    function guideItem(kind,name,description){return Object.freeze({kind:kind,name:Object.freeze(name),description:Object.freeze(description)});}
+    function itemGuide(items){return Object.freeze(items);}
+    var STAGE_ONE_GUIDE=itemGuide([
+        guideItem('harvest',{zhs:'风野收集物',zht:'風野收集物',ja:'風野の収集物',en:'Meadow Collectibles'},{zhs:'风香草叶、莓林莓与金穗籽；接住任意一种获得1分。',zht:'風香草葉、莓林莓與金穗籽；接住任意一種獲得1分。',ja:'風香草の葉、森ベリー、金穂の種。どれを取っても1点。',en:'Wind herb leaves, grove berries and golden grain seeds; each catch awards 1 point.'}),
+        guideItem('stone',{zhs:'苔痕风化石',zht:'苔痕風化石',ja:'苔むした風化石',en:'Mossy Weathered Stone'},{zhs:'碰到后失去1次机会。',zht:'碰到後失去1次機會。',ja:'触れるとチャンスを1回失います。',en:'Touching it removes 1 chance.'}),
+        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，本关最多出现1次。',zht:'機會不足3次時可能出現；接住恢復1次，本關最多出現1次。',ja:'チャンスが3未満の時に出現することがあります。取ると1回回復し、このステージでは最大1回。',en:'May appear below 3 chances; catch it to restore 1. Up to 1 can appear in this stage.'})
+    ]);
+    var STAGE_TWO_GUIDE=itemGuide([
+        guideItem('airflow-collectibles',{zhs:'轻盈收集物',zht:'輕盈收集物',ja:'軽い収集物',en:'Light Collectibles'},{zhs:'风香草叶与莓林莓；接住获得1分，会被上升气流托起。',zht:'風香草葉與莓林莓；接住獲得1分，會被上升氣流托起。',ja:'風香草の葉と森ベリー。1点になり、上昇気流で持ち上がります。',en:'Wind herb leaves and grove berries award 1 point and can be lifted by the updraft.'}),
+        guideItem('seed',{zhs:'金穗籽',zht:'金穗籽',ja:'金穂の種',en:'Golden Grain Seed'},{zhs:'接住获得1分，不受上升气流影响。',zht:'接住獲得1分，不受上升氣流影響。',ja:'取ると1点。上昇気流の影響を受けません。',en:'Catch it for 1 point; it is not affected by the updraft.'}),
+        guideItem('stone',{zhs:'苔痕风化石',zht:'苔痕風化石',ja:'苔むした風化石',en:'Mossy Weathered Stone'},{zhs:'碰到后失去1次机会。',zht:'碰到後失去1次機會。',ja:'触れるとチャンスを1回失います。',en:'Touching it removes 1 chance.'}),
+        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，本关最多出现2次。',zht:'機會不足3次時可能出現；接住恢復1次，本關最多出現2次。',ja:'チャンスが3未満の時に出現することがあります。取ると1回回復し、このステージでは最大2回。',en:'May appear below 3 chances; catch it to restore 1. Up to 2 can appear in this stage.'})
+    ]);
+    var STAGE_THREE_GUIDE=itemGuide([
+        guideItem('wind-collectibles',{zhs:'自然收集物',zht:'自然收集物',ja:'自然の収集物',en:'Nature Collectibles'},{zhs:'风香草叶、莓林莓与金穗籽均为1分，并会随周期横风产生偏移。',zht:'風香草葉、莓林莓與金穗籽均為1分，並會隨週期橫風產生偏移。',ja:'風香草の葉、森ベリー、金穂の種は各1点。周期横風で横へ流されます。',en:'Wind herb leaves, grove berries and golden grain seeds each award 1 point and drift with the periodic crosswind.'}),
+        guideItem('stone',{zhs:'苔痕风化石',zht:'苔痕風化石',ja:'苔むした風化石',en:'Mossy Weathered Stone'},{zhs:'碰到失去1次机会，也会随横风偏移。',zht:'碰到失去1次機會，也會隨橫風偏移。',ja:'触れるとチャンスを1回失い、横風でも流されます。',en:'Touching it removes 1 chance; it also drifts with the crosswind.'}),
+        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，不受横风影响，本关最多出现2次。',zht:'機會不足3次時可能出現；接住恢復1次，不受橫風影響，本關最多出現2次。',ja:'チャンスが3未満の時に出現。取ると1回回復し、横風の影響を受けません。最大2回。',en:'May appear below 3 chances; restores 1, ignores crosswind, and can appear up to 2 times.'}),
+        guideItem('sprout',{zhs:'跃风芽',zht:'躍風芽',ja:'跳風の芽',en:'Wind Sprout'},{zhs:'本关最多出现1次；接住可储存1次主动跃起。',zht:'本關最多出現1次；接住可儲存1次主動躍起。',ja:'このステージでは最大1回。取ると手動ジャンプを1回ためられます。',en:'Up to 1 can appear; catching it stores 1 manual leap.'})
+    ]);
+    var STAGE_FOUR_GUIDE=itemGuide([
+        guideItem('combo-collectibles',{zhs:'汇流收集物',zht:'匯流收集物',ja:'合流の収集物',en:'Confluence Collectibles'},{zhs:'风香草叶、莓林莓与金穗籽各1分；连续接住3个额外获得1分，并会受到场地气流影响。',zht:'風香草葉、莓林莓與金穗籽各1分；連續接住3個額外獲得1分，並會受到場地氣流影響。',ja:'風香草の葉、森ベリー、金穂の種は各1点。3個連続で追加1点になり、場の気流にも影響されます。',en:'Wind herb leaves, grove berries and golden grain seeds each award 1 point; every 3-catch chain adds 1 bonus point. Field winds affect them.'}),
+        guideItem('stone',{zhs:'苔痕风化石',zht:'苔痕風化石',ja:'苔むした風化石',en:'Mossy Weathered Stone'},{zhs:'碰到失去1次机会，并会随汇流横风偏移。',zht:'碰到失去1次機會，並會隨匯流橫風偏移。',ja:'触れるとチャンスを1回失い、合流する横風でも流されます。',en:'Touching it removes 1 chance, and confluence crosswinds shift it sideways.'}),
+        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，不受风影响，本关最多出现3次。',zht:'機會不足3次時可能出現；接住恢復1次，不受風影響，本關最多出現3次。',ja:'チャンスが3未満の時に出現。取ると1回回復し、風の影響を受けません。最大3回。',en:'May appear below 3 chances; restores 1, ignores wind, and can appear up to 3 times.'}),
+        guideItem('sprout',{zhs:'跃风芽',zht:'躍風芽',ja:'跳風の芽',en:'Wind Sprout'},{zhs:'本关最多出现2次；每次接住可储存1次主动跃起。',zht:'本關最多出現2次；每次接住可儲存1次主動躍起。',ja:'このステージでは最大2回。取るたびに手動ジャンプを1回ためられます。',en:'Up to 2 can appear; each catch stores 1 manual leap.'})
+    ]);
 
     var LEVELS=[
         {
-            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,dropTuning:STAGE_ONE_DROPS,objectPresentation:STAGE_ONE_OBJECTS,recovery:STAGE_ONE_RECOVERY,
+            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,dropTuning:STAGE_ONE_DROPS,objectPresentation:STAGE_ONE_OBJECTS,recovery:STAGE_ONE_RECOVERY,guideItems:STAGE_ONE_GUIDE,
             name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},
             tagline:{zhs:'收集风香草叶、莓林莓与金穗籽',zht:'收集風香草葉、莓林莓與金穗籽',ja:'風香草の葉、森ベリー、金穂の種を集めよう',en:'Gather wind herbs, grove berries and golden grain seeds'},
             titleTheme:'meadow',
@@ -78,21 +103,21 @@
             }
         },
         {
-            id:'wind-hill-rise',number:2,status:'playable',mechanics:'updraft',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,dropTuning:STAGE_TWO_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_TWO_AIRFLOW,recovery:STAGE_TWO_RECOVERY,
+            id:'wind-hill-rise',number:2,status:'playable',mechanics:'updraft',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,dropTuning:STAGE_TWO_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_TWO_AIRFLOW,recovery:STAGE_TWO_RECOVERY,guideItems:STAGE_TWO_GUIDE,
             name:{zhs:'风丘跃起',zht:'風丘躍起',ja:'風丘の上昇',en:'Windhill Rise'},
             tagline:{zhs:'留意上升气流改变落点',zht:'留意上升氣流改變落點',ja:'上昇気流による着地点の変化を読もう',en:'Read how the updraft changes each landing point'},
             titleTheme:'updraft',
             description:{zhs:'左右移动头顶采集篮，判断斜向落物的路线；轻盈的自然物进入风丘上升气流后会短暂上浮并改变轨迹。',zht:'左右移動頭頂採集籃，判斷斜向落物的路線；輕盈的自然物進入風丘上升氣流後會短暫上浮並改變軌跡。',ja:'頭上のかごを左右に動かし、斜めに落ちる自然物を集めよう。軽い自然物は上昇気流で一度浮かび、軌道が変わります。',en:'Move the overhead basket left and right to read diagonal paths. Light natural objects briefly rise and change course inside the hill updraft.'}
         },
         {
-            id:'crystal-valley-turn',number:3,status:'playable',mechanics:'crosswind',rules:SHARED_RULES,spawnDistribution:STAGE_THREE_SPAWN,dropTuning:STAGE_THREE_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,crosswind:STAGE_THREE_CROSSWIND,recovery:STAGE_THREE_RECOVERY,jumpPower:STAGE_THREE_JUMP,
+            id:'crystal-valley-turn',number:3,status:'playable',mechanics:'crosswind',rules:SHARED_RULES,spawnDistribution:STAGE_THREE_SPAWN,dropTuning:STAGE_THREE_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,crosswind:STAGE_THREE_CROSSWIND,recovery:STAGE_THREE_RECOVERY,jumpPower:STAGE_THREE_JUMP,guideItems:STAGE_THREE_GUIDE,
             name:{zhs:'晶谷回旋',zht:'晶谷迴旋',ja:'晶谷の旋回',en:'Crystal Valley Turn'},
             tagline:{zhs:'观察预告，判断横风方向',zht:'觀察預告，判斷橫風方向',ja:'予告を見て横風の向きを判断しよう',en:'Watch the cue and judge the crosswind direction'},
             titleTheme:'crystal',
             description:{zhs:'观察周期横风并判断偏移落点。接住低概率出现的跃风芽可储存1次跃起，用↑、W、空格或触屏跃起键主动取得高处落物。',zht:'觀察週期橫風並判斷偏移落點。接住低機率出現的躍風芽可儲存1次躍起，用↑、W、空白鍵或觸屏躍起鍵主動取得高處落物。',ja:'周期横風による着地点のずれを読もう。まれに現れる跳風の芽を集めるとジャンプを1回ためられ、↑・W・Spaceまたはタッチボタンで高い落下物を取りに行けます。',en:'Read the shifting landing points in the periodic crosswind. Catch the rare Wind Sprout to store one leap, then use Up, W, Space or the touch leap button to reach a high drop.'}
         },
         {
-            id:'starwind-confluence',number:4,status:'playable',mechanics:'confluence',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_FOUR_SPAWN,dropTuning:STAGE_FOUR_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_FOUR_AIRFLOW,crosswind:STAGE_FOUR_CROSSWIND,confluence:STAGE_FOUR_CONFLUENCE,recovery:STAGE_FOUR_RECOVERY,jumpPower:STAGE_FOUR_JUMP,
+            id:'starwind-confluence',number:4,status:'playable',mechanics:'confluence',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_FOUR_SPAWN,dropTuning:STAGE_FOUR_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_FOUR_AIRFLOW,crosswind:STAGE_FOUR_CROSSWIND,confluence:STAGE_FOUR_CONFLUENCE,recovery:STAGE_FOUR_RECOVERY,jumpPower:STAGE_FOUR_JUMP,guideItems:STAGE_FOUR_GUIDE,
             name:{zhs:'星风汇流',zht:'星風匯流',ja:'星風の合流',en:'Starwind Confluence'},
             tagline:{zhs:'连续接取，迎接最终汇流',zht:'連續接取，迎接最終匯流',ja:'連続キャッチで最後の合流へ',en:'Build a catch chain through the final confluence'},
             titleTheme:'starwind',
