@@ -4,7 +4,7 @@
 
     var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
     var runtimeBase=window.DANBO_FALLING_CATCH_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/falling-catch/');
-    var assetVersion='v=0.4.11';
+    var assetVersion='v=0.4.12';
     window.DANBO_FALLING_CATCH_BASE_URL=runtimeBase;
 
     function ensureStyle(){
@@ -23,7 +23,7 @@
 
     window.DANBO_PLUGIN_HOST.register({
         id:'falling-catch',
-        version:'0.4.11',
+        version:'0.4.12',
         name:{zhs:'风中取物',zht:'風中取物',ja:'風の中でキャッチ',en:'Catching in the Wind'},
         description:{
             zhs:'移动头顶采集篮接取蛋宝世界的自然落物并避开障碍，在三次机会内完成30秒挑战。',
@@ -45,6 +45,7 @@
                 if(typeof window.DANBO_GET_CHARACTER_PORTRAIT==='function')characterPortrait=window.DANBO_GET_CHARACTER_PORTRAIT(ctx.character&&ctx.character.id);
             }catch(error){console.warn('[falling-catch] selected traveler portrait unavailable',error);}
             var rules=window.DanboFallingCatchRules.create({baseUrl:runtimeBase,assetVersion:assetVersion,forceFallback:!!opts.forceFallback});
+            var pluginAudio=window.DanboFallingCatchAudio&&typeof window.DanboFallingCatchAudio.create==='function'?window.DanboFallingCatchAudio.create({assetBase:runtimeBase,assetVersion:assetVersion}):null;
             var game=window.DanboFallingCatch.create({
                 mount:ctx.mount,
                 rules:rules,
@@ -62,7 +63,7 @@
                 durationMs:opts.durationMs,
                 targetScore:opts.targetScore,
                 lives:opts.lives,
-                play:function(name){if(ctx.api&&ctx.api.play)ctx.api.play(name);},
+                play:function(name){if(pluginAudio&&pluginAudio.play(name))return;if(ctx.api&&ctx.api.play)ctx.api.play(name);},
                 onEvent:function(type,payload){
                     if(type==='start'&&ctx.net)ctx.net.send('minigame.startIntent',{pluginId:ctx.pluginId,characterId:ctx.character&&ctx.character.id,mode:'single',rules:'falling-catch-mvp',payload:payload||{}});
                 },
@@ -73,7 +74,7 @@
             });
             return {
                 update:function(){},
-                destroy:function(){if(game&&game.destroy)game.destroy();}
+                destroy:function(){if(game&&game.destroy)game.destroy();if(pluginAudio&&pluginAudio.destroy)pluginAudio.destroy();}
             };
         }
     });
