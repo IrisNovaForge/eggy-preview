@@ -55,6 +55,14 @@
     var STAGE_FOUR_CONFLUENCE=Object.freeze({
         gatherDuration:4,alternateDuration:6,comboEvery:3,comboBonus:1
     });
+    function windSprout(maxPerRound,minElapsed,firstLatest,maxElapsed){return Object.freeze({
+        kind:'wind-sprout',maxPerRound:maxPerRound,maxCharges:1,
+        minElapsed:minElapsed,firstLatest:firstLatest,maxElapsed:maxElapsed,cooldown:8,rescheduleJitter:2,
+        minX:9,maxX:91,safeObstacleGap:14,fallSpeed:20,
+        jumpDuration:.75,jumpHeight:10,catchBox:HEAD_BASKET_CATCH
+    });}
+    var STAGE_THREE_JUMP=windSprout(1,7,14,18);
+    var STAGE_FOUR_JUMP=windSprout(2,5,10,24);
 
     var LEVELS=[
         {
@@ -77,18 +85,18 @@
             description:{zhs:'左右移动头顶采集篮，判断斜向落物的路线；轻盈的自然物进入风丘上升气流后会短暂上浮并改变轨迹。',zht:'左右移動頭頂採集籃，判斷斜向落物的路線；輕盈的自然物進入風丘上升氣流後會短暫上浮並改變軌跡。',ja:'頭上のかごを左右に動かし、斜めに落ちる自然物を集めよう。軽い自然物は上昇気流で一度浮かび、軌道が変わります。',en:'Move the overhead basket left and right to read diagonal paths. Light natural objects briefly rise and change course inside the hill updraft.'}
         },
         {
-            id:'crystal-valley-turn',number:3,status:'playable',mechanics:'crosswind',rules:SHARED_RULES,spawnDistribution:STAGE_THREE_SPAWN,dropTuning:STAGE_THREE_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,crosswind:STAGE_THREE_CROSSWIND,recovery:STAGE_THREE_RECOVERY,
+            id:'crystal-valley-turn',number:3,status:'playable',mechanics:'crosswind',rules:SHARED_RULES,spawnDistribution:STAGE_THREE_SPAWN,dropTuning:STAGE_THREE_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,crosswind:STAGE_THREE_CROSSWIND,recovery:STAGE_THREE_RECOVERY,jumpPower:STAGE_THREE_JUMP,
             name:{zhs:'晶谷回旋',zht:'晶谷迴旋',ja:'晶谷の旋回',en:'Crystal Valley Turn'},
             tagline:{zhs:'观察预告，判断横风方向',zht:'觀察預告，判斷橫風方向',ja:'予告を見て横風の向きを判断しよう',en:'Watch the cue and judge the crosswind direction'},
             titleTheme:'crystal',
-            description:{zhs:'观察风向预告，在左右交替的周期横风中判断目标物和障碍物不断偏移的落点。',zht:'觀察風向預告，在左右交替的週期橫風中判斷目標物和障礙物不斷偏移的落點。',ja:'風向きの予告を見て、左右交互に吹く横風でずれる落下物と障害物の着地点を読もう。',en:'Watch the direction cue and read the shifting landing points of collectibles and hazards in alternating crosswinds.'}
+            description:{zhs:'观察周期横风并判断偏移落点。接住低概率出现的跃风芽可储存1次跃起，用↑、W、空格或触屏跃起键主动取得高处落物。',zht:'觀察週期橫風並判斷偏移落點。接住低機率出現的躍風芽可儲存1次躍起，用↑、W、空白鍵或觸屏躍起鍵主動取得高處落物。',ja:'周期横風による着地点のずれを読もう。まれに現れる跳風の芽を集めるとジャンプを1回ためられ、↑・W・Spaceまたはタッチボタンで高い落下物を取りに行けます。',en:'Read the shifting landing points in the periodic crosswind. Catch the rare Wind Sprout to store one leap, then use Up, W, Space or the touch leap button to reach a high drop.'}
         },
         {
-            id:'starwind-confluence',number:4,status:'playable',mechanics:'confluence',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_FOUR_SPAWN,dropTuning:STAGE_FOUR_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_FOUR_AIRFLOW,crosswind:STAGE_FOUR_CROSSWIND,confluence:STAGE_FOUR_CONFLUENCE,recovery:STAGE_FOUR_RECOVERY,
+            id:'starwind-confluence',number:4,status:'playable',mechanics:'confluence',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_FOUR_SPAWN,dropTuning:STAGE_FOUR_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_FOUR_AIRFLOW,crosswind:STAGE_FOUR_CROSSWIND,confluence:STAGE_FOUR_CONFLUENCE,recovery:STAGE_FOUR_RECOVERY,jumpPower:STAGE_FOUR_JUMP,
             name:{zhs:'星风汇流',zht:'星風匯流',ja:'星風の合流',en:'Starwind Confluence'},
             tagline:{zhs:'连续接取，迎接最终汇流',zht:'連續接取，迎接最終匯流',ja:'連続キャッチで最後の合流へ',en:'Build a catch chain through the final confluence'},
             titleTheme:'starwind',
-            description:{zhs:'在分散落物、上升气流和周期横风逐步汇合的最终挑战中连续接取；每连续接到3个目标物可获得1分奖励。',zht:'在分散落物、上升氣流和週期橫風逐步匯合的最終挑戰中連續接取；每連續接到3個目標物可獲得1分獎勵。',ja:'分散落下、上昇気流、周期横風が段階的に合流する最終チャレンジ。3個連続で集めるたびに1点ボーナス。',en:'Face a final challenge where distributed drops, updrafts and periodic crosswinds converge in stages. Every three catches in a row awards one bonus point.'}
+            description:{zhs:'在落物、气流和横风汇合的最终挑战中连续接取；每连续接到3个目标物可获得1分奖励。本关最多出现2次跃风芽，每次可储存1次主动跃起。',zht:'在落物、氣流和橫風匯合的最終挑戰中連續接取；每連續接到3個目標物可獲得1分獎勵。本關最多出現2次躍風芽，每次可儲存1次主動躍起。',ja:'落下物・上昇気流・横風が合流する最終チャレンジ。3個連続で1点ボーナス。このステージでは跳風の芽が最大2回現れ、それぞれジャンプを1回ためられます。',en:'Face the final convergence of drops, updrafts and crosswinds. Every three catches awards one bonus point. Up to two Wind Sprouts appear, each storing one manual leap.'}
         }
     ];
 

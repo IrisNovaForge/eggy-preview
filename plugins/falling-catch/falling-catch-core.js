@@ -8,7 +8,7 @@
             ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',glimmerAppears:'蛋壳微光出现了！',lifeRestored:'蛋壳微光 +1机会',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'星风汇流！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
             level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与星风汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试',
-            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'四个关卡均可独立试玩',touchMove:'左右拖动风芽摇杆'
+            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'四个关卡均可独立试玩',touchMove:'左右拖动风芽摇杆',windSproutAppears:'跃风芽出现了！',windSproutStored:'跃风已经储存',jumpLabel:'跃风',jumpAction:'跃起'
         },
         zht:{
             title:'風野拾集',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。',
@@ -16,7 +16,7 @@
             ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',glimmerAppears:'蛋殼微光出現了！',lifeRestored:'蛋殼微光 +1機會',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'星風匯流！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
             level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與星風匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試',
-            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'四個關卡均可獨立試玩',touchMove:'左右拖動風芽搖桿'
+            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'四個關卡均可獨立試玩',touchMove:'左右拖動風芽搖桿',windSproutAppears:'躍風芽出現了！',windSproutStored:'躍風已經儲存',jumpLabel:'躍風',jumpAction:'躍起'
         },
         ja:{
             title:'風のフィールド',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、風香草の葉、森ベリー、金穂の種を集めながら苔むした風化石をよけよう。',
@@ -24,7 +24,7 @@
             ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',glimmerAppears:'卵殻の微光が現れた！',lifeRestored:'卵殻の微光 +1チャンス',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
             level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'風のフィールドから星風の合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト',
-            titleIntro:'旅人と四つの風のフィールドへ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'4ステージを個別に試せます',touchMove:'風芽スティックを左右へ'
+            titleIntro:'旅人と四つの風のフィールドへ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'4ステージを個別に試せます',touchMove:'風芽スティックを左右へ',windSproutAppears:'跳風の芽が現れた！',windSproutStored:'跳風をためました',jumpLabel:'跳風',jumpAction:'ジャンプ'
         },
         en:{
             title:'Breezy Harvest',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, gather wind herbs, grove berries and golden grain seeds, and avoid mossy weathered stones.',
@@ -32,7 +32,7 @@
             ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',glimmerAppears:'Eggshell Glimmer appeared!',lifeRestored:'Eggshell Glimmer +1 chance',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
             level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Breezy Harvest through Starwind Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test',
-            titleIntro:'Travel through four wind fields and gather nature gifts in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'All four stages are open for direct play',touchMove:'Slide the wind-bud stick sideways'
+            titleIntro:'Travel through four wind fields and gather nature gifts in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'All four stages are open for direct play',touchMove:'Slide the wind-bud stick sideways',windSproutAppears:'Wind Sprout appeared!',windSproutStored:'Wind leap stored',jumpLabel:'Wind leap',jumpAction:'Leap'
         }
     };
 
@@ -93,7 +93,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.1');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.2');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -110,6 +110,7 @@
         var objects=[],bursts=[];
         var spawnState={lastZone:-1,lastX:null,lastObstacle:false,hasSpawned:false,lastSide:null,sideRemaining:0};
         var recoveryState={elapsed:0,state:'waiting',delay:0,cooldown:0,count:0};
+        var jumpState={elapsed:0,state:'off',nextAt:null,count:0,charge:0,airborne:false,jumpElapsed:0,offsetY:0};
         var crosswindState={phase:'off',direction:1,remaining:0,cycle:0};
         var confluenceState={phase:'off',elapsed:0};
         var comboState={streak:0,best:0,awards:0};
@@ -176,6 +177,8 @@
         var notice=make('div','dfc-notice');stage.appendChild(notice);
         var confluenceStatus=make('div','dfc-confluence-status');
         var confluencePhaseValue=make('span','','');var comboValue=make('strong','','');confluenceStatus.appendChild(confluencePhaseValue);confluenceStatus.appendChild(comboValue);stage.appendChild(confluenceStatus);
+        var jumpStatus=make('div','dfc-jump-status');var jumpStatusLabel=make('span','',text.jumpLabel);var jumpStatusValue=make('strong','','×0');jumpStatus.appendChild(jumpStatusLabel);jumpStatus.appendChild(jumpStatusValue);stage.appendChild(jumpStatus);
+        var jumpButton=make('button','dfc-jump-button',text.jumpAction);jumpButton.type='button';jumpButton.hidden=true;jumpButton.disabled=true;jumpButton.setAttribute('aria-label',text.jumpAction);stage.appendChild(jumpButton);
 
         var overlay=make('div','dfc-overlay');
         var card=make('div','dfc-card');overlay.appendChild(card);stage.appendChild(overlay);
@@ -204,6 +207,7 @@
         function snapshot(){
             var state=rules.snapshot();
             state.levelId=currentLevel.id;state.levelNumber=currentLevel.number||currentLevelIndex+1;state.totalLevels=levels.length;
+            state.jumpCharge=jumpState.charge;state.airborne=jumpState.airborne;state.jumpOffsetY=jumpState.offsetY;
             return state;
         }
         function updateLevelPresentation(){
@@ -224,13 +228,19 @@
             var lifeText=[];for(var i=0;i<startingLives;i++)lifeText.push(i<shownLives?'●':'○');
             livesValue.textContent=lifeText.join(' ');
             livesBox.classList.toggle('dfc-danger',shownLives===1);
-            updateConfluenceStatus();
+            updateConfluenceStatus();updateJumpUI();
         }
         function confluencePhaseText(){return confluenceState.phase==='gather'?text.phaseGather:(confluenceState.phase==='alternate'?text.phaseAlternate:text.phaseConverge);}
         function updateConfluenceStatus(){
             var visible=!!(currentLevel.confluence&&phase==='running');
             confluenceStatus.classList.toggle('dfc-show',visible);
             if(visible){confluencePhaseValue.textContent=confluencePhaseText();comboValue.textContent=format(text.chain,{count:comboState.streak});}
+        }
+        function updateJumpUI(){
+            var available=!!(currentLevel.jumpPower&&phase==='running'),touchAction=available&&(localTouchCapable||touchControlsVisible);
+            jumpStatus.classList.toggle('dfc-show',available);jumpStatusValue.textContent='×'+jumpState.charge;
+            jumpButton.hidden=!touchAction;jumpButton.disabled=!available||jumpState.charge<=0||jumpState.airborne;
+            jumpButton.classList.toggle('dfc-ready',!jumpButton.disabled);root.dataset.jumpCharge=String(jumpState.charge);root.dataset.airborne=jumpState.airborne?'true':'false';
         }
         function showNotice(message,tone){
             notice.textContent=message;
@@ -247,6 +257,7 @@
         function nextSpawnDelay(){var tuning=dropTuning();return tunedRange(tuning.spawnDelayMin,tuning.spawnDelayMax,.48,.90);}
         function resetSpawnState(){spawnState.lastZone=-1;spawnState.lastX=null;spawnState.lastObstacle=false;spawnState.hasSpawned=false;spawnState.lastSide=null;spawnState.sideRemaining=0;}
         function resetRecoveryState(){recoveryState.elapsed=0;recoveryState.state='waiting';recoveryState.delay=0;recoveryState.cooldown=0;recoveryState.count=0;}
+        function resetJumpState(){jumpState.elapsed=0;jumpState.state=currentLevel.jumpPower?'waiting':'off';jumpState.nextAt=null;jumpState.count=0;jumpState.charge=0;jumpState.airborne=false;jumpState.jumpElapsed=0;jumpState.offsetY=0;updateJumpUI();}
         function resetCollectorMotion(){
             collectorMotion.velocity=0;collectorMotion.moveAmount=0;collectorMotion.gaitPhase=0;collectorMotion.input=0;collectorMotion.facing=1;
             collectorMotion.startPulse=0;collectorMotion.stopPulse=0;collectorMotion.turnPulse=0;collectorMotion.turnDirection=0;
@@ -469,13 +480,55 @@
                 recoveryState.delay-=dt;if(recoveryState.delay<=0)spawnRecovery();
             }
         }
+        function scheduleJumpPower(initial){
+            var config=currentLevel.jumpPower;if(!config)return false;
+            var maxPerRound=Math.max(1,Number(config.maxPerRound)||1),maxElapsed=Math.max(0,Number(config.maxElapsed)||24);if(jumpState.count>=maxPerRound){jumpState.state='done';return false;}
+            var earliest,latest;
+            if(initial){earliest=Math.max(0,Number(config.minElapsed)||5);latest=Math.max(earliest,Number(config.firstLatest)||earliest);}
+            else{earliest=jumpState.elapsed+Math.max(0,Number(config.cooldown)||8);latest=earliest+Math.max(0,Number(config.rescheduleJitter)||2);}
+            latest=Math.min(maxElapsed,latest);if(earliest>maxElapsed){jumpState.state='done';return false;}
+            jumpState.nextAt=earliest+random()*(latest-earliest);jumpState.state='waiting';return true;
+        }
+        function spawnJumpPower(){
+            var config=currentLevel.jumpPower,maxPerRound=Math.max(1,Number(config&&config.maxPerRound)||1);if(!config||jumpState.count>=maxPerRound){jumpState.state='done';return false;}
+            var item={type:'jump-power',kind:config.kind||'wind-sprout',presentationKind:config.kind||'wind-sprout',x:recoverySpawnX(config),y:-7,radius:2.25,vy:Number(config.fallSpeed)||20,drift:0,turn:.7,rotation:random()*Math.PI*2,age:0,floatPhase:random()*Math.PI*2,airflowEligible:false,airflowState:'immune',airflowTimer:0,lastCrosswindCycle:-1};
+            objects.push(item);jumpState.count++;jumpState.state='falling';jumpState.nextAt=null;showNotice(text.windSproutAppears,'dfc-good');
+            if(typeof options.onEvent==='function'){options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,presentationKind:item.presentationKind,x:item.x,zone:-1,drift:0,fallSpeed:item.vy,visualScale:1,collisionRadius:item.radius,airflowEligible:false});options.onEvent('jumpPowerSpawn',{levelId:currentLevel.id,kind:item.kind,x:item.x,count:jumpState.count});}return true;
+        }
+        function completeJumpPowerDrop(caught,item){
+            var config=currentLevel.jumpPower,maxPerRound=Math.max(1,Number(config&&config.maxPerRound)||1);
+            if(caught){jumpState.charge=Math.min(Math.max(1,Number(config&&config.maxCharges)||1),jumpState.charge+1);jumpState.state='stored';jumpState.nextAt=null;showNotice(text.windSproutStored,'dfc-good');play('confirm');}
+            else{jumpState.state=jumpState.count>=maxPerRound?'done':'waiting';jumpState.nextAt=null;}
+            updateJumpUI();
+            if(typeof options.onEvent==='function')options.onEvent(caught?'jumpPowerCollect':'jumpPowerMiss',{levelId:currentLevel.id,kind:item.kind,count:jumpState.count,charge:jumpState.charge});
+        }
+        function triggerJump(source){
+            var config=currentLevel.jumpPower;if(phase!=='running'||!config||jumpState.charge<=0||jumpState.airborne)return false;
+            jumpState.charge--;jumpState.airborne=true;jumpState.jumpElapsed=0;jumpState.offsetY=0;jumpState.state=jumpState.count>=Math.max(1,Number(config.maxPerRound)||1)?'done':'waiting';jumpState.nextAt=null;updateJumpUI();play('confirm');
+            if(typeof options.onEvent==='function')options.onEvent('jumpStart',{levelId:currentLevel.id,source:source||'api',charge:jumpState.charge,duration:Number(config.jumpDuration)||.75,height:Number(config.jumpHeight)||10});return true;
+        }
+        function updateJumpPower(dt){
+            var config=currentLevel.jumpPower;if(!config)return;
+            if(externalInput&&typeof externalInput.consumeAction==='function'){try{if(externalInput.consumeAction('jump'))triggerJump('external');}catch(error){}}
+            jumpState.elapsed+=dt;
+            if(jumpState.airborne){
+                var duration=Math.max(.2,Number(config.jumpDuration)||.75),height=Math.max(1,Number(config.jumpHeight)||10);jumpState.jumpElapsed+=dt;
+                var progress=clamp(jumpState.jumpElapsed/duration,0,1);jumpState.offsetY=-height*Math.sin(Math.PI*progress);
+                if(progress>=1){jumpState.airborne=false;jumpState.jumpElapsed=0;jumpState.offsetY=0;updateJumpUI();if(typeof options.onEvent==='function')options.onEvent('jumpLand',{levelId:currentLevel.id,charge:jumpState.charge});}
+            }
+            if(jumpState.state==='falling'||jumpState.state==='stored'||jumpState.state==='done'||jumpState.charge>0)return;
+            if(jumpState.nextAt===null&&!scheduleJumpPower(jumpState.count===0))return;
+            if(jumpState.elapsed>=jumpState.nextAt)spawnJumpPower();
+        }
+        function collectorY(){return player.y+jumpState.offsetY;}
+        function jumpMotionSnapshot(){return {enabled:!!currentLevel.jumpPower,state:jumpState.state,count:jumpState.count,charge:jumpState.charge,airborne:jumpState.airborne,elapsed:jumpState.jumpElapsed,offsetY:jumpState.offsetY,nextAt:jumpState.nextAt};}
         function insideAirflow(item,airflow){
             return item.x>=airflow.centerX-airflow.halfWidth&&item.x<=airflow.centerX+airflow.halfWidth&&item.y>=airflow.top&&item.y<=airflow.bottom;
         }
         function moveObject(item,dt){
             var airflow=currentLevel.airflow,crosswind=currentLevel.crosswind,verticalSpeed=item.vy,horizontalSpeed=item.drift;
-            if(item.type==='recovery'){
-                item.age=(item.age||0)+dt;horizontalSpeed=Math.sin(item.age*2.15+item.floatPhase)*.72;item.y+=verticalSpeed*dt*(worldHeight/62);item.x+=horizontalSpeed*dt;item.rotation+=item.turn*dt;return;
+            if(item.type==='recovery'||item.type==='jump-power'){
+                item.age=(item.age||0)+dt;horizontalSpeed=Math.sin(item.age*2.15+item.floatPhase)*(item.type==='jump-power'?0.52:0.72);item.y+=verticalSpeed*dt*(worldHeight/62);item.x+=horizontalSpeed*dt;item.rotation+=item.turn*dt;return;
             }
             if(airflow&&airflowEnabled()&&item.airflowEligible&&item.airflowState==='ready'&&insideAirflow(item,airflow)){
                 item.airflowState='lifting';item.airflowTimer=Number(airflow.liftDuration)||.55;
@@ -497,21 +550,27 @@
             item.y+=verticalSpeed*dt*(worldHeight/62);item.x+=horizontalSpeed*dt;item.rotation+=item.turn*dt;
         }
         function circleRectHit(item){
-            var left=player.x-player.w/2,right=player.x+player.w/2,top=player.y-player.h/2,bottom=player.y+player.h/2;
+            var centerY=collectorY(),left=player.x-player.w/2,right=player.x+player.w/2,top=centerY-player.h/2,bottom=centerY+player.h/2;
             var nearX=clamp(item.x,left,right),nearY=clamp(item.y,top,bottom);
             var dx=item.x-nearX,dy=item.y-nearY;
             return dx*dx+dy*dy<=item.radius*item.radius;
         }
         function targetHit(item){
-            var box=currentLevel.targetCatchBox;
+            var box=currentLevel.targetCatchBox||(jumpState.airborne&&currentLevel.jumpPower&&currentLevel.jumpPower.catchBox);
             if(!box)return circleRectHit(item);
-            return item.x>=player.x-box.halfWidth&&item.x<=player.x+box.halfWidth&&item.y>=player.y+box.topOffset&&item.y<=player.y+box.bottomOffset;
+            var centerY=collectorY();return item.x>=player.x-box.halfWidth&&item.x<=player.x+box.halfWidth&&item.y>=centerY+box.topOffset&&item.y<=centerY+box.bottomOffset;
+        }
+        function jumpPowerHit(item){
+            var box=currentLevel.jumpPower&&currentLevel.jumpPower.catchBox;if(!box)return targetHit(item);
+            var centerY=collectorY();return item.x>=player.x-box.halfWidth&&item.x<=player.x+box.halfWidth&&item.y>=centerY+box.topOffset&&item.y<=centerY+box.bottomOffset;
         }
         function addBurst(item,label,color){
             bursts.push({x:item.x,y:item.y,label:label,color:color,life:1});
         }
         function handleObject(item){
-            if(item.type==='recovery'){
+            if(item.type==='jump-power'){
+                completeJumpPowerDrop(true,item);addBurst(item,'↑','#dfffe0');
+            }else if(item.type==='recovery'){
                 var before=rules.lives(),cap=Math.max(1,Number(currentLevel.recovery&&currentLevel.recovery.maxLives)||3);rules.restore(1,cap);completeRecoveryAttempt();
                 addBurst(item,'+1','#fff4c7');showNotice(text.lifeRestored,'dfc-good');play('confirm');
                 if(typeof options.onEvent==='function')options.onEvent('recoveryCollect',{levelId:currentLevel.id,kind:item.kind,before:before,lives:rules.lives(),cap:cap});
@@ -538,14 +597,15 @@
             player.x=clamp(player.x,player.w/2+1,100-player.w/2-1);
             var traveled=dt>0?(player.x-previousX)/(player.speed*dt):0;updateCollectorMotion(traveled,dt);
             if(currentLevel.confluence)updateConfluence(dt);else updateCrosswind(dt);
-            updateRecovery(dt);
+            updateRecovery(dt);updateJumpPower(dt);
             spawnClock-=dt;
             if(spawnClock<=0){spawnObject();spawnClock=nextSpawnDelay();}
             for(var i=objects.length-1;i>=0;i--){
                 var item=objects[i];moveObject(item,dt);
                 if(item.x<item.radius||item.x>100-item.radius)item.drift*=-1;
-                if(item.type==='obstacle'?circleRectHit(item):targetHit(item)){objects.splice(i,1);handleObject(item);if(phase!=='running')break;continue;}
-                if(item.y>worldHeight+6){if(item.type==='target')breakCombo('miss');if(item.type==='recovery'){completeRecoveryAttempt();if(typeof options.onEvent==='function')options.onEvent('recoveryMiss',{levelId:currentLevel.id,kind:item.kind,count:recoveryState.count});}objects.splice(i,1);}
+                var objectHit=item.type==='obstacle'?circleRectHit(item):(item.type==='jump-power'?jumpPowerHit(item):targetHit(item));
+                if(objectHit){objects.splice(i,1);handleObject(item);if(phase!=='running')break;continue;}
+                if(item.y>worldHeight+6){if(item.type==='target')breakCombo('miss');if(item.type==='recovery'){completeRecoveryAttempt();if(typeof options.onEvent==='function')options.onEvent('recoveryMiss',{levelId:currentLevel.id,kind:item.kind,count:recoveryState.count});}if(item.type==='jump-power')completeJumpPowerDrop(false,item);objects.splice(i,1);}
             }
             for(var b=bursts.length-1;b>=0;b--){bursts[b].life-=dt*1.6;bursts[b].y-=dt*5;if(bursts[b].life<=0)bursts.splice(b,1);}
             if(phase==='running'){
@@ -680,6 +740,16 @@
             context.fillStyle='rgba(255,247,174,.78)';for(var i=0;i<3;i++){var angle=item.rotation+i*Math.PI*2/3;context.beginPath();context.arc(Math.cos(angle)*(3.45+i*.1),Math.sin(angle)*(2.7+i*.12),.28-i*.035,0,Math.PI*2);context.fill();}
             context.restore();
         }
+        function drawWindSprout(item){
+            var pulse=.96+Math.sin(performance.now()/210+item.floatPhase)*.06;
+            context.save();context.translate(item.x,item.y);context.rotate(Math.sin(item.rotation*.55)*.14);context.scale(pulse,pulse);
+            var aura=context.createRadialGradient(0,0,.3,0,0,5);aura.addColorStop(0,'rgba(226,255,226,.68)');aura.addColorStop(.5,'rgba(157,229,196,.26)');aura.addColorStop(1,'rgba(112,205,178,0)');context.fillStyle=aura;context.beginPath();context.arc(0,0,5,0,Math.PI*2);context.fill();
+            var seed=context.createLinearGradient(-2,-2.8,2,3);seed.addColorStop(0,'#ecf7bd');seed.addColorStop(.56,'#9edca7');seed.addColorStop(1,'#68b58c');context.fillStyle=seed;context.beginPath();context.moveTo(0,-3.25);context.bezierCurveTo(2.65,-1.8,2.75,1.35,0,3.15);context.bezierCurveTo(-2.75,1.35,-2.65,-1.8,0,-3.25);context.fill();
+            context.fillStyle='rgba(255,255,226,.78)';context.beginPath();context.moveTo(0,1.95);context.bezierCurveTo(-.72,.7,-.7,-.35,0,-1.55);context.bezierCurveTo(.7,-.35,.72,.7,0,1.95);context.fill();
+            context.fillStyle='#75c59a';context.beginPath();context.moveTo(-.1,-2.55);context.bezierCurveTo(-2.05,-3.65,-3.05,-2.7,-2.48,-1.25);context.bezierCurveTo(-1.2,-1.2,-.45,-1.7,-.1,-2.55);context.fill();context.beginPath();context.moveTo(.1,-2.55);context.bezierCurveTo(2.05,-3.65,3.05,-2.7,2.48,-1.25);context.bezierCurveTo(1.2,-1.2,.45,-1.7,.1,-2.55);context.fill();
+            context.fillStyle='rgba(247,255,208,.78)';for(var i=0;i<3;i++){var angle=item.rotation+i*Math.PI*2/3;context.beginPath();context.arc(Math.cos(angle)*(3.15+i*.12),Math.sin(angle)*(2.55+i*.08),.25-i*.035,0,Math.PI*2);context.fill();}
+            context.restore();
+        }
         function drawFallbackTraveler(bob){
             var body=canvasColor(traveler.color,'#bfe8a0'),accent=canvasColor(traveler.accent,'#8fd16a');
             context.save();context.translate(0,bob-6.8);
@@ -695,18 +765,19 @@
             return {x:pose.bodyX+x*cosine-y*sine,y:pose.bodyY+x*sine+y*cosine};
         }
         function drawCollectorSteps(pose){
-            if(phase!=='running'||pose.move<.08)return;
+            if(phase!=='running'||pose.move<.08||jumpState.airborne)return;
             context.save();context.globalAlpha=.12+.2*pose.move;context.fillStyle=canvasColor(traveler.accent,'#8fd16a');
             var trail=-pose.facing,offset=(collectorMotion.gaitPhase%1)*1.2;
             for(var i=0;i<3;i++){var x=trail*(5.8+i*2.05+offset*.65),size=1.05-i*.2;context.beginPath();context.ellipse(x,3.45-i*.18,size,.42,0,0,Math.PI*2);context.fill();}
             context.restore();
         }
         function drawTravelerCollector(){
-            var pose=collectorPose(),basketOffsetY=Number(currentLevel.basketOffsetY)||0;
+            var pose=collectorPose(),basketOffsetY=Number(currentLevel.basketOffsetY)||0,jumpRatio=currentLevel.jumpPower?Math.min(1,Math.abs(jumpState.offsetY)/(Number(currentLevel.jumpPower.jumpHeight)||10)):0;
             context.save();context.translate(player.x,player.y);
             context.translate(0,4.4);context.scale(PLAYER_RENDER_SCALE,PLAYER_RENDER_SCALE);context.translate(0,-4.4);
             drawCollectorSteps(pose);
-            context.save();context.translate(0,4.4);context.scale(pose.shadowScaleX,pose.shadowScaleY);context.translate(0,-4.4);context.fillStyle='rgba(41,79,64,.2)';context.beginPath();context.ellipse(0,4.4,8.4,1.45,0,0,Math.PI*2);context.fill();context.restore();
+            context.save();context.globalAlpha=1-jumpRatio*.58;context.translate(0,4.4);context.scale(pose.shadowScaleX*(1-jumpRatio*.3),pose.shadowScaleY*(1-jumpRatio*.18));context.translate(0,-4.4);context.fillStyle='rgba(41,79,64,.2)';context.beginPath();context.ellipse(0,4.4,8.4,1.45,0,0,Math.PI*2);context.fill();context.restore();
+            if(jumpState.offsetY)context.translate(0,jumpState.offsetY/PLAYER_RENDER_SCALE);
             context.save();context.translate(pose.bodyX,pose.bodyY);context.rotate(pose.lean);context.scale(pose.scaleX,pose.scaleY);context.scale(TRAVELER_VISUAL_SCALE,TRAVELER_VISUAL_SCALE);
             context.fillStyle=canvasColor(traveler.accent,'#8fd16a');context.globalAlpha=.16;context.beginPath();context.ellipse(0,-4.7,8.8,8.1,0,0,Math.PI*2);context.fill();context.globalAlpha=1;
             if(simplifiedTraveler){
@@ -740,7 +811,7 @@
             drawAirflow();
             drawCrosswind();
             for(var i=0;i<objects.length;i++){
-                var item=objects[i];drawAirflowAura(item);if(item.kind==='shell-glimmer')drawEggshellGlimmer(item);else if(item.kind==='leaf')drawLeaf(item);else if(item.kind==='berry')drawBerry(item);else if(item.kind==='acorn')drawAcorn(item);else drawStone(item);
+                var item=objects[i];drawAirflowAura(item);if(item.kind==='shell-glimmer')drawEggshellGlimmer(item);else if(item.kind==='wind-sprout')drawWindSprout(item);else if(item.kind==='leaf')drawLeaf(item);else if(item.kind==='berry')drawBerry(item);else if(item.kind==='acorn')drawAcorn(item);else drawStone(item);
             }
             drawTravelerCollector();
             context.textAlign='center';context.textBaseline='middle';context.font='700 2.4px system-ui, sans-serif';
@@ -789,7 +860,7 @@
             var first=grid.querySelector('button');if(first)setTimeout(function(){try{first.focus({preventScroll:true});}catch(error){first.focus();}},0);return true;
         }
         function resetLevelForMenu(reference){
-            applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;resetSpawnState();resetRecoveryState();resetCrosswindState(false);resetConfluenceState(false);resetComboState();resetCollectorMotion();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
+            applyLevel(levelIndex(reference));objects.length=0;bursts.length=0;resetSpawnState();resetRecoveryState();resetJumpState();resetCrosswindState(false);resetConfluenceState(false);resetComboState();resetCollectorMotion();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;
         }
         function buildReady(){
             if(destroyed||phase==='loading')return false;clearStageTitleTimer();phase='ready';setScreen('ready');updateLevelPresentation();card.className='dfc-card dfc-ready-card';card.innerHTML='';
@@ -815,13 +886,13 @@
             clearStageTitleTimer();
             seed=(seed+0x9e3779b9)>>>0;
             rules.reset(seed,durationMs,startingLives,targetScore);
-            objects.length=0;bursts.length=0;resetSpawnState();resetRecoveryState();resetComboState();resetCollectorMotion();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';setScreen('running');resetCrosswindState(!currentLevel.confluence);resetConfluenceState(true);
+            objects.length=0;bursts.length=0;resetSpawnState();resetRecoveryState();resetJumpState();resetComboState();resetCollectorMotion();player.x=50;spawnClock=.32;resultSent=false;lastResult=null;phase='running';setScreen('running');resetCrosswindState(!currentLevel.confluence);resetConfluenceState(true);
             overlay.classList.add('dfc-hidden');if(card.contains(document.activeElement))document.activeElement.blur();updateHud();play('confirm');
             if(typeof options.onEvent==='function')options.onEvent('start',{seed:seed,durationMs:durationMs,targetScore:targetScore,lives:startingLives,rulesMode:rules.mode(),levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length});
         }
         function finishRound(status){
             if(phase!=='running')return;
-            phase='result';setScreen('result');pressed.left=false;pressed.right=false;
+            phase='result';setScreen('result');pressed.left=false;pressed.right=false;jumpState.airborne=false;jumpState.offsetY=0;updateJumpUI();
             updateConfluenceStatus();
             var state=snapshot(),won=status===window.DanboFallingCatchRules.WON;
             var reason=won?(state.score>=targetScore?'target':'timer'):'lives';
@@ -860,7 +931,7 @@
             touchControlsVisible=active&&(externalInput?externalVisible:localTouchCapable);touchJoystick.hidden=!(active&&localTouchCapable);
             root.classList.toggle('dfc-touch-active',touchControlsVisible);root.classList.toggle('dfc-external-touch',active&&externalVisible);root.dataset.touchControl=externalInput?(externalVisible?'external':'external-hidden'):(localTouchCapable?(active?'local':'local-hidden'):'buttons');
             hintLabel.textContent=touchControlsVisible?text.touchMove:text.move;hintKeys.textContent=touchControlsVisible?'': 'A / D · ← / →';
-            if(!active)resetTouchJoystick();
+            if(!active)resetTouchJoystick();updateJumpUI();
         }
         function touchMovement(){
             if(phase!=='running')return 0;var value=externalInput?externalInput.getMoveVector():touchInput;
@@ -895,6 +966,7 @@
         function keydown(event){
             if(phase==='running'&&(event.key==='ArrowLeft'||event.key==='a'||event.key==='A')){pressed.left=true;event.preventDefault();}
             if(phase==='running'&&(event.key==='ArrowRight'||event.key==='d'||event.key==='D')){pressed.right=true;event.preventDefault();}
+            if(phase==='running'&&(event.key==='ArrowUp'||event.key==='w'||event.key==='W'||event.key===' ')){event.preventDefault();triggerJump('keyboard');}
             if(phase!=='running'&&(phase==='title'||phase==='select'||phase==='ready'||phase==='result')){
                 if(event.key==='ArrowLeft'||event.key==='ArrowUp'||event.key==='a'||event.key==='A'||event.key==='w'||event.key==='W'){event.preventDefault();moveMenuFocus(-1);}
                 if(event.key==='ArrowRight'||event.key==='ArrowDown'||event.key==='d'||event.key==='D'||event.key==='s'||event.key==='S'){event.preventDefault();moveMenuFocus(1);}
@@ -913,8 +985,10 @@
             if(event.key==='ArrowLeft'||event.key==='a'||event.key==='A')pressed.left=false;
             if(event.key==='ArrowRight'||event.key==='d'||event.key==='D')pressed.right=false;
         }
+        function jumpButtonPointer(event){event.preventDefault();event.stopPropagation();triggerJump('touch');}
         var unbindLeft=bindHold(leftButton,'left'),unbindRight=bindHold(rightButton,'right');
         touchJoystick.addEventListener('pointerdown',localJoystickPointer);touchJoystick.addEventListener('pointermove',localJoystickPointer);touchJoystick.addEventListener('pointerup',localJoystickPointer);touchJoystick.addEventListener('pointercancel',localJoystickPointer);touchJoystick.addEventListener('lostpointercapture',localJoystickPointer);
+        jumpButton.addEventListener('pointerdown',jumpButtonPointer);
         window.addEventListener('keydown',keydown,{passive:false});window.addEventListener('keyup',keyup);
 
         rules.ready.then(function(){
@@ -928,6 +1002,8 @@
             start:startRound,
             snapshot:snapshot,
             motion:collectorMotionSnapshot,
+            jump:triggerJump,
+            jumpState:jumpMotionSnapshot,
             level:function(){return currentLevel;},
             selectLevel:selectLevel,
             showTitle:showTitle,
@@ -935,7 +1011,7 @@
             screen:function(){return phase;},
             destroy:function(){
                 if(destroyed)return;destroyed=true;cancelAnimationFrame(raf);clearTimeout(showNotice.timer);clearStageTitleTimer();
-                syncTouchControlMode(false);unbindLeft();unbindRight();touchJoystick.removeEventListener('pointerdown',localJoystickPointer);touchJoystick.removeEventListener('pointermove',localJoystickPointer);touchJoystick.removeEventListener('pointerup',localJoystickPointer);touchJoystick.removeEventListener('pointercancel',localJoystickPointer);touchJoystick.removeEventListener('lostpointercapture',localJoystickPointer);window.removeEventListener('keydown',keydown);window.removeEventListener('keyup',keyup);mount.innerHTML='';
+                syncTouchControlMode(false);unbindLeft();unbindRight();touchJoystick.removeEventListener('pointerdown',localJoystickPointer);touchJoystick.removeEventListener('pointermove',localJoystickPointer);touchJoystick.removeEventListener('pointerup',localJoystickPointer);touchJoystick.removeEventListener('pointercancel',localJoystickPointer);touchJoystick.removeEventListener('lostpointercapture',localJoystickPointer);jumpButton.removeEventListener('pointerdown',jumpButtonPointer);window.removeEventListener('keydown',keydown);window.removeEventListener('keyup',keyup);mount.innerHTML='';
             }
         };
     }
