@@ -2,7 +2,8 @@
     'use strict';
 
     var SOUNDS=Object.freeze({
-        'catch-success':Object.freeze({file:'assets/audio/catch-success.wav',volume:.82,poolSize:4})
+        'catch-success':Object.freeze({file:'assets/audio/catch-success.wav',volume:.82,poolSize:4}),
+        'obstacle-hit':Object.freeze({file:'assets/audio/obstacle-hit.wav',volume:.78,poolSize:3})
     });
 
     function create(options){

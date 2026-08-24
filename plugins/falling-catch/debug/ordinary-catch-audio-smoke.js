@@ -11,7 +11,7 @@
         });
         var rules=window.DanboFallingCatchRules.create({forceFallback:true});
         game=window.DanboFallingCatch.create({mount:mount,rules:rules,levels:[level],lang:'en',seed:912,durationMs:4000,targetScore:999,lives:3,character:{id:'herbTraveler'},play:function(name){
-            names.push(name);if(name==='catch-success')setTimeout(function(){try{if(names.filter(function(value){return value==='catch-success';}).length!==1)throw new Error('ordinary catch sound fired more than once');if(names.indexOf('cancel')>=0)throw new Error('ordinary catch incorrectly requested the hazard sound');finish();}catch(error){finish(error);}},0);
+            names.push(name);if(name==='catch-success')setTimeout(function(){try{if(names.filter(function(value){return value==='catch-success';}).length!==1)throw new Error('ordinary catch sound fired more than once');if(names.indexOf('obstacle-hit')>=0)throw new Error('ordinary catch incorrectly requested the obstacle-hit sound');finish();}catch(error){finish(error);}},0);
         }});
         rules.ready.then(function(){game.start();}).catch(finish);
         timer=setTimeout(function(){finish(new Error('Timed out waiting for the deterministic ordinary catch sound event: '+names.join(',')));},3000);
