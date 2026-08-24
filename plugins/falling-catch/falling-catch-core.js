@@ -93,10 +93,10 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.9');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.0');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
-        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:8,maxElapsed:22,delayMin:2,delayMax:4,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
+        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
         var levels=options.levels&&options.levels.length?options.levels.slice():[fallbackLevel];
         var currentLevelIndex=0,currentLevel=levels[0];
         var durationOverride=Number(options.durationMs),targetOverride=Number(options.targetScore),livesOverride=Number(options.lives);
@@ -109,7 +109,7 @@
         var initialScreen=options.initialScreen==='stage-title'?'stage-title':(options.initialScreen==='select'?'select':'title');
         var objects=[],bursts=[];
         var spawnState={lastZone:-1,lastX:null,lastObstacle:false,hasSpawned:false,lastSide:null,sideRemaining:0};
-        var recoveryState={elapsed:0,state:'waiting',delay:0,count:0};
+        var recoveryState={elapsed:0,state:'waiting',delay:0,cooldown:0,count:0};
         var crosswindState={phase:'off',direction:1,remaining:0,cycle:0};
         var confluenceState={phase:'off',elapsed:0};
         var comboState={streak:0,best:0,awards:0};
@@ -244,7 +244,7 @@
         }
         function nextSpawnDelay(){var tuning=dropTuning();return tunedRange(tuning.spawnDelayMin,tuning.spawnDelayMax,.48,.90);}
         function resetSpawnState(){spawnState.lastZone=-1;spawnState.lastX=null;spawnState.lastObstacle=false;spawnState.hasSpawned=false;spawnState.lastSide=null;spawnState.sideRemaining=0;}
-        function resetRecoveryState(){recoveryState.elapsed=0;recoveryState.state='waiting';recoveryState.delay=0;recoveryState.count=0;}
+        function resetRecoveryState(){recoveryState.elapsed=0;recoveryState.state='waiting';recoveryState.delay=0;recoveryState.cooldown=0;recoveryState.count=0;}
         function resetCollectorMotion(){
             collectorMotion.velocity=0;collectorMotion.moveAmount=0;collectorMotion.gaitPhase=0;collectorMotion.input=0;collectorMotion.facing=1;
             collectorMotion.startPulse=0;collectorMotion.stopPulse=0;collectorMotion.turnPulse=0;collectorMotion.turnDirection=0;
@@ -433,20 +433,38 @@
             return best.x;
         }
         function spawnRecovery(){
-            var config=currentLevel.recovery;if(!config||recoveryState.count>=Math.max(1,Number(config.maxPerRound)||1))return false;
+            var config=currentLevel.recovery;if(!config||recoveryState.count>=Math.max(1,Number(config.maxPerRound)||1)){recoveryState.state='done';return false;}
             var item={type:'recovery',kind:config.kind||'shell-glimmer',presentationKind:config.kind||'shell-glimmer',x:recoverySpawnX(config),y:-7,radius:2.35,vy:Number(config.fallSpeed)||18,drift:0,turn:.55,rotation:random()*Math.PI*2,age:0,floatPhase:random()*Math.PI*2,airflowEligible:false,airflowState:'immune',airflowTimer:0,lastCrosswindCycle:-1};
             objects.push(item);recoveryState.count++;recoveryState.state='spawned';showNotice(text.glimmerAppears,'dfc-good');
             if(typeof options.onEvent==='function'){options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,presentationKind:item.presentationKind,x:item.x,zone:-1,drift:0,airflowEligible:false});options.onEvent('recoverySpawn',{levelId:currentLevel.id,kind:item.kind,x:item.x,count:recoveryState.count});}
             return true;
         }
+        function completeRecoveryAttempt(){
+            var config=currentLevel.recovery,maxPerRound=Math.max(1,Number(config&&config.maxPerRound)||1);
+            if(recoveryState.count>=maxPerRound){recoveryState.state='done';recoveryState.cooldown=0;return;}
+            recoveryState.state='cooldown';recoveryState.cooldown=Math.max(0,Number(config&&config.cooldown)||6);
+        }
         function updateRecovery(dt){
-            var config=currentLevel.recovery;if(!config||recoveryState.state==='spawned'||recoveryState.state==='collected'||recoveryState.state==='missed')return;
-            recoveryState.elapsed+=dt;var minElapsed=Math.max(0,Number(config.minElapsed)||8),maxElapsed=Math.max(minElapsed,Number(config.maxElapsed)||22),maxLives=Math.max(1,Number(config.maxLives)||3);
+            var config=currentLevel.recovery;if(!config||recoveryState.state==='done')return;
+            recoveryState.elapsed+=dt;if(recoveryState.state==='spawned')return;
+            var minElapsed=Math.max(0,Number(config.minElapsed)||6),maxElapsed=Math.max(minElapsed,Number(config.maxElapsed)||26),maxLives=Math.max(1,Number(config.maxLives)||3),maxPerRound=Math.max(1,Number(config.maxPerRound)||1);
+            if(recoveryState.count>=maxPerRound){recoveryState.state='done';return;}
+            if(recoveryState.state==='cooldown'){
+                recoveryState.cooldown-=dt;if(recoveryState.cooldown>0)return;recoveryState.cooldown=0;recoveryState.state='waiting';
+            }
             if(recoveryState.state==='waiting'){
                 if(recoveryState.elapsed>maxElapsed)return;
-                if(recoveryState.elapsed>=minElapsed&&rules.lives()<maxLives){var delayMin=Math.max(0,Number(config.delayMin)||2),delayMax=Math.max(delayMin,Number(config.delayMax)||4);recoveryState.delay=delayMin+random()*(delayMax-delayMin);recoveryState.delay=Math.min(recoveryState.delay,Math.max(0,maxElapsed-recoveryState.elapsed));recoveryState.state='queued';}
+                if(recoveryState.elapsed>=minElapsed&&rules.lives()<maxLives){
+                    var delayMin=Math.max(0,Number(config.delayMin)||1.5),delayMax=Math.max(delayMin,Number(config.delayMax)||3);
+                    recoveryState.delay=delayMin+random()*(delayMax-delayMin);
+                    if(rules.lives()<=1){var urgentDelayMax=Math.max(0,Number(config.urgentDelayMax)||1.5);recoveryState.delay=Math.min(recoveryState.delay,urgentDelayMax);}
+                    recoveryState.delay=Math.min(recoveryState.delay,Math.max(0,maxElapsed-recoveryState.elapsed));recoveryState.state='queued';
+                }
             }
-            if(recoveryState.state==='queued'){recoveryState.delay-=dt;if(recoveryState.delay<=0)spawnRecovery();}
+            if(recoveryState.state==='queued'){
+                if(rules.lives()>=maxLives){recoveryState.state='waiting';recoveryState.delay=0;return;}
+                recoveryState.delay-=dt;if(recoveryState.delay<=0)spawnRecovery();
+            }
         }
         function insideAirflow(item,airflow){
             return item.x>=airflow.centerX-airflow.halfWidth&&item.x<=airflow.centerX+airflow.halfWidth&&item.y>=airflow.top&&item.y<=airflow.bottom;
@@ -491,7 +509,7 @@
         }
         function handleObject(item){
             if(item.type==='recovery'){
-                var before=rules.lives(),cap=Math.max(1,Number(currentLevel.recovery&&currentLevel.recovery.maxLives)||3);rules.restore(1,cap);recoveryState.state='collected';
+                var before=rules.lives(),cap=Math.max(1,Number(currentLevel.recovery&&currentLevel.recovery.maxLives)||3);rules.restore(1,cap);completeRecoveryAttempt();
                 addBurst(item,'+1','#fff4c7');showNotice(text.lifeRestored,'dfc-good');play('confirm');
                 if(typeof options.onEvent==='function')options.onEvent('recoveryCollect',{levelId:currentLevel.id,kind:item.kind,before:before,lives:rules.lives(),cap:cap});
             }else if(item.type==='target'){
@@ -524,7 +542,7 @@
                 var item=objects[i];moveObject(item,dt);
                 if(item.x<item.radius||item.x>100-item.radius)item.drift*=-1;
                 if(item.type==='obstacle'?circleRectHit(item):targetHit(item)){objects.splice(i,1);handleObject(item);if(phase!=='running')break;continue;}
-                if(item.y>worldHeight+6){if(item.type==='target')breakCombo('miss');if(item.type==='recovery'){recoveryState.state='missed';if(typeof options.onEvent==='function')options.onEvent('recoveryMiss',{levelId:currentLevel.id,kind:item.kind});}objects.splice(i,1);}
+                if(item.y>worldHeight+6){if(item.type==='target')breakCombo('miss');if(item.type==='recovery'){completeRecoveryAttempt();if(typeof options.onEvent==='function')options.onEvent('recoveryMiss',{levelId:currentLevel.id,kind:item.kind,count:recoveryState.count});}objects.splice(i,1);}
             }
             for(var b=bursts.length-1;b>=0;b--){bursts[b].life-=dt*1.6;bursts[b].y-=dt*5;if(bursts[b].life<=0)bursts.splice(b,1);}
             if(phase==='running'){

@@ -7,11 +7,15 @@
         lives:3
     });
     var HEAD_BASKET_CATCH=Object.freeze({halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'});
-    var EGG_SHELL_GLIMMER=Object.freeze({
-        kind:'shell-glimmer',maxPerRound:1,maxLives:3,
-        minElapsed:8,maxElapsed:22,delayMin:2,delayMax:4,
+    function eggshellGlimmer(maxPerRound,minElapsed,cooldown){return Object.freeze({
+        kind:'shell-glimmer',maxPerRound:maxPerRound,maxLives:3,
+        minElapsed:minElapsed,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:cooldown,
         minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18
-    });
+    });}
+    var STAGE_ONE_RECOVERY=eggshellGlimmer(1,6,8);
+    var STAGE_TWO_RECOVERY=eggshellGlimmer(2,5,7);
+    var STAGE_THREE_RECOVERY=eggshellGlimmer(2,4,6);
+    var STAGE_FOUR_RECOVERY=eggshellGlimmer(3,4,5);
     var STAGE_ONE_SPAWN=Object.freeze({minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true});
     var STAGE_THREE_SPAWN=Object.freeze({minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true});
     var STAGE_FOUR_SPAWN=Object.freeze({minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true});
@@ -54,7 +58,7 @@
 
     var LEVELS=[
         {
-            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,dropTuning:STAGE_ONE_DROPS,objectPresentation:STAGE_ONE_OBJECTS,recovery:EGG_SHELL_GLIMMER,
+            id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,dropTuning:STAGE_ONE_DROPS,objectPresentation:STAGE_ONE_OBJECTS,recovery:STAGE_ONE_RECOVERY,
             name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},
             tagline:{zhs:'收集风香草叶、莓林莓与金穗籽',zht:'收集風香草葉、莓林莓與金穗籽',ja:'風香草の葉、森ベリー、金穂の種を集めよう',en:'Gather wind herbs, grove berries and golden grain seeds'},
             titleTheme:'meadow',
@@ -66,21 +70,21 @@
             }
         },
         {
-            id:'wind-hill-rise',number:2,status:'playable',mechanics:'updraft',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,dropTuning:STAGE_TWO_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_TWO_AIRFLOW,recovery:EGG_SHELL_GLIMMER,
+            id:'wind-hill-rise',number:2,status:'playable',mechanics:'updraft',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,dropTuning:STAGE_TWO_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_TWO_AIRFLOW,recovery:STAGE_TWO_RECOVERY,
             name:{zhs:'风丘跃起',zht:'風丘躍起',ja:'風丘の上昇',en:'Windhill Rise'},
             tagline:{zhs:'留意上升气流改变落点',zht:'留意上升氣流改變落點',ja:'上昇気流による着地点の変化を読もう',en:'Read how the updraft changes each landing point'},
             titleTheme:'updraft',
             description:{zhs:'左右移动头顶采集篮，判断斜向落物的路线；轻盈的自然物进入风丘上升气流后会短暂上浮并改变轨迹。',zht:'左右移動頭頂採集籃，判斷斜向落物的路線；輕盈的自然物進入風丘上升氣流後會短暫上浮並改變軌跡。',ja:'頭上のかごを左右に動かし、斜めに落ちる自然物を集めよう。軽い自然物は上昇気流で一度浮かび、軌道が変わります。',en:'Move the overhead basket left and right to read diagonal paths. Light natural objects briefly rise and change course inside the hill updraft.'}
         },
         {
-            id:'crystal-valley-turn',number:3,status:'playable',mechanics:'crosswind',rules:SHARED_RULES,spawnDistribution:STAGE_THREE_SPAWN,dropTuning:STAGE_THREE_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,crosswind:STAGE_THREE_CROSSWIND,recovery:EGG_SHELL_GLIMMER,
+            id:'crystal-valley-turn',number:3,status:'playable',mechanics:'crosswind',rules:SHARED_RULES,spawnDistribution:STAGE_THREE_SPAWN,dropTuning:STAGE_THREE_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,crosswind:STAGE_THREE_CROSSWIND,recovery:STAGE_THREE_RECOVERY,
             name:{zhs:'晶谷回旋',zht:'晶谷迴旋',ja:'晶谷の旋回',en:'Crystal Valley Turn'},
             tagline:{zhs:'观察预告，判断横风方向',zht:'觀察預告，判斷橫風方向',ja:'予告を見て横風の向きを判断しよう',en:'Watch the cue and judge the crosswind direction'},
             titleTheme:'crystal',
             description:{zhs:'观察风向预告，在左右交替的周期横风中判断目标物和障碍物不断偏移的落点。',zht:'觀察風向預告，在左右交替的週期橫風中判斷目標物和障礙物不斷偏移的落點。',ja:'風向きの予告を見て、左右交互に吹く横風でずれる落下物と障害物の着地点を読もう。',en:'Watch the direction cue and read the shifting landing points of collectibles and hazards in alternating crosswinds.'}
         },
         {
-            id:'starwind-confluence',number:4,status:'playable',mechanics:'confluence',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_FOUR_SPAWN,dropTuning:STAGE_FOUR_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_FOUR_AIRFLOW,crosswind:STAGE_FOUR_CROSSWIND,confluence:STAGE_FOUR_CONFLUENCE,recovery:EGG_SHELL_GLIMMER,
+            id:'starwind-confluence',number:4,status:'playable',mechanics:'confluence',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_FOUR_SPAWN,dropTuning:STAGE_FOUR_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_FOUR_AIRFLOW,crosswind:STAGE_FOUR_CROSSWIND,confluence:STAGE_FOUR_CONFLUENCE,recovery:STAGE_FOUR_RECOVERY,
             name:{zhs:'星风汇流',zht:'星風匯流',ja:'星風の合流',en:'Starwind Confluence'},
             tagline:{zhs:'连续接取，迎接最终汇流',zht:'連續接取，迎接最終匯流',ja:'連続キャッチで最後の合流へ',en:'Build a catch chain through the final confluence'},
             titleTheme:'starwind',
