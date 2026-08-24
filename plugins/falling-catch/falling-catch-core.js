@@ -8,7 +8,7 @@
             ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',glimmerAppears:'蛋壳微光出现了！',lifeRestored:'蛋壳微光 +1机会',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'星风汇流！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
             level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与星风汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试',
-            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'四个关卡均可独立试玩'
+            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'四个关卡均可独立试玩',touchMove:'左右拖动风芽摇杆'
         },
         zht:{
             title:'風野拾集',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。',
@@ -16,7 +16,7 @@
             ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',glimmerAppears:'蛋殼微光出現了！',lifeRestored:'蛋殼微光 +1機會',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'星風匯流！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
             level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與星風匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試',
-            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'四個關卡均可獨立試玩'
+            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'四個關卡均可獨立試玩',touchMove:'左右拖動風芽搖桿'
         },
         ja:{
             title:'風のフィールド',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、風香草の葉、森ベリー、金穂の種を集めながら苔むした風化石をよけよう。',
@@ -24,7 +24,7 @@
             ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',glimmerAppears:'卵殻の微光が現れた！',lifeRestored:'卵殻の微光 +1チャンス',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
             level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'風のフィールドから星風の合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト',
-            titleIntro:'旅人と四つの風のフィールドへ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'4ステージを個別に試せます'
+            titleIntro:'旅人と四つの風のフィールドへ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'4ステージを個別に試せます',touchMove:'風芽スティックを左右へ'
         },
         en:{
             title:'Breezy Harvest',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, gather wind herbs, grove berries and golden grain seeds, and avoid mossy weathered stones.',
@@ -32,7 +32,7 @@
             ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',glimmerAppears:'Eggshell Glimmer appeared!',lifeRestored:'Eggshell Glimmer +1 chance',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
             level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Breezy Harvest through Starwind Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test',
-            titleIntro:'Travel through four wind fields and gather nature gifts in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'All four stages are open for direct play'
+            titleIntro:'Travel through four wind fields and gather nature gifts in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'All four stages are open for direct play',touchMove:'Slide the wind-bud stick sideways'
         }
     };
 
@@ -93,7 +93,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.6');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.7');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:8,maxElapsed:22,delayMin:2,delayMax:4,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.72,berry:.74,acorn:.70,stone:.70},stoneCollisionRadius:2.4},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -101,6 +101,8 @@
         var currentLevelIndex=0,currentLevel=levels[0];
         var durationOverride=Number(options.durationMs),targetOverride=Number(options.targetScore),livesOverride=Number(options.lives);
         var durationMs=30000,targetScore=12,startingLives=3,lastResult=null;
+        var externalInput=options.input&&typeof options.input.getMoveVector==='function'?options.input:null;
+        var localTouchCapable=!externalInput&&(options.forceTouchControls===true||('ontouchstart' in window)||(navigator.maxTouchPoints||0)>0||(window.matchMedia&&window.matchMedia('(pointer:coarse)').matches));
         var initialSeed=(Number(options.seed)>>>0)||((Date.now()^Math.floor(Math.random()*0xffffffff))>>>0);
         var seed=initialSeed;
         var destroyed=false,phase='loading',raf=0,lastFrame=0,spawnClock=0,resultSent=false,stageTitleTimer=0;
@@ -112,6 +114,7 @@
         var confluenceState={phase:'off',elapsed:0};
         var comboState={streak:0,best:0,awards:0};
         var collectorMotion={velocity:0,moveAmount:0,gaitPhase:0,input:0,facing:1,startPulse:0,stopPulse:0,turnPulse:0,turnDirection:0};
+        var touchInput={active:false,x:0,pointerId:null},touchEngaged=false,touchControlsVisible=false;
         var worldHeight=62;
         var PLAYER_RENDER_SCALE=.3;
         var TRAVELER_VISUAL_SCALE=.85;
@@ -185,10 +188,12 @@
         card.appendChild(introTraveler);card.appendChild(cardEyebrow);card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);card.appendChild(primary);
 
         var controls=make('div','dfc-controls');
+        var touchJoystick=make('div','dfc-touch-joystick');touchJoystick.hidden=true;touchJoystick.setAttribute('role','application');touchJoystick.setAttribute('aria-label',text.touchMove);
+        var touchBase=make('div','dfc-touch-joystick-base');var touchKnob=make('div','dfc-touch-joystick-knob');touchBase.appendChild(touchKnob);touchJoystick.appendChild(touchBase);
         var leftButton=make('button','dfc-move dfc-left','←');leftButton.type='button';leftButton.setAttribute('aria-label',text.move+' — left');
-        var hint=make('div','dfc-control-hint');hint.appendChild(make('span','',text.move));hint.appendChild(make('small','', 'A / D · ← / →'));
+        var hint=make('div','dfc-control-hint');var hintLabel=make('span','',text.move),hintKeys=make('small','', 'A / D · ← / →');hint.appendChild(hintLabel);hint.appendChild(hintKeys);
         var rightButton=make('button','dfc-move dfc-right','→');rightButton.type='button';rightButton.setAttribute('aria-label',text.move+' — right');
-        controls.appendChild(leftButton);controls.appendChild(hint);controls.appendChild(rightButton);
+        controls.appendChild(touchJoystick);controls.appendChild(leftButton);controls.appendChild(hint);controls.appendChild(rightButton);
         root.appendChild(top);root.appendChild(stage);root.appendChild(controls);mount.appendChild(root);
 
         var context=canvas.getContext('2d');
@@ -488,8 +493,8 @@
         }
         function update(dt){
             var previousX=player.x;
-            if(pressed.left&&!pressed.right)player.x-=player.speed*dt;
-            if(pressed.right&&!pressed.left)player.x+=player.speed*dt;
+            var keyboardDirection=pressed.left&&!pressed.right?-1:(pressed.right&&!pressed.left?1:0),touchDirection=touchMovement(),moveDirection=Math.abs(touchDirection)>.001?touchDirection:keyboardDirection;
+            player.x+=player.speed*moveDirection*dt;
             player.x=clamp(player.x,player.w/2+1,100-player.w/2-1);
             var traveled=dt>0?(player.x-previousX)/(player.speed*dt):0;updateCollectorMotion(traveled,dt);
             if(currentLevel.confluence)updateConfluence(dt);else updateCrosswind(dt);
@@ -709,7 +714,7 @@
             draw();raf=requestAnimationFrame(frame);
         }
 
-        function setScreen(name){root.dataset.screen=name;}
+        function setScreen(name){root.dataset.screen=name;syncTouchControlMode(name==='running');}
         function clearStageTitleTimer(){if(stageTitleTimer){clearTimeout(stageTitleTimer);stageTitleTimer=0;}}
         function makeTitleEmblem(theme,compact){
             var emblem=make('div','dfc-title-emblem dfc-title-emblem-'+(theme||'harvest')+(compact?' dfc-title-emblem-compact':''));
@@ -806,6 +811,35 @@
             button.addEventListener('pointerdown',down);button.addEventListener('pointerup',up);button.addEventListener('pointercancel',up);button.addEventListener('lostpointercapture',up);
             return function(){button.removeEventListener('pointerdown',down);button.removeEventListener('pointerup',up);button.removeEventListener('pointercancel',up);button.removeEventListener('lostpointercapture',up);};
         }
+        function resetTouchJoystick(){
+            touchInput.active=false;touchInput.x=0;touchInput.pointerId=null;touchEngaged=false;if(touchKnob)touchKnob.style.transform='translateX(0)';
+        }
+        function syncTouchControlMode(active){
+            var mode=active?'horizontal':'hidden',externalVisible=false;
+            if(externalInput&&typeof externalInput.setTouchMode==='function')externalVisible=!!externalInput.setTouchMode(mode);
+            touchControlsVisible=active&&(externalInput?externalVisible:localTouchCapable);touchJoystick.hidden=!(active&&localTouchCapable);
+            root.classList.toggle('dfc-touch-active',touchControlsVisible);root.classList.toggle('dfc-external-touch',active&&externalVisible);root.dataset.touchControl=externalInput?(externalVisible?'external':'external-hidden'):(localTouchCapable?(active?'local':'local-hidden'):'buttons');
+            hintLabel.textContent=touchControlsVisible?text.touchMove:text.move;hintKeys.textContent=touchControlsVisible?'': 'A / D · ← / →';
+            if(!active)resetTouchJoystick();
+        }
+        function touchMovement(){
+            if(phase!=='running')return 0;var value=externalInput?externalInput.getMoveVector():touchInput;
+            if(!value||value.active===false){touchEngaged=false;return 0;}
+            var raw=clamp(Number(value.x)||0,-1,1),magnitude=Math.abs(raw);
+            if(touchEngaged){if(magnitude<=.13){touchEngaged=false;return 0;}}else{if(magnitude<.2)return 0;touchEngaged=true;}
+            if(magnitude<=.16)return 0;var normalized=clamp((magnitude-.16)/.84,0,1);return Math.sign(raw)*Math.pow(normalized,1.25);
+        }
+        function localJoystickPointer(event){
+            if(!localTouchCapable||phase!=='running')return;
+            if(event.type==='pointerdown'){
+                if(touchInput.active)return;touchInput.active=true;touchInput.pointerId=event.pointerId;try{touchJoystick.setPointerCapture(event.pointerId);}catch(error){}
+            }else if(!touchInput.active||event.pointerId!==touchInput.pointerId)return;
+            event.preventDefault();event.stopPropagation();
+            if(event.type==='pointerup'||event.type==='pointercancel'||event.type==='lostpointercapture'){resetTouchJoystick();return;}
+            var rect=touchBase.getBoundingClientRect(),knobRect=touchKnob.getBoundingClientRect();if(!rect.width)return;
+            var maxX=Math.max(1,(rect.width-Math.min(knobRect.width||42,rect.width*.48))/2),dx=clamp(event.clientX-(rect.left+rect.width*.5),-maxX,maxX);
+            touchInput.x=dx/maxX;touchKnob.style.transform='translateX('+dx+'px)';
+        }
         function activateMenuButton(selector){
             var active=document.activeElement;if(!active||!card.contains(active)||active.disabled)active=card.querySelector(selector||'button:not(:disabled)');
             if(!active)return false;active.click();return true;
@@ -840,6 +874,7 @@
             if(event.key==='ArrowRight'||event.key==='d'||event.key==='D')pressed.right=false;
         }
         var unbindLeft=bindHold(leftButton,'left'),unbindRight=bindHold(rightButton,'right');
+        touchJoystick.addEventListener('pointerdown',localJoystickPointer);touchJoystick.addEventListener('pointermove',localJoystickPointer);touchJoystick.addEventListener('pointerup',localJoystickPointer);touchJoystick.addEventListener('pointercancel',localJoystickPointer);touchJoystick.addEventListener('lostpointercapture',localJoystickPointer);
         window.addEventListener('keydown',keydown,{passive:false});window.addEventListener('keyup',keyup);
 
         rules.ready.then(function(){
@@ -860,7 +895,7 @@
             screen:function(){return phase;},
             destroy:function(){
                 if(destroyed)return;destroyed=true;cancelAnimationFrame(raf);clearTimeout(showNotice.timer);clearStageTitleTimer();
-                unbindLeft();unbindRight();window.removeEventListener('keydown',keydown);window.removeEventListener('keyup',keyup);mount.innerHTML='';
+                syncTouchControlMode(false);unbindLeft();unbindRight();touchJoystick.removeEventListener('pointerdown',localJoystickPointer);touchJoystick.removeEventListener('pointermove',localJoystickPointer);touchJoystick.removeEventListener('pointerup',localJoystickPointer);touchJoystick.removeEventListener('pointercancel',localJoystickPointer);touchJoystick.removeEventListener('lostpointercapture',localJoystickPointer);window.removeEventListener('keydown',keydown);window.removeEventListener('keyup',keyup);mount.innerHTML='';
             }
         };
     }
