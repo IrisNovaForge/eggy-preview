@@ -12,14 +12,16 @@
             try{
                 var joystick=document.querySelector('.dfc-touch-joystick');assert(joystick.hidden,'local wind-bud stick stays hidden on menus');local.game.start();
                 assert(!joystick.hidden&&document.querySelector('.dfc-shell').dataset.touchControl==='local','touch gameplay reveals the original local single-axis stick');
-                var base=joystick.querySelector('.dfc-touch-joystick-base'),rect=base.getBoundingClientRect(),x=rect.left+rect.width*.82,y=rect.top+rect.height*.5;
+                var base=joystick.querySelector('.dfc-touch-joystick-base'),knob=joystick.querySelector('.dfc-touch-joystick-knob'),rect=base.getBoundingClientRect(),knobRect=knob.getBoundingClientRect(),x=rect.left+rect.width*.82,y=rect.top+rect.height*.5;
+                assert(Math.abs(rect.width-rect.height)<1&&parseFloat(getComputedStyle(base).borderTopLeftRadius)>=rect.width*.49,'local wind-bud base uses the original soft circular handle shape');
+                assert(Math.abs(knobRect.width-42)<1&&Math.abs(knobRect.height-50)<1,'egg-shaped knob keeps its original proportions');
                 joystick.dispatchEvent(new PointerEvent('pointerdown',{pointerId:7,pointerType:'touch',clientX:x,clientY:y,bubbles:true,cancelable:true}));
                 joystick.dispatchEvent(new PointerEvent('pointermove',{pointerId:7,pointerType:'touch',clientX:x,clientY:y,bubbles:true,cancelable:true}));
                 setTimeout(function(){try{
                     assert(local.game.motion().velocity>.1&&local.game.motion().facing===1,'right stick displacement moves the Traveler right');
-                    assert(joystick.querySelector('.dfc-touch-joystick-knob').style.transform.indexOf('translateX')===0,'the soft egg-shaped knob follows the pointer');
+                    assert(knob.style.transform.indexOf('translateX')===0,'the soft egg-shaped knob follows the pointer');
                     joystick.dispatchEvent(new PointerEvent('pointerup',{pointerId:7,pointerType:'touch',clientX:x,clientY:y,bubbles:true,cancelable:true}));
-                    assert(joystick.querySelector('.dfc-touch-joystick-knob').style.transform==='translateX(0px)'||joystick.querySelector('.dfc-touch-joystick-knob').style.transform==='translateX(0)','release recenters the stick');
+                    assert(knob.style.transform==='translateX(0px)'||knob.style.transform==='translateX(0)','release recenters the stick');
                     local.game.destroy();
                     var input={state:{active:true,x:-.82,y:0},modes:[],setTouchMode:function(mode){this.modes.push(mode);return mode==='horizontal';},getMoveVector:function(){return this.state;}},external=makeGame({input:input});
                     external.rules.ready.then(function(){
