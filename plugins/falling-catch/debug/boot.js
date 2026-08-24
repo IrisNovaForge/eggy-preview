@@ -17,7 +17,7 @@
             var ctx={
                 pluginId:id,options:options||{},mount:mount,
                 character:{schemaVersion:1,id:selectedTraveler,name:selectedTraveler,displayName:travelerNames[selectedTraveler],style:{},stats:{},abilities:[]},
-                storage:{get:function(key,fallback){return Object.prototype.hasOwnProperty.call(memory,key)?memory[key]:fallback;},set:function(key,value){memory[key]=value;}},
+                storage:{get:function(key,fallback){if(Object.prototype.hasOwnProperty.call(memory,key))return memory[key];try{var stored=localStorage.getItem('falling-catch.debug.'+key);if(stored!==null){memory[key]=JSON.parse(stored);return memory[key];}}catch(error){}return fallback;},set:function(key,value){memory[key]=value;try{localStorage.setItem('falling-catch.debug.'+key,JSON.stringify(value));}catch(error){}}},
                 net:{send:function(type,payload){window.__fallingCatchEvents.push({type:type,payload:payload});}},
                 api:{
                     setTitle:function(title){document.title=title+' · 独立试玩';},
@@ -40,7 +40,7 @@
     function start(){
         window.DANBO_PLUGIN_HOST.start('falling-catch',{
             lang:params.get('lang')||'zhs',seed:numberParam('seed',12345),durationMs:numberParam('duration',30)*1000,
-            targetScore:numberParam('target',12),levelId:params.get('level')||1,initialScreen:params.has('level')?'stage-title':(params.get('screen')==='levels'?'select':'title'),forceFallback:params.get('fallback')==='1'
+            targetScore:numberParam('target',12),levelId:params.get('level')||1,initialScreen:params.has('level')?'stage-title':(params.get('screen')==='levels'?'select':'title'),bypassUnlocks:params.has('level'),forceFallback:params.get('fallback')==='1'
         });
         if(params.get('autoplay')==='1'){
             var attempts=0,timer=setInterval(function(){var button=document.querySelector('.dfc-primary');attempts++;if(button&&!button.disabled){clearInterval(timer);button.click();}else if(attempts>40)clearInterval(timer);},50);

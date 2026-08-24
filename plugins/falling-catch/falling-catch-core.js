@@ -7,32 +7,32 @@
             start:'开始接取',loading:'正在准备规则…',move:'左右移动',goal:'12分或坚持30秒即可过关',score:'得分',time:'时间',lives:'机会',
             ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',glimmerAppears:'蛋壳微光出现了！',lifeRestored:'蛋壳微光 +1机会',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'星风汇流！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
-            level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与星风汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试',
-            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'四个关卡均可独立试玩',touchMove:'左右拖动风芽摇杆',guideTitle:'本关物件',windSproutAppears:'跃风芽出现了！',windSproutStored:'跃风已经储存',jumpLabel:'跃风',jumpAction:'跃'
+            level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',unlockedDetail:'新关卡已解锁：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与星风汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试',
+            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'依次完成关卡，解锁下一片风之场地',locked:'尚未解锁',lockedDetail:'完成上一关后解锁',currentProgress:'当前进度',touchMove:'左右拖动风芽摇杆',guideTitle:'本关物件',windSproutAppears:'跃风芽出现了！',windSproutStored:'跃风已经储存',jumpLabel:'跃风',jumpAction:'跃'
         },
         zht:{
             title:'風中取物',eyebrow:'世界旅人的自然採樣任務',intro:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。',
             start:'開始接取',loading:'正在準備規則…',move:'左右移動',goal:'12分或堅持30秒即可過關',score:'得分',time:'時間',lives:'機會',
             ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',glimmerAppears:'蛋殼微光出現了！',lifeRestored:'蛋殼微光 +1機會',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'星風匯流！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
-            level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與星風匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試',
-            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'四個關卡均可獨立試玩',touchMove:'左右拖動風芽搖桿',guideTitle:'本關物件',windSproutAppears:'躍風芽出現了！',windSproutStored:'躍風已經儲存',jumpLabel:'躍風',jumpAction:'躍'
+            level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',unlockedDetail:'新關卡已解鎖：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與星風匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試',
+            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'依次完成關卡，解鎖下一片風之場地',locked:'尚未解鎖',lockedDetail:'完成上一關後解鎖',currentProgress:'目前進度',touchMove:'左右拖動風芽搖桿',guideTitle:'本關物件',windSproutAppears:'躍風芽出現了！',windSproutStored:'躍風已經儲存',jumpLabel:'躍風',jumpAction:'躍'
         },
         ja:{
             title:'風の中でキャッチ',eyebrow:'世界の旅人の自然サンプリング',intro:'世界の旅人と採集かごを動かし、風香草の葉、森ベリー、金穂の種を集めながら苔むした風化石をよけよう。',
             start:'チャレンジ開始',loading:'ルールを準備中…',move:'左右に移動',goal:'12点または30秒でクリア',score:'スコア',time:'時間',lives:'チャンス',
             ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',glimmerAppears:'卵殻の微光が現れた！',lifeRestored:'卵殻の微光 +1チャンス',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
-            level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'風のフィールドから星風の合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト',
-            titleIntro:'旅人と四つの風のフィールドへ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'4ステージを個別に試せます',touchMove:'風芽スティックを左右へ',guideTitle:'このステージのアイテム',windSproutAppears:'跳風の芽が現れた！',windSproutStored:'跳風をためました',jumpLabel:'跳風',jumpAction:'跳'
+            level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',unlockedDetail:'新しいステージを解放：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'風のフィールドから星風の合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト',
+            titleIntro:'旅人と四つの風のフィールドへ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'順番にクリアして次の風のフィールドを解放しよう',locked:'未解放',lockedDetail:'前のステージをクリアすると解放',currentProgress:'現在の進行',touchMove:'風芽スティックを左右へ',guideTitle:'このステージのアイテム',windSproutAppears:'跳風の芽が現れた！',windSproutStored:'跳風をためました',jumpLabel:'跳風',jumpAction:'跳'
         },
         en:{
             title:'Catching in the Wind',eyebrow:'World Traveler field sampling',intro:'Guide a World Traveler holding a woven field basket, gather wind herbs, grove berries and golden grain seeds, and avoid mossy weathered stones.',
             start:'Start catching',loading:'Preparing rules…',move:'Move left and right',goal:'Reach 12 points or last 30 seconds',score:'Score',time:'Time',lives:'Chances',
             ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',glimmerAppears:'Eggshell Glimmer appeared!',lifeRestored:'Eggshell Glimmer +1 chance',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
-            level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Breezy Harvest through Starwind Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test',
-            titleIntro:'Travel through four wind fields and gather nature gifts in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'All four stages are open for direct play',touchMove:'Slide the wind-bud stick sideways',guideTitle:'Stage Items',windSproutAppears:'Wind Sprout appeared!',windSproutStored:'Wind leap stored',jumpLabel:'Wind leap',jumpAction:'Leap'
+            level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',unlockedDetail:'New stage unlocked: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Breezy Harvest through Starwind Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test',
+            titleIntro:'Travel through four wind fields and gather nature gifts in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'Clear each stage in order to unlock the next wind field',locked:'Locked',lockedDetail:'Clear the previous stage to unlock',currentProgress:'Current progress',touchMove:'Slide the wind-bud stick sideways',guideTitle:'Stage Items',windSproutAppears:'Wind Sprout appeared!',windSproutStored:'Wind leap stored',jumpLabel:'Wind leap',jumpAction:'Leap'
         }
     };
 
@@ -93,11 +93,15 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.4');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.5');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
         var levels=options.levels&&options.levels.length?options.levels.slice():[fallbackLevel];
+        var storage=options.storage&&typeof options.storage.get==='function'&&typeof options.storage.set==='function'?options.storage:null;
+        var bypassUnlocks=options.bypassUnlocks===true,progressionEnabled=!!storage&&!bypassUnlocks,progressKey='fallingCatch.progress.maxUnlockedLevel';
+        var storedUnlocked=1;if(progressionEnabled){try{storedUnlocked=Number(storage.get(progressKey,1));}catch(error){storedUnlocked=1;}}
+        var maxUnlockedLevel=progressionEnabled?clamp(Number.isFinite(storedUnlocked)?Math.floor(storedUnlocked):1,1,levels.length):levels.length;
         var currentLevelIndex=0,currentLevel=levels[0];
         var durationOverride=Number(options.durationMs),targetOverride=Number(options.targetScore),livesOverride=Number(options.lives);
         var durationMs=30000,targetScore=12,startingLives=3,lastResult=null;
@@ -133,6 +137,14 @@
             var id=String(reference);for(var i=0;i<levels.length;i++)if(levels[i].id===id)return i;
             return 0;
         }
+        function isLevelUnlocked(index){return !progressionEnabled||index<maxUnlockedLevel;}
+        function progressionSnapshot(){return {enabled:progressionEnabled,bypassed:bypassUnlocks,maxUnlockedLevel:maxUnlockedLevel,totalLevels:levels.length,key:progressKey};}
+        function unlockNextLevel(){
+            if(!progressionEnabled||currentLevelIndex+1>=levels.length||maxUnlockedLevel>=currentLevelIndex+2)return false;
+            maxUnlockedLevel=currentLevelIndex+2;try{storage.set(progressKey,maxUnlockedLevel);}catch(error){}
+            root.dataset.maxUnlockedLevel=String(maxUnlockedLevel);
+            if(typeof options.onEvent==='function')options.onEvent('levelUnlock',{levelId:levels[maxUnlockedLevel-1].id,levelNumber:maxUnlockedLevel,totalLevels:levels.length});return true;
+        }
         function localized(value){return value&&(value[lang]||value.en||value.zhs)||'';}
         function applyLevel(index){
             currentLevelIndex=clamp(index|0,0,levels.length-1);currentLevel=levels[currentLevelIndex];
@@ -141,7 +153,7 @@
             targetScore=clamp(Number.isFinite(targetOverride)&&targetOverride>0?targetOverride:(Number(levelRules.targetScore)||12),1,999)|0;
             startingLives=clamp(Number.isFinite(livesOverride)&&livesOverride>0?livesOverride:(Number(levelRules.lives)||3),1,9)|0;
         }
-        applyLevel(levelIndex(options.startLevelId||options.levelId));
+        var requestedLevelIndex=levelIndex(options.startLevelId||options.levelId);applyLevel(isLevelUnlocked(requestedLevelIndex)?requestedLevelIndex:Math.max(0,maxUnlockedLevel-1));
         resetCrosswindState(false);
         resetConfluenceState(false);
 
@@ -149,6 +161,7 @@
         var root=make('section','dfc-shell');
         root.setAttribute('aria-label',text.title);
         root.dataset.characterRenderer=simplifiedTraveler?'simplified-canvas':'portrait-fallback';
+        root.dataset.progression=progressionEnabled?'locked':'open';root.dataset.maxUnlockedLevel=String(maxUnlockedLevel);
         var top=make('header','dfc-topbar');
         var brand=make('div','dfc-brand');
         brand.appendChild(make('span','dfc-brand-mark','⌁'));
@@ -208,6 +221,7 @@
             var state=rules.snapshot();
             state.levelId=currentLevel.id;state.levelNumber=currentLevel.number||currentLevelIndex+1;state.totalLevels=levels.length;
             state.jumpCharge=jumpState.charge;state.airborne=jumpState.airborne;state.jumpOffsetY=jumpState.offsetY;
+            state.maxUnlockedLevel=maxUnlockedLevel;state.progressionEnabled=progressionEnabled;
             return state;
         }
         function updateLevelPresentation(){
@@ -866,9 +880,11 @@
             card.appendChild(makeTitleEmblem('harvest',true));card.appendChild(make('p','dfc-card-eyebrow',text.allOpen));card.appendChild(make('h1','',text.chooseLevel));
             var grid=make('div','dfc-level-grid');
             for(var i=0;i<levels.length;i++)(function(index){
-                var level=levels[index],choice=make('button','dfc-level-choice dfc-level-choice-'+(level.titleTheme||level.mechanics||'base'));choice.type='button';choice.dataset.levelId=level.id;
-                choice.appendChild(make('span','dfc-level-number',format(text.level,{current:index+1,total:levels.length})));choice.appendChild(make('strong','',localized(level.name)));choice.appendChild(make('small','',localized(level.tagline)||localized(level.description)));
-                choice.onclick=function(){showStageTitle(index+1,true);};grid.appendChild(choice);
+                var level=levels[index],unlocked=isLevelUnlocked(index),current=progressionEnabled&&unlocked&&index===maxUnlockedLevel-1;
+                var choice=make('button','dfc-level-choice dfc-level-choice-'+(level.titleTheme||level.mechanics||'base')+(unlocked?'':' dfc-level-choice-locked')+(current?' dfc-level-choice-current':''));choice.type='button';choice.dataset.levelId=level.id;choice.dataset.unlocked=unlocked?'true':'false';choice.disabled=!unlocked;
+                choice.setAttribute('aria-label',format(text.level,{current:index+1,total:levels.length})+' '+localized(level.name)+(unlocked?'':' · '+text.locked));
+                choice.appendChild(make('span','dfc-level-number',format(text.level,{current:index+1,total:levels.length})));if(current)choice.appendChild(make('span','dfc-level-current',text.currentProgress));choice.appendChild(make('strong','',localized(level.name)));choice.appendChild(make('small','',unlocked?(localized(level.tagline)||localized(level.description)):text.lockedDetail));
+                if(!unlocked){var lock=make('i','dfc-level-lock');lock.setAttribute('aria-hidden','true');choice.appendChild(lock);}else choice.onclick=function(){showStageTitle(index+1,true);};grid.appendChild(choice);
             })(i);
             card.appendChild(grid);var back=make('button','dfc-secondary',text.backTitle);back.type='button';back.onclick=showTitle;card.appendChild(back);overlay.classList.remove('dfc-hidden');
             var first=grid.querySelector('button');if(first)setTimeout(function(){try{first.focus({preventScroll:true});}catch(error){first.focus();}},0);return true;
@@ -884,7 +900,7 @@
             overlay.classList.remove('dfc-hidden');updateHud();setTimeout(function(){try{primary.focus({preventScroll:true});}catch(error){primary.focus();}},0);return true;
         }
         function showStageTitle(reference,notify){
-            if(destroyed||phase==='loading'||phase==='running')return false;clearStageTitleTimer();resetLevelForMenu(reference);phase='stage-title';setScreen('stage-title');updateLevelPresentation();card.className='dfc-card dfc-stage-title-card dfc-stage-title-'+(currentLevel.titleTheme||currentLevel.mechanics||'base');card.innerHTML='';
+            var requestedIndex=levelIndex(reference);if(destroyed||phase==='loading'||phase==='running'||!isLevelUnlocked(requestedIndex))return false;clearStageTitleTimer();resetLevelForMenu(requestedIndex+1);phase='stage-title';setScreen('stage-title');updateLevelPresentation();card.className='dfc-card dfc-stage-title-card dfc-stage-title-'+(currentLevel.titleTheme||currentLevel.mechanics||'base');card.innerHTML='';
             card.appendChild(makeTitleEmblem(currentLevel.titleTheme||currentLevel.mechanics||'base',false));card.appendChild(make('p','dfc-card-eyebrow',format(text.level,{current:currentLevelIndex+1,total:levels.length})));card.appendChild(make('h1','',localized(currentLevel.name)||text.title));card.appendChild(make('p','dfc-stage-tagline',localized(currentLevel.tagline)||localized(currentLevel.description)));
             var progress=make('div','dfc-stage-progress');for(var i=0;i<levels.length;i++)progress.appendChild(make('i',i===currentLevelIndex?'dfc-active':''));card.appendChild(progress);overlay.classList.remove('dfc-hidden');updateHud();
             if(notify!==false&&typeof options.onEvent==='function')options.onEvent('levelChange',{levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,status:currentLevel.status});
@@ -911,13 +927,14 @@
             updateConfluenceStatus();
             var state=snapshot(),won=status===window.DanboFallingCatchRules.WON;
             var reason=won?(state.score>=targetScore?'target':'timer'):'lives';
+            var unlockedNow=won&&unlockNextLevel();
             var hasNext=won&&currentLevelIndex+1<levels.length;
-            var result={status:won?'won':'lost',reason:reason,score:state.score,lives:state.lives,remainingMs:state.remainingMs,durationMs:durationMs,targetScore:targetScore,rulesMode:state.mode,seed:seed,levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,hasNextLevel:hasNext,bestChain:comboState.best,comboBonus:comboState.awards};
+            var result={status:won?'won':'lost',reason:reason,score:state.score,lives:state.lives,remainingMs:state.remainingMs,durationMs:durationMs,targetScore:targetScore,rulesMode:state.mode,seed:seed,levelId:currentLevel.id,levelNumber:currentLevelIndex+1,totalLevels:levels.length,hasNextLevel:hasNext,unlockedLevel:unlockedNow?maxUnlockedLevel:null,maxUnlockedLevel:maxUnlockedLevel,bestChain:comboState.best,comboBonus:comboState.awards};
             lastResult=result;
             card.className='dfc-card dfc-result-card';card.innerHTML='';
             var resultGlyph=make('div','dfc-result-glyph '+(won?'dfc-result-win':'dfc-result-lose'),won?'✓':'!');
             var resultTitle=won&&!hasNext&&levels.length>1?text.campaignWin:(won?text.win:text.lose);
-            var resultDetail=won?(hasNext?format(text.nextDetail,{name:localized(levels[currentLevelIndex+1].name)}):((levels.length>1)?text.campaignDetail:text.winDetail)):text.loseDetail;
+            var resultDetail=won?(hasNext?format(unlockedNow?text.unlockedDetail:text.nextDetail,{name:localized(levels[currentLevelIndex+1].name)}):((levels.length>1)?text.campaignDetail:text.winDetail)):text.loseDetail;
             card.appendChild(resultGlyph);card.appendChild(make('p','dfc-card-eyebrow',format(text.level,{current:currentLevelIndex+1,total:levels.length})));card.appendChild(make('h1','',resultTitle));card.appendChild(make('p','dfc-card-body',resultDetail));
             var summary=make('div','dfc-summary');summary.appendChild(make('strong','',state.score+' '+text.points));summary.appendChild(make('span','',text.lives+' '+state.lives+' / '+startingLives));card.appendChild(summary);
             var actions=make('div','dfc-actions');
@@ -1019,6 +1036,7 @@
             motion:collectorMotionSnapshot,
             jump:triggerJump,
             jumpState:jumpMotionSnapshot,
+            progress:progressionSnapshot,
             level:function(){return currentLevel;},
             selectLevel:selectLevel,
             showTitle:showTitle,

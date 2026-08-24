@@ -4,7 +4,7 @@
 
     var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
     var runtimeBase=window.DANBO_FALLING_CATCH_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/falling-catch/');
-    var assetVersion='v=0.4.4';
+    var assetVersion='v=0.4.5';
     window.DANBO_FALLING_CATCH_BASE_URL=runtimeBase;
 
     function ensureStyle(){
@@ -23,7 +23,7 @@
 
     window.DANBO_PLUGIN_HOST.register({
         id:'falling-catch',
-        version:'0.4.4',
+        version:'0.4.5',
         name:{zhs:'风中取物',zht:'風中取物',ja:'風の中でキャッチ',en:'Catching in the Wind'},
         description:{
             zhs:'移动头顶采集篮接取蛋宝世界的自然落物并避开障碍，在三次机会内完成30秒挑战。',
@@ -54,6 +54,8 @@
                 character:ctx.character,
                 characterPortrait:characterPortrait,
                 input:ctx.input||null,
+                storage:ctx.storage||null,
+                bypassUnlocks:opts.bypassUnlocks===true,
                 assetBase:runtimeBase,
                 lang:opts.lang||pageLang(),
                 seed:opts.seed,
@@ -65,7 +67,7 @@
                     if(type==='start'&&ctx.net)ctx.net.send('minigame.startIntent',{pluginId:ctx.pluginId,characterId:ctx.character&&ctx.character.id,mode:'single',rules:'falling-catch-mvp',payload:payload||{}});
                 },
                 onResult:function(result){
-                    if(ctx.net)ctx.net.send('minigame.finishIntent',{pluginId:ctx.pluginId,status:result.status,reason:result.reason,score:result.score,lives:result.lives,remainingMs:result.remainingMs,rulesMode:result.rulesMode,levelId:result.levelId,levelNumber:result.levelNumber,totalLevels:result.totalLevels,hasNextLevel:result.hasNextLevel,bestChain:result.bestChain,comboBonus:result.comboBonus});
+                    if(ctx.net)ctx.net.send('minigame.finishIntent',{pluginId:ctx.pluginId,status:result.status,reason:result.reason,score:result.score,lives:result.lives,remainingMs:result.remainingMs,rulesMode:result.rulesMode,levelId:result.levelId,levelNumber:result.levelNumber,totalLevels:result.totalLevels,hasNextLevel:result.hasNextLevel,unlockedLevel:result.unlockedLevel,maxUnlockedLevel:result.maxUnlockedLevel,bestChain:result.bestChain,comboBonus:result.comboBonus});
                 },
                 onExit:function(result){ctx.api.finish(result||{status:'exit'});}
             });
