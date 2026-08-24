@@ -19,11 +19,13 @@
                         assert(spawns[i].x>=7&&spawns[i].x<=93,'spawn '+(i+1)+' remains inside 7-93');
                         if(i>0){
                             assert(spawns[i].zone!==spawns[i-1].zone,'spawn '+(i+1)+' does not repeat the previous zone');
-                            assert(Math.abs(spawns[i].x-spawns[i-1].x)>=12-1e-9,'spawn '+(i+1)+' keeps the 12-unit horizontal gap');
+                            assert(Math.abs(spawns[i].x-spawns[i-1].x)>=8-1e-9,'spawn '+(i+1)+' keeps the 8-unit horizontal gap');
+                            assert(Math.abs(spawns[i].x-spawns[i-1].x)<=32+1e-9,'spawn '+(i+1)+' avoids an excessive horizontal jump');
                             assert(!(spawns[i].type==='obstacle'&&spawns[i-1].type==='obstacle'),'spawn '+(i+1)+' does not repeat an obstacle');
                         }
                     }
                     assert(spawns.every(function(spawn){return spawn.levelId==='breezy-harvest';}),'spawn planner is scoped to Stage 1');
+                    assert(spawns.every(function(spawn){return spawn.fallSpeed>=22&&spawn.fallSpeed<=24;}),'Stage 1 uses its narrow base fall-speed band');
                     var stageOneKinds={leaf:'wind-herb-leaf',berry:'berry-grove-berry',acorn:'golden-grain-seed',stone:'moss-weathered-stone'};
                     assert(spawns.every(function(spawn){return spawn.presentationKind===stageOneKinds[spawn.kind];}),'Stage 1 spawns use the DANBO meadow presentation kinds');
                     finish(null,game);

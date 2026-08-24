@@ -1,6 +1,6 @@
 (function(){
     'use strict';
-    var report=document.getElementById('report'),lines=[],phases=[],applications=[];
+    var report=document.getElementById('report'),lines=[],phases=[],applications=[],spawns=[];
     function assert(condition,message){if(!condition)throw new Error(message);lines.push('PASS  '+message);}
     function finish(error,game){
         if(game&&game.destroy)game.destroy();
@@ -9,7 +9,7 @@
     }
     try{
         var levels=window.DanboFallingCatchLevels.all(),rules=window.DanboFallingCatchRules.create({forceFallback:true});
-        var game=window.DanboFallingCatch.create({mount:document.getElementById('mount'),rules:rules,levels:levels,startLevelId:'crystal-valley-turn',lang:'en',seed:317,character:{id:'herbTraveler'},durationMs:10000,targetScore:999,lives:9,onEvent:function(type,payload){if(type==='crosswindPhase')phases.push(payload);if(type==='crosswindApply')applications.push(payload);}});
+        var game=window.DanboFallingCatch.create({mount:document.getElementById('mount'),rules:rules,levels:levels,startLevelId:'crystal-valley-turn',lang:'en',seed:317,character:{id:'herbTraveler'},durationMs:10000,targetScore:999,lives:9,onEvent:function(type,payload){if(type==='crosswindPhase')phases.push(payload);if(type==='crosswindApply')applications.push(payload);if(type==='spawn')spawns.push(payload);}});
         rules.ready.then(function(){
             setTimeout(function(){game.start();},30);
             setTimeout(function(){
@@ -23,6 +23,8 @@
                     assert(phases[4].phase==='active'&&phases[4].direction===-1,'the reverse cue becomes an active right-to-left crosswind');
                     assert(applications.length>=2,'crosswind was applied to falling objects');
                     assert(applications.every(function(entry){return entry.levelId==='crystal-valley-turn'&&entry.speed===7.5;}),'every target and obstacle uses the same Stage 3 wind strength');
+                    assert(spawns.every(function(spawn){return spawn.fallSpeed>=26&&spawn.fallSpeed<=28;}),'Stage 3 uses its faster narrow fall-speed band');
+                    assert(spawns.every(function(spawn,index){return index===0||Math.abs(spawn.x-spawns[index-1].x)>=8-1e-9&&Math.abs(spawn.x-spawns[index-1].x)<=32+1e-9;}),'Stage 3 keeps consecutive spawn positions readable before wind acts');
                     finish(null,game);
                 }catch(error){finish(error,game);}
             },6400);

@@ -93,10 +93,10 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.8');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.3.9');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
-        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:12,avoidRepeatZone:true,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:8,maxElapsed:22,delayMin:2,delayMax:4,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.72,berry:.74,acorn:.70,stone:.70},stoneCollisionRadius:2.4},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
+        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:8,maxElapsed:22,delayMin:2,delayMax:4,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
         var levels=options.levels&&options.levels.length?options.levels.slice():[fallbackLevel];
         var currentLevelIndex=0,currentLevel=levels[0];
         var durationOverride=Number(options.durationMs),targetOverride=Number(options.targetScore),livesOverride=Number(options.lives);
@@ -108,7 +108,7 @@
         var destroyed=false,phase='loading',raf=0,lastFrame=0,spawnClock=0,resultSent=false,stageTitleTimer=0;
         var initialScreen=options.initialScreen==='stage-title'?'stage-title':(options.initialScreen==='select'?'select':'title');
         var objects=[],bursts=[];
-        var spawnState={lastZone:-1,lastX:null,lastObstacle:false,hasSpawned:false};
+        var spawnState={lastZone:-1,lastX:null,lastObstacle:false,hasSpawned:false,lastSide:null,sideRemaining:0};
         var recoveryState={elapsed:0,state:'waiting',delay:0,count:0};
         var crosswindState={phase:'off',direction:1,remaining:0,cycle:0};
         var confluenceState={phase:'off',elapsed:0};
@@ -238,8 +238,12 @@
         }
         function play(name){try{if(typeof options.play==='function')options.play(name);}catch(error){}}
         function random(){return rules.random();}
-        function nextSpawnDelay(){return 0.48+random()*0.42;}
-        function resetSpawnState(){spawnState.lastZone=-1;spawnState.lastX=null;spawnState.lastObstacle=false;spawnState.hasSpawned=false;}
+        function dropTuning(){return currentLevel.dropTuning||{};}
+        function tunedRange(minimum,maximum,fallbackMin,fallbackMax){
+            var min=Number(minimum),max=Number(maximum);if(!Number.isFinite(min))min=fallbackMin;if(!Number.isFinite(max))max=fallbackMax;if(max<min){var swap=max;max=min;min=swap;}return min+random()*(max-min);
+        }
+        function nextSpawnDelay(){var tuning=dropTuning();return tunedRange(tuning.spawnDelayMin,tuning.spawnDelayMax,.48,.90);}
+        function resetSpawnState(){spawnState.lastZone=-1;spawnState.lastX=null;spawnState.lastObstacle=false;spawnState.hasSpawned=false;spawnState.lastSide=null;spawnState.sideRemaining=0;}
         function resetRecoveryState(){recoveryState.elapsed=0;recoveryState.state='waiting';recoveryState.delay=0;recoveryState.count=0;}
         function resetCollectorMotion(){
             collectorMotion.velocity=0;collectorMotion.moveAmount=0;collectorMotion.gaitPhase=0;collectorMotion.input=0;collectorMotion.facing=1;
@@ -338,18 +342,25 @@
             if(typeof options.onEvent==='function')options.onEvent('comboBreak',{levelId:currentLevel.id,reason:reason,previous:previous});
         }
         function distributedSpawnX(config){
-            var minX=Number(config.minX),maxX=Number(config.maxX),zoneCount=Math.max(2,config.zoneCount|0),zoneWidth=(maxX-minX)/zoneCount;
-            var zones=[];for(var zone=0;zone<zoneCount;zone++)if(!config.avoidRepeatZone||zone!==spawnState.lastZone)zones.push(zone);
-            for(var i=zones.length-1;i>0;i--){var swapIndex=Math.floor(random()*(i+1)),swap=zones[i];zones[i]=zones[swapIndex];zones[swapIndex]=swap;}
-            var chosen=null,farthest=null,minGap=Math.max(0,Number(config.minHorizontalGap)||0);
-            for(var z=0;z<zones.length;z++){
-                var candidateZone=zones[z],candidateX=minX+candidateZone*zoneWidth+random()*zoneWidth;
-                var distance=spawnState.lastX===null?Infinity:Math.abs(candidateX-spawnState.lastX);
-                var candidate={x:candidateX,zone:candidateZone,distance:distance};
-                if(!farthest||candidate.distance>farthest.distance)farthest=candidate;
-                if(distance>=minGap){chosen=candidate;break;}
+            var minX=Number(config.minX),maxX=Number(config.maxX);if(!Number.isFinite(minX))minX=7;if(!Number.isFinite(maxX))maxX=93;if(maxX<minX){var swap=maxX;maxX=minX;minX=swap;}
+            var zoneCount=Math.max(2,config.zoneCount|0),zoneWidth=(maxX-minX)/zoneCount,minGap=Math.max(0,Number(config.minHorizontalGap)||0),maxGap=Number(config.maxHorizontalGap);
+            if(!Number.isFinite(maxGap)||maxGap<=0)maxGap=Infinity;if(maxGap<minGap)maxGap=minGap;
+            var ranges=[];
+            function addRange(zone,low,high){if(high>=low)ranges.push({zone:zone,low:low,high:high});}
+            function collectRanges(allowRepeat){
+                ranges.length=0;
+                for(var zone=0;zone<zoneCount;zone++){
+                    if(!allowRepeat&&config.avoidRepeatZone&&zone===spawnState.lastZone)continue;
+                    var zoneLow=minX+zone*zoneWidth,zoneHigh=zone===zoneCount-1?maxX:zoneLow+zoneWidth;
+                    if(spawnState.lastX===null){addRange(zone,zoneLow,zoneHigh);continue;}
+                    addRange(zone,Math.max(zoneLow,spawnState.lastX-maxGap),Math.min(zoneHigh,spawnState.lastX-minGap));
+                    addRange(zone,Math.max(zoneLow,spawnState.lastX+minGap),Math.min(zoneHigh,spawnState.lastX+maxGap));
+                }
             }
-            chosen=chosen||farthest||{x:minX+random()*(maxX-minX),zone:-1};
+            collectRanges(false);if(!ranges.length&&config.avoidRepeatZone)collectRanges(true);
+            var chosen;
+            if(ranges.length){var range=ranges[Math.floor(random()*ranges.length)];chosen={x:range.low+random()*(range.high-range.low),zone:range.zone};}
+            else{var x=minX+random()*(maxX-minX);chosen={x:x,zone:Math.min(zoneCount-1,Math.floor((x-minX)/zoneWidth))};}
             spawnState.lastZone=chosen.zone;spawnState.lastX=chosen.x;
             return chosen;
         }
@@ -363,6 +374,10 @@
             var presentation=objectPresentation(),value=presentation&&Number(presentation.stoneCollisionRadius);
             return Number.isFinite(value)&&value>0?value:STONE_COLLISION_RADIUS;
         }
+        function targetCollisionRadius(){
+            var presentation=objectPresentation(),value=presentation&&Number(presentation.targetCollisionRadius);
+            return Number.isFinite(value)&&value>0?value:2.8;
+        }
         function presentationKind(kind){
             var presentation=objectPresentation();
             if(!presentation)return kind;
@@ -374,8 +389,9 @@
         function spawnObject(){
             var distribution=currentLevel.spawnDistribution;
             var airflow=currentLevel.airflow;
-            var obstacleRate=0.28,obstacleRoll=random(),obstacle=obstacleRoll<obstacleRate;
-            if(distribution&&distribution.avoidConsecutiveObstacle){
+            var tuning=dropTuning(),obstacleRate=Number(tuning.obstacleRate);if(!Number.isFinite(obstacleRate))obstacleRate=.28;obstacleRate=clamp(obstacleRate,0,.8);
+            var obstacleRoll=random(),obstacle=obstacleRoll<obstacleRate;
+            if(tuning.avoidConsecutiveObstacle||(distribution&&distribution.avoidConsecutiveObstacle)){
                 if(spawnState.lastObstacle)obstacle=false;
                 else obstacle=obstacleRoll<(spawnState.hasSpawned?obstacleRate/(1-obstacleRate):obstacleRate);
             }
@@ -383,24 +399,27 @@
             var spawnPosition;
             if(distribution)spawnPosition=distributedSpawnX(distribution);
             else if(airflow&&airflow.sideSpawn!==false){
-                var fromLeft=random()<.5;
+                var sideGroupSize=Math.max(1,Number(airflow.sideGroupSize)||1),fromLeft;
+                if(sideGroupSize>1&&spawnState.sideRemaining>0){fromLeft=spawnState.lastSide;spawnState.sideRemaining--;}
+                else{fromLeft=random()<.5;spawnState.lastSide=fromLeft;spawnState.sideRemaining=sideGroupSize-1;}
                 var sideMin=Number(airflow.spawnSideMinX)||18,sideMax=Number(airflow.spawnSideMaxX)||34;
                 var sideX=sideMin+random()*(sideMax-sideMin);
                 spawnPosition={x:fromLeft?sideX:100-sideX,zone:fromLeft?0:1,fromLeft:fromLeft};
             }else spawnPosition={x:7+random()*86,zone:-1};
-            var spawnY=-6-random()*4,fallSpeed=22+random()*10,drift=(random()-.5)*8;
+            var driftMax=Number(tuning.baseDriftMax);if(!Number.isFinite(driftMax)||driftMax<0)driftMax=4;
+            var spawnY=-6-random()*4,fallSpeed=tunedRange(tuning.fallSpeedMin,tuning.fallSpeedMax,22,32),drift=(random()*2-1)*driftMax;
             if(airflow&&!obstacle&&airflow.sideSpawn!==false){
                 var diagonalMin=Number(airflow.diagonalMinSpeed)||10,diagonalMax=Number(airflow.diagonalMaxSpeed)||14;
                 drift=(spawnPosition.fromLeft?1:-1)*(diagonalMin+random()*(diagonalMax-diagonalMin));
             }
             var item={
                 type:obstacle?'obstacle':'target',kind:kind,presentationKind:presentationKind(kind),x:spawnPosition.x,y:spawnY,
-                radius:kind==='stone'?stoneCollisionRadius():2.8,vy:fallSpeed,drift:drift,
+                radius:kind==='stone'?stoneCollisionRadius():targetCollisionRadius(),vy:fallSpeed,drift:drift,
                 turn:(random()-.5)*3.5,rotation:random()*Math.PI*2,
                 airflowEligible:!!(airflow&&!obstacle&&airflow.affectedKinds&&airflow.affectedKinds.indexOf(kind)>=0),airflowState:'ready',airflowTimer:0,lastCrosswindCycle:-1
             };
-            objects.push(item);if(distribution){spawnState.lastObstacle=obstacle;spawnState.hasSpawned=true;}
-            if(typeof options.onEvent==='function')options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,presentationKind:item.presentationKind,x:item.x,zone:spawnPosition.zone,drift:item.drift,airflowEligible:item.airflowEligible});
+            objects.push(item);spawnState.lastObstacle=obstacle;spawnState.hasSpawned=true;
+            if(typeof options.onEvent==='function')options.onEvent('spawn',{levelId:currentLevel.id,type:item.type,kind:item.kind,presentationKind:item.presentationKind,x:item.x,zone:spawnPosition.zone,drift:item.drift,fallSpeed:item.vy,airflowEligible:item.airflowEligible});
         }
         function recoverySpawnX(config){
             var minX=Number(config.minX),maxX=Number(config.maxX);if(!Number.isFinite(minX))minX=9;if(!Number.isFinite(maxX))maxX=91;if(maxX<minX){var swap=maxX;maxX=minX;minX=swap;}
