@@ -4,7 +4,7 @@
 
     var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
     var runtimeBase=window.DANBO_FALLING_CATCH_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/falling-catch/');
-    var assetVersion='v=0.4.9';
+    var assetVersion='v=0.4.10';
     window.DANBO_FALLING_CATCH_BASE_URL=runtimeBase;
 
     function ensureStyle(){
@@ -23,7 +23,7 @@
 
     window.DANBO_PLUGIN_HOST.register({
         id:'falling-catch',
-        version:'0.4.9',
+        version:'0.4.10',
         name:{zhs:'风中取物',zht:'風中取物',ja:'風の中でキャッチ',en:'Catching in the Wind'},
         description:{
             zhs:'移动头顶采集篮接取蛋宝世界的自然落物并避开障碍，在三次机会内完成30秒挑战。',

@@ -93,7 +93,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.9');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.10');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -123,7 +123,7 @@
         var worldHeight=62;
         var PLAYER_RENDER_SCALE=.3;
         var TRAVELER_VISUAL_SCALE=.85;
-        var MOBILE_TRAVELER_VISUAL_SCALE=1.512;
+        var MOBILE_TRAVELER_VISUAL_SCALE=1.9656;
         var FALLING_OBJECT_VISUAL_SCALE=.88;
         var STONE_COLLISION_RADIUS=2.95;
         var DESKTOP_DROP_SCALE=.70;
