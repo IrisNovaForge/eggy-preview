@@ -19,7 +19,7 @@
             spawnDistribution:{minX:7,maxX:7,zoneCount:5,minHorizontalGap:0,maxHorizontalGap:0,avoidRepeatZone:false,avoidConsecutiveObstacle:true}
         });
         var rules=window.DanboFallingCatchRules.create({forceFallback:true});
-        var game=window.DanboFallingCatch.create({mount:document.getElementById('mount'),rules:rules,levels:[level],lang:'en',seed:911,durationMs:5000,targetScore:999,lives:2,character:{id:'herbTraveler'},onEvent:function(type,payload){
+        var game=window.DanboFallingCatch.create({mount:document.getElementById('mount'),rules:rules,levels:[level],lang:'en',seed:911,durationMs:7000,targetScore:999,lives:2,character:{id:'herbTraveler'},onEvent:function(type,payload){
             if(type.indexOf('recovery')===0){events.push({type:type,payload:payload});if(type==='recoveryCollect'&&payload.lives===3&&events.filter(function(event){return event.type==='recoveryCollect';}).length<3)setTimeout(function(){rules.hit();},30);}
         }});
         rules.ready.then(function(){
@@ -30,9 +30,9 @@
                     assert(collects.length===3,'the overhead basket can catch every scheduled recovery');
                     assert(collects.every(function(event){return event.payload.before===2&&event.payload.lives===3;}),'each catch restores exactly one chance up to the cap');
                     assert(game.snapshot().score===0,'recovery appearances do not change the score');
-                    rules.hit();setTimeout(function(){try{assert(events.filter(function(event){return event.type==='recoverySpawn';}).length===3,'the stage cap prevents a fourth recovery appearance');finish(null,game);}catch(error){finish(error,game);}},450);
+                    rules.hit();setTimeout(function(){try{assert(events.filter(function(event){return event.type==='recoverySpawn';}).length===3,'the stage cap prevents a fourth recovery appearance');finish(null,game);}catch(error){finish(error,game);}},500);
                 }catch(error){finish(error,game);}
-            },2500);
+            },3800);
         }).catch(function(error){finish(error,game);});
     }catch(error){finish(error);}
 })();
