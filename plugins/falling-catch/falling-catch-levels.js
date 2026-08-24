@@ -94,7 +94,7 @@
             id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,dropTuning:STAGE_ONE_DROPS,objectPresentation:STAGE_ONE_OBJECTS,recovery:STAGE_ONE_RECOVERY,guideItems:STAGE_ONE_GUIDE,
             name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},
             tagline:{zhs:'收集风香草叶、莓林莓与金穗籽',zht:'收集風香草葉、莓林莓與金穗籽',ja:'風香草の葉、森ベリー、金穂の種を集めよう',en:'Gather wind herbs, grove berries and golden grain seeds'},
-            titleTheme:'meadow',
+            titleTheme:'meadow',backgroundTheme:'meadow-field',
             description:{
                 zhs:'带领世界旅人托住采集篮，接住风香草叶、莓林莓和金穗籽，同时避开苔痕风化石。本关没有跃风芽，跃起从第3关开启。',
                 zht:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。本關沒有躍風芽，躍起從第3關開啟。',
@@ -106,21 +106,21 @@
             id:'wind-hill-rise',number:2,status:'playable',mechanics:'updraft',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,dropTuning:STAGE_TWO_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_TWO_AIRFLOW,recovery:STAGE_TWO_RECOVERY,guideItems:STAGE_TWO_GUIDE,
             name:{zhs:'风丘跃起',zht:'風丘躍起',ja:'風丘の上昇',en:'Windhill Rise'},
             tagline:{zhs:'留意上升气流改变落点',zht:'留意上升氣流改變落點',ja:'上昇気流による着地点の変化を読もう',en:'Read how the updraft changes each landing point'},
-            titleTheme:'updraft',
+            titleTheme:'updraft',backgroundTheme:'wind-hill',
             description:{zhs:'左右移动头顶采集篮，判断斜向落物的路线；轻盈自然物会被上升气流改变轨迹。本关没有跃风芽，跃起从第3关开启。',zht:'左右移動頭頂採集籃，判斷斜向落物的路線；輕盈自然物會被上升氣流改變軌跡。本關沒有躍風芽，躍起從第3關開啟。',ja:'斜めに落ちる自然物と上昇気流で変わる軌道を読もう。このステージに跳風の芽はなく、ジャンプはステージ3から使えます。',en:'Read diagonal paths altered by the updraft. No Wind Sprout appears here; leaping begins in Stage 3.'}
         },
         {
             id:'crystal-valley-turn',number:3,status:'playable',mechanics:'crosswind',rules:SHARED_RULES,spawnDistribution:STAGE_THREE_SPAWN,dropTuning:STAGE_THREE_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,crosswind:STAGE_THREE_CROSSWIND,recovery:STAGE_THREE_RECOVERY,jumpPower:STAGE_THREE_JUMP,guideItems:STAGE_THREE_GUIDE,
             name:{zhs:'晶谷回旋',zht:'晶谷迴旋',ja:'晶谷の旋回',en:'Crystal Valley Turn'},
             tagline:{zhs:'观察预告，判断横风方向',zht:'觀察預告，判斷橫風方向',ja:'予告を見て横風の向きを判断しよう',en:'Watch the cue and judge the crosswind direction'},
-            titleTheme:'crystal',
+            titleTheme:'crystal',backgroundTheme:'crystal-valley',
             description:{zhs:'观察周期横风并判断偏移落点。接住低概率出现的跃风芽可储存1次跃起，用↑、W、空格或触屏跃起键主动取得高处落物。',zht:'觀察週期橫風並判斷偏移落點。接住低機率出現的躍風芽可儲存1次躍起，用↑、W、空白鍵或觸屏躍起鍵主動取得高處落物。',ja:'周期横風による着地点のずれを読もう。まれに現れる跳風の芽を集めるとジャンプを1回ためられ、↑・W・Spaceまたはタッチボタンで高い落下物を取りに行けます。',en:'Read the shifting landing points in the periodic crosswind. Catch the rare Wind Sprout to store one leap, then use Up, W, Space or the touch leap button to reach a high drop.'}
         },
         {
             id:'starwind-confluence',number:4,status:'playable',mechanics:'confluence',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_FOUR_SPAWN,dropTuning:STAGE_FOUR_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,airflow:STAGE_FOUR_AIRFLOW,crosswind:STAGE_FOUR_CROSSWIND,confluence:STAGE_FOUR_CONFLUENCE,recovery:STAGE_FOUR_RECOVERY,jumpPower:STAGE_FOUR_JUMP,guideItems:STAGE_FOUR_GUIDE,
             name:{zhs:'星风汇流',zht:'星風匯流',ja:'星風の合流',en:'Starwind Confluence'},
             tagline:{zhs:'连续接取，迎接最终汇流',zht:'連續接取，迎接最終匯流',ja:'連続キャッチで最後の合流へ',en:'Build a catch chain through the final confluence'},
-            titleTheme:'starwind',
+            titleTheme:'starwind',backgroundTheme:'starwind-summit',
             description:{zhs:'在落物、气流和横风汇合的最终挑战中连续接取；每连续接到3个目标物可获得1分奖励。本关最多出现2次跃风芽，每次可储存1次主动跃起。',zht:'在落物、氣流和橫風匯合的最終挑戰中連續接取；每連續接到3個目標物可獲得1分獎勵。本關最多出現2次躍風芽，每次可儲存1次主動躍起。',ja:'落下物・上昇気流・横風が合流する最終チャレンジ。3個連続で1点ボーナス。このステージでは跳風の芽が最大2回現れ、それぞれジャンプを1回ためられます。',en:'Face the final convergence of drops, updrafts and crosswinds. Every three catches awards one bonus point. Up to two Wind Sprouts appear, each storing one manual leap.'}
         }
     ];

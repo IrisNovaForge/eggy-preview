@@ -93,7 +93,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.15');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.16');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -164,7 +164,7 @@
         var root=make('section','dfc-shell');
         root.setAttribute('aria-label',text.title);
         root.dataset.characterRenderer=simplifiedTraveler?'simplified-canvas':'portrait-fallback';
-        root.dataset.progression=progressionEnabled?'locked':'open';root.dataset.maxUnlockedLevel=String(maxUnlockedLevel);
+        root.dataset.progression=progressionEnabled?'locked':'open';root.dataset.maxUnlockedLevel=String(maxUnlockedLevel);root.dataset.backgroundTheme=currentLevel.backgroundTheme||currentLevel.titleTheme||'meadow-field';
         var top=make('header','dfc-topbar');
         var brand=make('div','dfc-brand');
         brand.appendChild(make('span','dfc-brand-mark','⌁'));
@@ -230,7 +230,7 @@
         function updateLevelPresentation(){
             var levelName=localized(currentLevel.name)||text.title;
             var levelLabel=format(text.level,{current:currentLevelIndex+1,total:levels.length});
-            brandTitle.textContent=levelName;root.setAttribute('aria-label',levelName);root.dataset.levelId=currentLevel.id;root.dataset.levelNumber=String(currentLevelIndex+1);
+            brandTitle.textContent=levelName;root.setAttribute('aria-label',levelName);root.dataset.levelId=currentLevel.id;root.dataset.levelNumber=String(currentLevelIndex+1);root.dataset.backgroundTheme=currentLevel.backgroundTheme||currentLevel.titleTheme||'meadow-field';
             levelBadge.textContent=levelLabel;levelBadge.classList.toggle('dfc-level-framework',currentLevel.status==='framework');
             cardEyebrow.textContent=levelLabel+(currentLevel.status==='framework'?' · '+text.framework:'');
             cardTitle.textContent=levelName;cardBody.textContent=localized(currentLevel.description)||text.intro;
@@ -637,19 +637,73 @@
             }
         }
 
-        function drawBackground(){
-            var ground=worldHeight-5.5,hillBack=worldHeight-25,hillFront=worldHeight-18;
+        function fillBackgroundGradient(stops){
             var gradient=context.createLinearGradient(0,0,0,worldHeight);
-            gradient.addColorStop(0,'#9dded2');gradient.addColorStop(.64,'#dff1c5');gradient.addColorStop(1,'#f5e3a7');
+            for(var i=0;i<stops.length;i++)gradient.addColorStop(stops[i][0],stops[i][1]);
             context.fillStyle=gradient;context.fillRect(0,0,100,worldHeight);
+        }
+        function drawMeadowFieldBackground(now){
+            var ground=worldHeight-5.5,hillBack=worldHeight-25,hillFront=worldHeight-18;
+            fillBackgroundGradient([[0,'#9dded2'],[.64,'#dff1c5'],[1,'#f5e3a7']]);
             context.fillStyle='rgba(255,250,218,.72)';context.beginPath();context.arc(82,Math.max(9,worldHeight*.13),5.2,0,Math.PI*2);context.fill();
             context.fillStyle='#87b895';context.beginPath();context.moveTo(0,hillBack+3);context.quadraticCurveTo(17,hillBack-8,36,hillBack+3);context.quadraticCurveTo(55,hillBack-12,76,hillBack+3);context.quadraticCurveTo(90,hillBack-6,100,hillBack+1);context.lineTo(100,worldHeight);context.lineTo(0,worldHeight);context.closePath();context.fill();
             context.fillStyle='#5f9878';context.beginPath();context.moveTo(0,hillFront);context.quadraticCurveTo(22,hillFront-10,44,hillFront);context.quadraticCurveTo(72,hillFront-12,100,hillFront+1);context.lineTo(100,worldHeight);context.lineTo(0,worldHeight);context.closePath();context.fill();
+            context.strokeStyle='rgba(255,255,255,.34)';context.lineWidth=.25;context.lineCap='round';
+            for(var i=0;i<6;i++){var x=6+i*18+Math.sin(now*.24+i)*1.4,y=15+(i%2)*5;context.beginPath();context.moveTo(x,y);context.bezierCurveTo(x+5,y-2,x+8,y+3,x+13,y+1);context.stroke();}
             context.fillStyle='#376d59';context.fillRect(0,ground,100,5.5);
-            context.strokeStyle='rgba(255,255,255,.38)';context.lineWidth=.25;
-            for(var i=0;i<6;i++){var x=8+i*18;context.beginPath();context.moveTo(x,16+(i%2)*5);context.bezierCurveTo(x+5,14,x+8,19,x+13,17);context.stroke();}
             context.strokeStyle='#7eb68a';context.lineWidth=.35;
-            for(var g=0;g<24;g++){var gx=(g*17)%101;var gh=2+(g%4)*.5;context.beginPath();context.moveTo(gx,ground+1.5);context.quadraticCurveTo(gx-.9,ground+.5-gh*.5,gx-.2,ground-gh);context.stroke();}
+            for(var g=0;g<24;g++){var gx=(g*17)%101,gh=2+(g%4)*.5,sway=Math.sin(now*.8+g)*.3;context.beginPath();context.moveTo(gx,ground+1.5);context.quadraticCurveTo(gx-.9+sway,ground+.5-gh*.5,gx-.2+sway,ground-gh);context.stroke();if(g%5===0){context.fillStyle='rgba(238,207,112,.72)';context.beginPath();context.arc(gx-.2+sway,ground-gh,.38,0,Math.PI*2);context.fill();}}
+            context.lineCap='butt';
+        }
+        function drawWindHillBackground(now){
+            var ground=worldHeight-5.5,back=worldHeight-28,front=worldHeight-17;
+            fillBackgroundGradient([[0,'#8fcbd3'],[.54,'#d7efda'],[1,'#eadca7']]);
+            context.fillStyle='rgba(255,248,213,.58)';context.beginPath();context.arc(18,Math.max(9,worldHeight*.14),4.8,0,Math.PI*2);context.fill();
+            context.fillStyle='rgba(248,255,240,.48)';for(var c=0;c<4;c++){var cx=14+c*25+Math.sin(now*.09+c)*1.5,cy=12+(c%2)*6;context.beginPath();context.arc(cx,cy,3.1,0,Math.PI*2);context.arc(cx+3.4,cy+.4,2.35,0,Math.PI*2);context.arc(cx-3.1,cy+1,2.1,0,Math.PI*2);context.fill();}
+            context.fillStyle='#91bda0';context.beginPath();context.moveTo(0,back+4);context.quadraticCurveTo(15,back-7,31,back+1);context.quadraticCurveTo(48,back-15,68,back+2);context.quadraticCurveTo(86,back-8,100,back);context.lineTo(100,worldHeight);context.lineTo(0,worldHeight);context.closePath();context.fill();
+            context.fillStyle='#63947a';context.beginPath();context.moveTo(0,front-4);context.quadraticCurveTo(22,front-14,43,front-1);context.quadraticCurveTo(65,front-8,100,front+2);context.lineTo(100,worldHeight);context.lineTo(0,worldHeight);context.closePath();context.fill();
+            context.strokeStyle='rgba(239,255,235,.32)';context.lineWidth=.32;context.lineCap='round';
+            for(var i=0;i<8;i++){var column=8+i*13,span=Math.max(17,ground-9),progress=(now*(.055+i*.004)+i*.119)%1,y=ground-3-progress*span,sway=Math.sin(now*.7+i*1.3)*2.2;context.globalAlpha=.28+(i%3)*.08;context.beginPath();context.moveTo(column+sway,y+5);context.bezierCurveTo(column-2+sway,y+2,column+3-sway,y-2,column+sway,y-6);context.stroke();}
+            context.globalAlpha=1;context.fillStyle='#355f54';context.fillRect(0,ground,100,5.5);context.strokeStyle='#8cbd91';
+            for(var g=0;g<19;g++){var gx=(g*23)%104,lean=.8+Math.sin(now*.65+g)*.35;context.beginPath();context.moveTo(gx,ground+1);context.quadraticCurveTo(gx+lean,ground-1,gx+1.25+lean,ground-3.2-(g%3)*.4);context.stroke();}
+            context.lineCap='butt';
+        }
+        function drawCrystalValleyBackground(now){
+            var ground=worldHeight-5.5,valley=worldHeight-18;
+            fillBackgroundGradient([[0,'#78aeb8'],[.5,'#b6d7d1'],[1,'#d8d7b7']]);
+            context.fillStyle='rgba(224,247,231,.42)';context.beginPath();context.arc(79,Math.max(10,worldHeight*.16),4.3,0,Math.PI*2);context.fill();
+            context.fillStyle='#668d8d';context.beginPath();context.moveTo(0,8);context.lineTo(15,18);context.lineTo(24,valley+2);context.lineTo(0,valley+8);context.closePath();context.fill();context.beginPath();context.moveTo(100,7);context.lineTo(85,19);context.lineTo(76,valley+1);context.lineTo(100,valley+8);context.closePath();context.fill();
+            context.fillStyle='#82a5a0';context.beginPath();context.moveTo(0,15);context.lineTo(10,22);context.lineTo(17,valley+5);context.lineTo(0,valley+8);context.closePath();context.fill();context.beginPath();context.moveTo(100,16);context.lineTo(90,22);context.lineTo(83,valley+5);context.lineTo(100,valley+8);context.closePath();context.fill();
+            context.strokeStyle='rgba(216,242,226,.36)';context.lineWidth=.28;context.beginPath();context.moveTo(5,13);context.lineTo(15,20);context.lineTo(8,35);context.moveTo(95,12);context.lineTo(85,20);context.lineTo(92,35);context.stroke();
+            context.fillStyle='#537877';context.beginPath();context.moveTo(0,valley+5);context.quadraticCurveTo(24,valley-3,44,valley+4);context.quadraticCurveTo(67,valley-4,100,valley+6);context.lineTo(100,worldHeight);context.lineTo(0,worldHeight);context.closePath();context.fill();
+            context.strokeStyle='rgba(237,255,244,.32)';context.lineWidth=.35;context.lineCap='round';
+            for(var m=0;m<6;m++){var mx=((now*(1.3+m*.12)+m*19)%126)-18,my=13+m*6.2;context.globalAlpha=.22+(m%3)*.08;context.beginPath();context.moveTo(mx,my);context.bezierCurveTo(mx+5,my-1,mx+11,my+1,mx+17,my);context.stroke();}
+            context.globalAlpha=1;context.fillStyle='#355b59';context.fillRect(0,ground,100,5.5);
+            var crystals=[[5,ground,3.2,6.8],[11,ground,2.2,4.9],[89,ground,2.8,5.8],[95,ground,3.5,7.5]];
+            for(var k=0;k<crystals.length;k++){var crystal=crystals[k];context.fillStyle=k%2?'#7ca9a4':'#8bb8b1';context.beginPath();context.moveTo(crystal[0],crystal[1]-crystal[3]);context.lineTo(crystal[0]+crystal[2],crystal[1]-1.3);context.lineTo(crystal[0]+crystal[2]*.45,crystal[1]);context.lineTo(crystal[0]-crystal[2]*.55,crystal[1]);context.lineTo(crystal[0]-crystal[2],crystal[1]-1.5);context.closePath();context.fill();context.strokeStyle='rgba(224,255,238,.38)';context.beginPath();context.moveTo(crystal[0],crystal[1]-crystal[3]);context.lineTo(crystal[0]+crystal[2]*.45,crystal[1]);context.stroke();}
+            context.lineCap='butt';
+        }
+        function drawStarwindSummitBackground(now){
+            var ground=worldHeight-5.5,horizon=worldHeight-20;
+            fillBackgroundGradient([[0,'#345d68'],[.52,'#718f87'],[.82,'#b8aa7e'],[1,'#d2bd86']]);
+            var glow=context.createRadialGradient(50,horizon-3,1,50,horizon-3,23);glow.addColorStop(0,'rgba(255,227,151,.38)');glow.addColorStop(.55,'rgba(239,223,173,.13)');glow.addColorStop(1,'rgba(239,223,173,0)');context.fillStyle=glow;context.fillRect(23,horizon-28,54,38);
+            context.strokeStyle='rgba(231,237,205,.18)';context.lineWidth=.4;context.beginPath();context.arc(50,horizon-2,17,Math.PI,Math.PI*2);context.stroke();context.beginPath();context.arc(50,horizon-2,23,Math.PI*1.08,Math.PI*1.92);context.stroke();
+            context.fillStyle='#4c716c';context.beginPath();context.moveTo(0,horizon+4);context.quadraticCurveTo(18,horizon-8,38,horizon+2);context.quadraticCurveTo(51,horizon-4,64,horizon+2);context.quadraticCurveTo(82,horizon-9,100,horizon+4);context.lineTo(100,worldHeight);context.lineTo(0,worldHeight);context.closePath();context.fill();
+            context.fillStyle='#324f50';context.beginPath();context.moveTo(0,horizon+8);context.quadraticCurveTo(25,horizon,49,horizon+8);context.quadraticCurveTo(74,horizon-1,100,horizon+7);context.lineTo(100,worldHeight);context.lineTo(0,worldHeight);context.closePath();context.fill();
+            context.fillStyle='#efd98b';
+            for(var i=0;i<15;i++){var x=(i*29+now*(.22+i%3*.05))%108-4,y=8+(i*13)%32+Math.sin(now*.45+i)*1.2,size=.28+(i%3)*.11;context.globalAlpha=.2+(i%4)*.09;context.beginPath();context.moveTo(x,y-size*2);context.lineTo(x+size*.5,y-size*.5);context.lineTo(x+size*2,y);context.lineTo(x+size*.5,y+size*.5);context.lineTo(x,y+size*2);context.lineTo(x-size*.5,y+size*.5);context.lineTo(x-size*2,y);context.lineTo(x-size*.5,y-size*.5);context.closePath();context.fill();}
+            context.strokeStyle='rgba(225,246,224,.24)';context.lineWidth=.32;context.lineCap='round';
+            for(var w=0;w<6;w++){var offset=Math.sin(now*.28+w)*2.4,wy=14+w*5.5;context.globalAlpha=.2+(w%2)*.08;context.beginPath();context.moveTo(-6+offset,wy);context.bezierCurveTo(18,wy-3,34,wy+2,50,wy);context.bezierCurveTo(66,wy-2,82,wy+3,106-offset,wy);context.stroke();}
+            context.globalAlpha=1;context.fillStyle='#263f43';context.fillRect(0,ground,100,5.5);context.lineCap='butt';
+        }
+        function drawBackground(){
+            var now=performance.now()/1000,theme=currentLevel.backgroundTheme||currentLevel.titleTheme||'meadow-field';
+            context.save();
+            if(theme==='wind-hill'||theme==='updraft')drawWindHillBackground(now);
+            else if(theme==='crystal-valley'||theme==='crystal')drawCrystalValleyBackground(now);
+            else if(theme==='starwind-summit'||theme==='starwind')drawStarwindSummitBackground(now);
+            else drawMeadowFieldBackground(now);
+            context.restore();
         }
         function drawAirflow(){
             var airflow=currentLevel.airflow;if(!airflow||!airflowEnabled())return;
