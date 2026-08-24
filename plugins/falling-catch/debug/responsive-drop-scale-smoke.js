@@ -16,7 +16,7 @@
                 if(nextError)throw nextError;assert(!!desktop&&!!phone,'captured ordinary drops in desktop and small-phone modes');
                 var baseScales={leaf:.60,berry:.62,acorn:.58,stone:.58};
                 assert(closeTo(desktop.visualScale,baseScales[desktop.kind]*.70),'desktop ordinary-drop artwork uses the 70 percent multiplier');
-                assert(closeTo(phone.visualScale,baseScales[phone.kind]*1.25),'small-phone ordinary-drop artwork uses the 125 percent multiplier');
+                assert(closeTo(phone.visualScale,baseScales[phone.kind]*1.75),'small-phone ordinary-drop artwork uses the additional 40 percent increase');
                 var desktopBaseRadius=desktop.kind==='stone'?2.05:1.95,phoneBaseRadius=phone.kind==='stone'?2.05:1.95;
                 assert(closeTo(desktop.collisionRadius,desktopBaseRadius*.70),'desktop collision radius follows the smaller silhouette');
                 assert(closeTo(phone.collisionRadius,phoneBaseRadius),'small-phone collision radius remains unchanged');finish();
