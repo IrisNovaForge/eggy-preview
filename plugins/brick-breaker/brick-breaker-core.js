@@ -5,7 +5,9 @@
     var LEVEL_BALL_SPEEDS={1:370,2:400,3:440,4:500,5:540,6:560};
     var LEVEL_SEED_LIMITS={1:2,2:3,3:3,4:6,5:4,6:4};
     var CROWN_USE_LIMITS={1:2,2:3,3:3,4:4,5:4,6:5};
-    var CROWN_PROGRESS_MARKS={1:[.34,.72],2:[.25,.5,.75],3:[.25,.5,.75],5:[.2,.4,.6,.8]};
+    // The opening stage stays focused on catching, rebounding and clearing.
+    // Its two support drops arrive later, after the player has met the base loop.
+    var CROWN_PROGRESS_MARKS={1:[.52,.82],2:[.25,.5,.75],3:[.25,.5,.75],5:[.2,.4,.6,.8]};
     var CROWN_TIME_MARKS={4:[12,26,40,54]};
     var CORE_ASSET_BASE=(function(){try{var source=document.currentScript&&document.currentScript.src;return source?new URL('.',source).href:String(window.DANBO_BRICK_BREAKER_BASE_URL||'');}catch(error){return '';}})();
     var BRICK_CONTACT_AUDIO_URL=CORE_ASSET_BASE?new URL('audio/brick-contact-a.wav?v=20260822.45',CORE_ASSET_BASE).href:'';
@@ -419,7 +421,7 @@
         this.hazard=null;this.hazardClock=0;this.hazardNextAt=6;this.hazardNextGroup='left';this.hazardSpawnCount=0;this.hazardDisabled=this.level!==2;
         this.earlyLifeDrop=null;this.earlyLifeDestroyed=0;this.earlyLifeIssued=false;this.earlyLifeThreshold=this.level===2?16:24;this.vitalitySpeedActive=false;
         this.stageThreeSlowDrop=null;this.stageThreeReinforcedCleared=0;this.stageThreeSlowAttempts=0;this.stageThreeSlowCaught=false;this.stageThreeSlowTime=0;this.stageThreeRecoverTime=0;this.stageThreeRecoverDuration=.7;this.stageThreeSlowSpeed=390;this.stageThreeGatherEffects=[];this.stageThreeCollectEffects=[];
-        this.seedDrop=null;this.seedProjectiles=[];this.seedVolleyQueue=0;this.seedVolleyClock=0;this.seedVolleyInterval=.055;this.seedVolleyClears=0;this.seedVolleyClearLimit=3;this.seedVolleyActive=false;this.seedBursts=[];this.seedClock=0;this.seedNextAt=7;this.seedSpawnCount=0;this.seedMisses=0;this.seedHeld=false;this.seedUses=0;this.seedLimit=LEVEL_SEED_LIMITS[this.level]||2;this.seedDropLimit=this.seedLimit;this.seedCooldown=0;
+        this.seedDrop=null;this.seedProjectiles=[];this.seedVolleyQueue=0;this.seedVolleyClock=0;this.seedVolleyInterval=.055;this.seedVolleyClears=0;this.seedVolleyClearLimit=3;this.seedVolleyActive=false;this.seedBursts=[];this.seedClock=0;this.seedNextAt=this.level===1?12:7;this.seedSpawnCount=0;this.seedMisses=0;this.seedHeld=false;this.seedUses=0;this.seedLimit=LEVEL_SEED_LIMITS[this.level]||2;this.seedDropLimit=this.seedLimit;this.seedCooldown=0;
         this.stageFiveDrop=null;this.stageFiveDropClock=0;this.stageFiveNextAt=10+Math.random()*5;this.stageFiveDropCount=0;
         this.stageFiveSlowTime=0;this.stageFiveRecoverTime=0;this.stageFiveRecoverDuration=.8;this.stageFiveSlowSpeed=440;
         this.catchCrownDrops=[];this.catchCrownCollectEffects=[];this.catchCrownSources=[];this.catchCrownClock=0;this.catchCrownRetryAt=0;this.catchCrownEligible=0;this.catchCrownTriggerIndex=0;this.catchCrownUses=0;this.catchCrownLimit=CROWN_USE_LIMITS[this.level]||2;this.catchCrownInitialBricks=0;
