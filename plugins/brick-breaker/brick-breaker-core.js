@@ -296,7 +296,7 @@
     };
 
     Game.prototype.itemGuideTypes=function(){
-        var types=this.level===1?['crown']:(this.level===2?['hazard','life','crown']:(this.level===3?['slow','life','crown']:(this.level===4?['crown']:(this.level===5?['life','slow','clear','crown','buff']:['life','multi','crown']))));
+        var types=this.level===1?['crown']:(this.level===2?['life','crown']:(this.level===3?['slow','life','crown']:(this.level===4?['crown']:(this.level===5?['life','slow','clear','crown','buff']:['life','multi','crown']))));
         types.push('seed');return types;
     };
     Game.prototype.itemGuideHtml=function(){
@@ -418,7 +418,9 @@
         this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:LEVEL_BALL_SPEEDS[this.level]||LEVEL_BALL_SPEEDS[1],companion:false,age:0};
         this.companionBalls=[];
         this.bricks=[];this.hitEffects=[];this.brickMotionTime=0;this.brickMotionDirection=1;
-        this.hazard=null;this.hazardClock=0;this.hazardNextAt=6;this.hazardNextGroup='left';this.hazardSpawnCount=0;this.hazardDisabled=this.level!==2;
+        // Stage 2 develops through the swaying brick field and its vitality shell.
+        // The falling hazard is intentionally kept out of this stage's rule set.
+        this.hazard=null;this.hazardClock=0;this.hazardNextAt=6;this.hazardNextGroup='left';this.hazardSpawnCount=0;this.hazardDisabled=true;
         this.earlyLifeDrop=null;this.earlyLifeDestroyed=0;this.earlyLifeIssued=false;this.earlyLifeThreshold=this.level===2?16:24;this.vitalitySpeedActive=false;
         this.stageThreeSlowDrop=null;this.stageThreeReinforcedCleared=0;this.stageThreeSlowAttempts=0;this.stageThreeSlowCaught=false;this.stageThreeSlowTime=0;this.stageThreeRecoverTime=0;this.stageThreeRecoverDuration=.7;this.stageThreeSlowSpeed=390;this.stageThreeGatherEffects=[];this.stageThreeCollectEffects=[];
         this.seedDrop=null;this.seedProjectiles=[];this.seedVolleyQueue=0;this.seedVolleyClock=0;this.seedVolleyInterval=.055;this.seedVolleyClears=0;this.seedVolleyClearLimit=3;this.seedVolleyActive=false;this.seedBursts=[];this.seedClock=0;this.seedNextAt=this.level===1?12:7;this.seedSpawnCount=0;this.seedMisses=0;this.seedHeld=false;this.seedUses=0;this.seedLimit=LEVEL_SEED_LIMITS[this.level]||2;this.seedDropLimit=this.seedLimit;this.seedCooldown=0;
