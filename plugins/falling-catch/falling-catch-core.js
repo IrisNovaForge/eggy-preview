@@ -93,7 +93,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.17');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.18');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'风野拾集',zht:'風野拾集',ja:'風のフィールド',en:'Breezy Harvest'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -173,12 +173,9 @@
         if(text.eyebrow)brandCopy.appendChild(make('small','',text.eyebrow));
         brand.appendChild(brandCopy);
         var topStatus=make('div','dfc-top-status');
-        var travelerBadge=make('div','dfc-traveler-badge');
-        var badgePortrait=make('img','dfc-traveler-badge-image');badgePortrait.src=portraitUrl;badgePortrait.alt='';
-        travelerBadge.appendChild(badgePortrait);travelerBadge.appendChild(make('span','',traveler.name));
         var levelBadge=make('span','dfc-level-badge','');
         var modeBadge=make('span','dfc-mode',text.loading);
-        topStatus.appendChild(travelerBadge);topStatus.appendChild(levelBadge);topStatus.appendChild(modeBadge);
+        topStatus.appendChild(levelBadge);topStatus.appendChild(modeBadge);
         top.appendChild(brand);top.appendChild(topStatus);
 
         var stage=make('div','dfc-stage');
@@ -198,15 +195,12 @@
 
         var overlay=make('div','dfc-overlay');
         var card=make('div','dfc-card');overlay.appendChild(card);stage.appendChild(overlay);
-        var introTraveler=make('div','dfc-intro-traveler');
-        var introPortrait=make('img','');introPortrait.src=portraitUrl;introPortrait.alt=traveler.name;
-        introTraveler.appendChild(introPortrait);introTraveler.appendChild(make('span','',traveler.name));
         var cardEyebrow=make('p','dfc-card-eyebrow',text.eyebrow);
         var cardTitle=make('h1','',text.title);
         var cardBody=make('p','dfc-card-body',text.intro);
         var goal=make('p','dfc-goal',text.goal);
         var primary=make('button','dfc-primary',text.loading);primary.type='button';primary.disabled=true;
-        card.appendChild(introTraveler);if(text.eyebrow)card.appendChild(cardEyebrow);card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);card.appendChild(primary);
+        if(text.eyebrow)card.appendChild(cardEyebrow);card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);card.appendChild(primary);
 
         var controls=make('div','dfc-controls');
         var touchJoystick=make('div','dfc-touch-joystick');touchJoystick.hidden=true;touchJoystick.setAttribute('role','application');touchJoystick.setAttribute('aria-label',text.touchMove);
@@ -956,7 +950,7 @@
         }
         function buildReady(){
             if(destroyed||phase==='loading')return false;clearStageTitleTimer();phase='ready';setScreen('ready');updateLevelPresentation();card.className='dfc-card dfc-ready-card';card.innerHTML='';
-            card.appendChild(introTraveler);card.appendChild(make('p','dfc-card-eyebrow',text.stageReady+' · '+format(text.level,{current:currentLevelIndex+1,total:levels.length})));card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);
+            card.appendChild(make('p','dfc-card-eyebrow',text.stageReady+' · '+format(text.level,{current:currentLevelIndex+1,total:levels.length})));card.appendChild(cardTitle);card.appendChild(cardBody);card.appendChild(goal);
             var itemGuide=makeItemGuide();if(itemGuide)card.appendChild(itemGuide);
             var actions=make('div','dfc-actions');primary.textContent=text.start;primary.disabled=false;primary.onclick=startRound;actions.appendChild(primary);var back=make('button','dfc-secondary',text.backLevels);back.type='button';back.onclick=showLevelSelect;actions.appendChild(back);card.appendChild(actions);
             overlay.classList.remove('dfc-hidden');updateHud();setTimeout(function(){try{primary.focus({preventScroll:true});}catch(error){primary.focus();}},0);return true;
