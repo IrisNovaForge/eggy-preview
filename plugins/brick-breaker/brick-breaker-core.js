@@ -296,7 +296,7 @@
     };
 
     Game.prototype.itemGuideTypes=function(){
-        var types=this.level===1?['crown']:(this.level===2?['life','crown']:(this.level===3?['slow','life','crown']:(this.level===4?['crown']:(this.level===5?['life','slow','clear','crown','buff']:['life','multi','crown']))));
+        var types=this.level===1?['crown']:(this.level===2?['life','crown']:(this.level===3?['hazard','slow','crown']:(this.level===4?['crown']:(this.level===5?['life','slow','clear','crown','buff']:['life','multi','crown']))));
         types.push('seed');return types;
     };
     Game.prototype.itemGuideHtml=function(){
@@ -372,8 +372,8 @@
             return {type:result.type,kind:'result',detail:result.label||''};
         }
         var active=[];
-        if(this.level===2&&this.hazard&&(this.hazard.state==='warning'||this.hazard.state==='falling'))active.push({type:'hazard',y:this.hazard.y});
-        if((this.level===2||this.level===3)&&this.earlyLifeDrop)active.push({type:'life',y:this.earlyLifeDrop.y});
+        if(this.level===3&&this.hazard&&(this.hazard.state==='warning'||this.hazard.state==='falling'))active.push({type:'hazard',y:this.hazard.y});
+        if(this.level===2&&this.earlyLifeDrop)active.push({type:'life',y:this.earlyLifeDrop.y});
         if(this.level===3&&this.stageThreeSlowDrop)active.push({type:'slow',y:this.stageThreeSlowDrop.y});
         if(this.seedDrop)active.push({type:'seed',y:this.seedDrop.y});
         for(var crownDropIndex=0;crownDropIndex<this.catchCrownDrops.length;crownDropIndex++)active.push({type:'crown',y:this.catchCrownDrops[crownDropIndex].y});
@@ -418,9 +418,9 @@
         this.ball={x:W*0.5,y:this.paddle.y-28,vx:0,vy:0,r:11,speed:LEVEL_BALL_SPEEDS[this.level]||LEVEL_BALL_SPEEDS[1],companion:false,age:0};
         this.companionBalls=[];
         this.bricks=[];this.hitEffects=[];this.brickMotionTime=0;this.brickMotionDirection=1;
-        // Stage 2 develops through the swaying brick field and its vitality shell.
-        // The falling hazard is intentionally kept out of this stage's rule set.
-        this.hazard=null;this.hazardClock=0;this.hazardNextAt=6;this.hazardNextGroup='left';this.hazardSpawnCount=0;this.hazardDisabled=true;
+        // Stage 3 layers the two-hit shells, breeze fluff and a slow alternating
+        // sunk-shell fall. Earlier stages stay free of this hazard.
+        this.hazard=null;this.hazardClock=0;this.hazardNextAt=9.5;this.hazardNextGroup='left';this.hazardSpawnCount=0;this.hazardDisabled=this.level!==3;
         this.earlyLifeDrop=null;this.earlyLifeDestroyed=0;this.earlyLifeIssued=false;this.earlyLifeThreshold=this.level===2?16:24;this.vitalitySpeedActive=false;
         this.stageThreeSlowDrop=null;this.stageThreeReinforcedCleared=0;this.stageThreeSlowAttempts=0;this.stageThreeSlowCaught=false;this.stageThreeSlowTime=0;this.stageThreeRecoverTime=0;this.stageThreeRecoverDuration=.7;this.stageThreeSlowSpeed=390;this.stageThreeGatherEffects=[];this.stageThreeCollectEffects=[];
         this.seedDrop=null;this.seedProjectiles=[];this.seedVolleyQueue=0;this.seedVolleyClock=0;this.seedVolleyInterval=.055;this.seedVolleyClears=0;this.seedVolleyClearLimit=3;this.seedVolleyActive=false;this.seedBursts=[];this.seedClock=0;this.seedNextAt=this.level===1?12:7;this.seedSpawnCount=0;this.seedMisses=0;this.seedHeld=false;this.seedUses=0;this.seedLimit=LEVEL_SEED_LIMITS[this.level]||2;this.seedDropLimit=this.seedLimit;this.seedCooldown=0;
@@ -531,14 +531,16 @@
     };
 
     Game.prototype.spawnHazard=function(){
-        if(this.level!==2||this.hazard||this.hazardDisabled)return false;
-        var requested=this.hazardNextGroup,candidates=this.bricks.filter(function(brick){return brick.alive&&brick.motionGroup===requested;});
-        if(!candidates.length){requested=requested==='left'?'right':'left';candidates=this.bricks.filter(function(brick){return brick.alive&&brick.motionGroup===requested;});}
+        if(this.level!==3||this.hazard||this.hazardDisabled)return false;
+        var requested=this.hazardNextGroup;
+        function isRequestedSide(brick){var center=brick.x+brick.w*.5;return requested==='left'?center<W*.5:center>=W*.5;}
+        var candidates=this.bricks.filter(function(brick){return brick.alive&&brick.maxHits===1&&isRequestedSide(brick);});
+        if(!candidates.length){requested=requested==='left'?'right':'left';candidates=this.bricks.filter(function(brick){return brick.alive&&brick.maxHits===1&&isRequestedSide(brick);});}
         if(!candidates.length){this.hazardDisabled=true;return false;}
         candidates.sort(function(a,b){return a.x-b.x||a.y-b.y;});
         var source=candidates[this.hazardSpawnCount%candidates.length];
-        this.hazardSpawnCount++;this.hazardNextGroup=requested==='left'?'right':'left';this.hazardNextAt=this.hazardClock+9;
-        this.hazard={state:'warning',source:source,x:source.x+source.w*.5,y:source.y+source.h+16,w:28,h:38,age:0,warningDuration:.5,speed:160,hitDuration:.16};this.showItemHint('hazard',this.hazard);
+        this.hazardSpawnCount++;this.hazardNextGroup=requested==='left'?'right':'left';this.hazardNextAt=this.hazardClock+12.5;
+        this.hazard={state:'warning',source:source,x:source.x+source.w*.5,y:source.y+source.h+16,w:28,h:38,age:0,warningDuration:.65,speed:150,hitDuration:.16};this.showItemHint('hazard',this.hazard);
         return true;
     };
 
@@ -557,7 +559,7 @@
     };
 
     Game.prototype.updateHazard=function(dt){
-        if(this.level!==2||this.state!=='playing')return;
+        if(this.level!==3||this.state!=='playing')return;
         this.hazardClock+=Math.max(0,dt||0);
         if(!this.hazard){if(!this.hazardDisabled&&this.hazardClock>=this.hazardNextAt)this.spawnHazard();return;}
         var hazard=this.hazard;
@@ -588,19 +590,19 @@
     };
 
     Game.prototype.spawnEarlyLife=function(brick){
-        if((this.level!==2&&this.level!==3)||!brick||this.earlyLifeDrop||this.earlyLifeIssued)return false;
+        if(this.level!==2||!brick||this.earlyLifeDrop||this.earlyLifeIssued)return false;
         this.earlyLifeIssued=true;this.earlyLifeDrop={type:'life',x:brick.x+brick.w*.5,y:brick.y+brick.h*.5,r:14,speed:114,age:0,sourceX:brick.x+brick.w*.5,sourceY:brick.y+brick.h*.5};
         this.showItemHint('life',this.earlyLifeDrop);return true;
     };
 
     Game.prototype.stageEarlyBrickCleared=function(brick){
-        if((this.level!==2&&this.level!==3)||!brick)return;
+        if(this.level!==2||!brick)return;
         this.earlyLifeDestroyed++;
         if(!this.earlyLifeIssued&&this.earlyLifeDestroyed>=this.earlyLifeThreshold&&brick.maxHits===1)this.spawnEarlyLife(brick);
     };
 
     Game.prototype.updateEarlyLife=function(dt){
-        if((this.level!==2&&this.level!==3)||this.state!=='playing'||!this.earlyLifeDrop)return;
+        if(this.level!==2||this.state!=='playing'||!this.earlyLifeDrop)return;
         var drop=this.earlyLifeDrop;drop.age+=dt;drop.y+=drop.speed*dt;
         if(this.rules.circleRectHit(drop.x,drop.y,drop.r,this.stageFiveCatchRect())){
             this.earlyLifeDrop=null;this.activateVitalityShell(drop,'stage'+this.level);return;
@@ -712,7 +714,7 @@
                 this.addSeedBrickFeedback(brick,projectile.x,clamp(projectile.y,brick.y,brick.y+brick.h));
                 brick.hitsRemaining=0;brick.alive=false;this.remaining--;this.score+=this.rules.scoreForBrick(brick.row);this.seedVolleyClears++;consumed=true;
                 if(brick.buffCarrier&&!brick.buffDropped)this.spawnStageFiveBuffDrop(brick);
-                if(this.level===2||this.level===3)this.stageEarlyBrickCleared(brick);
+                if(this.level===2)this.stageEarlyBrickCleared(brick);
                 if(this.level===3)this.stageThreeBrickCleared(brick);
                 if(this.level===6)this.stageSixBrickCleared(brick);
                 this.updateHud();
@@ -1549,7 +1551,7 @@
             }
             this.addBrickHitFeedback(brick,b);brick.hitsRemaining=0;brick.alive=false;this.remaining--;this.score+=this.rules.scoreForBrick(brick.row);
             if(brick.buffCarrier&&!brick.buffDropped)this.spawnStageFiveBuffDrop(brick);
-            if(this.level===2||this.level===3)this.stageEarlyBrickCleared(brick);
+            if(this.level===2)this.stageEarlyBrickCleared(brick);
             if(this.level===3)this.stageThreeBrickCleared(brick);
             if(this.level===6)this.stageSixBrickCleared(brick);
             if(this.rules.isWin(this.remaining)){this.finishRound(true);return false;}break;
@@ -1769,7 +1771,7 @@
         c.globalAlpha=(alpha===undefined?1:alpha)*.72;c.fillStyle='#fff6ce';c.beginPath();c.arc(-7,-13,2,0,Math.PI*2);c.arc(7,-16,1.5,0,Math.PI*2);c.fill();c.restore();
     };
     Game.prototype.drawEarlyLife=function(c){
-        if((this.level!==2&&this.level!==3)||!this.earlyLifeDrop)return;
+        if(this.level!==2||!this.earlyLifeDrop)return;
         var drop=this.earlyLifeDrop,bob=Math.sin(drop.age*5.2)*.08;
         c.save();c.globalAlpha=.2;c.strokeStyle='#d9936f';c.lineWidth=1.3;c.beginPath();c.moveTo(drop.x,drop.y-19);c.quadraticCurveTo(drop.sourceX,drop.y-31,drop.sourceX,Math.max(drop.sourceY,drop.y-54));c.stroke();c.restore();
         this.drawVitalityShell(c,drop.x,drop.y,1,bob,1);
