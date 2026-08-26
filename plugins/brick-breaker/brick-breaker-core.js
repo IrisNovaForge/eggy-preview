@@ -46,10 +46,10 @@
         en:{basic:'Stage 3 · Double Soft-shell · Breeze fluff gathers from cleared shells'}
     };
     var STAGE_FIVE_COPY={
-        zhs:{speed:'球速',buff:'叶片收集',basic:'第五关 · 闪烁星光 · 元气蛋壳、慢风与星路芽'},
-        zht:{speed:'球速',buff:'葉片收集',basic:'第五關 · 閃爍星光 · 元氣蛋殼、慢風與星路芽'},
-        ja:{speed:'速度',buff:'葉っぱ集め',basic:'ステージ5 · 芽の星巣 · 元気の卵殻、そよ風、星の芽'},
-        en:{speed:'Speed',buff:'Leaf Collection',basic:'Stage 5 · Bud Star Nest · Vitality shell, breeze and star-path buds'}
+        zhs:{speed:'球速',buff:'叶片收集',basic:'第五关 · 闪烁星光 · 收集叶片，让星路芽接续出现'},
+        zht:{speed:'球速',buff:'葉片收集',basic:'第五關 · 閃爍星光 · 收集葉片，讓星路芽接續出現'},
+        ja:{speed:'速度',buff:'葉っぱ集め',basic:'ステージ5 · きらめく星光 · 葉を集め、星路の芽へつなげよう'},
+        en:{speed:'Speed',buff:'Leaf Collection',basic:'Stage 5 · Shimmering Starlight · Gather leaves to grow star-path buds'}
     };
     var STAGE_SIX_COPY={
         zhs:{speed:'球速',basic:'第六关 · 伙伴集合 · 元气蛋壳与星星点点同行'},
@@ -58,10 +58,10 @@
         en:{speed:'Speed',basic:'Stage 6 · Gathered Budglow · Vitality shell and scattered starlight'}
     };
     var ITEM_GUIDE_COPY={
-        zhs:{title:'本关物件',hazard:{name:'沉壳团',desc:'碰到损失1颗光球',prompt:'避开沉壳团 · 碰到损失1颗光球',result:'光球 −1'},seed:{name:'蛋壳威力',desc:'接住蛋形能量后七连发，本关最多{limit}次',prompt:'接住后可释放蛋壳威力',result:'蛋壳威力已就绪'},life:{name:'元气蛋壳',desc:'光球＋1并获得本关快速移动',prompt:'接住元气蛋壳 · 光球＋1并加快移动',result:'光球＋1 · 快速移动'},slow:{name:'慢风绒',desc:'暂时降低球速',prompt:'接到后暂时降低球速',result:'慢风生效'},clear:{name:'星路芽',desc:'清理最多5块砖',prompt:'接到后清理最多5块砖',result:'清理5块'},crown:{name:'柔壳花冠',desc:'接住后暂时扩大接球范围，本关最多{limit}次',prompt:'接住柔壳花冠 · 扩大接球范围',result:'柔壳花冠生效 · {used}/{limit}',status:'接球范围扩大 · {used}/{limit}'},buff:{name:'叶片收集',desc:'三击砖掉落，接住即可收集',prompt:'三击砖掉落 · 接住小叶片',result:'叶片已收集'},multi:{name:'星星点点',desc:'接住后暂时变成2颗光球',prompt:'接住小星星后光球暂时同行',result:'星光同行 · 场上2颗',status:'星光同行 · 场上2颗'}},
-        zht:{title:'本關物件',hazard:{name:'沉殼團',desc:'碰到損失1顆光球',prompt:'避開沉殼團 · 碰到損失1顆光球',result:'光球 −1'},seed:{name:'蛋殼威力',desc:'接住蛋形能量後七連發，本關最多{limit}次',prompt:'接住後可釋放蛋殼威力',result:'蛋殼威力已就緒'},life:{name:'元氣蛋殼',desc:'光球＋1並獲得本關快速移動',prompt:'接住元氣蛋殼 · 光球＋1並加快移動',result:'光球＋1 · 快速移動'},slow:{name:'慢風絨',desc:'暫時降低球速',prompt:'接到後暫時降低球速',result:'慢風生效'},clear:{name:'星路芽',desc:'清理最多5塊磚',prompt:'接到後清理最多5塊磚',result:'清理5塊'},crown:{name:'柔殼花冠',desc:'接住後暫時擴大接球範圍，本關最多{limit}次',prompt:'接住柔殼花冠 · 擴大接球範圍',result:'柔殼花冠生效 · {used}/{limit}',status:'接球範圍擴大 · {used}/{limit}'},buff:{name:'葉片收集',desc:'三擊磚掉落，接住即可收集',prompt:'三擊磚掉落 · 接住小葉片',result:'葉片已收集'},multi:{name:'星星點點',desc:'接住後暫時變成2顆光球',prompt:'接住小星星後光球暫時同行',result:'星光同行 · 場上2顆',status:'星光同行 · 場上2顆'}},
-        ja:{title:'このステージのアイテム',hazard:{name:'沈み殻の房',desc:'触れるとボールを1つ失う',prompt:'沈み殻の房をよけよう · ボール−1',result:'ボール −1'},seed:{name:'卵殻パワー',desc:'卵形エネルギーで7連射・このステージは最大{limit}回',prompt:'受け取ると卵殻パワーを放てる',result:'卵殻パワーの準備完了'},life:{name:'元気の卵殻',desc:'ボール＋1・このステージ中は高速移動',prompt:'元気の卵殻 · ボール＋1と高速移動',result:'ボール＋1 · 高速移動'},slow:{name:'そよ風の綿',desc:'一時的に速度を下げる',prompt:'受け取ると一時的に速度が下がる',result:'そよ風が発動'},clear:{name:'星路の芽',desc:'最大5個のブロックを消す',prompt:'受け取ると最大5個を清掃',result:'5個を清掃'},crown:{name:'やわらか殻の花冠',desc:'一時的に受け止める幅が広がる・このステージは最大{limit}回',prompt:'やわらか殻の花冠 · 受け止める幅を広げる',result:'花冠が発動 · {used}/{limit}',status:'受け止める幅が拡大中 · {used}/{limit}'},buff:{name:'葉っぱ集め',desc:'3回ブロックから落下・受け取ると収集',prompt:'3回ブロックから落下 · 小さな葉を受け取る',result:'葉を収集'},multi:{name:'星のきらめき',desc:'受け取ると一時的にボールが2つになる',prompt:'小さな星を受け取ると光球が一時同行',result:'星光同行 · 2つ',status:'星光同行 · 2つ'}},
-        en:{title:'Stage Items',hazard:{name:'Sunk-shell Cluster',desc:'Lose 1 ball on contact',prompt:'Avoid the sunk-shell cluster · Ball −1',result:'Ball −1'},seed:{name:'Eggshell Power',desc:'Catch the egg energy for a 7-shot stream, up to {limit} times this stage',prompt:'Catch it to ready Eggshell Power',result:'Eggshell Power ready'},life:{name:'Vitality Shell',desc:'Ball +1 and fast movement for this stage',prompt:'Catch it · Ball +1 and faster movement',result:'Ball +1 · Fast movement'},slow:{name:'Breeze Fluff',desc:'Temporarily slows the ball',prompt:'Catch to slow the ball briefly',result:'Breeze active'},clear:{name:'Star-path Bud',desc:'Clears up to 5 bricks',prompt:'Catch to clear up to 5 bricks',result:'5 bricks cleared'},crown:{name:'Soft-shell Blossom Crown',desc:'Temporarily widens the catch area, up to {limit} times this stage',prompt:'Catch the blossom crown · widen the catch area',result:'Blossom crown active · {used}/{limit}',status:'Catch area widened · {used}/{limit}'},buff:{name:'Leaf Collection',desc:'Drops from 3-hit bricks; catch the small leaf to collect it',prompt:'From 3-hit bricks · catch the small leaf',result:'Leaf collected'},multi:{name:'Scattered Starlight',desc:'Temporarily makes 2 light balls',prompt:'Catch the small stars for brief light-ball company',result:'Starlight company · 2 active',status:'Starlight company · 2 active'}}
+        zhs:{title:'本关物件',hazard:{name:'沉壳团',desc:'碰到损失1颗光球',prompt:'避开沉壳团 · 碰到损失1颗光球',result:'光球 −1'},seed:{name:'蛋壳威力',desc:'接住蛋形能量后七连发，本关最多{limit}次',prompt:'接住后可释放蛋壳威力',result:'蛋壳威力已就绪'},life:{name:'元气蛋壳',desc:'光球＋1并获得本关快速移动',prompt:'接住元气蛋壳 · 光球＋1并加快移动',result:'光球＋1 · 快速移动'},slow:{name:'慢风绒',desc:'暂时降低球速',prompt:'接到后暂时降低球速',result:'慢风生效'},clear:{name:'星路芽',desc:'由收集的叶片唤出，接住后清理最多5块砖',prompt:'接住星路芽 · 清理最多5块砖',result:'星路清理5块'},crown:{name:'柔壳花冠',desc:'接住后暂时扩大接球范围，本关最多{limit}次',prompt:'接住柔壳花冠 · 扩大接球范围',result:'柔壳花冠生效 · {used}/{limit}',status:'接球范围扩大 · {used}/{limit}'},buff:{name:'叶片收集',desc:'三击砖掉落，接住后唤出星路芽',prompt:'三击砖掉落 · 接住小叶片',result:'叶片汇成星路芽'},multi:{name:'星星点点',desc:'接住后暂时变成2颗光球',prompt:'接住小星星后光球暂时同行',result:'星光同行 · 场上2颗',status:'星光同行 · 场上2颗'}},
+        zht:{title:'本關物件',hazard:{name:'沉殼團',desc:'碰到損失1顆光球',prompt:'避開沉殼團 · 碰到損失1顆光球',result:'光球 −1'},seed:{name:'蛋殼威力',desc:'接住蛋形能量後七連發，本關最多{limit}次',prompt:'接住後可釋放蛋殼威力',result:'蛋殼威力已就緒'},life:{name:'元氣蛋殼',desc:'光球＋1並獲得本關快速移動',prompt:'接住元氣蛋殼 · 光球＋1並加快移動',result:'光球＋1 · 快速移動'},slow:{name:'慢風絨',desc:'暫時降低球速',prompt:'接到後暫時降低球速',result:'慢風生效'},clear:{name:'星路芽',desc:'由收集的葉片喚出，接住後清理最多5塊磚',prompt:'接住星路芽 · 清理最多5塊磚',result:'星路清理5塊'},crown:{name:'柔殼花冠',desc:'接住後暫時擴大接球範圍，本關最多{limit}次',prompt:'接住柔殼花冠 · 擴大接球範圍',result:'柔殼花冠生效 · {used}/{limit}',status:'接球範圍擴大 · {used}/{limit}'},buff:{name:'葉片收集',desc:'三擊磚掉落，接住後喚出星路芽',prompt:'三擊磚掉落 · 接住小葉片',result:'葉片匯成星路芽'},multi:{name:'星星點點',desc:'接住後暫時變成2顆光球',prompt:'接住小星星後光球暫時同行',result:'星光同行 · 場上2顆',status:'星光同行 · 場上2顆'}},
+        ja:{title:'このステージのアイテム',hazard:{name:'沈み殻の房',desc:'触れるとボールを1つ失う',prompt:'沈み殻の房をよけよう · ボール−1',result:'ボール −1'},seed:{name:'卵殻パワー',desc:'卵形エネルギーで7連射・このステージは最大{limit}回',prompt:'受け取ると卵殻パワーを放てる',result:'卵殻パワーの準備完了'},life:{name:'元気の卵殻',desc:'ボール＋1・このステージ中は高速移動',prompt:'元気の卵殻 · ボール＋1と高速移動',result:'ボール＋1 · 高速移動'},slow:{name:'そよ風の綿',desc:'一時的に速度を下げる',prompt:'受け取ると一時的に速度が下がる',result:'そよ風が発動'},clear:{name:'星路の芽',desc:'集めた葉から生まれ、受け取ると最大5個を清掃',prompt:'星路の芽を受け取る · 最大5個を清掃',result:'星路が5個を清掃'},crown:{name:'やわらか殻の花冠',desc:'一時的に受け止める幅が広がる・このステージは最大{limit}回',prompt:'やわらか殻の花冠 · 受け止める幅を広げる',result:'花冠が発動 · {used}/{limit}',status:'受け止める幅が拡大中 · {used}/{limit}'},buff:{name:'葉っぱ集め',desc:'3回ブロックから落下・受け取ると星路の芽を呼ぶ',prompt:'3回ブロックから落下 · 小さな葉を受け取る',result:'葉が星路の芽になる'},multi:{name:'星のきらめき',desc:'受け取ると一時的にボールが2つになる',prompt:'小さな星を受け取ると光球が一時同行',result:'星光同行 · 2つ',status:'星光同行 · 2つ'}},
+        en:{title:'Stage Items',hazard:{name:'Sunk-shell Cluster',desc:'Lose 1 ball on contact',prompt:'Avoid the sunk-shell cluster · Ball −1',result:'Ball −1'},seed:{name:'Eggshell Power',desc:'Catch the egg energy for a 7-shot stream, up to {limit} times this stage',prompt:'Catch it to ready Eggshell Power',result:'Eggshell Power ready'},life:{name:'Vitality Shell',desc:'Ball +1 and fast movement for this stage',prompt:'Catch it · Ball +1 and faster movement',result:'Ball +1 · Fast movement'},slow:{name:'Breeze Fluff',desc:'Temporarily slows the ball',prompt:'Catch to slow the ball briefly',result:'Breeze active'},clear:{name:'Star-path Bud',desc:'Grown from a collected leaf; catch it to clear up to 5 bricks',prompt:'Catch the Star-path Bud · clear up to 5 bricks',result:'Star path cleared 5 bricks'},crown:{name:'Soft-shell Blossom Crown',desc:'Temporarily widens the catch area, up to {limit} times this stage',prompt:'Catch the blossom crown · widen the catch area',result:'Blossom crown active · {used}/{limit}',status:'Catch area widened · {used}/{limit}'},buff:{name:'Leaf Collection',desc:'Drops from 3-hit bricks; catch it to call a Star-path Bud',prompt:'From 3-hit bricks · catch the small leaf',result:'Leaf grew into a Star-path Bud'},multi:{name:'Scattered Starlight',desc:'Temporarily makes 2 light balls',prompt:'Catch the small stars for brief light-ball company',result:'Starlight company · 2 active',status:'Starlight company · 2 active'}}
     };
     var ITEM_GUIDE_ICONS={hazard:'!',seed:'⌁',life:'⌣',slow:'≈',clear:'✦',crown:'⌒·⌒',buff:'◜',multi:'✦·'};
     var ITEM_NOTICE_COLORS={hazard:{soft:'#dce7e4',ink:'#385c5d'},seed:{soft:'#fff3d8',ink:'#a97032'},life:{soft:'#fff0d4',ink:'#bd714f'},slow:{soft:'#def2fb',ink:'#4e91b6'},clear:{soft:'#fff1b9',ink:'#a97726'},crown:{soft:'#e2f5e9',ink:'#4f8977'},buff:{soft:'#e5f5d7',ink:'#4f8a5d'},multi:{soft:'#fff0d3',ink:'#9b7137'}};
@@ -296,7 +296,7 @@
     };
 
     Game.prototype.itemGuideTypes=function(){
-        var types=this.level===1?['crown']:(this.level===2?['life','crown']:(this.level===3?['hazard','slow','crown']:(this.level===4?['crown']:(this.level===5?['life','slow','clear','crown','buff']:['life','multi','crown']))));
+        var types=this.level===1?['crown']:(this.level===2?['life','crown']:(this.level===3?['hazard','slow','crown']:(this.level===4?['crown']:(this.level===5?['buff','clear','crown']:['life','multi','crown']))));
         types.push('seed');return types;
     };
     Game.prototype.itemGuideHtml=function(){
@@ -424,8 +424,7 @@
         this.earlyLifeDrop=null;this.earlyLifeDestroyed=0;this.earlyLifeIssued=false;this.earlyLifeThreshold=this.level===2?16:24;this.vitalitySpeedActive=false;
         this.stageThreeSlowDrop=null;this.stageThreeReinforcedCleared=0;this.stageThreeSlowAttempts=0;this.stageThreeSlowCaught=false;this.stageThreeSlowTime=0;this.stageThreeRecoverTime=0;this.stageThreeRecoverDuration=.7;this.stageThreeSlowSpeed=390;this.stageThreeGatherEffects=[];this.stageThreeCollectEffects=[];
         this.seedDrop=null;this.seedProjectiles=[];this.seedVolleyQueue=0;this.seedVolleyClock=0;this.seedVolleyInterval=.055;this.seedVolleyClears=0;this.seedVolleyClearLimit=3;this.seedVolleyActive=false;this.seedBursts=[];this.seedClock=0;this.seedNextAt=this.level===1?12:(this.level===4?4.5:7);this.seedDropInterval=this.level===4?5.5:7;this.seedSpawnCount=0;this.seedMisses=0;this.seedHeld=false;this.seedUses=0;this.seedLimit=LEVEL_SEED_LIMITS[this.level]||2;this.seedDropLimit=this.seedLimit;this.seedCooldown=0;
-        this.stageFiveDrop=null;this.stageFiveDropClock=0;this.stageFiveNextAt=10+Math.random()*5;this.stageFiveDropCount=0;
-        this.stageFiveSlowTime=0;this.stageFiveRecoverTime=0;this.stageFiveRecoverDuration=.8;this.stageFiveSlowSpeed=440;
+        this.stageFiveDrop=null;this.stageFiveDropCount=0;this.stageFiveClearQueue=[];this.stageFiveClearDelay=0;
         this.catchCrownDrops=[];this.catchCrownCollectEffects=[];this.catchCrownSources=[];this.catchCrownClock=0;this.catchCrownRetryAt=0;this.catchCrownEligible=0;this.catchCrownTriggerIndex=0;this.catchCrownUses=0;this.catchCrownLimit=CROWN_USE_LIMITS[this.level]||2;this.catchCrownInitialBricks=0;
         this.catchCrownTime=0;this.catchCrownDuration=12;this.catchCrownAge=0;this.catchCrownImpact=0;this.catchCrownContact=0;
         this.stageFiveCollectEffects=[];this.stageFiveClearPaths=[];
@@ -504,12 +503,12 @@
             this.bricks.push({x:brickX,y:brickY,baseX:brickX,baseY:brickY,motionGroup:cell.motionGroup,w:bw,h:bh,row:paletteRow,col:cellIndex%9,color:colors[paletteRow],alive:true,reinforced:reinforced,buffCarrier:stageFiveTriple,multiCarrier:stageSixTriple,crownCarrier:stageSixCrown,buffDropped:false,crownDropped:false,maxHits:maxHits,hitsRemaining:maxHits,hitCooldown:0,shellPulseAge:-1,shellPulseDuration:.2,shellImpactX:0,shellImpactY:0});this.remaining++;
         }
         this.catchCrownInitialBricks=this.remaining;
-        if(this.level===2||this.level===5)this.updateBrickMotion(0);
+        if(this.level===2)this.updateBrickMotion(0);
         this.updateHud();
     };
 
     Game.prototype.updateBrickMotion=function(dt){
-        if(this.level!==2&&this.level!==5)return;
+        if(this.level!==2)return;
         this.brickMotionTime+=Math.max(0,dt||0);
         var travel=1.8,hold=.3,cycle=travel*2+hold*2,cycleTime=this.brickMotionTime%cycle;
         var offset=-16,direction=0,progress,eased;
@@ -739,10 +738,12 @@
         return {x:this.paddle.x-this.paddle.w*.5,y:this.paddle.y-this.paddle.h*.5,w:this.paddle.w,h:this.paddle.h};
     };
 
-    Game.prototype.spawnStageFiveDrop=function(){
+    Game.prototype.spawnStageFiveDrop=function(originX){
         if(this.level!==5||this.stageFiveDrop)return false;
+        var targetX=Number(originX);if(!isFinite(targetX))targetX=W*.5;
         var candidates=this.bricks.filter(function(brick){return brick.alive;});if(!candidates.length)return false;
-        var source=candidates[Math.floor(Math.random()*candidates.length)],roll=Math.random(),type=roll<.28?'life':(roll<.68?'slow':'clear');
+        candidates.sort(function(a,b){return Math.abs(a.x+a.w*.5-targetX)-Math.abs(b.x+b.w*.5-targetX)||a.y-b.y||a.x-b.x;});
+        var source=candidates[0],type='clear';
         this.stageFiveDropCount++;this.stageFiveDrop={type:type,x:source.x+source.w*.5,y:source.y+source.h+15,r:14,speed:118,age:0,sourceX:source.x+source.w*.5,sourceY:source.y+source.h*.5};this.showItemHint(type,this.stageFiveDrop);
         return true;
     };
@@ -817,6 +818,8 @@
         if(index===undefined)index=this.stageFiveBuffDrops.indexOf(drop);
         if(index>=0)this.stageFiveBuffDrops.splice(index,1);
         this.stageFiveBuffCollected++;
+        this.stageFiveClearQueue.push(drop.x);
+        if(!this.stageFiveDrop&&this.stageFiveClearQueue.length===1)this.stageFiveClearDelay=.55;
         this.stageFiveBuffCollectEffects.push({x:drop.x,y:this.paddle.y-22,age:0,duration:.82});
         this.showItemResult('buff',drop.x,this.paddle.y-54);
         this.playSoftCollision('catch');
@@ -865,35 +868,27 @@
 
     Game.prototype.collectStageFiveDrop=function(drop){
         if(!drop)return false;
-        if(drop.type==='life')this.activateVitalityShell(drop,'stage5');
-        else if(drop.type==='slow'){
-            this.stageFiveSlowTime=8;this.stageFiveRecoverTime=0;this.setBallSpeed(this.stageFiveSlowSpeed);
-        }else if(drop.type==='clear')this.clearStageFiveBricks(drop.x);
+        if(drop.type==='clear')this.clearStageFiveBricks(drop.x);
         this.stageFiveCollectEffects.push({type:drop.type,x:drop.x,y:this.paddle.y-20,age:0,duration:.72});
-        if(drop.type!=='life')this.showItemResult(drop.type,drop.x,this.paddle.y-54);
-        this.stageFiveDrop=null;this.stageFiveNextAt=this.stageFiveDropClock+10+Math.random()*5;this.updateHud();
-        if(drop.type!=='life'){this.playSoftCollision('catch');if(this.characterView&&this.characterView.react)this.characterView.react('catch',clamp((drop.x-this.paddle.x)/(this.paddle.w*.5),-1,1));}
+        this.showItemResult(drop.type,drop.x,this.paddle.y-54);
+        this.stageFiveDrop=null;if(this.stageFiveClearQueue.length)this.stageFiveClearDelay=.55;this.updateHud();
+        this.playSoftCollision('catch');if(this.characterView&&this.characterView.react)this.characterView.react('catch',clamp((drop.x-this.paddle.x)/(this.paddle.w*.5),-1,1));
         if(this.options.onEvent)this.options.onEvent('stageFiveItem',{type:drop.type,lives:this.lives,speed:this.ball.speed,remaining:this.remaining});
         return true;
     };
 
     Game.prototype.updateStageFiveItems=function(dt){
         if(this.level!==5||this.state!=='playing')return;
-        this.stageFiveDropClock+=Math.max(0,dt||0);
-        if(this.stageFiveSlowTime>0){
-            this.stageFiveSlowTime=Math.max(0,this.stageFiveSlowTime-dt);
-            if(this.stageFiveSlowTime===0)this.stageFiveRecoverTime=this.stageFiveRecoverDuration;
-        }else if(this.stageFiveRecoverTime>0){
-            this.stageFiveRecoverTime=Math.max(0,this.stageFiveRecoverTime-dt);
-            var progress=1-this.stageFiveRecoverTime/this.stageFiveRecoverDuration,eased=progress*progress*(3-2*progress);
-            this.setBallSpeed(this.stageFiveSlowSpeed+(LEVEL_BALL_SPEEDS[5]-this.stageFiveSlowSpeed)*eased);
-            if(this.stageFiveRecoverTime===0)this.setBallSpeed(LEVEL_BALL_SPEEDS[5]);
+        if(!this.stageFiveDrop){
+            if(!this.stageFiveClearQueue.length)return;
+            this.stageFiveClearDelay=Math.max(0,this.stageFiveClearDelay-dt);
+            if(this.stageFiveClearDelay>0)return;
+            var originX=this.stageFiveClearQueue.shift();if(!this.spawnStageFiveDrop(originX)&&this.stageFiveClearQueue.length)this.stageFiveClearDelay=.55;return;
         }
-        if(!this.stageFiveDrop){if(this.stageFiveDropClock>=this.stageFiveNextAt)this.spawnStageFiveDrop();return;}
         var drop=this.stageFiveDrop;drop.age+=dt;drop.y+=drop.speed*dt;
         var catchRect=this.stageFiveCatchRect();
         if(this.rules.circleRectHit(drop.x,drop.y,drop.r,catchRect)){this.collectStageFiveDrop(drop);return;}
-        if(drop.y-drop.r>H+12){this.stageFiveDrop=null;this.stageFiveNextAt=this.stageFiveDropClock+10+Math.random()*5;}
+        if(drop.y-drop.r>H+12){this.stageFiveDrop=null;if(this.stageFiveClearQueue.length)this.stageFiveClearDelay=.55;}
     };
 
     Game.prototype.spawnStageSixDrop=function(type,brick){
@@ -1391,7 +1386,7 @@
     };
 
     Game.prototype.applySoftBrickDeflection=function(brick,contactX,ball){
-        if(this.level!==4&&this.level!==5)return;
+        if(this.level!==4)return;
         var b=ball||this.ball,position=clamp((contactX-(brick.x+brick.w*.5))/(brick.w*.5),-1,1),deadZone=.18;
         if(Math.abs(position)<=deadZone)return;
         var influence=(Math.abs(position)-deadZone)/(1-deadZone),nudge=Math.sign(position)*influence*b.speed*Math.sin(Math.PI/22.5);
@@ -1958,7 +1953,7 @@
                 c.translate(shellCenterX,shellCenterY);c.scale(1+shellPulse*.035,1-shellPulse*.1);c.translate(-shellCenterX,-shellCenterY);
             }
             c.shadowColor='rgba(35,92,76,.18)';c.shadowBlur=12;c.shadowOffsetY=5;
-            if((this.level===2||this.level===5)&&br.motionGroup!=='fixed'){
+            if(this.level===2&&br.motionGroup!=='fixed'){
                 var swayDirection=(br.motionGroup==='left'?1:-1)*this.brickMotionDirection;
                 c.shadowOffsetX=-swayDirection*3;
                 c.shadowColor='rgba(52,112,98,.24)';
