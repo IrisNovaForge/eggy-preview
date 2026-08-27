@@ -1,0 +1,11 @@
+{
+  "id": "cloud-basket",
+  "version": "0.2.2",
+  "entrance": "entrance.js",
+  "scripts": [
+    "cloud-basket-rules.js",
+    "cloud-basket-core.js",
+    "plugin.js"
+  ],
+  "debug": "debug/"
+}
