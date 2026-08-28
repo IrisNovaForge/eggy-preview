@@ -1,8 +1,8 @@
 (function(){
     'use strict';
     if(!window.DANBO_PLUGIN_HOST||!window.DANBO_PLUGIN_HOST.registerEntrance)return;
-    var NAME={zhs:'梦光验货所',zht:'夢光驗貨所',ja:'夢光チェック所',en:'Dreamlight Inspection'};
-    var DESC={zhs:'开始一场梦光观察训练吗？',zht:'開始一場夢光觀察訓練嗎？',ja:'夢光の観察トレーニングを始めますか？',en:'Begin a dreamlight observation session?'};
+    var NAME={zhs:'蛋壳匹配屋',zht:'蛋殼匹配屋',ja:'たまご殻合わせ屋',en:'Eggshell Match House'};
+    var DESC={zhs:'开始第一关蛋壳辨认训练吗？',zht:'開始第一關蛋殼辨認訓練嗎？',ja:'たまご殻合わせのステージ1を始めますか？',en:'Begin level 1 eggshell recognition?'};
     window.DANBO_PLUGIN_HOST.registerEntrance({
         id:'cloud-basket-depot',pluginId:'cloud-basket',hiddenType:'cloudBasket',targetStyle:-99,disabledCityStyles:[],name:NAME,desc:DESC,color:0x8fd8f4,
         create:function(ctx){
