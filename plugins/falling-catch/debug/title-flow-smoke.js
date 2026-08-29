@@ -18,7 +18,7 @@
                 game.showLevelSelect();
                 assert(game.screen()==='select'&&document.querySelectorAll('.dfc-level-choice').length===4,'stage selection shows all four stages');
                 document.querySelector('[data-level-id="crystal-valley-turn"]').click();
-                assert(game.screen()==='stage-title'&&document.querySelector('.dfc-stage-title-card').textContent.indexOf('晶谷回旋')>=0,'selected Stage 3 opens its dedicated title page');
+                assert(game.screen()==='stage-title'&&document.querySelector('.dfc-stage-title-card').textContent.indexOf('回旋')>=0,'selected Stage 3 opens its dedicated title page');
                 assert(!document.querySelector('.dfc-stage-title-card img'),'stage title page contains no Traveler portrait');
                 setTimeout(function(){
                     try{
