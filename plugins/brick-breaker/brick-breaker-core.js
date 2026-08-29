@@ -307,7 +307,7 @@
     };
     Game.prototype.stageLabel=function(level){return this.stageSelectText.stagePrefix+level+this.stageSelectText.stageSuffix;};
     Game.prototype.stageName=function(level){return this.stageSelectText.levels[level-1]||this.stageSelectText.levels[0];};
-    Game.prototype.stageBasicCopy=function(){var t=this.t;return this.level===3?this.stageThreeText.basic:(this.level===4?t.fourthBasic:(this.level===5?this.stageFiveText.basic:(this.level===6?this.stageSixText.basic:t.basic)));};
+    Game.prototype.stageBasicCopy=function(){var t=this.t;return this.level===1?'':(this.level===3?this.stageThreeText.basic:(this.level===4?t.fourthBasic:(this.level===5?this.stageFiveText.basic:(this.level===6?this.stageSixText.basic:t.basic))));};
     Game.prototype.titleHtml=function(){var t=this.t;return '<div class="bb-title-emblem" aria-hidden="true"><span class="bb-title-emblem-art"><i class="bb-title-shell"></i><b class="bb-title-bud"></b><em class="bb-title-contact"></em></span></div><p class="bb-character-theme"><span>'+esc(this.theme.glyph)+'</span>'+esc(this.character.name)+'</p><h1>'+esc(t.name)+'</h1><p class="bb-sub">'+esc(t.sub)+'</p><button class="bb-primary" data-action="levels">'+esc(this.stageSelectText.enter)+'</button>';};
     Game.prototype.levelSelectHtml=function(){
         var html='<div class="bb-title-emblem bb-title-emblem--compact" aria-hidden="true"><span class="bb-title-emblem-art"><i class="bb-title-shell"></i><b class="bb-title-bud"></b><em class="bb-title-contact"></em></span></div><h2>'+esc(this.stageSelectText.select)+'</h2><div class="bb-level-grid">';
@@ -952,7 +952,7 @@
         this.clearIntroTimer();this.stopBgm(true);this.resetBoard();this.state='ready';this.root.classList.add('bb-playing');this.showReady();
         if(this.options.onEvent)this.options.onEvent('start',{score:0,lives:this.lives,level:this.level,name:this.stageName(this.level)});
     };
-    Game.prototype.showReady=function(){var t=this.t;this.overlay.hidden=false;this.card.className='bb-card bb-ready-card';this.card.innerHTML='<p class="bb-kicker">'+esc(this.stageLabel(this.level)+' · '+this.stageName(this.level))+'</p><div class="bb-mini-ball">●</div><h2>'+esc(t.ready)+'</h2><p>'+esc(t.readyHint)+'</p>'+this.itemGuideHtml()+'<button class="bb-primary" data-action="launch">'+esc(t.launch)+'</button><p class="bb-note">'+esc(this.stageBasicCopy())+'</p>';this.setGameplayControlsFocusable(false);this.focusFirstAction();};
+    Game.prototype.showReady=function(){var t=this.t,basicCopy=this.stageBasicCopy(),basicNote=basicCopy?'<p class="bb-note">'+esc(basicCopy)+'</p>':'';this.overlay.hidden=false;this.card.className='bb-card bb-ready-card';this.card.innerHTML='<p class="bb-kicker">'+esc(this.stageLabel(this.level)+' · '+this.stageName(this.level))+'</p><div class="bb-mini-ball">●</div><h2>'+esc(t.ready)+'</h2><p>'+esc(t.readyHint)+'</p>'+this.itemGuideHtml()+'<button class="bb-primary" data-action="launch">'+esc(t.launch)+'</button>'+basicNote;this.setGameplayControlsFocusable(false);this.focusFirstAction();};
     Game.prototype.launch=function(){
         if(this.state!=='ready')return;
         this.ensureAudio();
