@@ -20,6 +20,7 @@
                 document.querySelector('[data-level-id="crystal-valley-turn"]').click();
                 assert(game.screen()==='stage-title'&&document.querySelector('.dfc-stage-title-card').textContent.indexOf('回旋')>=0,'selected Stage 3 opens its dedicated title page');
                 assert(!document.querySelector('.dfc-stage-title-card img'),'stage title page contains no Traveler portrait');
+                assert(!document.querySelector('.dfc-stage-title-card .dfc-stage-tagline'),'stage title page omits explanatory copy');
                 setTimeout(function(){
                     try{
                         assert(game.screen()==='ready'&&document.querySelector('.dfc-ready-card').textContent.indexOf('开始接取')>=0,'stage title advances to the stage ready page');
