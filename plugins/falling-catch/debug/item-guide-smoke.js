@@ -17,6 +17,8 @@
         function inspect(index){
             game.selectLevel(index+1);setTimeout(function(){try{
                 assert(game.screen()==='ready','Stage '+(index+1)+' reaches its ready explanation');
+                if(index===0)assert(!mount.querySelector('.dfc-ready-card .dfc-card-body'),'Stage 1 omits the requested Traveler instruction line');
+                else assert(!!mount.querySelector('.dfc-ready-card .dfc-card-body'),'Later stages retain their mechanism explanation');
                 var guide=mount.querySelector('.dfc-item-guide'),entries=Array.prototype.slice.call(mount.querySelectorAll('.dfc-item-guide-entry'));
                 assert(guide&&guide.getAttribute('aria-label')==='本关物件','Stage '+(index+1)+' exposes the localized 本关物件 section');
                 assert(entries.map(function(entry){return entry.dataset.guideItem;}).join(',')===expected[index].join(','),'Stage '+(index+1)+' lists only its actual item types in authored order');
