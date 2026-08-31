@@ -1596,13 +1596,11 @@
         c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=2;c.stroke();}
     };
     Game.prototype.brickShellPath=function(c,x,y,w,h){
-        var right=x+w,bottom=y+h,corner=Math.max(1,Math.min(4.8,h*.3,w*.1)),topInset=Math.min(.65,h*.08),bottomInset=Math.min(.7,h*.09);
-        c.beginPath();c.moveTo(x+corner,y+topInset);
-        c.quadraticCurveTo(x+1.1,y+topInset,x+.75,y+corner);
-        c.lineTo(x+.55,bottom-corner*.92);c.quadraticCurveTo(x+.9,bottom-bottomInset,x+corner*1.08,bottom-bottomInset);
-        c.lineTo(right-corner*.92,bottom-bottomInset*.72);c.quadraticCurveTo(right-.65,bottom-bottomInset,right-.55,bottom-corner*1.08);
-        c.lineTo(right-.72,y+corner*.9);c.quadraticCurveTo(right-1.05,y+topInset*.72,right-corner*.88,y+topInset*.72);
-        c.quadraticCurveTo(x+w*.52,y+.05,x+corner,y+topInset);c.closePath();
+        var right=x+w,bottom=y+h,bevel=Math.max(.6,Math.min(2.4,h*.18,w*.04)),edge=Math.min(.45,h*.08);
+        var topLeft=bevel,topRight=bevel*.78,bottomRight=bevel*1.08,bottomLeft=bevel*.88;
+        c.beginPath();c.moveTo(x+topLeft,y+edge);c.lineTo(right-topRight,y+edge);c.lineTo(right-edge,y+topRight);
+        c.lineTo(right-edge,bottom-bottomRight);c.lineTo(right-bottomRight,bottom-edge);c.lineTo(x+bottomLeft,bottom-edge);
+        c.lineTo(x+edge,bottom-bottomLeft);c.lineTo(x+edge,y+topLeft);c.closePath();
     };
     Game.prototype.brickShell=function(c,x,y,w,h,fill,stroke,lineWidth){
         this.brickShellPath(c,x,y,w,h);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=lineWidth||1.5;c.stroke();}
