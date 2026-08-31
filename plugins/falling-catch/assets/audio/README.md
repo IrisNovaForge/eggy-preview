@@ -8,7 +8,7 @@
 - Post-processing: active-event trim, 6 ms fade-in, 40 ms fade-out, peak normalization to -6 dBFS.
 - Format: WAV, stereo, 44.1 kHz, 16-bit PCM, approximately 0.42 seconds.
 
-`obstacle-hit.wav` is the selected Candidate A for the dull-hardened-shell collision event.
+`obstacle-hit.wav` is the selected Candidate A for the Windworn Mossrock collision event (the stable presentation identifier remains `dull-hardened-shell`).
 
 - Original prompt concept: a small moss-covered weathered pebble making one gentle muted tap against a soft rounded natural surface.
 - Generated specifically for this project with Stable Audio 3 Medium; seed `8417`.
