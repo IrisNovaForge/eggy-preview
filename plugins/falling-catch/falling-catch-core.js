@@ -93,7 +93,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.28');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.29');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-eggshell',targets:['verdant-shell-fragment','berryglow-shell-fragment','goldengrain-shell-fragment'],obstacle:'dull-hardened-shell',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'收集',zht:'收集',ja:'収集',en:'Gather'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -124,6 +124,9 @@
         var PLAYER_RENDER_SCALE=.3;
         var TRAVELER_VISUAL_SCALE=.85;
         var MOBILE_TRAVELER_VISUAL_SCALE=1.9656;
+        var MOBILE_AIRFLOW_VISUAL_SCALE=1.45;
+        var MOBILE_AIRFLOW_OFFSET_Y=-9.5;
+        var MOBILE_AIRFLOW_DEFAULT_BASE_Y=-17.5;
         var FALLING_OBJECT_VISUAL_SCALE=.88;
         var STONE_COLLISION_RADIUS=2.95;
         var DESKTOP_DROP_SCALE=.70;
@@ -394,6 +397,10 @@
         function responsiveDropScale(){return desktopDropMedia&&desktopDropMedia.matches?DESKTOP_DROP_SCALE:(mobileScaleMedia&&mobileScaleMedia.matches?MOBILE_DROP_SCALE:1);}
         function responsiveCollisionScale(){return desktopDropMedia&&desktopDropMedia.matches?DESKTOP_DROP_SCALE:1;}
         function responsiveTravelerScale(){return mobileScaleMedia&&mobileScaleMedia.matches?MOBILE_TRAVELER_VISUAL_SCALE:TRAVELER_VISUAL_SCALE;}
+        function mobileAirflowPresentation(){return !!(mobileScaleMedia&&mobileScaleMedia.matches);}
+        function responsiveAirflowScale(){return mobileAirflowPresentation()?MOBILE_AIRFLOW_VISUAL_SCALE:1;}
+        function responsiveAirflowBaseY(level){var value=Number(level&&level.basketOffsetY);return Number.isFinite(value)?value:(mobileAirflowPresentation()?MOBILE_AIRFLOW_DEFAULT_BASE_Y:0);}
+        function responsiveAirflowOffsetY(){return mobileAirflowPresentation()?MOBILE_AIRFLOW_OFFSET_Y:0;}
         function responsiveBurstFontSize(){return mobileScaleMedia&&mobileScaleMedia.matches?4:2.4;}
         function fallingObjectScale(kind){
             var presentation=objectPresentation(),scales=presentation&&presentation.visualScales;
@@ -834,7 +841,7 @@
             context.restore();
         }
         function drawTravelerCollector(){
-            var pose=collectorPose(),basketOffsetY=Number(currentLevel.basketOffsetY)||0,jumpRatio=currentLevel.jumpPower?Math.min(1,Math.abs(jumpState.offsetY)/(Number(currentLevel.jumpPower.jumpHeight)||10)):0;
+            var pose=collectorPose(),basketOffsetY=responsiveAirflowBaseY(currentLevel),jumpRatio=currentLevel.jumpPower?Math.min(1,Math.abs(jumpState.offsetY)/(Number(currentLevel.jumpPower.jumpHeight)||10)):0;
             context.save();context.translate(player.x,player.y);
             context.translate(0,4.4);context.scale(PLAYER_RENDER_SCALE,PLAYER_RENDER_SCALE);context.translate(0,-4.4);
             drawCollectorSteps(pose);
@@ -850,9 +857,9 @@
                 context.drawImage(travelerImage,0,0,travelerImage.naturalWidth,sourceHeight,-7.4,-15.3,14.8,15.2);
             }else drawFallbackTraveler(0);
             context.restore();
-            var airflowY=basketOffsetY+pose.basketY,airflowTime=performance.now()/1000;
+            var airflowY=basketOffsetY+pose.basketY+responsiveAirflowOffsetY(),airflowScale=responsiveAirflowScale(),airflowTime=performance.now()/1000;
             var airflowDrift=Math.sin(airflowTime*1.7)*.22,airflowLift=Math.cos(airflowTime*1.25)*.12;
-            context.save();context.translate(pose.basketX+airflowDrift,airflowY+airflowLift);context.rotate(pose.basketRotation);context.scale(pose.basketScaleX,pose.basketScaleY);context.lineCap='round';context.lineJoin='round';context.shadowColor='rgba(157,226,198,.48)';context.shadowBlur=3.2;
+            context.save();context.translate(pose.basketX+airflowDrift,airflowY+airflowLift);context.rotate(pose.basketRotation);context.scale(pose.basketScaleX*airflowScale,pose.basketScaleY*airflowScale);context.lineCap='round';context.lineJoin='round';context.shadowColor='rgba(157,226,198,.48)';context.shadowBlur=3.2;
             var primaryWind=context.createLinearGradient(-3.25,0,3.25,0);primaryWind.addColorStop(0,'rgba(181,232,211,.12)');primaryWind.addColorStop(.3,'rgba(225,251,214,.72)');primaryWind.addColorStop(.62,'rgba(238,255,225,.86)');primaryWind.addColorStop(1,'rgba(143,211,192,.16)');context.strokeStyle=primaryWind;context.lineWidth=.82;context.beginPath();context.moveTo(-3.25,.22);context.bezierCurveTo(-2.1,-.1,-1.2,-1.05,.15,-.92);context.bezierCurveTo(1.1,-.84,1.7,-.25,2.35,-.32);context.stroke();
             context.strokeStyle='rgba(197,241,222,.48)';context.lineWidth=.48;context.beginPath();context.moveTo(2.7,-.24);context.quadraticCurveTo(3.18,-.48,3.62,-.3);context.stroke();
             context.shadowBlur=2;context.strokeStyle='rgba(151,216,196,.38)';context.lineWidth=.5;context.beginPath();context.moveTo(-4.65,1.18);context.bezierCurveTo(-3.65,.72,-2.85,.88,-2.12,.5);context.stroke();context.beginPath();context.moveTo(1.78,1.02);context.bezierCurveTo(2.55,.58,3.45,.78,4.45,.28);context.stroke();
