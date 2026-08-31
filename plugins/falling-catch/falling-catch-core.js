@@ -93,7 +93,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.23');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.24');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-eggshell',targets:['verdant-shell-fragment','berryglow-shell-fragment','goldengrain-shell-fragment'],obstacle:'dull-hardened-shell',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'收集',zht:'收集',ja:'収集',en:'Gather'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -815,10 +815,6 @@
             context.strokeStyle=accent;context.lineWidth=1.1;context.beginPath();context.moveTo(0,-6.2);context.quadraticCurveTo(-1.4,-8,-2.8,-7.2);context.moveTo(0,-6.2);context.quadraticCurveTo(1.5,-8.2,3,-7.2);context.stroke();
             context.restore();
         }
-        function transformCollectorPoint(x,y,pose){
-            x*=pose.scaleX;y*=pose.scaleY;var cosine=Math.cos(pose.lean),sine=Math.sin(pose.lean);
-            return {x:pose.bodyX+x*cosine-y*sine,y:pose.bodyY+x*sine+y*cosine};
-        }
         function drawCollectorSteps(pose){
             if(phase!=='running'||pose.move<.08||jumpState.airborne)return;
             context.save();context.globalAlpha=.12+.2*pose.move;context.fillStyle=canvasColor(traveler.accent,'#8fd16a');
@@ -843,19 +839,14 @@
                 context.drawImage(travelerImage,0,0,travelerImage.naturalWidth,sourceHeight,-7.4,-15.3,14.8,15.2);
             }else drawFallbackTraveler(0);
             context.restore();
-            var hands=simplifiedTraveler?characterRenderer.handAnchors(pose):{left:{x:-3.4,y:-11.2},right:{x:3.4,y:-11.2}};
-            var leftShoulder=transformCollectorPoint(hands.left.x*travelerVisualScale,hands.left.y*travelerVisualScale,pose),rightShoulder=transformCollectorPoint(hands.right.x*travelerVisualScale,hands.right.y*travelerVisualScale,pose);
-            var cradleY=basketOffsetY+pose.basketY;
-            context.save();context.strokeStyle='rgba(190,236,205,.68)';context.lineWidth=1.15;context.lineCap='round';context.shadowColor='rgba(119,190,159,.34)';context.shadowBlur=2.4;context.beginPath();
-            if(basketOffsetY){context.moveTo(leftShoulder.x,leftShoulder.y);context.quadraticCurveTo(pose.basketX-4.7,cradleY+5.15,pose.basketX-5.85,cradleY+1.55);context.moveTo(rightShoulder.x,rightShoulder.y);context.quadraticCurveTo(pose.basketX+4.7,cradleY+5.15,pose.basketX+5.85,cradleY+1.55);}
-            else{context.moveTo(leftShoulder.x,leftShoulder.y+7.7*TRAVELER_VISUAL_SCALE);context.quadraticCurveTo(pose.basketX-4.8,pose.basketY+3.8,pose.basketX-5.85,pose.basketY+1.55);context.moveTo(rightShoulder.x,rightShoulder.y+7.7*TRAVELER_VISUAL_SCALE);context.quadraticCurveTo(pose.basketX+4.8,pose.basketY+3.8,pose.basketX+5.85,pose.basketY+1.55);}
-            context.stroke();context.restore();context.save();context.translate(pose.basketX,cradleY);context.rotate(pose.basketRotation);context.scale(pose.basketScaleX,pose.basketScaleY);
-            var cradleGlow=context.createRadialGradient(0,1.15,.3,0,1.15,7.25);cradleGlow.addColorStop(0,'rgba(237,255,208,.48)');cradleGlow.addColorStop(.58,'rgba(180,232,193,.18)');cradleGlow.addColorStop(1,'rgba(144,205,184,0)');context.fillStyle=cradleGlow;context.beginPath();context.ellipse(0,1.25,7.35,3.25,0,0,Math.PI*2);context.fill();
-            var leftPetal=context.createLinearGradient(-5.8,-.8,-1.1,3.7);leftPetal.addColorStop(0,'#cfe9b2');leftPetal.addColorStop(1,'#78b89a');context.fillStyle=leftPetal;context.beginPath();context.moveTo(-6.55,-.38);context.quadraticCurveTo(-3.7,-.9,-1.25,.42);context.quadraticCurveTo(-1.75,2.65,-4.35,3.45);context.quadraticCurveTo(-6.15,2.45,-6.55,-.38);context.closePath();context.fill();
-            var centerPetal=context.createLinearGradient(0,-.35,0,4.05);centerPetal.addColorStop(0,'#edf3bd');centerPetal.addColorStop(1,'#9acb96');context.fillStyle=centerPetal;context.beginPath();context.moveTo(-2.55,.2);context.quadraticCurveTo(0,-.95,2.55,.2);context.quadraticCurveTo(2.2,3.25,0,4.05);context.quadraticCurveTo(-2.2,3.25,-2.55,.2);context.closePath();context.fill();
-            var rightPetal=context.createLinearGradient(5.8,-.8,1.1,3.7);rightPetal.addColorStop(0,'#bce6cc');rightPetal.addColorStop(1,'#69ab98');context.fillStyle=rightPetal;context.beginPath();context.moveTo(6.55,-.38);context.quadraticCurveTo(3.7,-.9,1.25,.42);context.quadraticCurveTo(1.75,2.65,4.35,3.45);context.quadraticCurveTo(6.15,2.45,6.55,-.38);context.closePath();context.fill();
-            context.fillStyle='rgba(255,255,226,.62)';context.beginPath();context.ellipse(0,-.18,5.85,.72,0,0,Math.PI*2);context.fill();context.fillStyle='rgba(100,169,144,.28)';context.beginPath();context.ellipse(0,-.06,4.95,.34,0,0,Math.PI*2);context.fill();
-            context.fillStyle='rgba(239,255,214,.78)';context.beginPath();context.ellipse(-4.85,-1.42,.52,.22,-.16,0,Math.PI*2);context.ellipse(0,-1.72,.64,.25,0,0,Math.PI*2);context.ellipse(4.85,-1.42,.52,.22,.16,0,Math.PI*2);context.fill();context.restore();context.restore();
+            var airflowY=basketOffsetY+pose.basketY,airflowTime=performance.now()/1000;
+            var airflowDrift=Math.sin(airflowTime*1.7)*.22,airflowLift=Math.cos(airflowTime*1.25)*.12;
+            context.save();context.translate(pose.basketX+airflowDrift,airflowY+airflowLift);context.rotate(pose.basketRotation);context.scale(pose.basketScaleX,pose.basketScaleY);context.lineCap='round';context.lineJoin='round';context.shadowColor='rgba(157,226,198,.48)';context.shadowBlur=3.2;
+            var primaryWind=context.createLinearGradient(-3.25,0,3.25,0);primaryWind.addColorStop(0,'rgba(181,232,211,.12)');primaryWind.addColorStop(.3,'rgba(225,251,214,.72)');primaryWind.addColorStop(.62,'rgba(238,255,225,.86)');primaryWind.addColorStop(1,'rgba(143,211,192,.16)');context.strokeStyle=primaryWind;context.lineWidth=.82;context.beginPath();context.moveTo(-3.25,.22);context.bezierCurveTo(-2.1,-.1,-1.2,-1.05,.15,-.92);context.bezierCurveTo(1.1,-.84,1.7,-.25,2.35,-.32);context.stroke();
+            context.strokeStyle='rgba(197,241,222,.48)';context.lineWidth=.48;context.beginPath();context.moveTo(2.7,-.24);context.quadraticCurveTo(3.18,-.48,3.62,-.3);context.stroke();
+            context.shadowBlur=2;context.strokeStyle='rgba(151,216,196,.38)';context.lineWidth=.5;context.beginPath();context.moveTo(-4.65,1.18);context.bezierCurveTo(-3.65,.72,-2.85,.88,-2.12,.5);context.stroke();context.beginPath();context.moveTo(1.78,1.02);context.bezierCurveTo(2.55,.58,3.45,.78,4.45,.28);context.stroke();
+            context.save();context.translate(.05,-.18);context.rotate(Math.sin(airflowTime*1.4)*.12);context.strokeStyle='rgba(231,255,221,.68)';context.lineWidth=.46;context.beginPath();context.arc(0,0,.82,-.18*Math.PI,.92*Math.PI);context.stroke();context.strokeStyle='rgba(157,222,202,.46)';context.beginPath();context.arc(.08,.02,.48,.84*Math.PI,1.82*Math.PI);context.stroke();context.restore();
+            context.shadowBlur=1.5;context.fillStyle='rgba(233,255,221,.66)';context.beginPath();context.arc(-2.82,-.82,.13,0,Math.PI*2);context.arc(1.63,-1.23,.1,0,Math.PI*2);context.arc(3.32,.38,.12,0,Math.PI*2);context.fill();context.restore();context.restore();
         }
         function draw(){
             var rect=canvas.getBoundingClientRect();
