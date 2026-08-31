@@ -1696,7 +1696,7 @@
     Game.prototype.drawBrickSurface=function(c,brick){
         var x=brick.x,y=brick.y,w=brick.w,h=brick.h,type=this.theme.motif,variant=(brick.row*3+brick.col)%3,cx=x+w*.5+(variant-1)*4,cy=y+h*.5;
         c.save();this.brickShellPath(c,x+1.5,y+1.5,w-3,h-3);c.clip();
-        c.globalAlpha=.48;c.strokeStyle='rgba(255,255,255,.9)';c.lineWidth=1.25;c.beginPath();c.moveTo(x+7,y+4.2);c.quadraticCurveTo(cx,y+2.5,x+w-8,y+4);c.stroke();
+        c.globalAlpha=.18;c.strokeStyle='rgba(255,255,255,.78)';c.lineWidth=1.25;c.beginPath();c.moveTo(x+7,y+4.2);c.quadraticCurveTo(cx,y+2.5,x+w-8,y+4);c.stroke();
         if(type==='petal'){
             c.globalAlpha=.34;c.strokeStyle='rgba(109,108,72,.62)';c.lineWidth=1.2;c.beginPath();c.moveTo(x+9,cy+5);c.quadraticCurveTo(cx,cy-7,x+w-9,cy+4);c.stroke();
             this.drawMotif(c,cx,cy-1,7.4,.67,'#fff8e9');
@@ -1726,7 +1726,7 @@
             c.globalAlpha=.26;c.strokeStyle='rgba(91,69,30,.76)';c.lineWidth=1;for(var g=0;g<5;g++){c.beginPath();c.moveTo(x+7+g*17,y+3);c.lineTo(x+17+g*17,y+h-3);c.stroke();}for(var gh=0;gh<2;gh++){c.beginPath();c.moveTo(x+4,y+9+gh*10);c.lineTo(x+w-4,y+9+gh*10);c.stroke();}
             this.drawMotif(c,cx,cy,7,.7,'#fff4bf');
         }
-        c.globalAlpha=.17;c.strokeStyle='rgba(54,92,80,.72)';c.lineWidth=1.05;c.beginPath();c.moveTo(x+8,y+h-4.5);c.quadraticCurveTo(cx,y+h-2.8,x+w-8,y+h-4.2);c.stroke();
+        c.globalAlpha=.07;c.strokeStyle='rgba(54,92,80,.62)';c.lineWidth=1.05;c.beginPath();c.moveTo(x+8,y+h-4.5);c.quadraticCurveTo(cx,y+h-2.8,x+w-8,y+h-4.2);c.stroke();
         c.restore();
     };
     Game.prototype.drawSoftSeed=function(c,x,y,scale,rotation,alpha){
@@ -1959,14 +1959,14 @@
                 var shellPulse=Math.sin(clamp(br.shellPulseAge/br.shellPulseDuration,0,1)*Math.PI),shellCenterX=br.x+br.w*.5,shellCenterY=br.y+br.h*.5;
                 c.translate(shellCenterX,shellCenterY);c.scale(1+shellPulse*.035,1-shellPulse*.1);c.translate(-shellCenterX,-shellCenterY);
             }
-            c.shadowColor='rgba(35,92,76,.18)';c.shadowBlur=12;c.shadowOffsetY=5;
+            c.shadowColor='rgba(35,92,76,.07)';c.shadowBlur=5;c.shadowOffsetY=2;
             if(this.level===2&&br.motionGroup!=='fixed'){
                 var swayDirection=(br.motionGroup==='left'?1:-1)*this.brickMotionDirection;
-                c.shadowOffsetX=-swayDirection*3;
-                c.shadowColor='rgba(52,112,98,.24)';
+                c.shadowOffsetX=-swayDirection;
+                c.shadowColor='rgba(52,112,98,.09)';
             }
             this.brickShell(c,br.x,br.y,br.w,br.h,br.color);c.shadowColor='transparent';
-            var shine=c.createLinearGradient(br.x,br.y,br.x,br.y+br.h);shine.addColorStop(0,'rgba(255,255,255,.46)');shine.addColorStop(.5,'rgba(255,255,255,.05)');shine.addColorStop(1,'rgba(37,80,69,.09)');this.brickShell(c,br.x+1.5,br.y+1.5,br.w-3,br.h-3,shine);this.drawBrickSurface(c,br);
+            var shine=c.createLinearGradient(br.x,br.y,br.x,br.y+br.h);shine.addColorStop(0,'rgba(255,255,255,.18)');shine.addColorStop(.5,'rgba(255,255,255,.02)');shine.addColorStop(1,'rgba(37,80,69,.035)');this.brickShell(c,br.x+1.5,br.y+1.5,br.w-3,br.h-3,shine);this.drawBrickSurface(c,br);
             if(br.buffCarrier||br.multiCarrier){
                 if(br.hitsRemaining===3){
                     c.globalAlpha=.82;this.brickShell(c,br.x+4,br.y+4,br.w-8,br.h-8,null,'rgba(177,132,203,.92)',2.2);
