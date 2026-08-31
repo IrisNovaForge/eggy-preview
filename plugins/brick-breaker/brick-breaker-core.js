@@ -255,7 +255,7 @@
             }
         }
         [this.paddle,this.ball,this.companionBalls,this.bricks,this.hitEffects,this.hazard,this.earlyLifeDrop,this.catchCrownDrops,this.catchCrownCollectEffects,
-         this.stageThreeSlowDrop,this.stageThreeGatherEffects,this.stageThreeCollectEffects,this.seedDrop,this.seedProjectiles,this.seedBursts,
+         this.stageThreeSlowDrop,this.stageThreeGatherEffects,this.stageThreeCollectEffects,this.seedDrop,this.seedReleaseEcho,this.seedProjectiles,this.seedBursts,
          this.stageFiveDrop,this.stageFiveCollectEffects,this.stageFiveClearPaths,this.stageFiveBuffDrops,this.stageFiveBuffCollectEffects,
          this.stageSixDrops,this.stageSixSplitEffects,this.stageSixDissolveEffects,this.stageSixCollectEffects,
          this.itemHints,this.itemResultEffects,this.padFeedback].forEach(walk);
@@ -423,7 +423,7 @@
         this.hazard=null;this.hazardClock=0;this.hazardNextAt=9.5;this.hazardNextGroup='left';this.hazardSpawnCount=0;this.hazardDisabled=this.level!==3;
         this.earlyLifeDrop=null;this.earlyLifeDestroyed=0;this.earlyLifeIssued=false;this.earlyLifeThreshold=this.level===2?16:24;this.vitalitySpeedActive=false;
         this.stageThreeSlowDrop=null;this.stageThreeReinforcedCleared=0;this.stageThreeSlowAttempts=0;this.stageThreeSlowCaught=false;this.stageThreeSlowTime=0;this.stageThreeRecoverTime=0;this.stageThreeRecoverDuration=.7;this.stageThreeSlowSpeed=390;this.stageThreeGatherEffects=[];this.stageThreeCollectEffects=[];
-        this.seedDrop=null;this.seedProjectiles=[];this.seedVolleyQueue=0;this.seedVolleyClock=0;this.seedVolleyInterval=.055;this.seedVolleyClears=0;this.seedVolleyClearLimit=3;this.seedVolleyActive=false;this.seedBursts=[];this.seedClock=0;this.seedNextAt=this.level===1?12:(this.level===4?4.5:7);this.seedDropInterval=this.level===4?5.5:7;this.seedSpawnCount=0;this.seedMisses=0;this.seedHeld=false;this.seedUses=0;this.seedLimit=LEVEL_SEED_LIMITS[this.level]||2;this.seedDropLimit=this.seedLimit;this.seedCooldown=0;
+        this.seedDrop=null;this.seedReleaseEcho=null;this.seedProjectiles=[];this.seedVolleyQueue=0;this.seedVolleyClock=0;this.seedVolleyInterval=.055;this.seedVolleyClears=0;this.seedVolleyClearLimit=3;this.seedVolleyActive=false;this.seedBursts=[];this.seedClock=0;this.seedNextAt=this.level===1?12:(this.level===4?4.5:7);this.seedDropInterval=this.level===4?5.5:7;this.seedSpawnCount=0;this.seedMisses=0;this.seedHeld=false;this.seedUses=0;this.seedLimit=LEVEL_SEED_LIMITS[this.level]||2;this.seedDropLimit=this.seedLimit;this.seedCooldown=0;
         this.stageFiveDrop=null;this.stageFiveDropCount=0;this.stageFiveClearQueue=[];this.stageFiveClearDelay=0;
         this.catchCrownDrops=[];this.catchCrownCollectEffects=[];this.catchCrownSources=[];this.catchCrownClock=0;this.catchCrownRetryAt=0;this.catchCrownEligible=0;this.catchCrownTriggerIndex=0;this.catchCrownUses=0;this.catchCrownLimit=CROWN_USE_LIMITS[this.level]||2;this.catchCrownInitialBricks=0;
         this.catchCrownTime=0;this.catchCrownDuration=12;this.catchCrownAge=0;this.catchCrownImpact=0;this.catchCrownContact=0;
@@ -664,6 +664,7 @@
 
     Game.prototype.launchSeedAttack=function(){
         if(this.state!=='playing'||!this.seedHeld||this.seedUses>=this.seedLimit||this.seedCooldown>0||this.seedVolleyActive)return false;
+        this.seedReleaseEcho={x:this.paddle.x,y:this.paddle.y-108,age:0,duration:.24};
         this.seedHeld=false;this.seedUses++;this.seedCooldown=.42;
         this.seedVolleyActive=true;this.seedVolleyQueue=7;this.seedVolleyClock=0;this.seedVolleyClears=0;this.seedProjectiles=[];this.spawnSeedPetal();
         this.playEggshellPowerAudio();
@@ -689,6 +690,7 @@
 
     Game.prototype.updateSeedSystem=function(dt){
         if(this.state!=='playing')return;
+        if(this.seedReleaseEcho){this.seedReleaseEcho.age+=dt;if(this.seedReleaseEcho.age>=this.seedReleaseEcho.duration)this.seedReleaseEcho=null;}
         this.seedClock+=Math.max(0,dt||0);this.seedCooldown=Math.max(0,this.seedCooldown-dt);
         if(!this.seedDrop&&!this.seedHeld&&!this.seedVolleyActive&&this.seedUses<this.seedLimit&&this.seedSpawnCount<this.seedDropLimit&&this.seedClock>=this.seedNextAt)this.spawnSeedDrop();
         if(this.seedDrop){
@@ -1713,13 +1715,11 @@
     };
     Game.prototype.drawSoftSeed=function(c,x,y,scale,rotation,alpha){
         c.save();c.translate(x,y);c.rotate(rotation||0);c.scale(scale||1,scale||1);c.globalAlpha=alpha===undefined?1:alpha;
-        c.shadowColor='rgba(213,145,92,.46)';c.shadowBlur=13;
-        var shell=c.createLinearGradient(-9,-13,10,14);shell.addColorStop(0,'#fffef3');shell.addColorStop(.42,'#f9eccd');shell.addColorStop(.72,'#efc79c');shell.addColorStop(1,'#d99677');c.fillStyle=shell;c.strokeStyle='rgba(183,111,84,.82)';c.lineWidth=1.45;
-        c.beginPath();c.moveTo(0,-14);c.bezierCurveTo(7,-13,11,-4,10,4);c.bezierCurveTo(9,13,4,17,0,17);c.bezierCurveTo(-6,17,-11,12,-11,4);c.bezierCurveTo(-11,-4,-6,-13,0,-14);c.closePath();c.fill();c.shadowColor='transparent';c.stroke();
-        var inner=c.createRadialGradient(-3,-5,0,0,1,10);inner.addColorStop(0,'rgba(255,255,246,.96)');inner.addColorStop(.48,'rgba(255,223,155,.74)');inner.addColorStop(1,'rgba(236,151,116,.18)');c.fillStyle=inner;c.beginPath();c.ellipse(0,2,7.2,10.2,0,0,Math.PI*2);c.fill();
-        c.strokeStyle='rgba(190,113,86,.68)';c.lineWidth=1.35;c.lineCap='round';c.lineJoin='round';c.beginPath();c.moveTo(-9,3);c.lineTo(-5,0);c.lineTo(-1,4);c.lineTo(3,-1);c.lineTo(7,3);c.lineTo(10,0);c.stroke();
-        c.globalAlpha=(alpha===undefined?1:alpha)*.72;c.strokeStyle='rgba(255,255,250,.95)';c.lineWidth=1.3;c.beginPath();c.arc(-2,-3,4.8,Math.PI*1.05,Math.PI*1.58);c.stroke();
-        c.fillStyle=this.theme.spark;c.beginPath();c.arc(5,-8,1.7,0,Math.PI*2);c.arc(-7,9,1.15,0,Math.PI*2);c.fill();c.restore();
+        c.shadowColor='rgba(204,137,91,.34)';c.shadowBlur=8;
+        var shell=c.createLinearGradient(-11,-8,10,11);shell.addColorStop(0,'#fffdf0');shell.addColorStop(.5,'#f8e8c8');shell.addColorStop(1,'#e9b58f');c.fillStyle=shell;c.strokeStyle='rgba(178,113,79,.86)';c.lineWidth=1.55;c.lineCap='round';c.lineJoin='round';
+        c.beginPath();c.moveTo(-12,-4);c.quadraticCurveTo(-9,-8,-6,-5);c.quadraticCurveTo(-2,-9,1,-5);c.quadraticCurveTo(5,-8,7,-5);c.quadraticCurveTo(10,-7,12,-3);c.bezierCurveTo(11,5,7,10,1,11);c.bezierCurveTo(-6,11,-11,6,-12,-4);c.closePath();c.fill();c.shadowColor='transparent';c.stroke();
+        c.globalAlpha=(alpha===undefined?1:alpha)*.72;c.strokeStyle='rgba(255,255,246,.94)';c.lineWidth=1.25;c.beginPath();c.moveTo(-9,-3);c.quadraticCurveTo(-7,-5,-5,-3);c.quadraticCurveTo(-2,-6,1,-3);c.quadraticCurveTo(4,-5,6,-3);c.quadraticCurveTo(8,-5,10,-2);c.stroke();
+        c.globalAlpha=(alpha===undefined?1:alpha)*.62;c.strokeStyle='rgba(204,132,91,.62)';c.lineWidth=1.15;c.beginPath();c.moveTo(-7,2);c.quadraticCurveTo(0,7,7,1);c.stroke();c.restore();
     };
     Game.prototype.drawSeedSystem=function(c){
         if(this.seedDrop){
@@ -1728,8 +1728,12 @@
             c.save();c.globalAlpha=.24;c.strokeStyle=this.theme.accent;c.lineWidth=1.5;c.beginPath();c.moveTo(drop.x-7,drop.y-16);c.quadraticCurveTo(drop.x,drop.y-21,drop.x+7,drop.y-16);c.stroke();c.restore();
         }
         if(this.seedHeld){
-            var heldY=this.paddle.y-48+Math.sin(this.elapsed*5)*2;
-            this.drawSoftSeed(c,this.paddle.x,heldY,.9,Math.sin(this.elapsed*3)*.08,1);
+            var heldY=this.paddle.y-108+Math.sin(this.elapsed*5)*2;
+            this.drawSoftSeed(c,this.paddle.x,heldY,1.05,Math.sin(this.elapsed*3)*.065,1);
+        }
+        if(this.seedReleaseEcho){
+            var release=this.seedReleaseEcho,releaseProgress=clamp(release.age/release.duration,0,1),releaseFade=Math.pow(1-releaseProgress,2),releaseScale=1.14-releaseProgress*.16;
+            this.drawSoftSeed(c,release.x,release.y,releaseScale,-.06+releaseProgress*.04,releaseFade);
         }
         for(var burstIndex=0;burstIndex<this.seedBursts.length;burstIndex++){
             var burst=this.seedBursts[burstIndex],progress=clamp(burst.age/burst.duration,0,1),fade=Math.pow(1-progress,2);
