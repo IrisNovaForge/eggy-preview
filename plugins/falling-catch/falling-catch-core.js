@@ -3,36 +3,36 @@
 
     var COPY={
         zhs:{
-            title:'风中取物',eyebrow:'',intro:'带领世界旅人托住采集篮，接住风香草叶、莓林莓和金穗籽，同时避开苔痕风化石。',
+            title:'风中取物',eyebrow:'',intro:'用头顶采集篮接住青芽壳片、莓霞壳片和金穗壳片，同时避开黯化硬壳。',
             start:'开始接取',loading:'正在准备规则…',move:'左右移动',goal:'12分或坚持30秒即可过关',score:'得分',time:'时间',lives:'机会',
-            ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',glimmerAppears:'蛋壳微光出现了！',lifeRestored:'蛋壳微光 +1机会',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'汇流！',hit:'小心石块！',win:'风野收获完成！',lose:'采样任务中断',
+            ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',glimmerAppears:'蛋壳微光出现了！',lifeRestored:'蛋壳微光 +1机会',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'汇流！',hit:'小心黯化硬壳！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
             level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',unlockedDetail:'新关卡已解锁：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试',
-            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮接住自然馈赠。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'依次完成关卡，解锁下一片风之场地',locked:'尚未解锁',lockedDetail:'完成上一关后解锁',currentProgress:'当前进度',touchMove:'左右拖动风芽摇杆',guideTitle:'本关物件',windSproutAppears:'跃风芽出现了！',windSproutStored:'跃风已经储存',jumpLabel:'跃风',jumpAction:'跃',jumpUnavailable:'本关没有跃风芽，跃起功能从第3关开启',jumpNeedSprout:'先接住跃风芽，才能使用跃起'
+            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮收集原创蛋壳采样物。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'依次完成关卡，解锁下一片风之场地',locked:'尚未解锁',lockedDetail:'完成上一关后解锁',currentProgress:'当前进度',touchMove:'左右拖动风芽摇杆',guideTitle:'本关物件',windSproutAppears:'跃风芽出现了！',windSproutStored:'跃风已经储存',jumpLabel:'跃风',jumpAction:'跃',jumpUnavailable:'本关没有跃风芽，跃起功能从第3关开启',jumpNeedSprout:'先接住跃风芽，才能使用跃起'
         },
         zht:{
-            title:'風中取物',eyebrow:'',intro:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。',
+            title:'風中取物',eyebrow:'',intro:'用頭頂採集籃接住青芽殼片、莓霞殼片和金穗殼片，同時避開黯化硬殼。',
             start:'開始接取',loading:'正在準備規則…',move:'左右移動',goal:'12分或堅持30秒即可過關',score:'得分',time:'時間',lives:'機會',
-            ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',glimmerAppears:'蛋殼微光出現了！',lifeRestored:'蛋殼微光 +1機會',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'匯流！',hit:'小心石塊！',win:'風野收穫完成！',lose:'採樣任務中斷',
+            ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',glimmerAppears:'蛋殼微光出現了！',lifeRestored:'蛋殼微光 +1機會',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'匯流！',hit:'小心黯化硬殼！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
             level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',unlockedDetail:'新關卡已解鎖：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試',
-            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃接住自然饋贈。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'依次完成關卡，解鎖下一片風之場地',locked:'尚未解鎖',lockedDetail:'完成上一關後解鎖',currentProgress:'目前進度',touchMove:'左右拖動風芽搖桿',guideTitle:'本關物件',windSproutAppears:'躍風芽出現了！',windSproutStored:'躍風已經儲存',jumpLabel:'躍風',jumpAction:'躍',jumpUnavailable:'本關沒有躍風芽，躍起功能從第3關開啟',jumpNeedSprout:'先接住躍風芽，才能使用躍起'
+            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃收集原創蛋殼採樣物。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'依次完成關卡，解鎖下一片風之場地',locked:'尚未解鎖',lockedDetail:'完成上一關後解鎖',currentProgress:'目前進度',touchMove:'左右拖動風芽搖桿',guideTitle:'本關物件',windSproutAppears:'躍風芽出現了！',windSproutStored:'躍風已經儲存',jumpLabel:'躍風',jumpAction:'躍',jumpUnavailable:'本關沒有躍風芽，躍起功能從第3關開啟',jumpNeedSprout:'先接住躍風芽，才能使用躍起'
         },
         ja:{
-            title:'風の中でキャッチ',eyebrow:'',intro:'世界の旅人と採集かごを動かし、風香草の葉、森ベリー、金穂の種を集めながら苔むした風化石をよけよう。',
+            title:'風の中でキャッチ',eyebrow:'',intro:'頭上の採集かごで青芽・ベリー霞・金穂の殻片を集め、くすみ硬殻をよけよう。',
             start:'チャレンジ開始',loading:'ルールを準備中…',move:'左右に移動',goal:'12点または30秒でクリア',score:'スコア',time:'時間',lives:'チャンス',
-            ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',glimmerAppears:'卵殻の微光が現れた！',lifeRestored:'卵殻の微光 +1チャンス',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'石に注意！',win:'収穫完了！',lose:'かごが壊れました',
+            ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',glimmerAppears:'卵殻の微光が現れた！',lifeRestored:'卵殻の微光 +1チャンス',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'くすみ硬殻に注意！',win:'収穫完了！',lose:'かごが壊れました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
             level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',unlockedDetail:'新しいステージを解放：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'収集から合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト',
-            titleIntro:'旅人と四つの収集へ。頭上のかごで自然の恵みを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'順番にクリアして次の収集を解放しよう',locked:'未解放',lockedDetail:'前のステージをクリアすると解放',currentProgress:'現在の進行',touchMove:'風芽スティックを左右へ',guideTitle:'このステージのアイテム',windSproutAppears:'跳風の芽が現れた！',windSproutStored:'跳風をためました',jumpLabel:'跳風',jumpAction:'跳',jumpUnavailable:'このステージには跳風の芽がありません。ジャンプはステージ3から使えます',jumpNeedSprout:'先に跳風の芽を取るとジャンプできます'
+            titleIntro:'旅人と四つの風の場へ。頭上のかごでオリジナルの卵殻サンプルを集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'順番にクリアして次の収集を解放しよう',locked:'未解放',lockedDetail:'前のステージをクリアすると解放',currentProgress:'現在の進行',touchMove:'風芽スティックを左右へ',guideTitle:'このステージのアイテム',windSproutAppears:'跳風の芽が現れた！',windSproutStored:'跳風をためました',jumpLabel:'跳風',jumpAction:'跳',jumpUnavailable:'このステージには跳風の芽がありません。ジャンプはステージ3から使えます',jumpNeedSprout:'先に跳風の芽を取るとジャンプできます'
         },
         en:{
-            title:'Catching in the Wind',eyebrow:'',intro:'Guide a World Traveler holding a woven field basket, gather wind herbs, grove berries and golden grain seeds, and avoid mossy weathered stones.',
+            title:'Catching in the Wind',eyebrow:'',intro:'Catch Verdant, Berryglow and Goldengrain shell fragments in the overhead basket, and avoid dull hardened shells.',
             start:'Start catching',loading:'Preparing rules…',move:'Move left and right',goal:'Reach 12 points or last 30 seconds',score:'Score',time:'Time',lives:'Chances',
-            ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',glimmerAppears:'Eggshell Glimmer appeared!',lifeRestored:'Eggshell Glimmer +1 chance',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the stones!',win:'Harvest complete!',lose:'The basket broke',
+            ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',glimmerAppears:'Eggshell Glimmer appeared!',lifeRestored:'Eggshell Glimmer +1 chance',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the hardened shells!',win:'Harvest complete!',lose:'The basket broke',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
             level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',unlockedDetail:'New stage unlocked: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Gather through Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test',
-            titleIntro:'Travel through four wind fields and gather nature gifts in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'Clear each stage in order to unlock the next wind field',locked:'Locked',lockedDetail:'Clear the previous stage to unlock',currentProgress:'Current progress',touchMove:'Slide the wind-bud stick sideways',guideTitle:'Stage Items',windSproutAppears:'Wind Sprout appeared!',windSproutStored:'Wind leap stored',jumpLabel:'Wind leap',jumpAction:'Leap',jumpUnavailable:'No Wind Sprout appears here. Leaping unlocks in Stage 3',jumpNeedSprout:'Catch a Wind Sprout before using Leap'
+            titleIntro:'Travel through four wind fields and gather original eggshell samples in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'Clear each stage in order to unlock the next wind field',locked:'Locked',lockedDetail:'Clear the previous stage to unlock',currentProgress:'Current progress',touchMove:'Slide the wind-bud stick sideways',guideTitle:'Stage Items',windSproutAppears:'Wind Sprout appeared!',windSproutStored:'Wind leap stored',jumpLabel:'Wind leap',jumpAction:'Leap',jumpUnavailable:'No Wind Sprout appears here. Leaping unlocks in Stage 3',jumpNeedSprout:'Catch a Wind Sprout before using Leap'
         }
     };
 
@@ -93,10 +93,10 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.21');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.22');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
-        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-meadow',targets:['wind-herb-leaf','berry-grove-berry','golden-grain-seed'],obstacle:'moss-weathered-stone',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'收集',zht:'收集',ja:'収集',en:'Gather'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
+        var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-eggshell',targets:['verdant-shell-fragment','berryglow-shell-fragment','goldengrain-shell-fragment'],obstacle:'dull-hardened-shell',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'收集',zht:'收集',ja:'収集',en:'Gather'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
         var levels=options.levels&&options.levels.length?options.levels.slice():[fallbackLevel];
         var storage=options.storage&&typeof options.storage.get==='function'&&typeof options.storage.set==='function'?options.storage:null;
         var bypassUnlocks=options.bypassUnlocks===true,progressionEnabled=!!storage&&!bypassUnlocks,progressKey='fallingCatch.progress.maxUnlockedLevel';
@@ -415,7 +415,7 @@
             var index=['leaf','berry','acorn'].indexOf(kind);
             return index>=0&&presentation.targets&&presentation.targets[index]?presentation.targets[index]:kind;
         }
-        function usesDanboMeadowObjects(){var presentation=objectPresentation();return !!(presentation&&presentation.theme==='danbo-meadow');}
+        function usesDanboEggshellObjects(){var presentation=objectPresentation();return !!(presentation&&presentation.theme==='danbo-eggshell');}
         function spawnObject(){
             var distribution=currentLevel.spawnDistribution;
             var airflow=currentLevel.airflow;
@@ -756,48 +756,33 @@
             }
             context.globalAlpha=1;context.restore();
         }
-        function drawLeaf(item){
+        function drawShellFragment(item,outer,inner,mark,pattern){
             context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(fallingObjectScale(item.kind),fallingObjectScale(item.kind));
-            if(usesDanboMeadowObjects()){
-                context.strokeStyle='#557a49';context.lineWidth=.48;context.lineCap='round';context.beginPath();context.moveTo(-2.3,2.8);context.quadraticCurveTo(-.2,.3,1.7,-2.9);context.stroke();
-                context.fillStyle='#79ad62';context.beginPath();context.moveTo(-.4,.8);context.quadraticCurveTo(-3.3,-.2,-3,-2.5);context.quadraticCurveTo(-.6,-2.7,.6,-.2);context.closePath();context.fill();
-                context.fillStyle='#a6cf76';context.beginPath();context.moveTo(.5,-.7);context.quadraticCurveTo(3.2,-1.2,3,-3.4);context.quadraticCurveTo(.9,-3.7,.1,-1.5);context.closePath();context.fill();
-                context.strokeStyle='rgba(238,255,210,.72)';context.lineWidth=.3;context.beginPath();context.moveTo(-2.25,-1.65);context.quadraticCurveTo(-1.2,-1.1,-.35,-.1);context.moveTo(2.35,-2.75);context.quadraticCurveTo(1.45,-2.2,.55,-1.05);context.stroke();
+            context.fillStyle='rgba(45,75,62,.13)';context.beginPath();context.ellipse(.18,.55,3.35,3.12,.08,0,Math.PI*2);context.fill();
+            context.fillStyle=outer;context.beginPath();context.moveTo(-2.85,-.7);context.lineTo(-2.12,-2.35);context.quadraticCurveTo(-1.1,-3.08,.05,-2.16);context.lineTo(.92,-2.82);context.lineTo(1.78,-1.92);context.quadraticCurveTo(3.02,-.42,2.55,1.55);context.quadraticCurveTo(1.65,3.05,-.3,3.12);context.quadraticCurveTo(-2.35,2.82,-2.92,.92);context.quadraticCurveTo(-3.08,.05,-2.85,-.7);context.closePath();context.fill();
+            context.strokeStyle='rgba(255,252,226,.82)';context.lineWidth=.5;context.lineJoin='round';context.beginPath();context.moveTo(-2.15,-2.25);context.lineTo(-1.02,-1.48);context.lineTo(.02,-2.18);context.lineTo(.9,-1.48);context.lineTo(1.72,-1.88);context.stroke();
+            context.fillStyle=inner;context.beginPath();context.moveTo(-1.95,-.95);context.quadraticCurveTo(-.55,-1.62,.95,-1.14);context.quadraticCurveTo(2.15,-.25,1.72,1.35);context.quadraticCurveTo(.75,2.42,-.7,2.22);context.quadraticCurveTo(-2.05,1.62,-1.95,-.95);context.closePath();context.fill();
+            context.fillStyle='rgba(255,255,244,.55)';context.beginPath();context.ellipse(-1.25,-.35,.48,.8,-.55,0,Math.PI*2);context.fill();
+            context.strokeStyle=mark;context.fillStyle=mark;context.lineWidth=.42;context.lineCap='round';
+            if(pattern==='bud'){
+                context.beginPath();context.moveTo(-.65,1.15);context.quadraticCurveTo(-.15,.15,.68,-.72);context.stroke();context.beginPath();context.ellipse(.42,-.48,.78,.42,-.62,0,Math.PI*2);context.fill();
+            }else if(pattern==='dots'){
+                context.beginPath();context.arc(-.55,.45,.46,0,Math.PI*2);context.arc(.65,.05,.38,0,Math.PI*2);context.arc(.18,1.02,.3,0,Math.PI*2);context.fill();
             }else{
-                context.fillStyle='#f1c96b';context.beginPath();context.moveTo(-3,0);context.quadraticCurveTo(0,-3.4,3,0);context.quadraticCurveTo(0,3.4,-3,0);context.fill();context.strokeStyle='#8d7f43';context.lineWidth=.35;context.beginPath();context.moveTo(-2.2,0);context.lineTo(2.5,0);context.stroke();
+                context.beginPath();context.moveTo(-.82,.85);context.quadraticCurveTo(-.45,.22,-.18,-.68);context.moveTo(.05,1.05);context.quadraticCurveTo(.36,.32,.48,-.72);context.moveTo(.72,.65);context.quadraticCurveTo(.92,.1,.88,-.42);context.stroke();
             }
             context.restore();
         }
-        function drawBerry(item){
-            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(fallingObjectScale(item.kind),fallingObjectScale(item.kind));
-            if(usesDanboMeadowObjects()){
-                context.fillStyle='#6a4f9e';context.beginPath();context.arc(-1.25,.35,1.5,0,Math.PI*2);context.arc(1.2,.35,1.5,0,Math.PI*2);context.arc(0,1.65,1.55,0,Math.PI*2);context.fill();
-                context.fillStyle='rgba(226,206,246,.72)';context.beginPath();context.arc(-1.65,-.05,.36,0,Math.PI*2);context.arc(.76,-.12,.32,0,Math.PI*2);context.arc(-.4,1.15,.3,0,Math.PI*2);context.fill();
-                context.fillStyle='#628657';context.beginPath();context.moveTo(0,-.85);context.lineTo(-1.7,-2.2);context.lineTo(-.35,-2.05);context.lineTo(.15,-3);context.lineTo(.72,-1.95);context.lineTo(1.8,-2.28);context.lineTo(.95,-.72);context.closePath();context.fill();
-            }else{
-                context.fillStyle='#a94d68';context.beginPath();context.arc(-1.2,.4,1.55,0,Math.PI*2);context.arc(1.2,.4,1.55,0,Math.PI*2);context.arc(0,1.6,1.55,0,Math.PI*2);context.fill();context.fillStyle='#4f875e';context.beginPath();context.moveTo(0,-1);context.lineTo(-1.2,-2.6);context.lineTo(.2,-2);context.lineTo(1.5,-2.7);context.lineTo(1,-.8);context.closePath();context.fill();
-            }
-            context.restore();
-        }
-        function drawAcorn(item){
-            context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(fallingObjectScale(item.kind),fallingObjectScale(item.kind));
-            if(usesDanboMeadowObjects()){
-                context.fillStyle='#e4b94f';context.beginPath();context.moveTo(0,-3.45);context.bezierCurveTo(2.45,-1.8,2.25,1.55,0,3.35);context.bezierCurveTo(-2.25,1.55,-2.45,-1.8,0,-3.45);context.fill();
-                context.fillStyle='#f4d876';context.beginPath();context.moveTo(0,-2.65);context.bezierCurveTo(1.25,-1.25,1.05,1.25,0,2.25);context.bezierCurveTo(-.65,.55,-.65,-1.1,0,-2.65);context.fill();
-                context.strokeStyle='#9a7738';context.lineWidth=.38;context.beginPath();context.moveTo(0,-2.9);context.lineTo(0,2.55);context.moveTo(-1.15,-1.65);context.quadraticCurveTo(-2.5,-1.25,-2.75,-.25);context.moveTo(1.15,-1.65);context.quadraticCurveTo(2.5,-1.25,2.75,-.25);context.stroke();
-            }else{
-                context.fillStyle='#b97845';context.beginPath();context.ellipse(0,.5,2.2,2.8,0,0,Math.PI*2);context.fill();context.fillStyle='#6c7045';context.beginPath();context.arc(0,-1.3,2.25,Math.PI,Math.PI*2);context.lineTo(2,-.7);context.lineTo(-2,-.7);context.closePath();context.fill();context.strokeStyle='#6c7045';context.lineWidth=.45;context.beginPath();context.moveTo(0,-2.5);context.quadraticCurveTo(.2,-3.5,1,-3.7);context.stroke();
-            }
-            context.restore();
-        }
+        function drawLeaf(item){drawShellFragment(item,'#9fc98f','#dce6b8','#5f9569','bud');}
+        function drawBerry(item){drawShellFragment(item,'#d58a9d','#f1c8c8','#a85271','dots');}
+        function drawAcorn(item){drawShellFragment(item,'#e2bd68','#f3dfa1','#a57d35','grain');}
         function drawStone(item){
             context.save();context.translate(item.x,item.y);context.rotate(item.rotation);context.scale(fallingObjectScale(item.kind),fallingObjectScale(item.kind));
-            context.fillStyle=usesDanboMeadowObjects()?'#68736c':'#657270';context.beginPath();context.moveTo(-3.2,1.7);context.lineTo(-2.5,-1.8);context.lineTo(-.5,-3);context.lineTo(2.7,-1.8);context.lineTo(3.2,1.5);context.lineTo(1,3);context.lineTo(-1.8,2.7);context.closePath();context.fill();
-            context.fillStyle=usesDanboMeadowObjects()?'#8b9588':'#87918d';context.beginPath();context.moveTo(-1.8,-1.4);context.lineTo(-.4,-2.4);context.lineTo(1.5,-1.7);context.lineTo(.4,-.8);context.closePath();context.fill();
-            if(usesDanboMeadowObjects()){
-                context.fillStyle='#6f925d';context.beginPath();context.moveTo(-2.75,-1.25);context.quadraticCurveTo(-1.75,-2.25,-.55,-2.45);context.lineTo(.5,-1.68);context.quadraticCurveTo(-.85,-1.2,-1.75,-.35);context.closePath();context.fill();context.fillStyle='#a8bc77';context.beginPath();context.arc(-1.45,-1.55,.38,0,Math.PI*2);context.arc(-.65,-1.82,.28,0,Math.PI*2);context.fill();
-            }
-            context.restore();
+            context.fillStyle='rgba(34,57,51,.18)';context.beginPath();context.ellipse(.2,.55,3.55,3.15,0,0,Math.PI*2);context.fill();
+            context.fillStyle=usesDanboEggshellObjects()?'#596a63':'#657270';context.beginPath();context.moveTo(-3.15,.9);context.quadraticCurveTo(-3.25,-1.2,-1.7,-2.45);context.lineTo(-.55,-3.02);context.lineTo(.4,-2.22);context.lineTo(1.3,-2.92);context.quadraticCurveTo(3.05,-1.5,3.15,.55);context.quadraticCurveTo(2.65,2.7,.45,3.05);context.quadraticCurveTo(-2.2,3.18,-3.15,.9);context.closePath();context.fill();
+            context.strokeStyle='#a8b1a3';context.lineWidth=.52;context.lineJoin='round';context.beginPath();context.moveTo(-1.66,-2.38);context.lineTo(-.48,-1.42);context.lineTo(.42,-2.18);context.lineTo(1.28,-1.38);context.stroke();
+            context.fillStyle='#75847a';context.beginPath();context.ellipse(-.72,.32,1.5,1.18,-.25,0,Math.PI*2);context.fill();context.fillStyle='#43564f';context.beginPath();context.arc(.9,.65,.52,0,Math.PI*2);context.arc(1.45,-.3,.3,0,Math.PI*2);context.fill();
+            context.strokeStyle='rgba(210,220,198,.42)';context.lineWidth=.34;context.beginPath();context.moveTo(-.35,-.18);context.lineTo(.18,.5);context.lineTo(-.08,1.25);context.moveTo(1.15,-1.45);context.lineTo(.72,-.72);context.stroke();context.restore();
         }
         function drawEggshellGlimmer(item){
             var pulse=.92+Math.sin(performance.now()/240+item.floatPhase)*.08;
@@ -950,7 +935,7 @@
         }
         function buildReady(){
             if(destroyed||phase==='loading')return false;clearStageTitleTimer();phase='ready';setScreen('ready');updateLevelPresentation();card.className='dfc-card dfc-ready-card';card.innerHTML='';
-            card.appendChild(make('p','dfc-card-eyebrow',text.stageReady+' · '+format(text.level,{current:currentLevelIndex+1,total:levels.length})));card.appendChild(cardTitle);if(currentLevelIndex!==0)card.appendChild(cardBody);card.appendChild(goal);
+            card.appendChild(make('p','dfc-card-eyebrow',text.stageReady+' · '+format(text.level,{current:currentLevelIndex+1,total:levels.length})));card.appendChild(cardTitle);card.appendChild(goal);
             var itemGuide=makeItemGuide();if(itemGuide)card.appendChild(itemGuide);
             var actions=make('div','dfc-actions');primary.textContent=text.start;primary.disabled=false;primary.onclick=startRound;actions.appendChild(primary);var back=make('button','dfc-secondary',text.backLevels);back.type='button';back.onclick=showLevelSelect;actions.appendChild(back);card.appendChild(actions);
             overlay.classList.remove('dfc-hidden');updateHud();setTimeout(function(){try{primary.focus({preventScroll:true});}catch(error){primary.focus();}},0);return true;

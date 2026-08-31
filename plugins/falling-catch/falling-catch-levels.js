@@ -20,13 +20,16 @@
     var STAGE_THREE_SPAWN=Object.freeze({minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true});
     var STAGE_FOUR_SPAWN=Object.freeze({minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true});
     var STAGE_ONE_OBJECTS=Object.freeze({
-        theme:'danbo-meadow',
-        targets:Object.freeze(['wind-herb-leaf','berry-grove-berry','golden-grain-seed']),
-        obstacle:'moss-weathered-stone',
+        theme:'danbo-eggshell',
+        targets:Object.freeze(['verdant-shell-fragment','berryglow-shell-fragment','goldengrain-shell-fragment']),
+        obstacle:'dull-hardened-shell',
         visualScales:Object.freeze({leaf:.60,berry:.62,acorn:.58,stone:.58}),
         stoneCollisionRadius:2.05,targetCollisionRadius:1.95
     });
     var SHARED_SMALL_OBJECTS=Object.freeze({
+        theme:'danbo-eggshell',
+        targets:Object.freeze(['verdant-shell-fragment','berryglow-shell-fragment','goldengrain-shell-fragment']),
+        obstacle:'dull-hardened-shell',
         visualScales:Object.freeze({leaf:.66,berry:.66,acorn:.64,stone:.64}),
         stoneCollisionRadius:2.2,targetCollisionRadius:2.15
     });
@@ -66,26 +69,26 @@
     function guideItem(kind,name,description){return Object.freeze({kind:kind,name:Object.freeze(name),description:Object.freeze(description)});}
     function itemGuide(items){return Object.freeze(items);}
     var STAGE_ONE_GUIDE=itemGuide([
-        guideItem('harvest',{zhs:'风野收集物',zht:'風野收集物',ja:'風野の収集物',en:'Meadow Collectibles'},{zhs:'风香草叶、莓林莓与金穗籽；接住任意一种获得1分。',zht:'風香草葉、莓林莓與金穗籽；接住任意一種獲得1分。',ja:'風香草の葉、森ベリー、金穂の種。どれを取っても1点。',en:'Wind herb leaves, grove berries and golden grain seeds; each catch awards 1 point.'}),
-        guideItem('stone',{zhs:'苔痕风化石',zht:'苔痕風化石',ja:'苔むした風化石',en:'Mossy Weathered Stone'},{zhs:'碰到后失去1次机会。',zht:'碰到後失去1次機會。',ja:'触れるとチャンスを1回失います。',en:'Touching it removes 1 chance.'}),
-        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，本关最多出现1次。',zht:'機會不足3次時可能出現；接住恢復1次，本關最多出現1次。',ja:'チャンスが3未満の時に出現することがあります。取ると1回回復し、このステージでは最大1回。',en:'May appear below 3 chances; catch it to restore 1. Up to 1 can appear in this stage.'})
+        guideItem('harvest',{zhs:'蛋壳采样物',zht:'蛋殼採樣物',ja:'卵殻サンプル',en:'Eggshell Samples'},{zhs:'青芽壳片、莓霞壳片与金穗壳片；接住任意一种获得1分。',zht:'青芽殼片、莓霞殼片與金穗殼片；接住任意一種獲得1分。',ja:'青芽・ベリー霞・金穂の殻片。どれを取っても1点。',en:'Verdant, Berryglow and Goldengrain shell fragments; each catch awards 1 point.'}),
+        guideItem('stone',{zhs:'黯化硬壳',zht:'黯化硬殼',ja:'くすみ硬殻',en:'Dull Hardened Shell'},{zhs:'碰到后失去1次机会。',zht:'碰到後失去1次機會。',ja:'触れるとチャンスを1回失います。',en:'Touching it removes 1 chance.'}),
+        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，本关最多出现1次。',zht:'機會不足3次時可能出現；接住恢復1次，本關最多出現1次。',ja:'チャンスが3未満の時に現れることがあります。取ると1回回復し、このステージでは最大1回。',en:'May appear below 3 chances; catch it to restore 1. Up to 1 can appear in this stage.'})
     ]);
     var STAGE_TWO_GUIDE=itemGuide([
-        guideItem('airflow-collectibles',{zhs:'轻盈收集物',zht:'輕盈收集物',ja:'軽い収集物',en:'Light Collectibles'},{zhs:'风香草叶与莓林莓；接住获得1分，会被上升气流托起。',zht:'風香草葉與莓林莓；接住獲得1分，會被上升氣流托起。',ja:'風香草の葉と森ベリー。1点になり、上昇気流で持ち上がります。',en:'Wind herb leaves and grove berries award 1 point and can be lifted by the updraft.'}),
-        guideItem('seed',{zhs:'金穗籽',zht:'金穗籽',ja:'金穂の種',en:'Golden Grain Seed'},{zhs:'接住获得1分，不受上升气流影响。',zht:'接住獲得1分，不受上升氣流影響。',ja:'取ると1点。上昇気流の影響を受けません。',en:'Catch it for 1 point; it is not affected by the updraft.'}),
-        guideItem('stone',{zhs:'苔痕风化石',zht:'苔痕風化石',ja:'苔むした風化石',en:'Mossy Weathered Stone'},{zhs:'碰到后失去1次机会。',zht:'碰到後失去1次機會。',ja:'触れるとチャンスを1回失います。',en:'Touching it removes 1 chance.'}),
-        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，本关最多出现2次。',zht:'機會不足3次時可能出現；接住恢復1次，本關最多出現2次。',ja:'チャンスが3未満の時に出現することがあります。取ると1回回復し、このステージでは最大2回。',en:'May appear below 3 chances; catch it to restore 1. Up to 2 can appear in this stage.'})
+        guideItem('airflow-collectibles',{zhs:'轻盈壳片',zht:'輕盈殼片',ja:'軽い殻片',en:'Light Shell Fragments'},{zhs:'青芽壳片与莓霞壳片；接住获得1分，会被上升气流托起。',zht:'青芽殼片與莓霞殼片；接住獲得1分，會被上升氣流托起。',ja:'青芽とベリー霞の殻片。1点になり、上昇気流で持ち上がります。',en:'Verdant and Berryglow fragments award 1 point and can be lifted by the updraft.'}),
+        guideItem('seed',{zhs:'金穗壳片',zht:'金穗殼片',ja:'金穂の殻片',en:'Goldengrain Fragment'},{zhs:'接住获得1分，不受上升气流影响。',zht:'接住獲得1分，不受上升氣流影響。',ja:'取ると1点。上昇気流の影響を受けません。',en:'Catch it for 1 point; it is not affected by the updraft.'}),
+        guideItem('stone',{zhs:'黯化硬壳',zht:'黯化硬殼',ja:'くすみ硬殻',en:'Dull Hardened Shell'},{zhs:'碰到后失去1次机会。',zht:'碰到後失去1次機會。',ja:'触れるとチャンスを1回失います。',en:'Touching it removes 1 chance.'}),
+        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，本关最多出现2次。',zht:'機會不足3次時可能出現；接住恢復1次，本關最多出現2次。',ja:'チャンスが3未満の時に現れることがあります。取ると1回回復し、最大2回。',en:'May appear below 3 chances; catch it to restore 1. Up to 2 can appear in this stage.'})
     ]);
     var STAGE_THREE_GUIDE=itemGuide([
-        guideItem('wind-collectibles',{zhs:'自然收集物',zht:'自然收集物',ja:'自然の収集物',en:'Nature Collectibles'},{zhs:'风香草叶、莓林莓与金穗籽均为1分，并会随周期横风产生偏移。',zht:'風香草葉、莓林莓與金穗籽均為1分，並會隨週期橫風產生偏移。',ja:'風香草の葉、森ベリー、金穂の種は各1点。周期横風で横へ流されます。',en:'Wind herb leaves, grove berries and golden grain seeds each award 1 point and drift with the periodic crosswind.'}),
-        guideItem('stone',{zhs:'苔痕风化石',zht:'苔痕風化石',ja:'苔むした風化石',en:'Mossy Weathered Stone'},{zhs:'碰到失去1次机会，也会随横风偏移。',zht:'碰到失去1次機會，也會隨橫風偏移。',ja:'触れるとチャンスを1回失い、横風でも流されます。',en:'Touching it removes 1 chance; it also drifts with the crosswind.'}),
-        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，不受横风影响，本关最多出现2次。',zht:'機會不足3次時可能出現；接住恢復1次，不受橫風影響，本關最多出現2次。',ja:'チャンスが3未満の時に出現。取ると1回回復し、横風の影響を受けません。最大2回。',en:'May appear below 3 chances; restores 1, ignores crosswind, and can appear up to 2 times.'}),
+        guideItem('wind-collectibles',{zhs:'风行壳片',zht:'風行殼片',ja:'風流れの殻片',en:'Windborne Shell Fragments'},{zhs:'青芽壳片、莓霞壳片与金穗壳片均为1分，并会随周期横风产生偏移。',zht:'青芽殼片、莓霞殼片與金穗殼片均為1分，並會隨週期橫風產生偏移。',ja:'3種の殻片は各1点。周期横風で横へ流されます。',en:'All three shell fragments award 1 point and drift with the periodic crosswind.'}),
+        guideItem('stone',{zhs:'黯化硬壳',zht:'黯化硬殼',ja:'くすみ硬殻',en:'Dull Hardened Shell'},{zhs:'碰到失去1次机会，也会随横风偏移。',zht:'碰到失去1次機會，也會隨橫風偏移。',ja:'触れるとチャンスを1回失い、横風でも流されます。',en:'Touching it removes 1 chance; it also drifts with the crosswind.'}),
+        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，不受横风影响，本关最多出现2次。',zht:'機會不足3次時可能出現；接住恢復1次，不受橫風影響，本關最多出現2次。',ja:'チャンスが3未満の時に現れ、取ると1回回復。横風の影響を受けず、最大2回。',en:'May appear below 3 chances; restores 1, ignores crosswind, and can appear up to 2 times.'}),
         guideItem('sprout',{zhs:'跃风芽',zht:'躍風芽',ja:'跳風の芽',en:'Wind Sprout'},{zhs:'本关最多出现1次；接住可储存1次主动跃起。',zht:'本關最多出現1次；接住可儲存1次主動躍起。',ja:'このステージでは最大1回。取ると手動ジャンプを1回ためられます。',en:'Up to 1 can appear; catching it stores 1 manual leap.'})
     ]);
     var STAGE_FOUR_GUIDE=itemGuide([
-        guideItem('combo-collectibles',{zhs:'汇流收集物',zht:'匯流收集物',ja:'合流の収集物',en:'Confluence Collectibles'},{zhs:'风香草叶、莓林莓与金穗籽各1分；连续接住3个额外获得1分，并会受到场地气流影响。',zht:'風香草葉、莓林莓與金穗籽各1分；連續接住3個額外獲得1分，並會受到場地氣流影響。',ja:'風香草の葉、森ベリー、金穂の種は各1点。3個連続で追加1点になり、場の気流にも影響されます。',en:'Wind herb leaves, grove berries and golden grain seeds each award 1 point; every 3-catch chain adds 1 bonus point. Field winds affect them.'}),
-        guideItem('stone',{zhs:'苔痕风化石',zht:'苔痕風化石',ja:'苔むした風化石',en:'Mossy Weathered Stone'},{zhs:'碰到失去1次机会，并会随汇流横风偏移。',zht:'碰到失去1次機會，並會隨匯流橫風偏移。',ja:'触れるとチャンスを1回失い、合流する横風でも流されます。',en:'Touching it removes 1 chance, and confluence crosswinds shift it sideways.'}),
-        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，不受风影响，本关最多出现3次。',zht:'機會不足3次時可能出現；接住恢復1次，不受風影響，本關最多出現3次。',ja:'チャンスが3未満の時に出現。取ると1回回復し、風の影響を受けません。最大3回。',en:'May appear below 3 chances; restores 1, ignores wind, and can appear up to 3 times.'}),
+        guideItem('combo-collectibles',{zhs:'汇流壳片',zht:'匯流殼片',ja:'合流の殻片',en:'Confluence Shell Fragments'},{zhs:'三种壳片各1分；连续接住3个额外获得1分，并会受到场地气流影响。',zht:'三種殼片各1分；連續接住3個額外獲得1分，並會受到場地氣流影響。',ja:'3種の殻片は各1点。3個連続で追加1点になり、場の気流にも影響されます。',en:'All three fragments award 1 point; every 3-catch chain adds 1 bonus point. Field winds affect them.'}),
+        guideItem('stone',{zhs:'黯化硬壳',zht:'黯化硬殼',ja:'くすみ硬殻',en:'Dull Hardened Shell'},{zhs:'碰到失去1次机会，并会随汇流横风偏移。',zht:'碰到失去1次機會，並會隨匯流橫風偏移。',ja:'触れるとチャンスを1回失い、合流する横風でも流されます。',en:'Touching it removes 1 chance, and confluence crosswinds shift it sideways.'}),
+        guideItem('glimmer',{zhs:'蛋壳微光',zht:'蛋殼微光',ja:'卵殻の微光',en:'Eggshell Glimmer'},{zhs:'机会不足3次时可能出现；接住恢复1次，不受风影响，本关最多出现3次。',zht:'機會不足3次時可能出現；接住恢復1次，不受風影響，本關最多出現3次。',ja:'チャンスが3未満の時に現れ、取ると1回回復。風の影響を受けず、最大3回。',en:'May appear below 3 chances; restores 1, ignores wind, and can appear up to 3 times.'}),
         guideItem('sprout',{zhs:'跃风芽',zht:'躍風芽',ja:'跳風の芽',en:'Wind Sprout'},{zhs:'本关最多出现2次；每次接住可储存1次主动跃起。',zht:'本關最多出現2次；每次接住可儲存1次主動躍起。',ja:'このステージでは最大2回。取るたびに手動ジャンプを1回ためられます。',en:'Up to 2 can appear; each catch stores 1 manual leap.'})
     ]);
 
@@ -93,13 +96,13 @@
         {
             id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:SHARED_RULES,basketOffsetY:-17.5,targetCatchBox:HEAD_BASKET_CATCH,spawnDistribution:STAGE_ONE_SPAWN,dropTuning:STAGE_ONE_DROPS,objectPresentation:STAGE_ONE_OBJECTS,recovery:STAGE_ONE_RECOVERY,guideItems:STAGE_ONE_GUIDE,
             name:{zhs:'收集',zht:'收集',ja:'収集',en:'Gather'},
-            tagline:{zhs:'收集风香草叶、莓林莓与金穗籽',zht:'收集風香草葉、莓林莓與金穗籽',ja:'風香草の葉、森ベリー、金穂の種を集めよう',en:'Gather wind herbs, grove berries and golden grain seeds'},
+            tagline:{zhs:'收集青芽壳片、莓霞壳片与金穗壳片',zht:'收集青芽殼片、莓霞殼片與金穗殼片',ja:'青芽・ベリー霞・金穂の殻片を集めよう',en:'Gather Verdant, Berryglow and Goldengrain shell fragments'},
             titleTheme:'meadow',backgroundTheme:'meadow-field',
             description:{
-                zhs:'带领世界旅人托住采集篮，接住风香草叶、莓林莓和金穗籽，同时避开苔痕风化石。本关没有跃风芽，跃起从第3关开启。',
-                zht:'帶領世界旅人托住採集籃，接住風香草葉、莓林莓和金穗籽，同時避開苔痕風化石。本關沒有躍風芽，躍起從第3關開啟。',
-                ja:'世界の旅人と採集かごを動かし、自然物を集めながら苔むした風化石をよけよう。このステージに跳風の芽はなく、ジャンプはステージ3から使えます。',
-                en:'Guide a World Traveler to gather natural objects and avoid mossy stones. No Wind Sprout appears here; leaping begins in Stage 3.'
+                zhs:'用头顶采集篮接住青芽壳片、莓霞壳片和金穗壳片，同时避开黯化硬壳。本关没有跃风芽，跃起从第3关开启。',
+                zht:'用頭頂採集籃接住青芽殼片、莓霞殼片和金穗殼片，同時避開黯化硬殼。本關沒有躍風芽，躍起從第3關開啟。',
+                ja:'頭上の採集かごで三種の殻片を集め、くすみ硬殻をよけよう。このステージに跳風の芽はなく、ジャンプはステージ3から使えます。',
+                en:'Catch three kinds of shell fragments and avoid dull hardened shells. No Wind Sprout appears here; leaping begins in Stage 3.'
             }
         },
         {

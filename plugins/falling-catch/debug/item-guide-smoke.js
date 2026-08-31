@@ -17,14 +17,13 @@
         function inspect(index){
             game.selectLevel(index+1);setTimeout(function(){try{
                 assert(game.screen()==='ready','Stage '+(index+1)+' reaches its ready explanation');
-                if(index===0)assert(!mount.querySelector('.dfc-ready-card .dfc-card-body'),'Stage 1 omits the requested Traveler instruction line');
-                else assert(!!mount.querySelector('.dfc-ready-card .dfc-card-body'),'Later stages retain their mechanism explanation');
+                assert(!mount.querySelector('.dfc-ready-card .dfc-card-body'),'Stage '+(index+1)+' omits its requested introductory instruction line');
                 var guide=mount.querySelector('.dfc-item-guide'),entries=Array.prototype.slice.call(mount.querySelectorAll('.dfc-item-guide-entry'));
                 assert(guide&&guide.getAttribute('aria-label')==='本关物件','Stage '+(index+1)+' exposes the localized 本关物件 section');
                 assert(entries.map(function(entry){return entry.dataset.guideItem;}).join(',')===expected[index].join(','),'Stage '+(index+1)+' lists only its actual item types in authored order');
                 assert(entries.every(function(entry){return entry.querySelector('b').textContent&&entry.querySelector('small').textContent&&entry.querySelector('.dfc-item-guide-icon');}),'Stage '+(index+1)+' gives every item an original icon, name and effect');
-                if(index===0)assert(guide.textContent.indexOf('风香草叶')>=0&&guide.textContent.indexOf('1分')>=0&&guide.textContent.indexOf('恢复1次')>=0,'Stage 1 explains collectibles, stone loss and Eggshell Glimmer recovery');
-                if(index===1)assert(guide.textContent.indexOf('上升气流')>=0&&guide.textContent.indexOf('不受上升气流影响')>=0,'Stage 2 distinguishes light objects from the stable seed');
+                if(index===0)assert(guide.textContent.indexOf('蛋壳采样物')>=0&&guide.textContent.indexOf('黯化硬壳')>=0&&guide.textContent.indexOf('恢复1次')>=0,'Stage 1 explains shell fragments, hardened-shell loss and Eggshell Glimmer recovery');
+                if(index===1)assert(guide.textContent.indexOf('轻盈壳片')>=0&&guide.textContent.indexOf('不受上升气流影响')>=0,'Stage 2 distinguishes light shell fragments from the stable Goldengrain fragment');
                 if(index===2)assert(guide.textContent.indexOf('周期横风')>=0&&guide.textContent.indexOf('最多出现1次')>=0,'Stage 3 explains crosswind behavior and its one Wind Sprout');
                 if(index===3)assert(guide.textContent.indexOf('连续接住3个')>=0&&guide.textContent.indexOf('最多出现2次')>=0,'Stage 4 explains the chain bonus and two Wind Sprouts');
                 if(index+1<levels.length)inspect(index+1);else finish();

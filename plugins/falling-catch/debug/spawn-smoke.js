@@ -26,7 +26,7 @@
                     }
                     assert(spawns.every(function(spawn){return spawn.levelId==='breezy-harvest';}),'spawn planner is scoped to Stage 1');
                     assert(spawns.every(function(spawn){return spawn.fallSpeed>=22&&spawn.fallSpeed<=24;}),'Stage 1 uses its narrow base fall-speed band');
-                    var stageOneKinds={leaf:'wind-herb-leaf',berry:'berry-grove-berry',acorn:'golden-grain-seed',stone:'moss-weathered-stone'};
+                    var stageOneKinds={leaf:'verdant-shell-fragment',berry:'berryglow-shell-fragment',acorn:'goldengrain-shell-fragment',stone:'dull-hardened-shell'};
                     assert(spawns.every(function(spawn){return spawn.presentationKind===stageOneKinds[spawn.kind];}),'Stage 1 spawns use the DANBO meadow presentation kinds');
                     finish(null,game);
                 }catch(error){finish(error,game);}
