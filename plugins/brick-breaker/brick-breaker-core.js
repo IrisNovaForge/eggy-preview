@@ -456,13 +456,19 @@
             rightSprout:[[615,154],[707,152],[569,192],[655,194],[741,190],[601,232],[693,230],[785,234],[577,272],[669,274],[761,270],[565,312],[657,310],[749,314],[593,352],[685,350],[639,392]],
             roots:[[142,392],[326,390],[418,390],[510,390],[731,392],[206,430],[452,432],[698,430]]
         };
-        var eggyLayout={
-            crown:[[395,60],[483,60],[351,96],[439,96],[527,96]],
-            head:[[307,132],[395,132],[483,132],[571,132],[263,168],[351,168],[439,168],[527,168],[615,168]],
-            arms:[[219,204],[307,204],[395,204],[483,204],[571,204],[659,204],[131,240],[219,240],[307,240],[395,240],[483,240],[571,240],[659,240],[747,240]],
-            body:[[219,276],[307,276],[395,276],[483,276],[571,276],[659,276],[263,312],[351,312],[439,312],[527,312],[615,312],[351,348],[439,348],[527,348],[395,384],[483,384]],
-            feet:[[263,430],[351,430],[527,430],[615,430]]
-        };
+        // Stage 4 uses an independently authored soft diamond. Alternating row
+        // offsets and the slightly wider middle seam keep it from feeling like
+        // a mechanically mirrored wall while preserving all 48 targets.
+        var softDiamondLayout=[
+            [345,60],[433,60],[521,60],
+            [269,104],[357,104],[445,104],[533,104],[621,104],
+            [171,148],[259,148],[347,148],[435,148],[523,148],[611,148],[699,148],
+            [91,192],[179,192],[267,192],[355,192],[443,192],[531,192],[619,192],[707,192],[795,192],
+            [83,244],[171,244],[259,244],[347,244],[435,244],[523,244],[611,244],[699,244],[787,244],
+            [181,288],[269,288],[357,288],[445,288],[533,288],[621,288],[709,288],
+            [258,332],[346,332],[434,332],[522,332],[610,332],
+            [358,376],[446,376],[534,376]
+        ];
         var budStarLayout={
             fixed:[[351,72],[439,72],[527,72],[307,108],[395,108],[483,108],[571,108],[351,144],[439,144],[527,144],[307,180],[395,180],[483,180],[571,180],[351,216],[527,216],[307,252],[571,252],[307,288],[571,288],[351,324],[527,324],[307,360],[395,360],[483,360],[571,360],[351,396],[439,396],[527,396],[263,432],[351,432],[439,432],[527,432],[615,432],[351,468],[527,468]],
             left:[[119,144],[207,144],[75,180],[163,180],[75,216],[163,216],[119,252],[207,252]],
@@ -490,7 +496,7 @@
         function addCells(list,motionGroup){for(var ci=0;ci<list.length;ci++)cells.push({x:list[ci][0],y:list[ci][1],motionGroup:motionGroup});}
         if(this.level===2){addCells(swayLayout.fixed,'fixed');addCells(swayLayout.left,'left');addCells(swayLayout.right,'right');}
         else if(this.level===3){addCells(doubleShellLayout.crown,'fixed');addCells(doubleShellLayout.leftSprout,'fixed');addCells(doubleShellLayout.rightSprout,'fixed');addCells(doubleShellLayout.roots,'fixed');}
-        else if(this.level===4){addCells(eggyLayout.crown,'fixed');addCells(eggyLayout.head,'fixed');addCells(eggyLayout.arms,'fixed');addCells(eggyLayout.body,'fixed');addCells(eggyLayout.feet,'fixed');}
+        else if(this.level===4){addCells(softDiamondLayout,'fixed');}
         else if(this.level===5){addCells(budStarLayout.fixed,'fixed');addCells(budStarLayout.left,'left');addCells(budStarLayout.right,'right');}
         else if(this.level===6){addCells(gatheredBudLayout.crown,'fixed');addCells(gatheredBudLayout.upper,'fixed');addCells(gatheredBudLayout.wings,'fixed');addCells(gatheredBudLayout.heart,'fixed');addCells(gatheredBudLayout.lower,'fixed');}
         else{addCells(shellLayout.growth,'fixed');addCells(shellLayout.leftShell,'fixed');addCells(shellLayout.rightShell,'fixed');addCells(shellLayout.fragments,'fixed');}
