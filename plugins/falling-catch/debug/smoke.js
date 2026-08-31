@@ -11,7 +11,7 @@
         assert(rules.collect(1)===1,'target score wins the round');
         rules.reset(99,30000,3,12);
         assert(rules.hit()===0&&rules.lives()===2,'first obstacle removes one chance');
-        assert(rules.restore(1,3)===0&&rules.lives()===3,'eggshell glimmer restores one chance');
+        assert(rules.restore(1,3)===0&&rules.lives()===3,'Returning Breeze Dewlight restores one chance');
         rules.restore(1,3);assert(rules.lives()===3,'recovery never exceeds the three-chance cap');
         rules.hit();
         rules.hit();assert(rules.hit()===2&&rules.lives()===0,'third obstacle loses the round');

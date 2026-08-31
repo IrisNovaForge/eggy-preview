@@ -9,7 +9,7 @@
     }
     try{
         var all=window.DanboFallingCatchLevels.all();
-        assert(all.length===4&&all.every(function(level){return level.recovery&&level.recovery.kind==='shell-glimmer';}),'all four stages use the eggshell glimmer recovery rule');
+        assert(all.length===4&&all.every(function(level){return level.recovery&&level.recovery.kind==='shell-glimmer';}),'all four stages use the Returning Breeze Dewlight recovery rule');
         assert(all.map(function(level){return level.recovery.maxPerRound;}).join(',')==='1,2,2,3','recovery appearance caps increase across the four-stage difficulty curve');
         assert(all.map(function(level){return level.recovery.cooldown;}).join(',')==='8,7,6,5','recovery cooldowns shorten as stage difficulty increases');
         assert(all.every(function(level){return level.recovery.maxLives===3&&level.recovery.maxElapsed===26&&level.recovery.fallSpeed===18;}),'every stage keeps the three-chance cap, catchable late recovery window and fair fixed recovery speed');

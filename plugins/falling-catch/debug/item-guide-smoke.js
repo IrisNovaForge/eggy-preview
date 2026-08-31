@@ -22,7 +22,7 @@
                 assert(guide&&guide.getAttribute('aria-label')==='本关物件','Stage '+(index+1)+' exposes the localized 本关物件 section');
                 assert(entries.map(function(entry){return entry.dataset.guideItem;}).join(',')===expected[index].join(','),'Stage '+(index+1)+' lists only its actual item types in authored order');
                 assert(entries.every(function(entry){return entry.querySelector('b').textContent&&entry.querySelector('small').textContent&&entry.querySelector('.dfc-item-guide-icon');}),'Stage '+(index+1)+' gives every item an original icon, name and effect');
-                if(index===0)assert(guide.textContent.indexOf('自然采样物')>=0&&guide.textContent.indexOf('风蚀苔岩')>=0&&guide.textContent.indexOf('恢复1次')>=0,'Stage 1 explains natural samples, Windworn Mossrock loss and Eggshell Glimmer recovery');
+                if(index===0)assert(guide.textContent.indexOf('自然采样物')>=0&&guide.textContent.indexOf('风蚀苔岩')>=0&&guide.textContent.indexOf('回风露光')>=0&&guide.textContent.indexOf('恢复1次')>=0,'Stage 1 explains natural samples, Windworn Mossrock loss and Returning Breeze Dewlight recovery');
                 if(index===1)assert(guide.textContent.indexOf('轻盈自然物')>=0&&guide.textContent.indexOf('不受上升气流影响')>=0,'Stage 2 distinguishes light natural items from the stable Goldengrain Seed');
                 if(index===2)assert(guide.textContent.indexOf('周期横风')>=0&&guide.textContent.indexOf('最多出现1次')>=0,'Stage 3 explains crosswind behavior and its one Wind Sprout');
                 if(index===3)assert(guide.textContent.indexOf('连续接住3个')>=0&&guide.textContent.indexOf('最多出现2次')>=0,'Stage 4 explains the chain bonus and two Wind Sprouts');
