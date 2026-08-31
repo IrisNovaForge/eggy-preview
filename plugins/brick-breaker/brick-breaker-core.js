@@ -1596,8 +1596,8 @@
         c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=2;c.stroke();}
     };
     Game.prototype.brickShellPath=function(c,x,y,w,h){
-        var right=x+w,bottom=y+h,bevel=Math.max(.6,Math.min(2.4,h*.18,w*.04)),edge=Math.min(.45,h*.08);
-        var topLeft=bevel,topRight=bevel*.78,bottomRight=bevel*1.08,bottomLeft=bevel*.88;
+        var right=x+w,bottom=y+h,bevel=Math.max(.8,Math.min(5,h*.28,w*.075)),edge=Math.min(.4,h*.07);
+        var topLeft=bevel,topRight=bevel*.88,bottomRight=bevel*1.02,bottomLeft=bevel*.92;
         c.beginPath();c.moveTo(x+topLeft,y+edge);c.lineTo(right-topRight,y+edge);c.lineTo(right-edge,y+topRight);
         c.lineTo(right-edge,bottom-bottomRight);c.lineTo(right-bottomRight,bottom-edge);c.lineTo(x+bottomLeft,bottom-edge);
         c.lineTo(x+edge,bottom-bottomLeft);c.lineTo(x+edge,y+topLeft);c.closePath();
