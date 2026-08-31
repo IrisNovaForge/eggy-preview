@@ -3,36 +3,36 @@
 
     var COPY={
         zhs:{
-            title:'风中取物',eyebrow:'',intro:'用头顶采集篮接住青风嫩叶、莓霞花瓣和金穗种子，同时避开风蚀苔岩。',
+            title:'风中取物',eyebrow:'',intro:'用头顶气流接取区接住青风嫩叶、莓霞花瓣和金穗种子，同时避开风蚀苔岩。',
             start:'开始接取',loading:'正在准备规则…',move:'左右移动',goal:'12分或坚持30秒即可过关',score:'得分',time:'时间',lives:'机会',
             ready:'准备好了',wasm:'WASM规则',fallback:'JS备用规则',caught:'接到了！',glimmerAppears:'回风露光出现了！',lifeRestored:'回风露光 +1机会',combo:'连续接取 ×{count}！',chain:'连收 ×{count}',phaseGather:'星风聚集',phaseAlternate:'双风交替',phaseConverge:'汇流！',hit:'小心风蚀苔岩！',win:'风野收获完成！',lose:'采样任务中断',
             winDetail:'你完成了这次自然接取挑战。',loseDetail:'机会已经用完，再试一次吧。',again:'再玩一次',exit:'退出试玩',points:'分',
             level:'第 {current} / {total} 关',next:'进入下一关',nextDetail:'下一关：{name}',unlockedDetail:'新关卡已解锁：{name}',campaignWin:'四关旅程完成！',campaignDetail:'你完成了风野、风丘、晶谷与汇流的全部挑战。',restartCampaign:'从第一关开始',framework:'框架测试',
-            titleIntro:'跟随蛋宝走进四片风之场地，用头顶采集篮收集三种原创自然采样物。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'依次完成关卡，解锁下一片风之场地',locked:'尚未解锁',lockedDetail:'完成上一关后解锁',currentProgress:'当前进度',touchMove:'左右拖动风芽摇杆',guideTitle:'本关物件',windSproutAppears:'跃风芽出现了！',windSproutStored:'跃风已经储存',jumpLabel:'跃风',jumpAction:'跃',jumpUnavailable:'本关没有跃风芽，跃起功能从第3关开启',jumpNeedSprout:'先接住跃风芽，才能使用跃起'
+            titleIntro:'跟随蛋宝走进四片风之场地，用头顶气流接取区收集三种原创自然采样物。',enterLevels:'进入关卡',chooseLevel:'选择关卡',backTitle:'返回标题',backLevels:'返回关卡选择',stageReady:'本关准备',allOpen:'依次完成关卡，解锁下一片风之场地',locked:'尚未解锁',lockedDetail:'完成上一关后解锁',currentProgress:'当前进度',touchMove:'左右拖动风芽摇杆',guideTitle:'本关物件',windSproutAppears:'跃风芽出现了！',windSproutStored:'跃风已经储存',jumpLabel:'跃风',jumpAction:'跃',jumpUnavailable:'本关没有跃风芽，跃起功能从第3关开启',jumpNeedSprout:'先接住跃风芽，才能使用跃起'
         },
         zht:{
-            title:'風中取物',eyebrow:'',intro:'用頭頂採集籃接住青風嫩葉、莓霞花瓣和金穗種子，同時避開風蝕苔岩。',
+            title:'風中取物',eyebrow:'',intro:'用頭頂氣流接取區接住青風嫩葉、莓霞花瓣和金穗種子，同時避開風蝕苔岩。',
             start:'開始接取',loading:'正在準備規則…',move:'左右移動',goal:'12分或堅持30秒即可過關',score:'得分',time:'時間',lives:'機會',
             ready:'準備好了',wasm:'WASM規則',fallback:'JS備用規則',caught:'接到了！',glimmerAppears:'回風露光出現了！',lifeRestored:'回風露光 +1機會',combo:'連續接取 ×{count}！',chain:'連收 ×{count}',phaseGather:'星風聚集',phaseAlternate:'雙風交替',phaseConverge:'匯流！',hit:'小心風蝕苔岩！',win:'風野收穫完成！',lose:'採樣任務中斷',
             winDetail:'你完成了這次自然接取挑戰。',loseDetail:'機會已經用完，再試一次吧。',again:'再玩一次',exit:'退出試玩',points:'分',
             level:'第 {current} / {total} 關',next:'進入下一關',nextDetail:'下一關：{name}',unlockedDetail:'新關卡已解鎖：{name}',campaignWin:'四關旅程完成！',campaignDetail:'你完成了風野、風丘、晶谷與匯流的全部挑戰。',restartCampaign:'從第一關開始',framework:'框架測試',
-            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂採集籃收集三種原創自然採樣物。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'依次完成關卡，解鎖下一片風之場地',locked:'尚未解鎖',lockedDetail:'完成上一關後解鎖',currentProgress:'目前進度',touchMove:'左右拖動風芽搖桿',guideTitle:'本關物件',windSproutAppears:'躍風芽出現了！',windSproutStored:'躍風已經儲存',jumpLabel:'躍風',jumpAction:'躍',jumpUnavailable:'本關沒有躍風芽，躍起功能從第3關開啟',jumpNeedSprout:'先接住躍風芽，才能使用躍起'
+            titleIntro:'跟隨蛋寶走進四片風之場地，用頭頂氣流接取區收集三種原創自然採樣物。',enterLevels:'進入關卡',chooseLevel:'選擇關卡',backTitle:'返回標題',backLevels:'返回關卡選擇',stageReady:'本關準備',allOpen:'依次完成關卡，解鎖下一片風之場地',locked:'尚未解鎖',lockedDetail:'完成上一關後解鎖',currentProgress:'目前進度',touchMove:'左右拖動風芽搖桿',guideTitle:'本關物件',windSproutAppears:'躍風芽出現了！',windSproutStored:'躍風已經儲存',jumpLabel:'躍風',jumpAction:'躍',jumpUnavailable:'本關沒有躍風芽，躍起功能從第3關開啟',jumpNeedSprout:'先接住躍風芽，才能使用躍起'
         },
         ja:{
-            title:'風の中でキャッチ',eyebrow:'',intro:'頭上の採集かごで青風の若葉・莓霞の花びら・金穂の種を集め、風蝕の苔岩をよけよう。',
+            title:'風の中でキャッチ',eyebrow:'',intro:'頭上の気流キャッチ領域で青風の若葉・莓霞の花びら・金穂の種を集め、風蝕の苔岩をよけよう。',
             start:'チャレンジ開始',loading:'ルールを準備中…',move:'左右に移動',goal:'12点または30秒でクリア',score:'スコア',time:'時間',lives:'チャンス',
-            ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',glimmerAppears:'回風の露光が現れた！',lifeRestored:'回風の露光 +1チャンス',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'風蝕の苔岩に注意！',win:'収穫完了！',lose:'かごが壊れました',
+            ready:'準備完了',wasm:'WASMルール',fallback:'JS予備ルール',caught:'キャッチ！',glimmerAppears:'回風の露光が現れた！',lifeRestored:'回風の露光 +1チャンス',combo:'連続キャッチ ×{count}！',chain:'連続 ×{count}',phaseGather:'星風が集まる',phaseAlternate:'二つの風が交替',phaseConverge:'星風が合流！',hit:'風蝕の苔岩に注意！',win:'収穫完了！',lose:'気流がほどけました',
             winDetail:'自然キャッチチャレンジを達成しました。',loseDetail:'チャンスを使い切りました。もう一度挑戦しよう。',again:'もう一度',exit:'終了',points:'点',
             level:'ステージ {current} / {total}',next:'次のステージへ',nextDetail:'次：{name}',unlockedDetail:'新しいステージを解放：{name}',campaignWin:'4ステージの旅が完了！',campaignDetail:'収集から合流まで、すべての挑戦を達成しました。',restartCampaign:'最初から',framework:'枠組みテスト',
-            titleIntro:'旅人と四つの風の場へ。頭上のかごで三種のオリジナル自然物を集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'順番にクリアして次の収集を解放しよう',locked:'未解放',lockedDetail:'前のステージをクリアすると解放',currentProgress:'現在の進行',touchMove:'風芽スティックを左右へ',guideTitle:'このステージのアイテム',windSproutAppears:'跳風の芽が現れた！',windSproutStored:'跳風をためました',jumpLabel:'跳風',jumpAction:'跳',jumpUnavailable:'このステージには跳風の芽がありません。ジャンプはステージ3から使えます',jumpNeedSprout:'先に跳風の芽を取るとジャンプできます'
+            titleIntro:'旅人と四つの風の場へ。頭上の気流キャッチ領域で三種のオリジナル自然物を集めよう。',enterLevels:'ステージへ',chooseLevel:'ステージを選ぶ',backTitle:'タイトルへ',backLevels:'ステージ選択へ',stageReady:'ステージ準備',allOpen:'順番にクリアして次の収集を解放しよう',locked:'未解放',lockedDetail:'前のステージをクリアすると解放',currentProgress:'現在の進行',touchMove:'風芽スティックを左右へ',guideTitle:'このステージのアイテム',windSproutAppears:'跳風の芽が現れた！',windSproutStored:'跳風をためました',jumpLabel:'跳風',jumpAction:'跳',jumpUnavailable:'このステージには跳風の芽がありません。ジャンプはステージ3から使えます',jumpNeedSprout:'先に跳風の芽を取るとジャンプできます'
         },
         en:{
-            title:'Catching in the Wind',eyebrow:'',intro:'Catch Breezeleaves, Berryglow Petals and Goldengrain Seeds in the overhead basket, and avoid Windworn Mossrocks.',
+            title:'Catching in the Wind',eyebrow:'',intro:'Catch Breezeleaves, Berryglow Petals and Goldengrain Seeds in the overhead airflow catch zone, and avoid Windworn Mossrocks.',
             start:'Start catching',loading:'Preparing rules…',move:'Move left and right',goal:'Reach 12 points or last 30 seconds',score:'Score',time:'Time',lives:'Chances',
-            ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',glimmerAppears:'Returning Breeze Dewlight appeared!',lifeRestored:'Returning Breeze Dewlight +1 chance',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the Windworn Mossrocks!',win:'Harvest complete!',lose:'The basket broke',
+            ready:'Ready',wasm:'WASM rules',fallback:'JS fallback rules',caught:'Caught!',glimmerAppears:'Returning Breeze Dewlight appeared!',lifeRestored:'Returning Breeze Dewlight +1 chance',combo:'Catch chain ×{count}!',chain:'Chain ×{count}',phaseGather:'Starwind gathering',phaseAlternate:'Twin winds alternating',phaseConverge:'Starwinds converge!',hit:'Watch the Windworn Mossrocks!',win:'Harvest complete!',lose:'The airflow dispersed',
             winDetail:'You completed the nature catch challenge.',loseDetail:'No chances remain. Give it another try.',again:'Play again',exit:'Exit preview',points:'pts',
             level:'Stage {current} / {total}',next:'Next stage',nextDetail:'Next: {name}',unlockedDetail:'New stage unlocked: {name}',campaignWin:'Four-stage journey complete!',campaignDetail:'You cleared every challenge from Gather through Confluence.',restartCampaign:'Start from Stage 1',framework:'Framework test',
-            titleIntro:'Travel through four wind fields and gather three original natural samples in the overhead basket.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'Clear each stage in order to unlock the next wind field',locked:'Locked',lockedDetail:'Clear the previous stage to unlock',currentProgress:'Current progress',touchMove:'Slide the wind-bud stick sideways',guideTitle:'Stage Items',windSproutAppears:'Wind Sprout appeared!',windSproutStored:'Wind leap stored',jumpLabel:'Wind leap',jumpAction:'Leap',jumpUnavailable:'No Wind Sprout appears here. Leaping unlocks in Stage 3',jumpNeedSprout:'Catch a Wind Sprout before using Leap'
+            titleIntro:'Travel through four wind fields and gather three original natural samples in the overhead airflow catch zone.',enterLevels:'Enter Stages',chooseLevel:'Choose a Stage',backTitle:'Back to Title',backLevels:'Back to Stage Select',stageReady:'Stage Ready',allOpen:'Clear each stage in order to unlock the next wind field',locked:'Locked',lockedDetail:'Clear the previous stage to unlock',currentProgress:'Current progress',touchMove:'Slide the wind-bud stick sideways',guideTitle:'Stage Items',windSproutAppears:'Wind Sprout appeared!',windSproutStored:'Wind leap stored',jumpLabel:'Wind leap',jumpAction:'Leap',jumpUnavailable:'No Wind Sprout appears here. Leaping unlocks in Stage 3',jumpNeedSprout:'Catch a Wind Sprout before using Leap'
         }
     };
 
@@ -93,7 +93,7 @@
         var assetBase=String(options.assetBase||window.DANBO_FALLING_CATCH_BASE_URL||'plugins/falling-catch/');
         if(assetBase.charAt(assetBase.length-1)!=='/')assetBase+='/';
         var portraitValue=options.characterPortrait;
-        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.27');
+        var portraitUrl=portraitValue&&portraitValue.src?portraitValue.src:(typeof portraitValue==='string'?portraitValue:assetBase+'assets/travelers/'+traveler.file+'?v=0.4.28');
         var travelerImage=new Image();
         travelerImage.decoding='async';travelerImage.src=portraitUrl;
         var fallbackLevel={id:'breezy-harvest',number:1,status:'playable',mechanics:'base',rules:{durationMs:30000,targetScore:12,lives:3},basketOffsetY:-17.5,targetCatchBox:{halfWidth:2,topOffset:-2.8,bottomOffset:-.8,mode:'center'},spawnDistribution:{minX:7,maxX:93,zoneCount:5,minHorizontalGap:8,maxHorizontalGap:32,avoidRepeatZone:true,avoidConsecutiveObstacle:true},dropTuning:{fallSpeedMin:22,fallSpeedMax:24,spawnDelayMin:.76,spawnDelayMax:.90,baseDriftMax:1.5,obstacleRate:.28,avoidConsecutiveObstacle:true},recovery:{kind:'shell-glimmer',maxPerRound:1,maxLives:3,minElapsed:6,maxElapsed:26,delayMin:1.5,delayMax:3,urgentDelayMax:1.5,cooldown:8,minX:9,maxX:91,safeObstacleGap:16,fallSpeed:18},objectPresentation:{theme:'danbo-eggshell',targets:['verdant-shell-fragment','berryglow-shell-fragment','goldengrain-shell-fragment'],obstacle:'dull-hardened-shell',visualScales:{leaf:.60,berry:.62,acorn:.58,stone:.58},stoneCollisionRadius:2.05,targetCollisionRadius:1.95},name:{zhs:'收集',zht:'收集',ja:'収集',en:'Gather'},description:{zhs:text.intro,zht:text.intro,ja:text.intro,en:text.intro}};
@@ -893,9 +893,9 @@
             var emblem=make('div','dfc-title-emblem dfc-title-emblem-'+(theme||'harvest')+(compact?' dfc-title-emblem-compact':''));
             emblem.setAttribute('aria-hidden','true');
             var wind=make('span','dfc-title-wind');wind.appendChild(make('i'));wind.appendChild(make('i'));wind.appendChild(make('i'));
-            var basket=make('span','dfc-title-basket');basket.appendChild(make('i'));basket.appendChild(make('i'));
+            var airflowZone=make('span','dfc-title-airflow-zone');airflowZone.appendChild(make('i'));airflowZone.appendChild(make('i'));
             var drops=make('span','dfc-title-drops');drops.appendChild(make('i'));drops.appendChild(make('i'));drops.appendChild(make('i'));
-            emblem.appendChild(wind);emblem.appendChild(basket);emblem.appendChild(drops);return emblem;
+            emblem.appendChild(wind);emblem.appendChild(airflowZone);emblem.appendChild(drops);return emblem;
         }
         function makeItemGuide(){
             var items=currentLevel.guideItems||[];if(!items.length)return null;

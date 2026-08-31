@@ -28,7 +28,7 @@
                 else window.dispatchEvent(new KeyboardEvent('keydown',{key:' ',bubbles:true,cancelable:true}));
                 assert(game.jumpState().airborne&&game.snapshot().jumpCharge===0,'using the control consumes the stored jump and starts the rise');
                 assert(button.disabled&&button.dataset.state==='airborne'&&button.getAttribute('aria-disabled')==='true','the mobile Leap handle disables immediately during the jump');
-                later(function(){assert(game.jumpState().offsetY<-3,'the Traveler and overhead basket visibly rise during the jump arc');},100);
+                later(function(){assert(game.jumpState().offsetY<-3,'the Traveler and overhead airflow catch zone visibly rise during the jump arc');},100);
             },0);
             if(type==='jumpStart')jumpNumber++;
             if(type==='jumpLand'&&jumpNumber===2)later(function(){

@@ -99,9 +99,9 @@
             tagline:{zhs:'收集青风嫩叶、莓霞花瓣与金穗种子',zht:'收集青風嫩葉、莓霞花瓣與金穗種子',ja:'青風の若葉・莓霞の花びら・金穂の種を集めよう',en:'Gather Breezeleaves, Berryglow Petals and Goldengrain Seeds'},
             titleTheme:'meadow',backgroundTheme:'meadow-field',
             description:{
-                zhs:'用头顶采集篮接住青风嫩叶、莓霞花瓣和金穗种子，同时避开风蚀苔岩。本关没有跃风芽，跃起从第3关开启。',
-                zht:'用頭頂採集籃接住青風嫩葉、莓霞花瓣和金穗種子，同時避開風蝕苔岩。本關沒有躍風芽，躍起從第3關開啟。',
-                ja:'頭上の採集かごで三種の自然物を集め、風蝕の苔岩をよけよう。このステージに跳風の芽はなく、ジャンプはステージ3から使えます。',
+                zhs:'用头顶气流接取区接住青风嫩叶、莓霞花瓣和金穗种子，同时避开风蚀苔岩。本关没有跃风芽，跃起从第3关开启。',
+                zht:'用頭頂氣流接取區接住青風嫩葉、莓霞花瓣和金穗種子，同時避開風蝕苔岩。本關沒有躍風芽，躍起從第3關開啟。',
+                ja:'頭上の気流キャッチ領域で三種の自然物を集め、風蝕の苔岩をよけよう。このステージに跳風の芽はなく、ジャンプはステージ3から使えます。',
                 en:'Catch three kinds of natural items and avoid Windworn Mossrocks. No Wind Sprout appears here; leaping begins in Stage 3.'
             }
         },
@@ -110,7 +110,7 @@
             name:{zhs:'跃起',zht:'躍起',ja:'跳躍',en:'Leap'},
             tagline:{zhs:'留意上升气流改变落点',zht:'留意上升氣流改變落點',ja:'上昇気流による着地点の変化を読もう',en:'Read how the updraft changes each landing point'},
             titleTheme:'updraft',backgroundTheme:'wind-hill',
-            description:{zhs:'左右移动头顶采集篮，判断斜向落物的路线；轻盈自然物会被上升气流改变轨迹。本关没有跃风芽，跃起从第3关开启。',zht:'左右移動頭頂採集籃，判斷斜向落物的路線；輕盈自然物會被上升氣流改變軌跡。本關沒有躍風芽，躍起從第3關開啟。',ja:'斜めに落ちる自然物と上昇気流で変わる軌道を読もう。このステージに跳風の芽はなく、ジャンプはステージ3から使えます。',en:'Read diagonal paths altered by the updraft. No Wind Sprout appears here; leaping begins in Stage 3.'}
+            description:{zhs:'左右移动头顶气流接取区，判断斜向落物的路线；轻盈自然物会被上升气流改变轨迹。本关没有跃风芽，跃起从第3关开启。',zht:'左右移動頭頂氣流接取區，判斷斜向落物的路線；輕盈自然物會被上升氣流改變軌跡。本關沒有躍風芽，躍起從第3關開啟。',ja:'斜めに落ちる自然物と上昇気流で変わる軌道を読もう。このステージに跳風の芽はなく、ジャンプはステージ3から使えます。',en:'Read diagonal paths altered by the updraft. No Wind Sprout appears here; leaping begins in Stage 3.'}
         },
         {
             id:'crystal-valley-turn',number:3,status:'playable',mechanics:'crosswind',rules:SHARED_RULES,spawnDistribution:STAGE_THREE_SPAWN,dropTuning:STAGE_THREE_DROPS,objectPresentation:SHARED_SMALL_OBJECTS,crosswind:STAGE_THREE_CROSSWIND,recovery:STAGE_THREE_RECOVERY,jumpPower:STAGE_THREE_JUMP,guideItems:STAGE_THREE_GUIDE,

@@ -9,7 +9,7 @@
         profiles.forEach(function(view,index){
             var column=index%4,row=Math.floor(index/4);context.save();context.translate(100+column*200,112+row*126);context.scale(3.5,3.5);
             renderer.draw(context,view,{move:1,step:index%2?.7:-.7});context.restore();
-            var hands=renderer.handAnchors({move:1,step:.5});assert(Number.isFinite(hands.left.x)&&Number.isFinite(hands.right.y),'profile '+(index+1)+' exposes stable basket hand anchors');
+            var hands=renderer.handAnchors({move:1,step:.5});assert(Number.isFinite(hands.left.x)&&Number.isFinite(hands.right.y),'profile '+(index+1)+' exposes stable collector hand anchors');
         });
         report.textContent=lines.join('\n');document.body.dataset.status='passed';
     }catch(error){report.textContent='FAIL  '+(error&&error.stack||error);document.body.dataset.status='failed';throw error;}

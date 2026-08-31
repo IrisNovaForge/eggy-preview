@@ -27,7 +27,7 @@
                 try{
                     var spawns=events.filter(function(event){return event.type==='recoverySpawn';}),collects=events.filter(function(event){return event.type==='recoveryCollect';});
                     assert(spawns.length===3&&spawns.map(function(event){return event.payload.count;}).join(',')==='1,2,3','Stage 4 can schedule three separated recovery appearances');
-                    assert(collects.length===3,'the overhead basket can catch every scheduled recovery');
+                    assert(collects.length===3,'the overhead airflow catch zone can catch every scheduled recovery');
                     assert(collects.every(function(event){return event.payload.before===2&&event.payload.lives===3;}),'each catch restores exactly one chance up to the cap');
                     assert(game.snapshot().score===0,'recovery appearances do not change the score');
                     rules.hit();setTimeout(function(){try{assert(events.filter(function(event){return event.type==='recoverySpawn';}).length===3,'the stage cap prevents a fourth recovery appearance');finish(null,game);}catch(error){finish(error,game);}},500);

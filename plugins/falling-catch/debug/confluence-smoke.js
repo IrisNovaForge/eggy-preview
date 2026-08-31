@@ -24,7 +24,7 @@
                     assert(game.level().id==='starwind-confluence','direct test starts Stage 4');
                     assert(confluencePhases.map(function(entry){return entry.phase;}).slice(0,3).join(',')==='gather,alternate,converge','Stage 4 advances through gather, alternate and converge phases');
                     assert(windPhases.some(function(entry){return entry.phase==='cue';})&&windPhases.some(function(entry){return entry.phase==='active';}),'periodic crosswind begins only after the gather phase');
-                    assert(combos.length>=3,'wide test basket recorded at least three consecutive catches');
+                    assert(combos.length>=3,'wide test catch zone recorded at least three consecutive catches');
                     assert(combos.some(function(entry){return entry.streak===3&&entry.bonus===1&&entry.points===2;}),'every third catch awards one bonus point');
                     assert(spawns.every(function(spawn){return spawn.fallSpeed>=28&&spawn.fallSpeed<=30;}),'Stage 4 uses the fastest narrow fall-speed band');
                     assert(document.querySelector('.dfc-confluence-status.dfc-show').textContent.indexOf('Chain')>=0,'persistent Stage 4 status shows the current phase and catch chain');

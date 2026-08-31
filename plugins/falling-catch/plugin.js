@@ -4,7 +4,7 @@
 
     var scriptUrl=(document.currentScript&&document.currentScript.src)||'';
     var runtimeBase=window.DANBO_FALLING_CATCH_BASE_URL||(scriptUrl?new URL('.',scriptUrl).href:'plugins/falling-catch/');
-    var assetVersion='v=0.4.27';
+    var assetVersion='v=0.4.28';
     window.DANBO_FALLING_CATCH_BASE_URL=runtimeBase;
 
     function ensureStyle(){
@@ -23,13 +23,13 @@
 
     window.DANBO_PLUGIN_HOST.register({
         id:'falling-catch',
-        version:'0.4.27',
+        version:'0.4.28',
         name:{zhs:'风中取物',zht:'風中取物',ja:'風の中でキャッチ',en:'Catching in the Wind'},
         description:{
-            zhs:'移动头顶采集篮接取蛋宝世界的自然落物并避开障碍，在三次机会内完成30秒挑战。',
-            zht:'移動頭頂採集籃接取蛋寶世界的自然落物並避開障礙，在三次機會內完成30秒挑戰。',
-            ja:'頭上の採集かごで蛋宝世界の自然物を集め、障害物を避ける30秒チャレンジ。',
-            en:'Move the overhead field basket, gather DANBO World nature objects and avoid hazards in a 30-second challenge.'
+            zhs:'移动头顶气流接取区接取蛋宝世界的自然落物并避开障碍，在三次机会内完成30秒挑战。',
+            zht:'移動頭頂氣流接取區接取蛋寶世界的自然落物並避開障礙，在三次機會內完成30秒挑戰。',
+            ja:'頭上の気流キャッチ領域で蛋宝世界の自然物を集め、障害物を避ける30秒チャレンジ。',
+            en:'Move the overhead airflow catch zone, gather DANBO World nature objects and avoid hazards in a 30-second challenge.'
         },
         create:function(ctx){
             ensureStyle();
