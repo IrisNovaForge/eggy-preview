@@ -3,7 +3,7 @@
     var externalBases=window.DANBO_PLUGIN_ASSET_BASES||{};
     var brickBreakerBase=String(externalBases['brick-breaker']||'https://irisnovaforge.github.io/eggy-preview/plugins/brick-breaker/');
     if(brickBreakerBase.charAt(brickBreakerBase.length-1)!=='/')brickBreakerBase+='/';
-    var brickBreakerAssetVersion='v=20260904.5';
+    var brickBreakerAssetVersion='v=20260904.6';
     function brickBreakerAsset(file){return brickBreakerBase+file+'?'+brickBreakerAssetVersion;}
     window.DANBO_PLUGIN_MANIFEST=[
         {
