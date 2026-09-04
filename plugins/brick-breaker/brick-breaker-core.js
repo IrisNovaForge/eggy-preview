@@ -1816,10 +1816,17 @@
         }
     };
     Game.prototype.drawCatchCrownEquipment=function(c){
-        if(this.catchCrownTime<=0)return;
-        var p=this.paddle,open=clamp(this.catchCrownSpread,0,1);
-        var ending=this.catchCrownTime<1?clamp(this.catchCrownTime,0,1):1,impact=this.catchCrownImpact>0?clamp(this.catchCrownImpact/.18,0,1):0,contact=this.catchCrownContact;
-        c.save();c.translate(p.x,p.y-10);c.globalAlpha=ending;c.scale(.82+.18*open,.72+.28*open);
+        if(!this.paddle)return;
+        var p=this.paddle,active=this.catchCrownTime>0,open=active?clamp(this.catchCrownSpread,0,1):0;
+        var ending=active&&this.catchCrownTime<1?clamp(this.catchCrownTime,0,1):1,impact=this.catchCrownImpact>0?clamp(this.catchCrownImpact/.18,0,1):0,contact=this.catchCrownContact;
+        c.save();c.translate(p.x,p.y-10);
+        c.save();c.translate(21*(1-open),4*(1-open));c.globalAlpha=.9-open*.34;c.lineCap='round';c.strokeStyle='#699b7f';c.lineWidth=1.7;c.beginPath();c.moveTo(0,5);c.quadraticCurveTo(-1,-4,0,-13-open*2);c.stroke();
+        c.fillStyle='#8fbd91';c.save();c.translate(-5,-8-open);c.rotate(-.68-open*.16);c.beginPath();c.ellipse(0,0,7,3.6,0,0,Math.PI*2);c.fill();c.restore();
+        c.fillStyle='#bed695';c.save();c.translate(5,-11-open*1.4);c.rotate(.66+open*.2);c.beginPath();c.ellipse(0,0,6.7,3.4,0,0,Math.PI*2);c.fill();c.restore();
+        c.shadowColor='rgba(126,178,139,.3)';c.shadowBlur=6;c.fillStyle='#e5e9ac';c.strokeStyle='rgba(105,155,127,.68)';c.lineWidth=1;c.beginPath();c.moveTo(0,-23-open*2);c.bezierCurveTo(6,-19-open,6.2,-11,0,-8);c.bezierCurveTo(-6.2,-11,-6,-19-open,0,-23-open*2);c.closePath();c.fill();c.shadowColor='transparent';c.stroke();
+        c.globalAlpha*=.62;c.strokeStyle='rgba(255,255,229,.92)';c.lineWidth=1.1;c.beginPath();c.moveTo(-1.2,-19-open);c.quadraticCurveTo(-3,-15,-1.4,-11.5);c.stroke();c.restore();
+        if(!active||open<=0){c.restore();return;}
+        c.globalAlpha=ending*open;c.scale(.82+.18*open,.72+.28*open);
         var glowRadius=77+32*open,glow=c.createRadialGradient(0,0,4,0,0,glowRadius);glow.addColorStop(0,'rgba(234,255,240,.28)');glow.addColorStop(.75,'rgba(205,242,222,.1)');glow.addColorStop(1,'rgba(205,242,222,0)');c.fillStyle=glow;c.beginPath();c.ellipse(0,0,glowRadius,25,0,0,Math.PI*2);c.fill();
         function shellPiece(x,y,w,h,side){
             var localImpact=impact*(side===0?.7:(contact<-.24&&side<0||contact>.24&&side>0?1:.42));
